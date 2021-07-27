@@ -19,6 +19,8 @@ class AppTextStyles {
       fontSize: 13, color: AppTextColors.white, fontWeight: FontWeight.w400);
   static const white13Normal800 = TextStyle(
       fontSize: 13, color: AppTextColors.white, fontWeight: FontWeight.w800);
+  static const white14Normal300 = TextStyle(
+      fontSize: 14, color: AppTextColors.white, fontWeight: FontWeight.w300);
   static const white14Normal700 = TextStyle(
       fontSize: 14, color: AppTextColors.white, fontWeight: FontWeight.w700);
   static const white15Normal400 = TextStyle(
@@ -31,6 +33,8 @@ class AppTextStyles {
       fontSize: 19, color: AppTextColors.white, fontWeight: FontWeight.w700);
   static const white20Normal400 = TextStyle(
       fontSize: 20, color: AppTextColors.white, fontWeight: FontWeight.w400);
+  static const white26Normal600 = TextStyle(
+      fontSize: 26, color: AppTextColors.white, fontWeight: FontWeight.w600);
 
   // Light Grey Normal
   static const lightGrey14Normal300 = TextStyle(
@@ -83,6 +87,14 @@ class AppTextStyles {
       fontSize: 11,
       color: AppTextColors.darkPurple,
       fontWeight: FontWeight.w300);
+  static const darkPurple13Normal300 = TextStyle(
+      fontSize: 13,
+      color: AppTextColors.darkPurple,
+      fontWeight: FontWeight.w300);
+  static const darkPurple13Normal700 = TextStyle(
+      fontSize: 13,
+      color: AppTextColors.darkPurple,
+      fontWeight: FontWeight.w700);
   static const darkPurple14Normal400 = TextStyle(
       fontSize: 14,
       color: AppTextColors.darkPurple,

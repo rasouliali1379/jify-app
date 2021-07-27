@@ -11,6 +11,7 @@ class IntroPage extends GetView<IntroPageController> {
     return WillPopScope(
       onWillPop: controller.onBackPressedHandler,
       child: Scaffold(
+        backgroundColor: AppColors.blue,
         body: Center(
           child: Column(
             children: [
@@ -30,12 +31,6 @@ class IntroPage extends GetView<IntroPageController> {
                             ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
                             ' Ut enim ad minim veniam'),
                     const IntroSliderItem(
-                        'assets/images/customer.png',
-                        'Fast Delivery',
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit,'
-                            ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                            ' Ut enim ad minim veniam'),
-                    const IntroSliderItem(
                         'assets/images/rocketman.png',
                         'Order everything quickly',
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit,'
@@ -46,13 +41,14 @@ class IntroPage extends GetView<IntroPageController> {
               ),
               Obx(() => DotsIndicator(
                   position: controller.slideIndex,
-                  dotsCount: 3,
+                  dotsCount: 2,
                   decorator: DotsDecorator(
                       size: const Size(9.0, 9.0),
                       activeSize: const Size(9.0, 9.0),
-                      activeColor: AppColors.blue))),
+                      color: AppColors.lightBlue,
+                      activeColor: AppColors.white))),
               SizedBox(
-                height: Get.height * 0.07,
+                height: Get.height * 0.048,
               )
             ],
           ),

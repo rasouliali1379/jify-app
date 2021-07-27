@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 
 class IntroSliderItem extends StatelessWidget {
@@ -13,21 +14,21 @@ class IntroSliderItem extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 31),
+          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0826),
           child: Image.asset(image),
         ),
         Text(
           title,
-          style: AppTextStyles.extraDarkCyan20Normal600,
+          style: AppTextStyles.white26Normal600,
         ),
-        const SizedBox(
-          height: 21,
+        SizedBox(
+          height: Get.width * 0.0307,
         ),
         Padding(
           padding: const EdgeInsets.all(28.0),
           child: Text(
             desc,
-            style: AppTextStyles.grayishBlack12Normal300,
+            style: AppTextStyles.white14Normal300.copyWith(height: 1.25),
             textAlign: TextAlign.center,
           ),
         ),

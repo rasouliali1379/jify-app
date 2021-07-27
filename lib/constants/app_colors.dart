@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class AppColors {
+  static const orange = Color.fromRGBO(238, 143, 0, 1);
   static const green = Color.fromRGBO(46, 187, 87, 1);
   static const blue = Color.fromRGBO(72, 161, 247, 1);
-  static const extraLightBlue = Color.fromRGBO(245, 246, 249, 1.0);
+  static const lightBlue = Color.fromRGBO(109, 183, 255, 1);
+  static const semiLightBlue = Color.fromRGBO(245, 246, 249, 1.0);
+  static const extraLightBLue = Color.fromRGBO(233, 238, 241, 1.0);
   static const darkCyan = Color.fromRGBO(19, 20, 38, 1);
   static const lightGrey = Color.fromRGBO(234, 234, 234, 1);
   static const white = Color.fromRGBO(255, 255, 255, 1);
@@ -23,7 +26,4 @@ class AppTextColors {
   static const blue = Color.fromRGBO(72, 161, 247, 1);
   static const green = Color.fromRGBO(46, 187, 87, 1);
   static const red = Color.fromRGBO(238, 47, 70, 1);
-
-
-
 }

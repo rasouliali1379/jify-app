@@ -7,6 +7,7 @@ class AccountFragment extends GetView<AccountFragmentController> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
+      body: Text('Account'),
     );
   }
 }

@@ -18,7 +18,7 @@ class CustomBottomNav extends StatelessWidget {
         const Divider(
           thickness: 1.2,
           height: 0,
-          color: AppColors.extraLightBlue,
+          color: AppColors.semiLightBlue,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
