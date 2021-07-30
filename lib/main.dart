@@ -21,7 +21,7 @@ class JiffyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: Pages.routes,
-      initialRoute: Routes.SPLASH,
+      initialRoute: Routes.splash,
       theme: AppThemes.defaultTheme,
     );
   }

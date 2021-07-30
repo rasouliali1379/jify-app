@@ -17,8 +17,11 @@ dependencies:
   http: ^0.13.1
   pin_code_fields: ^7.0.0
   dots_indicator: ^2.0.0
-
-
+  badges: ^2.0.1
+  modal_bottom_sheet: ^2.0.0
+  custom_check_box: ^0.0.4
+  fluttertoast: ^8.0.4
+  flutter_countdown_timer: ^4.1.0
 
 dev_dependencies:
   flutter_test:

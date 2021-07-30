@@ -7,8 +7,8 @@ class Storage {
     await _storage.write(key, value);
   }
 
-  static Future<dynamic> read(String key) async {
-    return await _storage.read(key);
+  static dynamic read(String key) {
+    return _storage.read(key);
   }
 
   static bool exists(String key) {

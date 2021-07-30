@@ -18,7 +18,7 @@ class IntroPageController extends GetxController
   }
 
   Future<bool> onBackPressedHandler() {
-    Get.offNamed(Routes.MAIN);
+    Get.offNamed(Routes.main);
     return Future.value(false);
   }
 }

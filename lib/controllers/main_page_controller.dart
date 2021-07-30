@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jify_app/modals/choose_delivery_address_modal.dart';
+import 'package:jify_app/navigation/routes.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MainPageController extends GetxController {
   final _index = 0.obs;
@@ -27,14 +30,14 @@ class MainPageController extends GetxController {
     }
   }
 
-  void backClickHandler() {
-    if (pageController.page == 3) {
-      pageController.jumpToPage(0);
-      backBtnVisibility = false;
-    } else if (pageController.page == 4) {
-      pageController.jumpToPage(3);
-    }
-    pageStack.removeLast();
+  void openDeliveryAddressModal() {
+    showMaterialModalBottomSheet(
+        builder: (BuildContext context) => ChooseDeliveryAddressModal(),
+        context: Get.context!);
+  }
+
+  void openDeliveryAddressesPage() {
+    Get.toNamed(Routes.signIn);
   }
 
   Future<bool> onBackPressedHandler() {

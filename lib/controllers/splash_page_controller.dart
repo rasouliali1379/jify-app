@@ -15,11 +15,11 @@ class SplashPageController extends GetxController {
   }
 
   Future<void> leavePage() async {
-    String route = Routes.MAIN;
+    String route = Routes.main;
     final firstTimeKeyExist = Storage.exists(AppKeys.firstTimeLaunch);
 
     if (!firstTimeKeyExist) {
-      route = Routes.INTRO;
+      route = Routes.intro;
     }
 
     Get.offNamed(route);

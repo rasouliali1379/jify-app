@@ -4,8 +4,7 @@ import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/fragments/account_fragment.dart';
 import 'package:jify_app/fragments/category_fragment.dart';
 import 'package:jify_app/fragments/home_fragment.dart';
-import 'package:jify_app/fragments/sub_category_fragment.dart';
-import 'package:jify_app/pages/orders_page.dart';
+import 'package:jify_app/fragments/orders_fragment.dart';
 import 'package:jify_app/widgets/custom_bottom_nav.dart';
 import 'package:jify_app/widgets/custom_app_bar.dart';
 
@@ -16,9 +15,6 @@ class MainPage extends GetView<MainPageController> {
       onWillPop: controller.onBackPressedHandler,
       child: Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: CustomAppBar(
-            controller.backClickHandler,
-          ),
           body: Column(
             children: [
               Expanded(
@@ -28,9 +24,8 @@ class MainPage extends GetView<MainPageController> {
                   children: [
                     HomeFragment(),
                     AccountFragment(),
-                    OrdersPage(),
+                    OrdersFragment(),
                     CategoryFragment(),
-                    SubCategoryFragment(),
                   ],
                 ),
               ),

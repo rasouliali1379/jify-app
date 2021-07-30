@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 
-class CategoryRowListItem extends StatelessWidget {
+class SubCategoryRowListItem extends StatelessWidget {
   final String label;
   final bool selected;
   final Function onClick;
 
-  const CategoryRowListItem(this.label, this.selected, this.onClick);
+  const SubCategoryRowListItem(this.label, this.selected, this.onClick);
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/widgets/address_container.dart';
-import 'package:jify_app/widgets/category_grid_item.dart';
+import 'package:jify_app/widgets/custom_app_bar.dart';
+import 'package:jify_app/widgets/subcategory_grid_item.dart';
 
 class HomeFragment extends StatefulWidget {
   @override
@@ -21,6 +22,9 @@ class _HomeFragmentState extends State<HomeFragment>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      appBar: CustomAppBar(
+        _controller.backClickHandler,
+      ),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
@@ -58,25 +62,25 @@ class _HomeFragmentState extends State<HomeFragment>
                   crossAxisCount: 2,
                   childAspectRatio: 163 / 95,
                   children: [
-                    CategoryGridItem('Ice Cream', Colors.cyan,
+                    SubCategoryGridItem('Ice Cream', Colors.cyan,
                         _controller.onCategoryItemClickHandler),
-                    CategoryGridItem('Biscuits', Colors.deepOrangeAccent,
+                    SubCategoryGridItem('Biscuits', Colors.deepOrangeAccent,
                         _controller.onCategoryItemClickHandler),
-                    CategoryGridItem('Drinks', Colors.black12,
+                    SubCategoryGridItem('Drinks', Colors.black12,
                         _controller.onCategoryItemClickHandler),
-                    CategoryGridItem('Snacks', Colors.blueAccent,
+                    SubCategoryGridItem('Snacks', Colors.blueAccent,
                         _controller.onCategoryItemClickHandler),
-                    CategoryGridItem('Quick Lauch', Colors.cyan,
+                    SubCategoryGridItem('Quick Lauch', Colors.cyan,
                         _controller.onCategoryItemClickHandler),
-                    CategoryGridItem('Pantry', Colors.deepOrangeAccent,
+                    SubCategoryGridItem('Pantry', Colors.deepOrangeAccent,
                         _controller.onCategoryItemClickHandler),
-                    CategoryGridItem('Pet', Colors.black12,
+                    SubCategoryGridItem('Pet', Colors.black12,
                         _controller.onCategoryItemClickHandler),
-                    CategoryGridItem('Baby', Colors.deepPurpleAccent,
+                    SubCategoryGridItem('Baby', Colors.deepPurpleAccent,
                         _controller.onCategoryItemClickHandler),
-                    CategoryGridItem('Home', Colors.teal,
+                    SubCategoryGridItem('Home', Colors.teal,
                         _controller.onCategoryItemClickHandler),
-                    CategoryGridItem('Health', Colors.orangeAccent,
+                    SubCategoryGridItem('Health', Colors.orangeAccent,
                         _controller.onCategoryItemClickHandler)
                   ],
                 )

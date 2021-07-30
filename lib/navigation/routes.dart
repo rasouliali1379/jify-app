@@ -1,17 +1,18 @@
 class Routes {
-  static const ACCOUNT_INFORMATION = '/account_information';
-  static const ADDRESSES = '/addresses';
-  static const CHECKOUT = '/checkout';
-  static const CONFIRMATION = '/confirmation';
-  static const DELIVERY_ADDRESSES = '/delivery_addresses';
-  static const INTRO = '/intro';
-  static const MAIN = '/main';
-  static const ORDER_INFO = '/order_info';
-  static const ORDERS = '/orders';
-  static const PHONE_VERIFICATION = '/phone_verification';
-  static const PRODUCT = '/prodcut';
-  static const SCHEDULE = '/schedule';
-  static const SIGN_IN = '/sign_in';
-  static const SIGN_UP = '/sign_up';
-  static const SPLASH = '/splash';
+  static const accountInformation = '/account_information';
+  static const addresses = '/addresses';
+  static const checkout = '/checkout';
+  static const helpCenter = '/help_center';
+  static const confirmation = '/confirmation';
+  static const deliveryAddresses = '/delivery_addresses';
+  static const intro = '/intro';
+  static const main = '/main';
+  static const orderInfo = '/order_info';
+  static const orders = '/orders';
+  static const phoneVerification = '/phone_verification';
+  static const product = '/product';
+  static const schedule = '/schedule';
+  static const signIn = '/sign_in';
+  static const signUp = '/sign_up';
+  static const splash = '/splash';
 }

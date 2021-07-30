@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
 
-class OrdersPageController extends GetxController {
+class OrdersFragmentController extends GetxController {
 
 }

@@ -10,4 +10,13 @@ class HomeFragmentController extends GetxController {
     _mainController.pageController.jumpToPage(3);
     _mainController.backBtnVisibility = true;
   }
+
+  void backClickHandler() {
+    if (_mainController.pageController.page == 3) {
+      _mainController.pageController.jumpToPage(0);
+      _mainController.backBtnVisibility = false;
+    }
+
+    _mainController.pageStack.removeLast();
+  }
 }
