@@ -7,8 +7,9 @@ class OrdersListItem extends StatelessWidget {
   final String orderId;
   final String price;
   final int status;
+  final GestureTapCallback onClick;
 
-  const OrdersListItem(this.orderId, this.price, this.status);
+  const OrdersListItem(this.orderId, this.price, this.status, this.onClick);
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +53,18 @@ class OrdersListItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(width: 100, height: 32, child: fruitsGroup()),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                    color: AppColors.blue.withOpacity(0.14),
-                    borderRadius: BorderRadius.circular(14)),
-                child: const Text(
-                  'View',
-                  style: AppTextStyles.blue13Normal400,
+              GestureDetector(
+                onTap: onClick,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                      color: AppColors.blue.withOpacity(0.14),
+                      borderRadius: BorderRadius.circular(14)),
+                  child: const Text(
+                    'View',
+                    style: AppTextStyles.blue13Normal400,
+                  ),
                 ),
               )
             ],

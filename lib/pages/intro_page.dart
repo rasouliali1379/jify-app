@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,18 +26,24 @@ class IntroPage extends GetView<IntroPageController> {
                   controller: controller.pageController,
                   onPageChanged: controller.slideChangeHandler,
                   children: [
-                    const IntroSliderItem(
+                    IntroSliderItem(
                         'assets/images/delivery_man.png',
-                        'Delivery in your location',
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit,'
-                            ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                            ' Ut enim ad minim veniam'),
-                    const IntroSliderItem(
+                        'We’ve got your back',
+                        'From snacks & drinks to cleaning products & home essentials.'
+                            ' Hundreds of different items are available instantly'
+                            ' at your fingertips delivered straight to your doorstep. ',
+                        'Next',
+                        controller.nextPage,
+                        FirstSlideShapePainter()),
+                    IntroSliderItem(
                         'assets/images/rocketman.png',
-                        'Order everything quickly',
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit,'
-                            ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                            ' Ut enim ad minim veniam')
+                        'Super Fast Delivery',
+                        'We operate our hyperlocal warehouses in neighourhoods'
+                            ' across Australia and will deliver to you in as'
+                            ' little as 15 minutes, we’re only ever a Jify away.',
+                        'Let’s Start',
+                        controller.getStarted,
+                        SecondSlideShapePainter())
                   ],
                 ),
               ),
@@ -55,5 +63,47 @@ class IntroPage extends GetView<IntroPageController> {
         ),
       ),
     );
+  }
+}
+
+class FirstSlideShapePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint_0_fill = Paint();
+    paint_0_fill.color = Colors.white.withOpacity(1.0);
+    canvas.drawRRect(
+        RRect.fromRectAndCorners(
+            Rect.fromLTWH(size.width * 2.012689, size.height * 0.4630771,
+                size.width * 1.919444, size.height * 0.4927959),
+            bottomRight: Radius.circular(size.width * 0.3018389),
+            bottomLeft: Radius.circular(size.width * 0.3018389),
+            topLeft: Radius.circular(size.width * 0.3018389),
+            topRight: Radius.circular(size.width * 0.3018389)),
+        paint_0_fill);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+class SecondSlideShapePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint()
+      ..color = Colors.teal
+      ..strokeWidth = 5
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    Offset center = Offset(size.width / 2, size.height / 2);
+
+    canvas.drawCircle(center, 100, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }

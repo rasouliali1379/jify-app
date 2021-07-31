@@ -115,6 +115,10 @@ class AppTextStyles {
       fontSize: 14,
       color: AppTextColors.extraLightBlue,
       fontWeight: FontWeight.w300);
+  static const extraLightBlue16Normal300 = TextStyle(
+      fontSize: 16,
+      color: AppTextColors.extraLightBlue,
+      fontWeight: FontWeight.w300);
 
   // Blue Normal
   static const blue12Normal300 = TextStyle(
@@ -157,6 +161,10 @@ class AppTextStyles {
       fontSize: 14, color: AppTextColors.red, fontWeight: FontWeight.w400);
   static const red15Normal400 = TextStyle(
       fontSize: 15, color: AppTextColors.red, fontWeight: FontWeight.w400);
+
+  // Dark Cyan
+  static const darkCyan14Normal500 = TextStyle(
+      fontSize: 14, color: AppTextColors.darkCyan, fontWeight: FontWeight.w500);
 
   // Extra Dark Cyan Normal
   static const extraDarkCyan12Normal300 = TextStyle(
@@ -203,6 +211,8 @@ class AppTextStyles {
       fontSize: 16, color: AppTextColors.black, fontWeight: FontWeight.w400);
   static const black16Normal500 = TextStyle(
       fontSize: 16, color: AppTextColors.black, fontWeight: FontWeight.w500);
+  static const black16Normal600 = TextStyle(
+      fontSize: 16, color: AppTextColors.black, fontWeight: FontWeight.w600);
   static const black17Normal300 = TextStyle(
       fontSize: 17, color: AppTextColors.black, fontWeight: FontWeight.w300);
   static const black21Normal500 = TextStyle(

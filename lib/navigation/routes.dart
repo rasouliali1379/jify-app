@@ -1,7 +1,6 @@
 class Routes {
   static const accountInformation = '/account_information';
   static const addresses = '/addresses';
-  static const checkout = '/checkout';
   static const helpCenter = '/help_center';
   static const confirmation = '/confirmation';
   static const deliveryAddresses = '/delivery_addresses';

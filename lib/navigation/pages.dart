@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:jify_app/bindings/main_page_bindings.dart';
 import 'package:jify_app/controllers/account_information_page_controller.dart';
 import 'package:jify_app/controllers/addresses_page_controller.dart';
-import 'package:jify_app/controllers/checkout_page_controller.dart';
+import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/confirmation_page_controller.dart';
 import 'package:jify_app/controllers/delivery_addresses_controller.dart';
 import 'package:jify_app/controllers/help_center_page_controller.dart';
@@ -17,13 +17,13 @@ import 'package:jify_app/controllers/sign_up_page_controller.dart';
 import 'package:jify_app/controllers/splash_page_controller.dart';
 import 'package:jify_app/pages/account_information_page.dart';
 import 'package:jify_app/pages/addresses_page.dart';
-import 'package:jify_app/pages/checkout_page.dart';
+import 'package:jify_app/fragments/checkout_fragment.dart';
 import 'package:jify_app/pages/confirmation_page.dart';
 import 'package:jify_app/pages/delivery_addresses_page.dart';
 import 'package:jify_app/pages/help_center_page.dart';
 import 'package:jify_app/pages/intro_page.dart';
 import 'package:jify_app/pages/main_page.dart';
-import 'package:jify_app/pages/order_info.page.dart';
+import 'package:jify_app/pages/order_info_page.dart';
 import 'package:jify_app/fragments/orders_fragment.dart';
 import 'package:jify_app/pages/phone_verification_page.dart';
 import 'package:jify_app/pages/product_page.dart';
@@ -47,10 +47,6 @@ class Pages {
         name: Routes.addresses,
         page: () => AddressesPage(),
         binding: BindingsBuilder(() => {Get.put(AddressesPageController())})),
-    GetPage(
-        name: Routes.checkout,
-        page: () => CheckoutPage(),
-        binding: BindingsBuilder(() => {Get.put(CheckoutPageController())})),
     GetPage(
         name: Routes.confirmation,
         page: () => ConfirmationPage(),

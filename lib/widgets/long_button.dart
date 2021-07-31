@@ -7,8 +7,12 @@ class LongButton extends StatelessWidget {
   final String title;
   final double width;
   final double height;
+  final Widget? customText;
+  final Color? color;
+  final Color? labelColor;
 
-  const LongButton(this.onClick, this.title, this.width, this.height);
+  const LongButton(this.onClick, this.title, this.width, this.height,
+      {this.customText, this.color, this.labelColor});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +25,12 @@ class LongButton extends StatelessWidget {
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
-            backgroundColor: MaterialStateProperty.all<Color>(AppColors.blue)),
-        child: Text(
-          title,
-          style: AppTextStyles.white18Normal500,
-        ),
+            backgroundColor: MaterialStateProperty.all<Color>(color ?? AppColors.blue)),
+        child: customText ??
+            Text(
+              title,
+              style: AppTextStyles.white18Normal500.copyWith(color: labelColor ?? AppColors.white),
+            ),
       ),
     );
   }

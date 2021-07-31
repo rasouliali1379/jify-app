@@ -1,18 +1,16 @@
-import 'dart:async';
-
+import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:get/get.dart';
 
 class PhoneVerificationPageController extends GetxController {
-  final _time = <int>[2, 0].obs;
-
-  Timer? _timer;
-
+  late CountdownTimerController countdownController;
   final _resendAvailable = false.obs;
 
-  List<int> get time => _time.value;
-
-  set time(List<int> value) {
-    _time.value = value;
+  @override
+  void onInit() {
+    final endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 120;
+    countdownController =
+        CountdownTimerController(endTime: endTime, onEnd: onCountdownFinished);
+    super.onInit();
   }
 
   bool get resendAvailable => _resendAvailable.value;
@@ -21,15 +19,21 @@ class PhoneVerificationPageController extends GetxController {
     _resendAvailable.value = value;
   }
 
-  void startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      time[1]--;
-      if (time[1] < 0 && time[0] > 0) {
-        time[1] = 59;
-        time[0]--;
-      } else {
-        _timer!.cancel();
-      }
-    });
+  void onCountdownFinished() {
+    countdownController.disposeTimer();
+    resendAvailable = true;
+  }
+
+  void resendCode() {
+    final endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 120;
+    countdownController =
+        CountdownTimerController(endTime: endTime, onEnd: onCountdownFinished);
+    resendAvailable = false;
+  }
+
+  @override
+  void onClose() {
+    countdownController.dispose();
+    super.onClose();
   }
 }

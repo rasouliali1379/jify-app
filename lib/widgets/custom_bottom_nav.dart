@@ -42,22 +42,26 @@ class CustomBottomNav extends StatelessWidget {
             SizedBox(
               width: Get.width * 0.1,
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-              decoration: BoxDecoration(
-                  color: AppColors.blue,
-                  borderRadius: BorderRadius.circular(25)),
-              child: Row(
-                children: [
-                  SvgPicture.asset('assets/icons/shop_basket.svg'),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  const Text(
-                    '\$ 27.50',
-                    style: AppTextStyles.white14Normal700,
-                  )
-                ],
+            GestureDetector(
+              onTap: () => onClick(4),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                decoration: BoxDecoration(
+                    color: AppColors.blue,
+                    borderRadius: BorderRadius.circular(25)),
+                child: Row(
+                  children: [
+                    SvgPicture.asset('assets/icons/shop_basket.svg'),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    const Text(
+                      '\$ 27.50',
+                      style: AppTextStyles.white14Normal700,
+                    )
+                  ],
+                ),
               ),
             ),
             SizedBox(

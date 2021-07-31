@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/fragments/account_fragment.dart';
 import 'package:jify_app/fragments/category_fragment.dart';
+import 'package:jify_app/fragments/checkout_fragment.dart';
 import 'package:jify_app/fragments/home_fragment.dart';
 import 'package:jify_app/fragments/orders_fragment.dart';
 import 'package:jify_app/widgets/custom_bottom_nav.dart';
-import 'package:jify_app/widgets/custom_app_bar.dart';
 
 class MainPage extends GetView<MainPageController> {
   @override
@@ -26,6 +26,7 @@ class MainPage extends GetView<MainPageController> {
                     AccountFragment(),
                     OrdersFragment(),
                     CategoryFragment(),
+                    CheckoutFragment()
                   ],
                 ),
               ),

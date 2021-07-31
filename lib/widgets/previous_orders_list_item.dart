@@ -6,8 +6,9 @@ import 'package:jify_app/constants/app_text_styles.dart';
 class PreviousOrdersListItem extends StatelessWidget {
   final String orderId;
   final String price;
+  final GestureTapCallback onClick;
 
-  const PreviousOrdersListItem(this.orderId, this.price);
+  const PreviousOrdersListItem(this.orderId, this.price, this.onClick);
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +44,18 @@ class PreviousOrdersListItem extends StatelessWidget {
               SizedBox(width: 100, height: 32, child: fruitsGroup()),
               Row(
                 children: [
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                        color: AppColors.blue.withOpacity(0.14),
-                        borderRadius: BorderRadius.circular(14)),
-                    child: const Text(
-                      'View',
-                      style: AppTextStyles.blue13Normal400,
+                  GestureDetector(
+                    onTap: onClick,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
+                          color: AppColors.blue.withOpacity(0.14),
+                          borderRadius: BorderRadius.circular(14)),
+                      child: const Text(
+                        'View',
+                        style: AppTextStyles.blue13Normal400,
+                      ),
                     ),
                   ),
                   const SizedBox(

@@ -10,9 +10,16 @@ class TitledTextField extends StatelessWidget {
   final bool? obscureText;
   final TextInputType? inputType;
   final String? errorText;
+  final TextStyle? titleStyle;
+  final Color? textFieldBgColor;
 
   const TitledTextField(this.title, this.controller,
-      {this.customTextField, this.obscureText, this.inputType, this.errorText});
+      {this.customTextField,
+      this.obscureText,
+      this.inputType,
+      this.errorText,
+      this.titleStyle,
+      this.textFieldBgColor});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +28,7 @@ class TitledTextField extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppTextStyles.darkGrey13Normal300,
+          style: titleStyle ?? AppTextStyles.darkGrey13Normal300,
         ),
         const SizedBox(
           height: 8,
@@ -36,6 +43,8 @@ class TitledTextField extends StatelessWidget {
               keyboardType: inputType ?? TextInputType.text,
               decoration: InputDecoration(
                 errorText: errorText,
+                filled: textFieldBgColor != null,
+                fillColor: textFieldBgColor ?? Colors.transparent,
                 errorStyle: AppTextStyles.red10Normal300,
                 contentPadding: EdgeInsets.symmetric(
                     vertical: Get.height * 0.0209,

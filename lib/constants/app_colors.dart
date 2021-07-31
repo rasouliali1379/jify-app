@@ -16,7 +16,7 @@ class AppColors {
   static const grayishBlack = Color.fromRGBO(120, 130, 146, 1.0);
   static const lightGrey = Color.fromRGBO(234, 234, 234, 1);
   static const white = Color.fromRGBO(255, 255, 255, 1);
-  static const milky = Color.fromRGBO(229, 229, 229, 1);
+  static const milky = Color.fromRGBO(243, 243, 247, 1.0);
 }
 
 class AppTextColors {

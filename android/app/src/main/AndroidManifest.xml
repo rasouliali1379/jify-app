@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jify_app">
    <application
-        android:label="jify_app"
+        android:label="Jify App"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAV0JgeJ28lOl9qqCuVYz4c6Ns3tEqvPwc"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

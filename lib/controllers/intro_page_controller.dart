@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/navigation/routes.dart';
+import 'package:jify_app/utilities/storage.dart';
 
 class IntroPageController extends GetxController
     with SingleGetTickerProviderMixin {
@@ -20,5 +22,15 @@ class IntroPageController extends GetxController
   Future<bool> onBackPressedHandler() {
     Get.offNamed(Routes.main);
     return Future.value(false);
+  }
+
+  void nextPage() {
+    pageController.animateTo(200,
+        duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
+  }
+
+  Future<void> getStarted() async {
+    await Storage.write(AppKeys.firstTimeLaunch, false);
+    Get.toNamed(Routes.main);
   }
 }
