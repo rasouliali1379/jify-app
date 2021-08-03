@@ -1,4 +1,4 @@
-package com.example.jify_app
+package com.jify.customer
 
 import io.flutter.embedding.android.FlutterActivity
 

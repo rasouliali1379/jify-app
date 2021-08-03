@@ -30,7 +30,7 @@ class IntroPageController extends GetxController
   }
 
   Future<void> getStarted() async {
-    await Storage.write(AppKeys.firstTimeLaunch, false);
-    Get.toNamed(Routes.main);
+    await storageWrite(AppKeys.firstTimeLaunch, false);
+    Get.offNamed(Routes.main);
   }
 }

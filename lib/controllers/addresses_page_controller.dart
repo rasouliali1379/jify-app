@@ -6,13 +6,13 @@ class AddressesPageController extends GetxController {
   int selectedAddress = 0;
 
   @override
-  void onInit() async {
-    selectedAddress = Storage.read(AppKeys.address) as int;
+  Future<void> onInit() async {
+    selectedAddress = storageRead(AppKeys.address) as int;
     super.onInit();
   }
 
-  void onAddressClickHandler(int index) async {
-    await Storage.write(AppKeys.address, index);
+  Future<void> onAddressClickHandler(int index) async {
+    await storageWrite(AppKeys.address, index);
     Get.back();
   }
 

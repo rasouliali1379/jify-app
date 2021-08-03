@@ -1,25 +1,23 @@
 import 'package:get_storage/get_storage.dart';
 
-class Storage {
-  static final _storage = GetStorage();
+final _storage = GetStorage();
 
-  static Future<void> write(String key, value) async {
-    await _storage.write(key, value);
-  }
+Future<void> storageWrite(String key, dynamic value) async {
+  await _storage.write(key, value);
+}
 
-  static dynamic read(String key) {
-    return _storage.read(key);
-  }
+dynamic storageRead(String key) {
+  return _storage.read(key);
+}
 
-  static bool exists(String key) {
-    return _storage.hasData(key);
-  }
+bool storageExists(String key) {
+  return _storage.hasData(key);
+}
 
-  static Future<void> remove(String key) async {
-    return await _storage.remove(key);
-  }
+Future<void> storageRemove(String key) async {
+  await _storage.remove(key);
+}
 
-  static Future<void> deleteStorage() async {
-    return await _storage.erase();
-  }
+Future<void> storageDelete() async {
+  await _storage.erase();
 }

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.jify_app">
+    package="com.jify.customer">
    <application
         android:label="Jify App"
         android:icon="@mipmap/ic_launcher">

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
@@ -10,10 +11,9 @@ class IntroSliderItem extends StatelessWidget {
   final String desc;
   final String btnLabel;
   final GestureTapCallback onClick;
-  final CustomPainter painter;
 
   const IntroSliderItem(this.image, this.title, this.desc, this.btnLabel,
-      this.onClick, this.painter);
+      this.onClick);
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +22,24 @@ class IntroSliderItem extends StatelessWidget {
       children: [
         Column(
           children: [
-            CustomPaint(
-              painter: painter,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0826),
-                child: Image.asset(image),
-              ),
+            Stack(
+              children: [
+                Positioned(
+                  left: 15,
+                  top: 45,
+                  child: RotationTransition(
+                    turns: const AlwaysStoppedAnimation(-25 / 360),
+                    child: Container(
+                      width: Get.width * 2,
+                      height: Get.height * 0.2672,
+                      decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(200)),
+                    ),
+                  ),
+                ),
+                Image.asset(image),
+              ],
             ),
             Text(
               title,
