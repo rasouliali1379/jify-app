@@ -4,6 +4,7 @@ import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/repositories/app_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
+import 'package:jify_app/utilities/utilities.dart';
 
 class SplashPageController extends GetxController {
   final _appRepository = AppRepository();
@@ -18,8 +19,8 @@ class SplashPageController extends GetxController {
 
   void initApp() {
     _appRepository.getInitialData().then((value) {
-      print(value!.toJson().toString());
-      _globalController.initialDataModel = value;
+      value.fold((l) => Utilities.makeCustomToast(l),
+          (r) => print(r));
       leavePage();
     });
   }

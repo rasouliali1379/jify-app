@@ -23,6 +23,7 @@ dependencies:
   flutter_countdown_timer: ^4.1.0
   google_maps_flutter: ^2.0.6
   dio: ^4.0.0
+  dartz: ^0.10.0-nullsafety.2
 
 dev_dependencies:
   flutter_test:

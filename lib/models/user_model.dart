@@ -8,7 +8,7 @@ class UserModel {
   String? email;
   String? date;
   List<AddressModel>? addresses;
-  dynamic? fcmToken;
+  String? fcmToken;
 
   UserModel(
       {this.id,
@@ -21,33 +21,33 @@ class UserModel {
       this.fcmToken});
 
   UserModel.fromJson(dynamic json) {
-    id = json["_id"] as String;
-    firstname = json["firstname"] as String;
-    lastname = json["lastname"] as String;
-    mobileNumber = json["mobileNumber"] as String;
-    email = json["email"] as String;
-    date = json["date"] as String;
-    if (json["addresses"] != null) {
+    id = json['_id'] as String;
+    firstname = json['firstname'] as String;
+    lastname = json['lastname'] as String;
+    mobileNumber = json['mobileNumber'] as String;
+    email = json['email'] as String;
+    date = json['date'] as String;
+    if (json['addresses'] != null) {
       addresses = [];
-      json["addresses"].forEach((v) {
+      json['addresses'].forEach((v) {
         addresses?.add(AddressModel.fromJson(v));
       });
     }
-    fcmToken = json["fcmToken"];
+    fcmToken = json['fcmToken'] as String;
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map["_id"] = id;
-    map["firstname"] = firstname;
-    map["lastname"] = lastname;
-    map["mobileNumber"] = mobileNumber;
-    map["email"] = email;
-    map["date"] = date;
+    map['_id'] = id;
+    map['firstname'] = firstname;
+    map['lastname'] = lastname;
+    map['mobileNumber'] = mobileNumber;
+    map['email'] = email;
+    map['date'] = date;
     if (addresses != null) {
-      map["addresses"] = addresses?.map((v) => v.toJson()).toList();
+      map['addresses'] = addresses?.map((v) => v.toJson()).toList();
     }
-    map["fcmToken"] = fcmToken;
+    map['fcmToken'] = fcmToken;
     return map;
   }
 }

@@ -5,12 +5,12 @@ class LocationModel {
 
   LocationModel.fromJson(dynamic json) {
     coordinates =
-        json["coordinates"] != null ? json["coordinates"] as List<double> : [];
+        json['coordinates'] != null ? json['coordinates'] as List<double> : [];
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map["coordinates"] = coordinates;
+    map['coordinates'] = coordinates;
     return map;
   }
 }
