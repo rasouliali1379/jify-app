@@ -36,9 +36,7 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: CustomToolBar(
-        'Checkout',
-      ),
+      appBar: CustomToolBar('Checkout', backButtonVisibility: false),
       body: SingleChildScrollView(
         child: Column(
           children: [

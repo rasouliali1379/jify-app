@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class AppColors {
+  static const black = Color.fromRGBO(0, 0, 0, 1);
   static const orange = Color.fromRGBO(238, 143, 0, 1);
   static const green = Color.fromRGBO(46, 187, 87, 1);
   static const lightGreen = Color.fromRGBO(36, 193, 81, 1);

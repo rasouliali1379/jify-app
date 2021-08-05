@@ -6,7 +6,7 @@ class ApiRequests {
   final _apiClient = ApiClient();
 
   Future<Either<String, Response>> init() async {
-    return _apiClient.get('/inite', {});
+    return _apiClient.get('/init', {});
   }
 
   Future<Either<String, Response>> contactSupport(

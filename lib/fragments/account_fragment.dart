@@ -9,7 +9,7 @@ class AccountFragment extends GetView<AccountFragmentController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomToolBar('My Account'),
+      appBar: CustomToolBar('My Account', backButtonVisibility: false,),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

@@ -1,22 +1,34 @@
 import 'package:get/get.dart';
+import 'package:jify_app/controllers/category_fragment_controller.dart';
+import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
+import 'package:jify_app/models/category_model.dart';
 
 class HomeFragmentController extends GetxController {
-
+  final _categoryController = Get.find<CategoryFragmentController>();
   final _mainController = Get.find<MainPageController>();
+  final _globalController = Get.find<GlobalController>();
 
-  void onCategoryItemClickHandler(){
-    _mainController.pageStack.add(3);
-    _mainController.pageController.jumpToPage(3);
-    _mainController.backBtnVisibility = true;
+  final _categoryItems = <CategoryModel>[].obs;
+
+  @override
+  void onInit() {
+    categoryItems = _globalController.initialDataModel.categories!;
+    super.onInit();
   }
 
-  void backClickHandler() {
-    if (_mainController.pageController.page == 3) {
-      _mainController.pageController.jumpToPage(0);
-      _mainController.backBtnVisibility = false;
-    }
+  List<CategoryModel> get categoryItems => _categoryItems.value;
 
-    _mainController.pageStack.removeLast();
+  set categoryItems(List<CategoryModel> value) {
+    _categoryItems.value = value;
+  }
+
+  Function() onCategoryItemClickHandler(int index) {
+    return () {
+      _categoryController.populateData(index);
+      _mainController.pageStack.add(3);
+      _mainController.pageController.jumpToPage(3);
+      _mainController.backBtnVisibility = true;
+    };
   }
 }

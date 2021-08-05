@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/intro_page_controller.dart';
-import 'package:jify_app/widgets/intro_slider_item.dart';
 import 'package:jify_app/widgets/long_button.dart';
 
 class IntroPage extends GetView<IntroPageController> {
@@ -59,7 +58,7 @@ class IntroPage extends GetView<IntroPageController> {
               children: [
                 Positioned(
                   left: 15,
-                  top: 45,
+                  top: 88,
                   child: RotationTransition(
                     turns: const AlwaysStoppedAnimation(-25 / 360),
                     child: Container(
@@ -71,18 +70,31 @@ class IntroPage extends GetView<IntroPageController> {
                     ),
                   ),
                 ),
-                Image.asset('assets/images/delivery_man.png'),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: Get.width * 0.083,
+                      right: Get.width * 0.083,
+                      top: Get.height * 0.10),
+                  child: SizedBox(
+                      width: Get.width * 0.8346,
+                      height: Get.height * 0.4445,
+                      child: Image.asset('assets/images/delivery_man.png')),
+                ),
               ],
             ),
+          ],
+        ),
+        Column(
+          children: [
             const Text(
               'We’ve got your back',
               style: AppTextStyles.white26Normal600,
             ),
             SizedBox(
-              height: Get.width * 0.0307,
+              height: Get.height * 0.0307,
             ),
             Padding(
-              padding: const EdgeInsets.all(28.0),
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0746),
               child: Text(
                 'From snacks & drinks to cleaning products & home essentials.'
                 ' Hundreds of different items are available instantly'
@@ -91,21 +103,24 @@ class IntroPage extends GetView<IntroPageController> {
                 textAlign: TextAlign.center,
               ),
             ),
+            SizedBox(
+              height: Get.height * 0.0738,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
+              child: LongButton(
+                controller.nextPage,
+                'Next',
+                double.maxFinite,
+                Get.height * 0.064,
+                color: AppColors.white,
+                labelColor: AppColors.blue,
+              ),
+            ),
+            SizedBox(
+              height: Get.height * 0.0258,
+            ),
           ],
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
-          child: LongButton(
-            controller.nextPage,
-            'Next',
-            double.maxFinite,
-            Get.height * 0.064,
-            color: AppColors.white,
-            labelColor: AppColors.blue,
-          ),
-        ),
-        SizedBox(
-          height: Get.width * 0.0258,
         ),
       ],
     );
@@ -121,7 +136,7 @@ class IntroPage extends GetView<IntroPageController> {
               children: [
                 Positioned(
                   left: -400,
-                  top: 49,
+                  top: 91,
                   child: RotationTransition(
                     turns: const AlwaysStoppedAnimation(205 / 360),
                     child: Container(
@@ -133,18 +148,31 @@ class IntroPage extends GetView<IntroPageController> {
                     ),
                   ),
                 ),
-                Image.asset('assets/images/rocketman.png'),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: Get.width * 0.083,
+                      right: Get.width * 0.083,
+                      top: Get.height * 0.10),
+                  child: SizedBox(
+                      width: Get.width * 0.8773,
+                      height: Get.height * 0.4273,
+                      child: Image.asset('assets/images/rocketman.png')),
+                ),
               ],
             ),
+          ],
+        ),
+        Column(
+          children: [
             const Text(
               'Super Fast Delivery',
               style: AppTextStyles.white26Normal600,
             ),
             SizedBox(
-              height: Get.width * 0.0307,
+              height: Get.height * 0.0307,
             ),
             Padding(
-              padding: const EdgeInsets.all(28.0),
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0746),
               child: Text(
                 'We operate our hyperlocal warehouses in neighourhoods'
                 ' across Australia and will deliver to you in as'
@@ -153,21 +181,24 @@ class IntroPage extends GetView<IntroPageController> {
                 textAlign: TextAlign.center,
               ),
             ),
+            SizedBox(
+              height: Get.height * 0.0738,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
+              child: LongButton(
+                controller.getStarted,
+                'Let’s Start',
+                double.maxFinite,
+                Get.height * 0.064,
+                color: AppColors.white,
+                labelColor: AppColors.blue,
+              ),
+            ),
+            SizedBox(
+              height: Get.height * 0.0258,
+            ),
           ],
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
-          child: LongButton(
-            controller.getStarted,
-            'Let’s Start',
-            double.maxFinite,
-            Get.height * 0.064,
-            color: AppColors.white,
-            labelColor: AppColors.blue,
-          ),
-        ),
-        SizedBox(
-          height: Get.width * 0.0258,
         ),
       ],
     );

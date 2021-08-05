@@ -10,23 +10,31 @@ class SplashPageController extends GetxController {
   final _appRepository = AppRepository();
   final _globalController = Get.find<GlobalController>();
 
+  final _tryAgainVisibility = false.obs;
+
   @override
   void onReady() {
-    // startTimer();
     initApp();
     super.onReady();
   }
 
-  void initApp() {
-    _appRepository.getInitialData().then((value) {
-      value.fold((l) => Utilities.makeCustomToast(l),
-          (r) => print(r));
-      leavePage();
-    });
+  bool get tryAgainVisibility => _tryAgainVisibility.value;
+
+  set tryAgainVisibility(bool value) {
+    _tryAgainVisibility.value = value;
   }
 
-  void startTimer() {
-    Future.delayed(const Duration(seconds: 3)).then((value) => leavePage());
+  void initApp() {
+    tryAgainVisibility = false;
+    _appRepository.getInitialData().then((value) {
+      value.fold((l) {
+        Utilities.makeCustomToast(l);
+        tryAgainVisibility = true;
+      }, (initialData) {
+        _globalController.initialDataModel = initialData;
+        Future.delayed(const Duration(seconds: 1)).then((value) => leavePage());
+      });
+    });
   }
 
   Future<void> leavePage() async {

@@ -10,6 +10,7 @@ import 'package:jify_app/navigation/routes.dart';
 
 main() async {
   await GetStorage.init();
+  Get.put(GlobalController(), permanent: true);
   runApp(JiffyApp());
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: AppColors.white,
@@ -21,8 +22,6 @@ class JiffyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialBinding:
-          BindingsBuilder.put(() => {Get.lazyPut(() => GlobalController())}),
       getPages: Pages.routes,
       initialRoute: Routes.splash,
       theme: AppThemes.defaultTheme,

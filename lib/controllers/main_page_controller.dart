@@ -10,6 +10,8 @@ class MainPageController extends GetxController {
   final pageController = PageController();
   final pageStack = <int>[0];
 
+  int selectedCategory = -1;
+
   bool get backBtnVisibility => _backBtnVisibility.value;
 
   set backBtnVisibility(bool value) {
@@ -22,11 +24,13 @@ class MainPageController extends GetxController {
     _index.value = value;
   }
 
-  onBottomNavClickHandler(int value) {
+  void onBottomNavClickHandler(int value) {
     if (pageStack.last != value) {
-      index = value;
+      if (value < 3) {
+        index = value;
+      }
       pageStack.add(value);
-      pageController.jumpToPage(index);
+      pageController.jumpToPage(value);
     }
   }
 

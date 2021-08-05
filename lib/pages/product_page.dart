@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -13,27 +14,25 @@ class ProductPage extends GetView<ProductPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomToolBar(
-        'Heineken Beer',
-        action: Badge(
-          badgeContent: const Text(
-            '1',
-            style: AppTextStyles.white12Normal400,
-          ),
-          padding: const EdgeInsets.all(6),
-          borderSide: const BorderSide(
-            color: AppColors.white,
-          ),
-          badgeColor: AppColors.lightGreen,
-          position: BadgePosition.topStart(top: -17, start: 6),
-          toAnimate: false,
-          child: SvgPicture.asset(
-            'assets/icons/shop_basket.svg',
-            width: 24,
-            height: 24,
-          ),
-        ),
-      ),
+      appBar: CustomToolBar(controller.product.title!,
+          action: Obx(() => Badge(
+                badgeContent: Text(
+                  controller.variants.toString(),
+                  style: AppTextStyles.white12Normal400,
+                ),
+                padding: const EdgeInsets.all(6),
+                borderSide: const BorderSide(
+                  color: AppColors.white,
+                ),
+                badgeColor: AppColors.lightGreen,
+                position: BadgePosition.topStart(top: -17, start: 6),
+                toAnimate: false,
+                child: SvgPicture.asset(
+                  'assets/icons/shop_basket.svg',
+                  width: 24,
+                  height: 24,
+                ),
+              ))),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -44,10 +43,11 @@ class ProductPage extends GetView<ProductPageController> {
                 children: [
                   AspectRatio(
                     aspectRatio: 1,
-                    child: Image.asset('assets/images/beer.png'),
+                    child:
+                        CachedNetworkImage(imageUrl: controller.product.image!),
                   ),
                   Text(
-                    'Heineken Beer',
+                    controller.product.title!,
                     style: AppTextStyles.black21Normal500,
                   ),
                   SizedBox(
@@ -83,12 +83,14 @@ class ProductPage extends GetView<ProductPageController> {
                         ),
                       ),
                       RichText(
-                        text: const TextSpan(
+                        text: TextSpan(
                             text: ' \$ ',
                             style: AppTextStyles.green16Normal600,
                             children: [
                               TextSpan(
-                                  text: '2.46',
+                                  text: (controller.count *
+                                          controller.product.price!)
+                                      .toString(),
                                   style: AppTextStyles.green20Normal600)
                             ]),
                       ),
@@ -98,12 +100,7 @@ class ProductPage extends GetView<ProductPageController> {
                     height: Get.height * 0.07,
                   ),
                   Text(
-                    'Lorem ipsum dolor sit amet,'
-                    ' consectetur adipiscing elit,'
-                    ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                    ' Ut enim ad minim veniam,'
-                    ' quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                    ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                    controller.product.description!,
                     style: AppTextStyles.grayishBlack12Normal300
                         .copyWith(height: 1.6),
                     textAlign: TextAlign.justify,
@@ -117,8 +114,8 @@ class ProductPage extends GetView<ProductPageController> {
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: Get.width * 0.0453, vertical: 30),
-                child: LongButton(() => {}, 'Add to Basket', double.maxFinite,
-                    Get.height * 0.064),
+                child: LongButton(controller.addToBasket, 'Add to Basket',
+                    double.maxFinite, Get.height * 0.064),
               ))
         ],
       ),

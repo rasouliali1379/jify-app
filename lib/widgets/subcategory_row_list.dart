@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jify_app/models/category_model.dart';
 import 'package:jify_app/widgets/subcatergory_row_list_item.dart';
 
 class SubCategoryRowList extends StatelessWidget {
-  final List<String> items;
-  final String selected;
+  final List<CategoryModel> items;
+  final int selected;
   final Function onClick;
 
   const SubCategoryRowList(this.items, this.onClick, this.selected);
@@ -19,7 +20,7 @@ class SubCategoryRowList extends StatelessWidget {
         itemCount: items.length,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) => SubCategoryRowListItem(
-            items[index], selected == items[index], onClick),
+            items[index].title!, selected == index, onClick, index),
       ),
     );
   }
