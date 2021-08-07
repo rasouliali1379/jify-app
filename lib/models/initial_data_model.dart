@@ -10,14 +10,16 @@ class InitialDataModel {
   InitialDataModel(
       {this.categories, this.user, this.supportedDistance, this.msg});
 
-  InitialDataModel.fromJson(dynamic json) {
+  InitialDataModel.fromJson(Map<String, dynamic> json) {
     if (json['categories'] != null) {
       categories = <CategoryModel>[];
       json['categories'].forEach((v) {
         categories?.add(CategoryModel.fromJson(v));
       });
     }
-    user = json['user'] != null ? UserModel.fromJson(json['user']) : null;
+    user = json['user'] != null
+        ? UserModel.fromJson(json['user'] as Map<String, dynamic>)
+        : null;
     supportedDistance = json['supportedDistance'] as int;
     msg = json['msg'] as String;
   }

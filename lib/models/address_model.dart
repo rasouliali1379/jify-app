@@ -22,7 +22,7 @@ class AddressModel {
       this.distance,
       this.id});
 
-  AddressModel.fromJson(dynamic json) {
+  AddressModel.fromJson(Map<String,dynamic> json) {
     location = json['location'] != null
         ? LocationModel.fromJson(json['location'])
         : null;

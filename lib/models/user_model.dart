@@ -1,3 +1,5 @@
+import 'package:jify_app/navigation/pages.dart';
+
 import 'address_model.dart';
 
 class UserModel {
@@ -9,6 +11,7 @@ class UserModel {
   String? date;
   List<AddressModel>? addresses;
   String? fcmToken;
+  String? status;
 
   UserModel(
       {this.id,
@@ -18,9 +21,10 @@ class UserModel {
       this.email,
       this.date,
       this.addresses,
-      this.fcmToken});
+      this.fcmToken,
+      this.status});
 
-  UserModel.fromJson(dynamic json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
     id = json['_id'] as String;
     firstname = json['firstname'] as String;
     lastname = json['lastname'] as String;
@@ -30,10 +34,13 @@ class UserModel {
     if (json['addresses'] != null) {
       addresses = [];
       json['addresses'].forEach((v) {
-        addresses?.add(AddressModel.fromJson(v));
+        addresses?.add(AddressModel.fromJson(v as Map<String, dynamic>));
       });
     }
     fcmToken = json['fcmToken'] as String;
+    if (json.containsKey("status")) {
+      status = json['status'] as String;
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -48,6 +55,10 @@ class UserModel {
       map['addresses'] = addresses?.map((v) => v.toJson()).toList();
     }
     map['fcmToken'] = fcmToken;
+
+    if (status != null) {
+      map['status'] = status;
+    }
     return map;
   }
 }

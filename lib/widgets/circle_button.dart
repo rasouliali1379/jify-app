@@ -6,9 +6,10 @@ class CircleButton extends StatelessWidget {
   final GestureTapCallback onClick;
   final double? height;
   final double? width;
+  final BoxBorder? border;
 
   const CircleButton(this.child, this.color, this.onClick,
-      {this.width, this.height});
+      {this.width, this.height, this.border});
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +23,13 @@ class CircleButton extends StatelessWidget {
                 height: height,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: color,
-                ),
+                    shape: BoxShape.circle, color: color, border: border),
                 child: child,
               )
             : Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: color,
-                ),
+                    shape: BoxShape.circle, color: color, border: border),
                 child: child,
               );
       }),

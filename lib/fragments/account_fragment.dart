@@ -9,7 +9,10 @@ class AccountFragment extends GetView<AccountFragmentController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomToolBar('My Account', backButtonVisibility: false,),
+      appBar: CustomToolBar(
+        'My Account',
+        backButtonVisibility: false,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -47,11 +50,17 @@ class AccountFragment extends GetView<AccountFragmentController> {
                   'Terms and Conditions', controller.openTermsAndConditions),
             ],
           ),
-          AccountItems(
-            'Log out',
-            controller.logout,
-            color: AppTextColors.red,
-          ),
+          Obx(() => controller.loggedIn
+              ? AccountItems(
+                  'Log out',
+                  controller.logout,
+                  color: AppTextColors.red,
+                )
+              : AccountItems(
+                  'Sign in',
+                  controller.login,
+                  color: AppTextColors.green,
+                )),
           const SizedBox()
         ],
       ),

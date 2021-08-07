@@ -82,22 +82,9 @@ class ApiRequests {
     return _apiClient.get('/checkout/$id', {});
   }
 
-  Future<Either<String, Response>> getPromotionCode(
-      String id, Map<String, dynamic> map) async {
-    return _apiClient.post('/checkout/$id/promotion', map);
-  }
-
-  Future<Either<String, Response>> deletePromotionCode(String id) async {
-    return _apiClient.delete('/checkout/$id/promotion', {});
-  }
-
-  Future<Either<String, Response>> addAddressToCheckout(
-      String id, Map<String, dynamic> map) async {
-    return _apiClient.post('/checkout/$id/address', map);
-  }
-
-  Future<Either<String, Response>> deleteAddressFromCheckout(String id) async {
-    return _apiClient.delete('/checkout/$id/address', {});
+  Future<Either<String, Response>> checkPromotionCode(
+      Map<String, dynamic> map) async {
+    return _apiClient.post('/checkout/promotion', map);
   }
 
   Future<Either<String, Response>> completeCheckout(

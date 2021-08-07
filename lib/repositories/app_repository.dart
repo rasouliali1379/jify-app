@@ -13,7 +13,7 @@ class AppRepository {
     result.fold((l) {
       error = l;
     }, (r) {
-      data = InitialDataModel.fromJson(r.data);
+      data = InitialDataModel.fromJson(r.data as Map<String, dynamic>);
     });
 
     if (data != null) {

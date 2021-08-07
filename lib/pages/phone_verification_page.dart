@@ -24,9 +24,9 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
               style: AppTextStyles.extraDarkCyan17Normal500,
             ),
             SizedBox(height: Get.height * 0.0135),
-            const Text(
-              'We’ve sent a verification code to +1412345678900'
-              'please enter the code below',
+            Text(
+              'We’ve sent a verification code to +14${controller.phoneNumber}'
+              ' please enter the code below',
               style: AppTextStyles.grayishBlack12Normal300,
             ),
             SizedBox(height: Get.height * 0.15),
@@ -34,6 +34,7 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
               appContext: context,
               length: 5,
               onChanged: (value) {},
+              focusNode: controller.pinCodeFieldFocus,
               textStyle: AppTextStyles.extraDarkCyan38Normal200,
               animationType: AnimationType.fade,
               keyboardType: TextInputType.number,
@@ -53,8 +54,8 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
                 width: double.maxFinite,
                 child: Obx(() => controller.resendAvailable
                     ? Center(
-                        child: ClickableText(
-                            'Resend Code', controller.resendCode))
+                        child:
+                            ClickableText('Resend Code', controller.resendCode))
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

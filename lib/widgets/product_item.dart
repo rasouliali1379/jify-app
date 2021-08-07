@@ -69,16 +69,19 @@ class ProductItem extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   CircleButton(
-                                      SizedBox(
-                                          width: Get.width * 0.08,
-                                          height: Get.width * 0.08,
-                                          child: const Icon(
-                                            Icons.remove,
-                                            color: AppColors.white,
-                                            size: 20,
-                                          )),
-                                      AppColors.green,
-                                      () => removeFromBasket(product.id)),
+                                    SizedBox(
+                                        width: Get.width * 0.08,
+                                        height: Get.width * 0.08,
+                                        child: const Icon(
+                                          Icons.remove,
+                                          color: AppColors.green,
+                                          size: 20,
+                                        )),
+                                    const Color.fromRGBO(200, 255, 216, 1),
+                                    () => removeFromBasket(product.id),
+                                    border: Border.all(
+                                        color: AppColors.green, width: 2),
+                                  ),
                                   Text(
                                     count.toString(),
                                     style:
