@@ -12,7 +12,7 @@ class CategoryFragment extends GetView<CategoryFragmentController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(controller.backClickHandler, () => {},
+      appBar: CustomAppBar(controller.backClickHandler, controller.homePageController.searchChangeHandler,
           controller.homePageController.searchTextController),
       body: Column(
         children: [

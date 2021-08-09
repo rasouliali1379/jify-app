@@ -110,7 +110,9 @@ class HomeFragmentController extends GetxController {
 
   void onAppBarBackPressed() {
     searchedProducts.clear();
+    searchTextController.text = "";
     _mainController.backBtnVisibility = false;
     searchMode = false;
+    update();
   }
 }
