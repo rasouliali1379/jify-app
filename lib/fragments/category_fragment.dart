@@ -11,6 +11,7 @@ class CategoryFragment extends GetView<CategoryFragmentController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(controller.backClickHandler, () => {},
           controller.homePageController.searchTextController),
       body: Column(

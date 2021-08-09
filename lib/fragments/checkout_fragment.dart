@@ -28,6 +28,7 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomToolBar('Checkout', backButtonVisibility: false),
       body: Obx(
         () => _controller.loggedIn

@@ -23,6 +23,7 @@ class _HomeFragmentState extends State<HomeFragment>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+
       appBar: CustomAppBar(_controller.onAppBarBackPressed,
           _controller.searchChangeHandler, _controller.searchTextController),
       resizeToAvoidBottomInset: false,

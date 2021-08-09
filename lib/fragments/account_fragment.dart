@@ -9,6 +9,7 @@ class AccountFragment extends GetView<AccountFragmentController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomToolBar(
         'My Account',
         backButtonVisibility: false,

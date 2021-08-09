@@ -10,6 +10,7 @@ class HelpCenterPage extends GetView<HelpCenterPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomToolBar('Help Center'),
       body: Padding(
         padding: EdgeInsets.symmetric(

@@ -25,6 +25,7 @@ class _OrdersFragmentState extends State<OrdersFragment>
     super.build(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.milky,
       appBar: CustomToolBar(
         'My Orders',
@@ -33,7 +34,7 @@ class _OrdersFragmentState extends State<OrdersFragment>
       body: Obx(() => _controller.loggedIn
           ? RefreshIndicator(
               onRefresh: _controller.onRefresh,
-        child: SizedBox(
+              child: SizedBox(
                 height: Get.height,
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(
