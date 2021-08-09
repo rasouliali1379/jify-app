@@ -3,21 +3,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
+import 'package:jify_app/models/address_model.dart';
 
 class AddressItem extends StatelessWidget {
-  final String address1;
-  final String address2;
+  final AddressModel addressModel;
   final bool selected;
-  final GestureTapCallback onClick;
+  final Function onClick;
   final String icon;
 
-  const AddressItem(
-      this.address1, this.address2, this.selected, this.onClick, this.icon);
+  const AddressItem(this.addressModel, this.selected, this.onClick, this.icon);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onClick,
+      onTap: () => onClick(addressModel.id),
       child: Container(
         width: double.maxFinite,
         height: Get.height * 0.0612,
@@ -26,43 +25,50 @@ class AddressItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.blue.withOpacity(0.15),
-                  ),
-                  child: SvgPicture.asset(
-                    icon,
-                    color: AppColors.blue,
-                  ),
-                ),
-                SizedBox(
-                  width: Get.width * 0.0373,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      address1,
+            Container(
+              width: 50,
+              height: 50,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.blue.withOpacity(0.15),
+              ),
+              child: SvgPicture.asset(
+                icon,
+                color: AppColors.blue,
+              ),
+            ),
+            SizedBox(
+              width: Get.width * 0.0373,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Text(
+                      addressModel.address!,
+                      overflow: TextOverflow.ellipsis,
                       style: AppTextStyles.extraDarkCyan16Normal500
                           .copyWith(color: AppTextColors.darkCyan),
                     ),
-                    SizedBox(
-                      height: Get.height * 0.011,
-                    ),
-                    Text(
-                      address2,
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.011,
+                  ),
+                  Flexible(
+                    child: Text(
+                      addressModel.address!,
+                      overflow: TextOverflow.ellipsis,
                       style: AppTextStyles.extraLightBlue14Normal300,
-                    )
-                  ],
-                )
-              ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              width: Get.width * 0.0373,
             ),
             Visibility(
               visible: selected,

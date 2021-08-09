@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
+import 'package:jify_app/models/order_model.dart';
 
 class OrdersListItem extends StatelessWidget {
-  final String orderId;
-  final String price;
-  final int status;
-  final GestureTapCallback onClick;
+  final OrderModel orderModel;
+  final Function onClick;
 
-  const OrdersListItem(this.orderId, this.price, this.status, this.onClick);
+  const OrdersListItem(this.orderModel, this.onClick);
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +25,12 @@ class OrdersListItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    orderId,
+                    orderModel.orderNumber.toString(),
                     style: AppTextStyles.extraDarkCyan14Normal400,
                   ),
                   Text(
-                    status == 1 ? ' (In progress) ' : ' (Finished) ',
-                    style: status == 1
-                        ? AppTextStyles.blue12Normal400
-                        : AppTextStyles.green12Normal400,
+                    orderModel.status == "unknown" ? ' (In progress) ' : '',
+                    style: AppTextStyles.blue12Normal400,
                   )
                 ],
               ),
@@ -42,7 +39,9 @@ class OrdersListItem extends StatelessWidget {
                       text: ' \$ ',
                       style: AppTextStyles.green12Normal400,
                       children: [
-                    TextSpan(text: price, style: AppTextStyles.green14Normal400)
+                    TextSpan(
+                        text: orderModel.amount!.total.toString(),
+                        style: AppTextStyles.green14Normal400)
                   ]))
             ],
           ),
@@ -54,7 +53,7 @@ class OrdersListItem extends StatelessWidget {
             children: [
               SizedBox(width: 100, height: 32, child: fruitsGroup()),
               GestureDetector(
-                onTap: onClick,
+                onTap: () => onClick(orderModel),
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

@@ -17,7 +17,6 @@ class ApiClient {
           queryParameters: map);
       return Right(_response);
     } on DioError catch (e) {
-      print(e);
       if (_response != null) {
         if (_response.data is Map<String, dynamic>) {
           final _rawJson = _response.data as Map<String, dynamic>;
@@ -43,7 +42,7 @@ class ApiClient {
           ),
           data: map);
       return Right(_response);
-    } on DioError catch (_) {
+    } on DioError catch (e) {
       if (_response != null) {
         if (_response.data is Map<String, dynamic>) {
           final _rawJson = _response.data as Map<String, dynamic>;

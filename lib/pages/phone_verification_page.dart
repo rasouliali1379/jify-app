@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
@@ -39,6 +40,7 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
               animationType: AnimationType.fade,
               keyboardType: TextInputType.number,
               cursorColor: Colors.transparent,
+              onCompleted: controller.onPinCodeCompleteHandler,
               pinTheme: PinTheme(
                   borderRadius: BorderRadius.circular(5),
                   fieldHeight: 50,
@@ -52,11 +54,15 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
             ),
             SizedBox(
                 width: double.maxFinite,
-                child: Obx(() => controller.resendAvailable
-                    ? Center(
-                        child:
-                            ClickableText('Resend Code', controller.resendCode))
-                    : Row(
+                child: Obx(() {
+                  switch (controller.resendStatus) {
+                    case "resend":
+                      return Center(
+                          child: ClickableText(
+                              'Resend Code', controller.resendCode));
+
+                    case "countdown":
+                      return Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
@@ -68,13 +74,27 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
                             controller: controller.countdownController,
                             widgetBuilder: (context, time) => Text(
                               '${time!.min ?? 0}:'
-                              '${time.sec ?? 0}',
+                              '${(time.sec! < 10 ? '0${time.sec}' : time.sec) ?? 0}',
                               style: AppTextStyles.darkGrey13Normal300,
                             ),
                             onEnd: controller.onCountdownFinished,
                           )
                         ],
-                      )))
+                      );
+                    case "try_again":
+                      return Center(
+                          child: ClickableText(
+                              'Try Again', controller.resendCode));
+                    case "loading":
+                      return const Center(
+                          child: SpinKitThreeBounce(
+                        color: AppColors.blue,
+                        size: 15,
+                      ));
+                    default:
+                      return const SizedBox();
+                  }
+                }))
           ],
         ),
       ),

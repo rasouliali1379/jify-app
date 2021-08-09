@@ -8,29 +8,6 @@ import 'package:jify_app/widgets/custom_toolbar.dart';
 class AddressesPage extends GetView<AddressesPageController> {
   @override
   Widget build(BuildContext context) {
-    final addresses = [
-      AddressItem(
-          'North Terrace',
-          'SW3 2BA London',
-          controller.selectedAddress == 0,
-          () => controller.onAddressClickHandler(0),
-          controller.getIcon('home')),
-      AddressItem('North Terrace', 'SW3 2BA London',
-          controller.selectedAddress == 1,
-          () => controller.onAddressClickHandler(1), controller.getIcon('gym')),
-      AddressItem(
-          'North Terrace',
-          'SW3 2BA London',
-          controller.selectedAddress == 2,
-          () => controller.onAddressClickHandler(2),
-          controller.getIcon('office')),
-      AddressItem(
-          'North Terrace',
-          'SW3 2BA London',
-          controller.selectedAddress == 3,
-          () => controller.onAddressClickHandler(3),
-          controller.getIcon('custom')),
-    ];
     return Scaffold(
       appBar: CustomToolBar('My Addresses',
           action: const Text(
@@ -38,8 +15,12 @@ class AddressesPage extends GetView<AddressesPageController> {
             style: AppTextStyles.white16Normal400,
           )),
       body: ListView.builder(
-        itemCount: 4,
-        itemBuilder: (context, index) => addresses[index],
+        itemCount: controller.addressList.length,
+        itemBuilder: (context, index) => AddressItem(
+            controller.addressList[index],
+            controller.addressList[index].id == controller.selectedAddress,
+            controller.onAddressClickHandler,
+            controller.getIcon(controller.addressList[index].type!)),
       ),
     );
   }

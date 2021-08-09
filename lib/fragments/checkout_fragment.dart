@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
@@ -23,15 +24,6 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
   @override
   bool get wantKeepAlive => true;
 
-  final items = [
-    CheckoutOrdersListItem('Pomegranate', '48.00', 6,
-        'assets/images/pomegranate.png', () => {}, () => {}),
-    CheckoutOrdersListItem(
-        'Lemon', '48.00', 6, 'assets/images/lemons.png', () => {}, () => {}),
-    CheckoutOrdersListItem(
-        'Kiwi', '48.00', 6, 'assets/images/kiwi.png', () => {}, () => {})
-  ];
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -40,19 +32,36 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(
-                  vertical: Get.height * 0.032, horizontal: Get.width * 0.0453),
-              separatorBuilder: (context, index) => Container(
-                margin: EdgeInsets.symmetric(vertical: Get.height * 0.0184),
-                height: 1,
-                color: AppColors.grey,
-              ),
-              itemCount: items.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) => items[index],
-            ),
+            Obx(() => _controller.orders.isNotEmpty
+                ? ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(
+                        vertical: Get.height * 0.032,
+                        horizontal: Get.width * 0.0453),
+                    separatorBuilder: (context, index) => Container(
+                      margin:
+                          EdgeInsets.symmetric(vertical: Get.height * 0.0184),
+                      height: 1,
+                      color: AppColors.grey,
+                    ),
+                    itemCount: _controller.orders.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => CheckoutOrdersListItem(
+                        _controller.orders[index].qty!,
+                        _controller.findProduct(_controller.orders[index].id!)!,
+                        _controller.increaseAmount,
+                        _controller.decreaseAmount),
+                  )
+                : SizedBox(
+                    height: Get.height * 0.2,
+                    width: double.maxFinite,
+                    child: const Center(
+                      child: Text(
+                        'Nothing to show',
+                        style: AppTextStyles.lightGrey14Normal300,
+                      ),
+                    ),
+                  )),
             Container(
               decoration: const BoxDecoration(
                   color: AppColors.milky,
@@ -99,18 +108,24 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                                                 .withOpacity(0.2)),
                                     hintText: "Enter your promo code..."),
                                 controller: _controller.promoCodeController,
+                                focusNode: _controller.promoFocus,
                               )),
-                              CircleButton(
-                                const Icon(
-                                  Icons.add,
-                                  color: AppColors.white,
-                                  size: 15,
-                                ),
-                                AppColors.green,
-                                () => {},
-                                width: Get.width * 0.0533,
-                                height: Get.width * 0.0533,
-                              )
+                              Obx(() => _controller.promoLoadingStatus
+                                  ? const SpinKitThreeBounce(
+                                      color: AppColors.green,
+                                      size: 15,
+                                    )
+                                  : CircleButton(
+                                      const Icon(
+                                        Icons.add,
+                                        color: AppColors.white,
+                                        size: 15,
+                                      ),
+                                      AppColors.green,
+                                      _controller.checkPromoCode,
+                                      width: Get.width * 0.0533,
+                                      height: Get.width * 0.0533,
+                                    ))
                             ],
                           ),
                         ),
@@ -133,11 +148,12 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                               color: AppColors.white),
                           child: Row(
                             children: [
-                              const Expanded(
-                                  child: Text(
-                                'NY - Daniel ST , 147552',
-                                style: AppTextStyles.darkGrey13Normal300,
-                              )),
+                              Expanded(
+                                  child: Obx(() => Text(
+                                        _controller.selectedAddress.address!,
+                                        style:
+                                            AppTextStyles.darkGrey13Normal300,
+                                      ))),
                               ClickableText(
                                   'Edit', _controller.openDeliveryAddresses)
                             ],
@@ -215,21 +231,24 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Subtotal (3 items)',
-                              style: AppTextStyles.darkGrey14Normal300,
-                            ),
-                            RichText(
-                              text: const TextSpan(
-                                  text: '\$',
-                                  style: AppTextStyles.green13Normal400,
-                                  children: [
-                                    TextSpan(
-                                      text: '48.00',
-                                      style: AppTextStyles.green15Normal400,
-                                    )
-                                  ]),
-                            ),
+                            Obx(() => Text(
+                                  'Subtotal (${_controller.orders.length} items)',
+                                  style: AppTextStyles.darkGrey14Normal300,
+                                )),
+                            Obx(
+                              () => RichText(
+                                text: TextSpan(
+                                    text: '\$',
+                                    style: AppTextStyles.green13Normal400,
+                                    children: [
+                                      TextSpan(
+                                        text: _controller.subtotalPrice
+                                            .toStringAsFixed(2),
+                                        style: AppTextStyles.green15Normal400,
+                                      )
+                                    ]),
+                              ),
+                            )
                           ],
                         ),
                         SizedBox(
@@ -242,17 +261,18 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                               'Delivery',
                               style: AppTextStyles.darkGrey14Normal300,
                             ),
-                            RichText(
-                              text: const TextSpan(
-                                  text: '\$',
-                                  style: AppTextStyles.green13Normal400,
-                                  children: [
-                                    TextSpan(
-                                      text: '48.00',
-                                      style: AppTextStyles.green15Normal400,
-                                    )
-                                  ]),
-                            ),
+                            Obx(() => RichText(
+                                  text: TextSpan(
+                                      text: '\$',
+                                      style: AppTextStyles.green13Normal400,
+                                      children: [
+                                        TextSpan(
+                                          text: _controller.deliveryPrice
+                                              .toStringAsFixed(2),
+                                          style: AppTextStyles.green15Normal400,
+                                        )
+                                      ]),
+                                )),
                           ],
                         ),
                         SizedBox(
@@ -265,17 +285,18 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                               'Promo code',
                               style: AppTextStyles.darkGrey14Normal300,
                             ),
-                            RichText(
-                              text: const TextSpan(
-                                  text: '- \$',
-                                  style: AppTextStyles.red13Normal400,
-                                  children: [
-                                    TextSpan(
-                                      text: '48.00',
-                                      style: AppTextStyles.red15Normal400,
-                                    )
-                                  ]),
-                            ),
+                            Obx(() => RichText(
+                                  text: TextSpan(
+                                      text: '- \$',
+                                      style: AppTextStyles.red13Normal400,
+                                      children: [
+                                        TextSpan(
+                                          text: _controller.promoCodePrice
+                                              .toStringAsFixed(2),
+                                          style: AppTextStyles.red15Normal400,
+                                        )
+                                      ]),
+                                )),
                           ],
                         ),
                         SizedBox(
@@ -295,24 +316,35 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                               'Total',
                               style: AppTextStyles.darkGrey14Normal300,
                             ),
-                            RichText(
-                              text: const TextSpan(
-                                  text: '\$',
-                                  style: AppTextStyles.green13Normal400,
-                                  children: [
-                                    TextSpan(
-                                      text: '48.00',
-                                      style: AppTextStyles.green15Normal400,
-                                    )
-                                  ]),
-                            ),
+                            Obx(() => RichText(
+                                  text: TextSpan(
+                                      text: '\$',
+                                      style: AppTextStyles.green13Normal400,
+                                      children: [
+                                        TextSpan(
+                                          text: _controller.totalPrice
+                                              .toStringAsFixed(2),
+                                          style: AppTextStyles.green15Normal400,
+                                        )
+                                      ]),
+                                )),
                           ],
                         ),
                         SizedBox(
                           height: Get.height * 0.0381,
                         ),
-                        LongButton(_controller.openConfirmationPage, 'Checkout',
-                            double.maxFinite, Get.height * 0.064),
+                        Obx(() => LongButton(
+                              _controller.checkout,
+                              'Checkout',
+                              double.maxFinite,
+                              Get.height * 0.064,
+                              customText: _controller.loadingStatus
+                                  ? const SpinKitThreeBounce(
+                                      size: 15,
+                                      color: AppColors.white,
+                                    )
+                                  : null,
+                            )),
                       ],
                     ),
                   )

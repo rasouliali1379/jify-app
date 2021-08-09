@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/models/category_model.dart';
@@ -52,11 +53,13 @@ class CategoryFragmentController extends GetxController {
       globalController.basket.add(product);
     }
     update();
+    Get.find<CheckoutFragmentController>().populateOrders();
   }
 
   void removeFromBasket(String id) {
     productRepository.removeProductFromBasket(id);
     update();
+    Get.find<CheckoutFragmentController>().populateOrders();
   }
 
   void browseProduct(ProductModel product) {

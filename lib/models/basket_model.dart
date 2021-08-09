@@ -1,5 +1,7 @@
+import 'package:jify_app/models/checkout_order_model.dart';
+
 class BasketModel {
-  List<Products>? products;
+  List<CheckoutOrderModel>? products;
   Promotion? promotion;
   Address? address;
 
@@ -12,7 +14,7 @@ class BasketModel {
     if (json['products'] != null) {
       products = [];
       json['products'].forEach((v) {
-        products?.add(Products.fromJson(v));
+        products?.add(CheckoutOrderModel.fromJson(v));
       });
     }
     promotion = json['promotion'] != null ? Promotion.fromJson(json['promotion']) : null;

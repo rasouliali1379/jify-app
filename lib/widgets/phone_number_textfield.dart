@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
@@ -50,8 +51,8 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField>
               borderRadius: BorderRadius.circular(11)),
           child: Row(
             children: [
-              Image.asset(
-                'assets/images/germany.png',
+              SvgPicture.asset(
+                'assets/icons/australia.svg',
                 width: 18,
                 height: 18,
               ),
@@ -59,7 +60,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField>
                 width: Get.width * 0.0266,
               ),
               const Text(
-                '+14',
+                '+61',
                 style: AppTextStyles.darkGrey13Normal300,
               ),
               SizedBox(

@@ -21,18 +21,18 @@ class UserRepository {
     }
   }
 
-  Future<Either<String, String>> validateCode(
+  Future<Either<String, Map<String, dynamic>>> validateCode(
       String phoneNumber, String code) async {
     final result = await _apiRequests
         .validateCode({"mobileNumber": phoneNumber, "code": code});
     String error = "";
-    String token = "";
+    Map<String, dynamic>? loginData;
 
-    result.fold(
-        (l) => error = l, (r) => token = r.data["data"]["token"] as String);
+    result.fold((l) => error = l,
+        (r) => loginData = r.data["data"] as Map<String, dynamic>);
 
-    if (token.isNotEmpty) {
-      return Right(token);
+    if (loginData != null) {
+      return Right(loginData!);
     } else {
       return Left(error);
     }
@@ -46,7 +46,7 @@ class UserRepository {
     result.fold(
         (l) => error = l,
         (r) => userModel =
-            UserModel.fromJson(r.data["data"] as Map<String, dynamic>));
+            UserModel.fromJson(r.data["data"]["user"] as Map<String, dynamic>));
 
     if (userModel != null) {
       return Right(userModel!);
@@ -54,5 +54,4 @@ class UserRepository {
       return Left(error);
     }
   }
-
 }

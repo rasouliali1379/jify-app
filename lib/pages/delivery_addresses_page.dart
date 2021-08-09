@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -25,11 +26,13 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
               child: Stack(
                 children: [
                   GoogleMap(
-                    initialCameraPosition: controller.kGooglePlex,
-                    mapType: MapType.hybrid,
-                    onMapCreated: (GoogleMapController controller) {
-                      this.controller.mapController.complete(controller);
-                    },
+                    initialCameraPosition: controller.cameraPosition,
+                    rotateGesturesEnabled: false,
+                    zoomGesturesEnabled: false,
+                    zoomControlsEnabled: false,
+                    tiltGesturesEnabled: false,
+                    scrollGesturesEnabled: false,
+                    onMapCreated: controller.onMapCreated,
                   ),
                   Align(
                     child: SvgPicture.asset(
@@ -99,29 +102,36 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                   SizedBox(
                     height: Get.height * 0.00985,
                   ),
-                  Container(
-                    width: double.maxFinite,
-                    height: Get.height * 0.0591,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(11),
-                    ),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset('assets/icons/location_tall.svg'),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const Expanded(
-                          child: Text(
-                            'Search for location',
-                            style: AppTextStyles.lightGrey14Normal300,
+                  Obx(() => GestureDetector(
+                        onTap: controller.openSearchAddress,
+                        child: Container(
+                          width: double.maxFinite,
+                          height: Get.height * 0.0591,
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(11),
                           ),
-                        )
-                      ],
-                    ),
-                  ),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                  'assets/icons/location_tall.svg'),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  controller.selectedAddress.name ??
+                                      'Search for location',
+                                  style: controller.selectedAddress.name == null
+                                      ? AppTextStyles.lightGrey14Normal300
+                                      : AppTextStyles.darkGrey14Normal300,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
                   SizedBox(
                     height: Get.height * 0.0233,
                   ),
@@ -251,12 +261,18 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                   SizedBox(
                     height: Get.height * 0.0357,
                   ),
-                  LongButton(
-                    () => {},
-                    'Save',
-                    double.maxFinite,
-                    Get.height * 0.064,
-                  ),
+                  Obx(() => LongButton(
+                        controller.addAddress,
+                        'Save',
+                        double.maxFinite,
+                        Get.height * 0.064,
+                        customText: controller.loadingStatus
+                            ? const SpinKitThreeBounce(
+                                color: AppColors.white,
+                                size: 15,
+                              )
+                            : null,
+                      )),
                   SizedBox(
                     height: Get.height * 0.0418,
                   ),

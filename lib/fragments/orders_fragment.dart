@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
-import 'package:jify_app/controllers/orders_page_controller.dart';
+import 'package:jify_app/controllers/order_info_controller.dart';
+import 'package:jify_app/controllers/orders_fragment_controller.dart';
 import 'package:jify_app/widgets/custom_toolbar.dart';
 import 'package:jify_app/widgets/live_orders_list.dart';
-import 'package:jify_app/widgets/orders_list_item.dart';
-import 'package:jify_app/widgets/previous_orders_list_item.dart';
 
 class OrdersFragment extends StatefulWidget {
   @override
@@ -22,31 +21,42 @@ class _OrdersFragmentState extends State<OrdersFragment>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final list = [
-      OrdersListItem(
-          'order_num1545', '950.00', 1, _controller.openOrderDetailsPage),
-      OrdersListItem(
-          'order_num1545', '950.00', 2, _controller.openOrderDetailsPage)
-    ];
-
-    final previousList = [
-      PreviousOrdersListItem(
-          'order_num1545', '950.00', _controller.openOrderDetailsPage),
-      PreviousOrdersListItem(
-          'order_num1545', '950.00', _controller.openOrderDetailsPage)
-    ];
 
     return Scaffold(
       backgroundColor: AppColors.milky,
-      appBar: CustomToolBar('My Orders', backButtonVisibility: false,),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
-          child: Column(
-            children: [
-              OrdersList('Live orders', list),
-              OrdersList('Previous orders', previousList),
-            ],
+      appBar: CustomToolBar(
+        'My Orders',
+        backButtonVisibility: false,
+      ),
+      body: SizedBox(
+        child: RefreshIndicator(
+          onRefresh: _controller.onRefresh,
+          key: _controller.refreshKey,
+          child: SizedBox(
+            height: Get.height,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
+                child: ListView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: [
+                    GetBuilder<OrdersFragmentController>(builder: (controller) {
+                      return OrdersList('Live orders', controller.ordersList,
+                          controller.openOrderDetailsPage);
+                    }),
+                    GetBuilder<OrdersFragmentController>(builder: (controller) {
+                      return OrdersList(
+                          'Previous orders',
+                          controller.previousOrdersList,
+                          controller.openOrderDetailsPage);
+                    }),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),

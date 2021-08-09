@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:jify_app/network/api_client.dart';
+import 'package:jify_app/network/api_client_map.dart';
 
 class ApiRequests {
   final _apiClient = ApiClient();
+  final _apiClientMap = ApiClientMap();
 
   Future<Either<String, Response>> init() async {
     return _apiClient.get('/init', {});
@@ -35,7 +37,7 @@ class ApiRequests {
   }
 
   Future<Either<String, Response>> updateUser(Map<String, dynamic> map) async {
-    return _apiClient.post('/user/update', map);
+    return _apiClient.put('/user/update', map);
   }
 
   Future<Either<String, Response>> forgotPassword(
@@ -94,5 +96,20 @@ class ApiRequests {
 
   Future<Either<String, Response>> getOrders() async {
     return _apiClient.get('/checkout/orders', {});
+  }
+
+  Future<Either<String, Response>> predictPlaces(String input) async {
+    return _apiClientMap.get('/autocomplete/json', {
+      "input": input,
+      "sessiontoken": "1234567890",
+      "components": "country:AU"
+    });
+  }
+
+  Future<Either<String, Response>> getLatLong(String id) async {
+    return _apiClientMap.get('/details/json', {
+      "place_id": id,
+      "fields": "name,geometry,formatted_address",
+    });
   }
 }

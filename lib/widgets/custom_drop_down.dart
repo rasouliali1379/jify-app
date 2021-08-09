@@ -25,9 +25,12 @@ class CustomDropDown extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              label,
-              style: AppTextStyles.darkGrey13Normal300,
+            Flexible(
+              child: Text(
+                label,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyles.darkGrey13Normal300,
+              ),
             ),
             const Icon(
               Icons.keyboard_arrow_down_rounded,

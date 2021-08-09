@@ -52,7 +52,7 @@ class SignInPageController extends GetxController {
     loadingStatus = false;
 
     if (codeSent) {
-      Get.toNamed(Routes.phoneVerification,
+      Get.offNamed(Routes.phoneVerification,
           parameters: {"phone_number": mobileTextController.text});
     }
   }

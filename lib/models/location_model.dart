@@ -1,11 +1,12 @@
 class LocationModel {
-  List<double>? coordinates;
+  List<dynamic>? coordinates;
 
   LocationModel({this.coordinates});
 
   LocationModel.fromJson(dynamic json) {
-    coordinates =
-        json['coordinates'] != null ? json['coordinates'] as List<double> : [];
+    coordinates = json['coordinates'] != null
+        ? json['coordinates'] as List<dynamic>
+        : [];
   }
 
   Map<String, dynamic> toJson() {

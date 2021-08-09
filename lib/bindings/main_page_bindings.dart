@@ -4,7 +4,7 @@ import 'package:jify_app/controllers/category_fragment_controller.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
-import 'package:jify_app/controllers/orders_page_controller.dart';
+import 'package:jify_app/controllers/orders_fragment_controller.dart';
 
 class MainPageBinding implements Bindings {
   @override

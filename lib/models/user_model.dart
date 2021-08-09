@@ -1,5 +1,3 @@
-import 'package:jify_app/navigation/pages.dart';
-
 import 'address_model.dart';
 
 class UserModel {
@@ -26,18 +24,18 @@ class UserModel {
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['_id'] as String;
-    firstname = json['firstname'] as String;
-    lastname = json['lastname'] as String;
+    firstname = json['firstname'] != null ? json['firstname'] as String : null;
+    lastname = json['lastname'] != null ? json['lastname'] as String : null;
     mobileNumber = json['mobileNumber'] as String;
-    email = json['email'] as String;
+    email = json['email'] != null ? json['email'] as String : null;
     date = json['date'] as String;
+    addresses = [];
     if (json['addresses'] != null) {
-      addresses = [];
       json['addresses'].forEach((v) {
         addresses?.add(AddressModel.fromJson(v as Map<String, dynamic>));
       });
     }
-    fcmToken = json['fcmToken'] as String;
+    fcmToken = json['fcmToken'] != null ? json['fcmToken'] as String : null;
     if (json.containsKey("status")) {
       status = json['status'] as String;
     }

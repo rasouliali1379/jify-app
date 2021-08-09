@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
@@ -7,7 +8,7 @@ import 'package:jify_app/widgets/circle_button.dart';
 import 'package:jify_app/widgets/custom_drop_down.dart';
 import 'package:jify_app/widgets/custom_toolbar.dart';
 import 'package:jify_app/widgets/long_button.dart';
-import 'package:jify_app/widgets/phone_number_textfield.dart';
+import 'package:jify_app/widgets/phone_number_text.dart';
 import 'package:jify_app/widgets/titled_textfield.dart';
 
 class AccountInformationPage extends GetView<AccountInformationPageController> {
@@ -42,12 +43,7 @@ class AccountInformationPage extends GetView<AccountInformationPageController> {
               SizedBox(
                 height: Get.height * 0.0221,
               ),
-              TitledTextField(
-                'Mobile number',
-                controller.mobileTextController,
-                customTextField:
-                    PhoneNumberTextField(controller.mobileTextController),
-              ),
+              Obx(() => PhoneNumberText(controller.phoneNumber)),
               SizedBox(
                 height: Get.height * 0.032,
               ),
@@ -71,47 +67,54 @@ class AccountInformationPage extends GetView<AccountInformationPageController> {
               SizedBox(
                 height: Get.height * 0.0258,
               ),
-              CustomDropDown('NY - Daniel ST , 147552',
-                  controller.openAddressesPage),
-              SizedBox(
-                height: Get.height * 0.032,
-              ),
-              const Text(
-                'Change password',
-                style: AppTextStyles.extraDarkCyan16Normal500,
-              ),
-              SizedBox(
-                height: Get.height * 0.0258,
-              ),
-              TitledTextField(
-                'Old Password',
-                controller.oldPassTextController,
-                inputType: TextInputType.visiblePassword,
-                obscureText: true,
-              ),
-              SizedBox(
-                height: Get.height * 0.0258,
-              ),
-              TitledTextField(
-                'New Password',
-                controller.newPassTextController,
-                inputType: TextInputType.visiblePassword,
-                obscureText: true,
-              ),
-              SizedBox(
-                height: Get.height * 0.0258,
-              ),
-              TitledTextField(
-                'Confirm Password',
-                controller.confirmPassTextController,
-                inputType: TextInputType.visiblePassword,
-                obscureText: true,
-              ),
+              Obx(() => CustomDropDown(
+                  controller.selectedAddress, controller.openAddressesPage)),
+              // SizedBox(
+              //   height: Get.height * 0.032,
+              // ),
+              // const Text(
+              //   'Change password',
+              //   style: AppTextStyles.extraDarkCyan16Normal500,
+              // ),
+              // SizedBox(
+              //   height: Get.height * 0.0258,
+              // ),
+              // TitledTextField(
+              //   'Old Password',
+              //   controller.oldPassTextController,
+              //   inputType: TextInputType.visiblePassword,
+              //   obscureText: true,
+              // ),
+              // SizedBox(
+              //   height: Get.height * 0.0258,
+              // ),
+              // TitledTextField(
+              //   'New Password',
+              //   controller.newPassTextController,
+              //   inputType: TextInputType.visiblePassword,
+              //   obscureText: true,
+              // ),
+              // SizedBox(
+              //   height: Get.height * 0.0258,
+              // ),
+              // TitledTextField(
+              //   'Confirm Password',
+              //   controller.confirmPassTextController,
+              //   inputType: TextInputType.visiblePassword,
+              //   obscureText: true,
+              // ),
               SizedBox(
                 height: Get.height * 0.0418,
               ),
-              LongButton(
-                  () => {}, 'Save', double.maxFinite, Get.height * 0.064),
+
+              Obx(() => LongButton(controller.updateUserData, 'Save',
+                  double.maxFinite, Get.height * 0.064,
+                  customText: controller.loadingStatus
+                      ? SpinKitThreeBounce(
+                          color: AppColors.white,
+                          size: Get.width * 0.0453,
+                        )
+                      : null)),
               SizedBox(
                 height: Get.height * 0.0369,
               ),

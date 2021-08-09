@@ -8,10 +8,11 @@ import 'package:jify_app/controllers/delivery_addresses_controller.dart';
 import 'package:jify_app/controllers/help_center_page_controller.dart';
 import 'package:jify_app/controllers/intro_page_controller.dart';
 import 'package:jify_app/controllers/order_info_controller.dart';
-import 'package:jify_app/controllers/orders_page_controller.dart';
+import 'package:jify_app/controllers/orders_fragment_controller.dart';
 import 'package:jify_app/controllers/phone_verification_page_controller.dart';
 import 'package:jify_app/controllers/product_page_controller.dart';
 import 'package:jify_app/controllers/schedule_page_controller.dart';
+import 'package:jify_app/controllers/search_address_page_controller.dart';
 import 'package:jify_app/controllers/sign_in_page_controller.dart';
 import 'package:jify_app/controllers/sign_up_page_controller.dart';
 import 'package:jify_app/controllers/splash_page_controller.dart';
@@ -28,6 +29,7 @@ import 'package:jify_app/fragments/orders_fragment.dart';
 import 'package:jify_app/pages/phone_verification_page.dart';
 import 'package:jify_app/pages/product_page.dart';
 import 'package:jify_app/pages/schedule_page.dart';
+import 'package:jify_app/pages/search_address_page.dart';
 import 'package:jify_app/pages/sign_in_page.dart';
 import 'package:jify_app/pages/sign_up_page.dart';
 import 'package:jify_app/pages/splash_page.dart';
@@ -98,5 +100,10 @@ class Pages {
         name: Routes.helpCenter,
         page: () => HelpCenterPage(),
         binding: BindingsBuilder(() => {Get.put(HelpCenterPageController())})),
+    GetPage(
+        name: Routes.searchAddress,
+        page: () => SearchAddressPage(),
+        binding:
+            BindingsBuilder(() => {Get.put(SearchAddressPageController())})),
   ];
 }

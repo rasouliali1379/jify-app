@@ -1,5 +1,6 @@
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
@@ -7,7 +8,7 @@ import 'package:jify_app/controllers/sign_up_page_controller.dart';
 import 'package:jify_app/widgets/clickable_text.dart';
 import 'package:jify_app/widgets/custom_toolbar.dart';
 import 'package:jify_app/widgets/long_button.dart';
-import 'package:jify_app/widgets/phone_number_textfield.dart';
+import 'package:jify_app/widgets/phone_number_text.dart';
 import 'package:jify_app/widgets/titled_textfield.dart';
 
 class SignUpPage extends GetView<SignUpPageController> {
@@ -38,43 +39,53 @@ class SignUpPage extends GetView<SignUpPageController> {
                     SizedBox(
                       height: Get.height * 0.0344,
                     ),
-                    TitledTextField(
-                        'First Name', controller.nameTextController),
+                    Obx(() => TitledTextField(
+                          'First Name',
+                          controller.nameTextController,
+                          errorText: controller.nameError.isNotEmpty
+                              ? controller.nameError
+                              : null,
+                        )),
                     SizedBox(
                       height: Get.height * 0.0221,
                     ),
-                    TitledTextField(
-                        'Last Name', controller.lastNameTextController),
+                    Obx(() => TitledTextField(
+                          'Last Name',
+                          controller.lastNameTextController,
+                          errorText: controller.lastNameError.isNotEmpty
+                              ? controller.lastNameError
+                              : null,
+                        )),
                     SizedBox(
                       height: Get.height * 0.0221,
                     ),
-                    TitledTextField(
-                      'First Name',
-                      controller.emailTextController,
-                      inputType: TextInputType.emailAddress,
-                    ),
+                    Obx(() => TitledTextField(
+                          'Email address',
+                          controller.emailTextController,
+                          errorText: controller.emailError.isNotEmpty
+                              ? controller.emailError
+                              : null,
+                          inputType: TextInputType.emailAddress,
+                        )),
                     SizedBox(
                       height: Get.height * 0.0221,
                     ),
-                    TitledTextField(
-                      'Mobile number',
-                      controller.mobileTextController,
-                      customTextField:
-                          PhoneNumberTextField(controller.mobileTextController),
-                    ),
+                    Obx(() => PhoneNumberText(
+                          controller.phoneNumber,
+                        )),
                     SizedBox(
                       height: Get.height * 0.0221,
                     ),
-                    TitledTextField(
-                      'Password',
-                      controller.passTextController,
-                      obscureText: true,
-                    ),
-                    SizedBox(
-                      height: Get.height * 0.0221,
-                    ),
-                    TitledTextField(
-                        'Confirm password', controller.nameTextController),
+                    // TitledTextField(
+                    //   'Password',
+                    //   controller.passTextController,
+                    //   obscureText: true,
+                    // ),
+                    // SizedBox(
+                    //   height: Get.height * 0.0221,
+                    // ),
+                    // TitledTextField(
+                    //     'Confirm password', controller.nameTextController),
                   ],
                 ),
               ),
@@ -145,19 +156,26 @@ class SignUpPage extends GetView<SignUpPageController> {
                 height: Get.height * 0.035,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
-                child: LongButton(controller.registerButtonClickHandler,
-                    'Register', double.infinity, Get.height * 0.064),
-              ),
+                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
+                  child: Obx(() => LongButton(
+                      controller.registerButtonClickHandler,
+                      'Register',
+                      double.infinity,
+                      Get.height * 0.064,
+                      customText: controller.loadingStatus
+                          ? SpinKitThreeBounce(
+                              color: AppColors.white,
+                              size: Get.width * 0.0453,
+                            )
+                          : null))),
               SizedBox(
                 height: Get.height * 0.0332,
               ),
-              Center(
-                  child: ClickableText(
-                      'Already have an account?', controller.closePage)),
-              SizedBox(
-                height: Get.height * 0.0332,
-              ),
+              // Center(
+              //     child: ClickableText(
+              //         'Already have an account?', controller.closePage)),
+              // SizedBox(
+              //   height: Get.height * 0.0332,)
             ],
           ),
         ),

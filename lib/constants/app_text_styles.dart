@@ -47,6 +47,8 @@ class AppTextStyles {
       fontWeight: FontWeight.w300);
 
   // Grey Normal
+  static const grey14Normal300 = TextStyle(
+      fontSize: 14, color: AppTextColors.grey, fontWeight: FontWeight.w300);
   static const grey14Normal400 = TextStyle(
       fontSize: 14, color: AppTextColors.grey, fontWeight: FontWeight.w400);
 

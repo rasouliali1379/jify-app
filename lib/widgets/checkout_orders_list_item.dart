@@ -1,19 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
+import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/widgets/circle_button.dart';
 
 class CheckoutOrdersListItem extends StatelessWidget {
-  final String name;
-  final String price;
   final int amount;
-  final String image;
-  final GestureTapCallback increaseHandler;
-  final GestureTapCallback decreaseHandler;
+  final ProductModel product;
+  final Function increaseHandler;
+  final Function decreaseHandler;
 
-  const CheckoutOrdersListItem(this.name, this.price, this.amount, this.image,
-      this.increaseHandler, this.decreaseHandler);
+  const CheckoutOrdersListItem(
+      this.amount, this.product, this.increaseHandler, this.decreaseHandler);
 
   @override
   Widget build(BuildContext context) {
@@ -31,58 +31,77 @@ class CheckoutOrdersListItem extends StatelessWidget {
                     border: Border.all(color: AppColors.grey)),
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: Image.asset(
-                    image,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: CachedNetworkImage(
+                      imageUrl: product.image!,
+                    ),
                   ),
                 ),
               ),
               SizedBox(
                 width: Get.width * 0.0373,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '$name - ${amount.toString()}kg',
-                    style: AppTextStyles.extraDarkCyan15Normal400,
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.016,
-                  ),
-                  Row(
-                    children: [
-                      CircleButton(
-                        const Icon(
-                          Icons.remove,
-                          color: AppColors.white,
-                          size: 18,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            product.title!,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyles.extraDarkCyan15Normal400,
+                          ),
                         ),
-                        AppColors.darkGrey,
-                        decreaseHandler,
-                        width: Get.width * 0.0533,
-                        height: Get.width * 0.0533,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          amount.toString(),
-                          style: AppTextStyles.darkGrey17Normal300,
+                        Expanded(
+                          child: Text(
+                            ' - ${amount.toString()}kg',
+                            style: AppTextStyles.extraDarkCyan15Normal400,
+                          ),
                         ),
-                      ),
-                      CircleButton(
-                        const Icon(
-                          Icons.add,
-                          color: AppColors.white,
-                          size: 18,
+                      ],
+                    ),
+                    SizedBox(
+                      height: Get.height * 0.016,
+                    ),
+                    Row(
+                      children: [
+                        CircleButton(
+                          const Icon(
+                            Icons.remove,
+                            color: AppColors.white,
+                            size: 18,
+                          ),
+                          AppColors.darkGrey,
+                          () => decreaseHandler(product.id),
+                          width: Get.width * 0.0533,
+                          height: Get.width * 0.0533,
                         ),
-                        AppColors.darkGrey,
-                        increaseHandler,
-                        width: Get.width * 0.0533,
-                        height: Get.width * 0.0533,
-                      ),
-                    ],
-                  ),
-                ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            amount.toString(),
+                            style: AppTextStyles.darkGrey17Normal300,
+                          ),
+                        ),
+                        CircleButton(
+                          const Icon(
+                            Icons.add,
+                            color: AppColors.white,
+                            size: 18,
+                          ),
+                          AppColors.darkGrey,
+                          () => increaseHandler(product),
+                          width: Get.width * 0.0533,
+                          height: Get.width * 0.0533,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -93,7 +112,7 @@ class CheckoutOrdersListItem extends StatelessWidget {
               style: AppTextStyles.green13Normal400,
               children: [
                 TextSpan(
-                  text: price,
+                  text: product.price.toString(),
                   style: AppTextStyles.green15Normal400,
                 )
               ]),
