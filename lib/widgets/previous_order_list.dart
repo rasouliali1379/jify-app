@@ -3,13 +3,16 @@ import 'package:get/get.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/models/order_model.dart';
 import 'package:jify_app/widgets/orders_list_item.dart';
+import 'package:jify_app/widgets/previous_orders_list_item.dart';
 
-class LiveOrdersList extends StatelessWidget {
+class PreviousOrdersList extends StatelessWidget {
   final String title;
   final List<OrderModel> items;
   final Function openOrder;
+  final Function reorder;
 
-  const LiveOrdersList(this.title, this.items, this.openOrder);
+  const PreviousOrdersList(
+      this.title, this.items, this.openOrder, this.reorder);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,7 @@ class LiveOrdersList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: items.length,
             itemBuilder: (context, index) =>
-                OrdersListItem(items[index], openOrder),
+                PreviousOrdersListItem(items[index], openOrder, reorder),
           )
       ],
     );

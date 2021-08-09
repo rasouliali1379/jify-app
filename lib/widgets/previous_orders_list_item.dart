@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
+import 'package:jify_app/models/order_model.dart';
 
 class PreviousOrdersListItem extends StatelessWidget {
-  final String orderId;
-  final String price;
-  final GestureTapCallback onClick;
+  final OrderModel orderModel;
+  final Function openOrder;
+  final Function reorder;
 
-  const PreviousOrdersListItem(this.orderId, this.price, this.onClick);
+  const PreviousOrdersListItem(this.orderModel, this.openOrder, this.reorder);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class PreviousOrdersListItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                orderId,
+                orderModel.orderNumber!.toString(),
                 style: AppTextStyles.extraDarkCyan14Normal400,
               ),
               RichText(
@@ -31,7 +32,9 @@ class PreviousOrdersListItem extends StatelessWidget {
                       text: ' \$ ',
                       style: AppTextStyles.green12Normal400,
                       children: [
-                    TextSpan(text: price, style: AppTextStyles.green14Normal400)
+                    TextSpan(
+                        text: orderModel.amount!.total!.toString(),
+                        style: AppTextStyles.green14Normal400)
                   ]))
             ],
           ),
@@ -45,7 +48,7 @@ class PreviousOrdersListItem extends StatelessWidget {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: onClick,
+                    onTap: () => openOrder(orderModel),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 8),
@@ -61,15 +64,18 @@ class PreviousOrdersListItem extends StatelessWidget {
                   const SizedBox(
                     width: 6,
                   ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                        color: AppColors.blue,
-                        borderRadius: BorderRadius.circular(14)),
-                    child: const Text(
-                      'Re-order',
-                      style: AppTextStyles.white13Normal400,
+                  GestureDetector(
+                    onTap: () => reorder(orderModel),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
+                          color: AppColors.blue,
+                          borderRadius: BorderRadius.circular(14)),
+                      child: const Text(
+                        'Re-order',
+                        style: AppTextStyles.white13Normal400,
+                      ),
                     ),
                   ),
                 ],

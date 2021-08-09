@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
+import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final GestureTapCallback backClickHandler;
+  final Function searchChangeHandler;
+  final TextEditingController textController;
 
   @override
   final Size preferredSize;
 
-  CustomAppBar(this.backClickHandler)
+  CustomAppBar(this.backClickHandler, this.searchChangeHandler, this.textController)
       : preferredSize = const Size.fromHeight(kToolbarHeight);
 
   @override
@@ -36,9 +40,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                             child: InkWell(
                               onTap: backClickHandler,
                               customBorder: const CircleBorder(),
-                              child: Padding(
-                                padding: const EdgeInsets.all(14.0),
-                                child: const Icon(
+                              child: const Padding(
+                                padding: EdgeInsets.all(14.0),
+                                child: Icon(
                                   Icons.arrow_back_ios_rounded,
                                   color: Colors.white,
                                   size: 20,
@@ -88,13 +92,22 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                                     .copyWith(
                                         color: AppTextColors.grayishBlack
                                             .withOpacity(0.3))),
+                            onChanged: (value) => searchChangeHandler(value),
                             style: AppTextStyles.extraDarkCyan16Normal500,
                             cursorColor: AppColors.blue,
                             cursorHeight: 18,
                             cursorWidth: 1.2,
                           ),
                         ),
-                        SvgPicture.asset('assets/icons/search.svg')
+                        GetX<HomeFragmentController>(builder: (controller) {
+                          return controller.searchLoading
+                              ? const SpinKitRing(
+                                  color: AppColors.blue,
+                                  size: 20,
+                                  lineWidth: 2,
+                                )
+                              : SvgPicture.asset('assets/icons/search.svg');
+                        })
                       ],
                     ),
                   )),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -10,8 +11,6 @@ import 'package:jify_app/widgets/long_button.dart';
 import 'package:jify_app/widgets/titled_textfield.dart';
 
 class ConfirmationPage extends GetView<ConfirmationPageController> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +25,13 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
               child: Stack(
                 children: [
                   GoogleMap(
-                    initialCameraPosition: controller.kGooglePlex,
-                    mapType: MapType.hybrid,
-                    onMapCreated: (GoogleMapController controller) {
-                      this.controller.mapController.complete(controller);
-                    },
+                    initialCameraPosition: controller.cameraPosition,
+                    rotateGesturesEnabled: false,
+                    zoomGesturesEnabled: false,
+                    zoomControlsEnabled: false,
+                    tiltGesturesEnabled: false,
+                    scrollGesturesEnabled: false,
+                    onMapCreated: controller.onMapCreated,
                   ),
                   Align(
                     child: SvgPicture.asset(
@@ -65,22 +66,32 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                           'Address',
                           style: AppTextStyles.darkGrey14Normal400,
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              '6 Rolland way',
-                              style: AppTextStyles.extraDarkCyan14Normal400
-                                  .copyWith(color: AppTextColors.darkCyan),
-                            ),
-                            SizedBox(
-                              width: Get.width * 0.0373,
-                            ),
-                            const Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              color: AppColors.darkGrey,
-                              size: 15,
-                            )
-                          ],
+                        const Expanded(child: SizedBox()),
+                        Expanded(
+                          flex: 2,
+                          child: Row(
+                            children: [
+                              Obx(() => Flexible(
+                                    child: Text(
+                                      controller.checkoutData.checkout!.address!
+                                          .address!,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppTextStyles
+                                          .extraDarkCyan14Normal400
+                                          .copyWith(
+                                              color: AppTextColors.darkCyan),
+                                    ),
+                                  )),
+                              SizedBox(
+                                width: Get.width * 0.0373,
+                              ),
+                              const Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: AppColors.darkGrey,
+                                size: 15,
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -103,7 +114,7 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                         Row(
                           children: [
                             Text(
-                              '+44418805644',
+                              '+61${controller.globalController.initialDataModel.user!.mobileNumber!}',
                               style: AppTextStyles.extraDarkCyan14Normal400
                                   .copyWith(color: AppTextColors.darkCyan),
                             ),
@@ -149,55 +160,92 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                   Row(
                     children: [
                       Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.032),
-                          height: Get.height * 0.0837,
-                          decoration: BoxDecoration(
-                              color: AppColors.blue.withOpacity(0.12),
-                              border: Border.all(color: AppColors.blue),
-                              borderRadius: BorderRadius.circular(9)),
-                          child: Row(
-                            children: [
-                              Container(
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.blue),
-                                width: 22,
-                                height: 22,
-                                child: Container(
-                                  margin: const EdgeInsets.all(1.5),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: AppColors.blue,
-                                      border: Border.all(
-                                          color: const Color.fromRGBO(
-                                              231, 238, 252, 1.0),
-                                          width: 3)),
+                        child: GestureDetector(
+                          onTap: controller.onStandardScheduleClickHandler,
+                          child: Obx(() => Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.032),
+                                height: Get.height * 0.0837,
+                                decoration: controller
+                                        .selectedSchedule.isNotEmpty
+                                    ? BoxDecoration(
+                                        color: AppColors.white,
+                                        border:
+                                            Border.all(color: AppColors.grey),
+                                        borderRadius: BorderRadius.circular(9))
+                                    : BoxDecoration(
+                                        color: AppColors.blue.withOpacity(0.12),
+                                        border:
+                                            Border.all(color: AppColors.blue),
+                                        borderRadius: BorderRadius.circular(9)),
+                                child: Row(
+                                  children: [
+                                    if (controller.selectedSchedule.isNotEmpty)
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: AppColors.white,
+                                            border: Border.all(
+                                                color: AppColors.grey,
+                                                width: 1.2)),
+                                        width: 22,
+                                        height: 22,
+                                      )
+                                    else
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: AppColors.blue),
+                                        width: 22,
+                                        height: 22,
+                                        child: Container(
+                                          margin: const EdgeInsets.all(1.5),
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: AppColors.blue,
+                                              border: Border.all(
+                                                  color: const Color.fromRGBO(
+                                                      231, 238, 252, 1.0),
+                                                  width: 3)),
+                                        ),
+                                      ),
+                                    SizedBox(
+                                      width: Get.width * 0.0266,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Standard',
+                                          style: controller
+                                                  .selectedSchedule.isNotEmpty
+                                              ? AppTextStyles
+                                                  .darkCyan14Normal500
+                                                  .copyWith(
+                                                      color: AppColors.darkCyan)
+                                              : AppTextStyles.blue14Normal500,
+                                        ),
+                                        SizedBox(
+                                          height: Get.height * 0.0086,
+                                        ),
+                                        Text(
+                                          'Available',
+                                          style: controller
+                                                  .selectedSchedule.isNotEmpty
+                                              ? AppTextStyles
+                                                  .lightGrey14Normal300
+                                                  .copyWith(fontSize: 11)
+                                              : AppTextStyles.blue14Normal300
+                                                  .copyWith(fontSize: 11),
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
-                              ),
-                              SizedBox(
-                                width: Get.width * 0.0266,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Standard',
-                                    style: AppTextStyles.blue14Normal500,
-                                  ),
-                                  SizedBox(
-                                    height: Get.height * 0.0086,
-                                  ),
-                                  const Text(
-                                    'Available',
-                                    style: AppTextStyles.blue12Normal300,
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                              )),
                         ),
                       ),
                       SizedBox(
@@ -205,52 +253,99 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                       ),
                       Expanded(
                         child: GestureDetector(
-                          onTap: controller.openSchedule,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Get.width * 0.032),
-                            height: Get.height * 0.0837,
-                            decoration: BoxDecoration(
-                                color: AppColors.white,
-                                border: Border.all(color: AppColors.grey),
-                                borderRadius: BorderRadius.circular(9)),
-                            child: Row(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: AppColors.white,
-                                      border: Border.all(
-                                          color: AppColors.grey, width: 1.2)),
-                                  width: 22,
-                                  height: 22,
-                                ),
-                                SizedBox(
-                                  width: Get.width * 0.0266,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Schedule',
-                                      style: AppTextStyles.blue14Normal500
-                                          .copyWith(color: AppColors.darkCyan),
-                                    ),
-                                    SizedBox(
-                                      height: Get.height * 0.0086,
-                                    ),
-                                    Text(
-                                      '5pm - 2am | SAT',
-                                      style: AppTextStyles.lightGrey14Normal300
-                                          .copyWith(fontSize: 11),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                            onTap: controller.openSchedule,
+                            child: Obx(() => Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: Get.width * 0.032),
+                                  height: Get.height * 0.0837,
+                                  decoration: controller
+                                          .selectedSchedule.isNotEmpty
+                                      ? BoxDecoration(
+                                          color:
+                                              AppColors.blue.withOpacity(0.12),
+                                          border:
+                                              Border.all(color: AppColors.blue),
+                                          borderRadius:
+                                              BorderRadius.circular(9))
+                                      : BoxDecoration(
+                                          color: AppColors.white,
+                                          border:
+                                              Border.all(color: AppColors.grey),
+                                          borderRadius:
+                                              BorderRadius.circular(9)),
+                                  child: Row(
+                                    children: [
+                                      if (controller
+                                          .selectedSchedule.isNotEmpty)
+                                        Container(
+                                          decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: AppColors.blue),
+                                          width: 22,
+                                          height: 22,
+                                          child: Container(
+                                            margin: const EdgeInsets.all(1.5),
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: AppColors.blue,
+                                                border: Border.all(
+                                                    color: const Color.fromRGBO(
+                                                        231, 238, 252, 1.0),
+                                                    width: 3)),
+                                          ),
+                                        )
+                                      else
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: AppColors.white,
+                                              border: Border.all(
+                                                  color: AppColors.grey,
+                                                  width: 1.2)),
+                                          width: 22,
+                                          height: 22,
+                                        ),
+                                      SizedBox(
+                                        width: Get.width * 0.0266,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Schedule',
+                                            style: controller
+                                                    .selectedSchedule.isNotEmpty
+                                                ? AppTextStyles.blue14Normal500
+                                                : AppTextStyles
+                                                    .darkCyan14Normal500
+                                                    .copyWith(
+                                                        color:
+                                                            AppColors.darkCyan),
+                                          ),
+                                          SizedBox(
+                                            height: Get.height * 0.0086,
+                                          ),
+                                          Text(
+                                            controller
+                                                    .selectedSchedule.isNotEmpty
+                                                ? controller.selectedSchedule
+                                                : 'Not Defined',
+                                            style: controller
+                                                    .selectedSchedule.isNotEmpty
+                                                ? AppTextStyles.blue14Normal300
+                                                    .copyWith(fontSize: 11)
+                                                : AppTextStyles
+                                                    .lightGrey14Normal300
+                                                    .copyWith(fontSize: 11),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ))),
                       )
                     ],
                   ),
@@ -399,7 +494,7 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Delivery Details',
+                    'Payment',
                     style: AppTextStyles.extraDarkCyan16Normal500,
                   ),
                   Padding(
@@ -409,7 +504,7 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          'Address',
+                          'Payment',
                           style: AppTextStyles.darkGrey14Normal400,
                         ),
                         Row(
@@ -456,25 +551,31 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
-              child: LongButton(
-                () => {},
-                '',
-                double.maxFinite,
-                Get.height * 0.064,
-                customText: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Place Order',
-                      style: AppTextStyles.white18Normal500,
+              child: Obx(() => LongButton(
+                    controller.placeOrder,
+                    '',
+                    double.maxFinite,
+                    Get.height * 0.064,
+                    customText: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (controller.loadingStatus)
+                          const SpinKitThreeBounce(
+                            color: AppColors.white,
+                            size: 15,
+                          )
+                        else
+                          const Text(
+                            'Place Order',
+                            style: AppTextStyles.white18Normal500,
+                          ),
+                        Text(
+                          '\$${controller.checkoutData.checkout!.amount!.total!}',
+                          style: AppTextStyles.white19Normal700,
+                        ),
+                      ],
                     ),
-                    Text(
-                      '\$45.50',
-                      style: AppTextStyles.white19Normal700,
-                    ),
-                  ],
-                ),
-              ),
+                  )),
             ),
             SizedBox(
               height: Get.height * 0.0332,

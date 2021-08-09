@@ -40,15 +40,18 @@ class OrderModel {
     address = json['address'] != null
         ? AddressModel.fromJson(json['address'] as Map<String, dynamic>)
         : null;
-    delivery =
-        json['delivery'] != null ? DeliveryModel.fromJson(json['delivery']) : null;
+    delivery = json['delivery'] != null
+        ? DeliveryModel.fromJson(json['delivery'])
+        : null;
     amount =
         json['amount'] != null ? AmountModel.fromJson(json['amount']) : null;
     payment =
         json['payment'] != null ? PaymentModel.fromJson(json['payment']) : null;
     status = json['status'] as String;
-    driverId = json['driverId'] as String;
-    driverEarning = json['driverEarning'] as int;
+    driverId = json['driverId'] == null ? null : json['driverId'] as String;
+
+    // driverEarning =
+    //     json['driverEarning'] == null ? null : json['driverEarning'] as int;
     image = json['image'] as String;
     id = json['_id'] as String;
     orderNumber = json['orderNumber'] as int;
@@ -92,6 +95,3 @@ class OrderModel {
     return map;
   }
 }
-
-
-

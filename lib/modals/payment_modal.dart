@@ -145,7 +145,9 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                             ),
                           ),
                         ),
-                        SizedBox(width: Get.width * 0.0506,),
+                        SizedBox(
+                          width: Get.width * 0.0506,
+                        ),
                         Expanded(
                           child: TitledTextField(
                             'CVC/CVV',
@@ -185,7 +187,9 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
           ),
           Padding(
             padding: EdgeInsets.only(
-                bottom: Get.height * 0.02, left: Get.width * 0.0453, right: Get.width * 0.0453),
+                bottom: Get.height * 0.02,
+                left: Get.width * 0.0453,
+                right: Get.width * 0.0453),
             child:
                 LongButton(() => {}, 'Add Card', Get.width, Get.height * 0.064),
           )

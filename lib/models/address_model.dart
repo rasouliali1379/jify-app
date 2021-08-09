@@ -32,8 +32,8 @@ class AddressModel {
     building = json['building'] as String;
     note = json['note'] as String;
     options = json['options'] as String;
-    distance = json['distance'] as double;
-    id = json['_id'] as String;
+    distance = json['distance'] == null ? null : json['distance'] as double;
+    id = json['_id'] == null ? null : json['_id'] as String;
   }
 
   Map<String, dynamic> toJson() {

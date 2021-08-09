@@ -54,7 +54,7 @@ class CheckoutRepository {
     result.fold(
         (l) => error = l,
         (r) => checkoutModel = CheckoutModel.fromJson(
-            r.data["data"]["checkout"] as Map<String, dynamic>));
+            r.data["data"] as Map<String, dynamic>));
 
     if (checkoutModel != null) {
       return Right(checkoutModel!);

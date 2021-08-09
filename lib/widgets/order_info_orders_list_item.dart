@@ -1,15 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
+import 'package:jify_app/models/product_model.dart';
 
 class OrderInfoOrdersListItem extends StatelessWidget {
-  final String image;
-  final String name;
-  final String amount;
-  final String price;
+  final ProductModel product;
 
-  const OrderInfoOrdersListItem(this.image, this.name, this.amount, this.price);
+  const OrderInfoOrdersListItem(this.product);
 
   @override
   Widget build(BuildContext context) {
@@ -29,24 +28,34 @@ class OrderInfoOrdersListItem extends StatelessWidget {
                       border: Border.all(color: AppColors.grey)),
                   child: AspectRatio(
                     aspectRatio: 1,
-                    child: Image.asset(
-                      image,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: CachedNetworkImage(
+                        imageUrl: product.image!,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   width: Get.width * 0.0373,
                 ),
-                Text(
-                  name,
-                  style: AppTextStyles.extraDarkCyan15Normal400,
+                Flexible(
+                  child: Text(
+                    product.title!,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.extraDarkCyan15Normal400,
+                  ),
                 )
               ],
             ),
           ),
+          SizedBox(
+            width: Get.width * 0.02,
+          ),
           Expanded(
             child: Text(
-              'x$amount',
+              'x${product.qty!}',
               style: AppTextStyles.darkGrey15Normal400,
             ),
           ),
@@ -59,7 +68,7 @@ class OrderInfoOrdersListItem extends StatelessWidget {
                     style: AppTextStyles.green13Normal400,
                     children: [
                       TextSpan(
-                        text: price,
+                        text: product.price!.toString(),
                         style: AppTextStyles.green15Normal400,
                       )
                     ]),

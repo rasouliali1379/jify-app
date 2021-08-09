@@ -10,13 +10,6 @@ import 'package:jify_app/widgets/long_button.dart';
 import 'package:jify_app/widgets/order_info_orders_list_item.dart';
 
 class OrderInfoPage extends GetView<OrderInfoPageController> {
-  final items = [
-    const OrderInfoOrdersListItem(
-        'assets/images/pomegranate.png', 'Pomegranate', '5', '48.00'),
-    const OrderInfoOrdersListItem(
-        'assets/images/lemons.png', 'Lemon', '5', '48.00')
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,14 +30,16 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         'Order status',
                         style: AppTextStyles.darkGrey14Normal300,
                       ),
-                      Text(
-                        'Completed',
-                        style: AppTextStyles.green14Normal300,
+                      Obx(
+                        () => Text(
+                          controller.orderDetail.status!,
+                          style: AppTextStyles.green14Normal300,
+                        ),
                       ),
                     ],
                   ),
@@ -53,14 +48,16 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Order number',
                         style: AppTextStyles.darkGrey14Normal300,
                       ),
-                      Text(
-                        '141554647',
-                        style: AppTextStyles.darkGrey14Normal300,
+                      Obx(
+                        () => Text(
+                          controller.orderDetail.orderNumber!.toString(),
+                          style: AppTextStyles.darkGrey14Normal300,
+                        ),
                       ),
                     ],
                   ),
@@ -69,14 +66,17 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Date',
                         style: AppTextStyles.darkGrey14Normal300,
                       ),
-                      Text(
-                        'September19 , 2021 - 22:45',
-                        style: AppTextStyles.darkGrey14Normal300,
+                      Obx(
+                        () => Text(
+                          controller
+                              .getFormattedDate(controller.orderDetail.date!),
+                          style: AppTextStyles.darkGrey14Normal300,
+                        ),
                       ),
                     ],
                   ),
@@ -100,8 +100,12 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                         horizontal: Get.width * 0.0453),
                     child: Column(
                       children: [
-                        const CustomTile('assets/icons/location.svg',
-                            'Address delivered', 'London , Johnson ST , 46548'),
+                        Obx(
+                          () => CustomTile(
+                              'assets/icons/location.svg',
+                              'Address delivered',
+                              controller.orderDetail.address!.address!),
+                        ),
                         SizedBox(
                           height: Get.height * 0.0283,
                         ),
@@ -135,9 +139,11 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                             height: 1,
                             color: AppColors.grey,
                           ),
-                          itemCount: items.length,
+                          itemCount: controller.orderDetail.products!.length,
                           shrinkWrap: true,
-                          itemBuilder: (context, index) => items[index],
+                          itemBuilder: (context, index) =>
+                              OrderInfoOrdersListItem(
+                                  controller.orderDetail.products![index]),
                         ),
                         SizedBox(
                           height: Get.height * 0.0172,
@@ -152,20 +158,26 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Subtotal (3 items)',
-                              style: AppTextStyles.darkGrey14Normal300,
+                            Obx(
+                              () => Text(
+                                'Subtotal (${controller.orderDetail.products!.length} items)',
+                                style: AppTextStyles.darkGrey14Normal300,
+                              ),
                             ),
-                            RichText(
-                              text: const TextSpan(
-                                  text: '\$',
-                                  style: AppTextStyles.green13Normal400,
-                                  children: [
-                                    TextSpan(
-                                      text: '48.00',
-                                      style: AppTextStyles.green15Normal400,
-                                    )
-                                  ]),
+                            Obx(
+                              () => RichText(
+                                text: TextSpan(
+                                    text: '\$',
+                                    style: AppTextStyles.green13Normal400,
+                                    children: [
+                                      TextSpan(
+                                        text: controller
+                                            .orderDetail.amount!.subTotal!
+                                            .toString(),
+                                        style: AppTextStyles.green15Normal400,
+                                      )
+                                    ]),
+                              ),
                             ),
                           ],
                         ),
@@ -179,16 +191,20 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                               'Delivery',
                               style: AppTextStyles.darkGrey14Normal300,
                             ),
-                            RichText(
-                              text: const TextSpan(
-                                  text: '\$',
-                                  style: AppTextStyles.green13Normal400,
-                                  children: [
-                                    TextSpan(
-                                      text: '48.00',
-                                      style: AppTextStyles.green15Normal400,
-                                    )
-                                  ]),
+                            Obx(
+                              () => RichText(
+                                text: TextSpan(
+                                    text: '\$',
+                                    style: AppTextStyles.green13Normal400,
+                                    children: [
+                                      TextSpan(
+                                        text: controller
+                                            .orderDetail.amount!.delivery!
+                                            .toString(),
+                                        style: AppTextStyles.green15Normal400,
+                                      )
+                                    ]),
+                              ),
                             ),
                           ],
                         ),
@@ -202,16 +218,20 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                               'Promo code',
                               style: AppTextStyles.darkGrey14Normal300,
                             ),
-                            RichText(
-                              text: const TextSpan(
-                                  text: '- \$',
-                                  style: AppTextStyles.red13Normal400,
-                                  children: [
-                                    TextSpan(
-                                      text: '48.00',
-                                      style: AppTextStyles.red15Normal400,
-                                    )
-                                  ]),
+                            Obx(
+                              () => RichText(
+                                text: TextSpan(
+                                    text: '- \$',
+                                    style: AppTextStyles.red13Normal400,
+                                    children: [
+                                      TextSpan(
+                                        text: controller
+                                            .orderDetail.amount!.promotion!
+                                            .toString(),
+                                        style: AppTextStyles.red15Normal400,
+                                      )
+                                    ]),
+                              ),
                             ),
                           ],
                         ),
@@ -232,24 +252,32 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                               'Total',
                               style: AppTextStyles.darkGrey14Normal300,
                             ),
-                            RichText(
-                              text: const TextSpan(
-                                  text: '\$',
-                                  style: AppTextStyles.green13Normal400,
-                                  children: [
-                                    TextSpan(
-                                      text: '48.00',
-                                      style: AppTextStyles.green15Normal400,
-                                    )
-                                  ]),
+                            Obx(
+                              () => RichText(
+                                text: TextSpan(
+                                    text: '\$',
+                                    style: AppTextStyles.green13Normal400,
+                                    children: [
+                                      TextSpan(
+                                        text: controller
+                                            .orderDetail.amount!.total!
+                                            .toString(),
+                                        style: AppTextStyles.green15Normal400,
+                                      )
+                                    ]),
+                              ),
                             ),
                           ],
                         ),
                         SizedBox(
                           height: Get.height * 0.0381,
                         ),
-                        LongButton(() => {}, 'Re-order', double.maxFinite,
-                            Get.height * 0.064),
+                        Obx(
+                          () => controller.orderDetail.status == "unknown"
+                              ? const SizedBox()
+                              : LongButton(controller.reorder, 'Re-order',
+                                  double.maxFinite, Get.height * 0.064),
+                        ),
                         SizedBox(
                           height: Get.height * 0.0381,
                         )

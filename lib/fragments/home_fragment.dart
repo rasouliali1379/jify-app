@@ -5,6 +5,7 @@ import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/widgets/address_container.dart';
 import 'package:jify_app/widgets/custom_app_bar.dart';
 import 'package:jify_app/widgets/category_grid_item.dart';
+import 'package:jify_app/widgets/product_item.dart';
 
 class HomeFragment extends StatefulWidget {
   @override
@@ -22,9 +23,8 @@ class _HomeFragmentState extends State<HomeFragment>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: CustomAppBar(
-        () => {},
-      ),
+      appBar: CustomAppBar(_controller.onAppBarBackPressed,
+          _controller.searchChangeHandler, _controller.searchTextController),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
@@ -43,28 +43,49 @@ class _HomeFragmentState extends State<HomeFragment>
             ),
           ),
           Expanded(
-            child: ListView(
-              children: [
-                GetX<HomeFragmentController>(builder: (controller) {
-                  return GridView.builder(
+              child: GetBuilder<HomeFragmentController>(
+            builder: (controller) => _controller.searchMode
+                ? GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.all(Get.width * 0.0426),
+                    padding:
+                        const EdgeInsets.only(bottom: 17, left: 12, right: 12),
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: Get.width / 2,
-                        childAspectRatio: 163 / 95,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16),
-                    itemCount: controller.categoryItems.length,
-                    itemBuilder: (context, index) => CategoryGridItem(
-                        controller.categoryItems[index].title!,
-                        controller.categoryItems[index].image!,
-                        controller.onCategoryItemClickHandler(index)),
-                  );
-                })
-              ],
-            ),
-          ),
+                      maxCrossAxisExtent: Get.width / 3,
+                      childAspectRatio: 110 / 204,
+                      mainAxisSpacing: 5,
+                    ),
+                    itemCount: _controller.searchedProducts.length,
+                    itemBuilder: (context, index) => ProductItem(
+                        _controller.searchedProducts[index],
+                        _controller.addProductToBasket,
+                        _controller.removeFromBasket,
+                        _controller.browseProduct,
+                        _controller.productRepository.countInBasket(
+                            _controller.searchedProducts[index].id!)))
+                : ListView(
+                    children: [
+                      GetX<HomeFragmentController>(builder: (controller) {
+                        return GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.all(Get.width * 0.0426),
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: Get.width / 2,
+                                  childAspectRatio: 163 / 95,
+                                  crossAxisSpacing: 16,
+                                  mainAxisSpacing: 16),
+                          itemCount: controller.categoryItems.length,
+                          itemBuilder: (context, index) => CategoryGridItem(
+                              controller.categoryItems[index].title!,
+                              controller.categoryItems[index].image!,
+                              controller.onCategoryItemClickHandler(index)),
+                        );
+                      })
+                    ],
+                  ),
+          )),
         ],
       ),
     );

@@ -7,6 +7,7 @@ class ProductModel {
   int? stock;
   String? id;
   String? category;
+  int? qty;
 
   ProductModel(
       {this.title,
@@ -16,17 +17,20 @@ class ProductModel {
       this.description,
       this.stock,
       this.id,
-      this.category});
+      this.category,
+      this.qty});
 
   ProductModel.fromJson(dynamic json) {
     title = json['title'] as String;
     image = json['image'] as String;
     imageThumbnail = json['imageThumbnail'] as String;
     price = double.parse(json['price'].toString());
-    description = json['description'] as String;
-    stock = json['stock'] as int;
+    description =
+        json['description'] == null ? null : json['description'] as String;
+    stock = json['stock'] == null ? null : json['stock'] as int;
     id = json['_id'] as String;
-    category = json['category'] as String;
+    category = json['category'] == null ? null : json['category'] as String;
+    qty = json['qty'] == null ? null : json['qty'] as int;
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +43,7 @@ class ProductModel {
     map['stock'] = stock;
     map['_id'] = id;
     map['category'] = category;
+    map['qty'] = qty;
     return map;
   }
 }

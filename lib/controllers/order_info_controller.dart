@@ -1,5 +1,65 @@
 import 'package:get/get.dart';
+import 'package:jify_app/controllers/checkout_fragment_controller.dart';
+import 'package:jify_app/controllers/global_controller.dart';
+import 'package:jify_app/controllers/main_page_controller.dart';
+import 'package:jify_app/models/order_model.dart';
+import 'package:jify_app/models/product_model.dart';
 
 class OrderInfoPageController extends GetxController {
+  final _orderDetail = OrderModel().obs;
 
+  final month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
+  @override
+  void onInit() {
+    getData();
+    super.onInit();
+  }
+
+  OrderModel get orderDetail => _orderDetail.value;
+
+  set orderDetail(OrderModel value) {
+    _orderDetail.value = value;
+  }
+
+  void getData() {
+    orderDetail = Get.arguments as OrderModel;
+  }
+
+  String getFormattedDate(String date) {
+    var b = DateTime.now().timeZoneOffset;
+
+    DateTime dt = DateTime.parse(date).add(b);
+
+    return "${month[dt.month - 1]} ${dt.day} , ${dt.year} - ${dt.hour}:${dt.minute}";
+  }
+
+  void reorder() {
+    final basket = <ProductModel>[];
+
+    for (final product in orderDetail.products!) {
+      for (int i = 0; i < product.qty!; i++) {
+        basket.add(product);
+      }
+    }
+    final globalController = Get.find<GlobalController>();
+    globalController.basket.clear();
+    globalController.basket.addAll(basket);
+    Get.find<CheckoutFragmentController>().populateOrders();
+    Get.find<MainPageController>().onBottomNavClickHandler(4);
+    Get.back();
+  }
 }

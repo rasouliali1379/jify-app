@@ -37,10 +37,11 @@ class CheckoutFragmentController extends GetxController {
   final _promoCodePrice = 0.0.obs;
   final _totalPrice = 0.0.obs;
 
+  final _loggedIn = false.obs;
+
   @override
   void onInit() {
-    populateOrders();
-    checkSelectedAddress();
+    checkUserLogStatus();
     super.onInit();
   }
 
@@ -84,6 +85,12 @@ class CheckoutFragmentController extends GetxController {
 
   set loadingStatus(bool value) {
     _loadingStatus.value = value;
+  }
+
+  bool get loggedIn => _loggedIn.value;
+
+  set loggedIn(bool value) {
+    _loggedIn.value = value;
   }
 
   AddressModel get selectedAddress => _selectedAddress.value;
@@ -164,10 +171,14 @@ class CheckoutFragmentController extends GetxController {
         if (address != null) {
           selectedAddress = address;
         } else {
-          storageRemove(AppKeys.address).then((value) => null);
+          selectedAddress = userInfo.addresses!.last;
+          storageWrite(AppKeys.address, userInfo.addresses!.last.id)
+              .then((value) => null);
         }
       } else {
-        storageRemove(AppKeys.address).then((value) => null);
+        selectedAddress = userInfo.addresses!.last;
+        storageWrite(AppKeys.address, userInfo.addresses!.last.id)
+            .then((value) => null);
       }
     }
   }
@@ -180,6 +191,12 @@ class CheckoutFragmentController extends GetxController {
     }
 
     return null;
+  }
+
+  void removePromoCode() {
+    promoCodeController.text = "";
+    promoCode = PromotionCodeModel();
+    calculatePrices();
   }
 
   void checkPromoCode() {
@@ -243,5 +260,21 @@ class CheckoutFragmentController extends GetxController {
   void checkoutAttemptSucceed(CheckoutModel checkoutData) {
     loadingStatus = false;
     Get.toNamed(Routes.confirmation, arguments: checkoutData);
+  }
+
+  void checkUserLogStatus() {
+    if (storageExists(AppKeys.token)) {
+      if ((storageRead(AppKeys.token) as String).isNotEmpty) {
+        loggedIn = true;
+        populateOrders();
+        checkSelectedAddress();
+        return;
+      }
+    }
+    loggedIn = false;
+  }
+
+  void openSignInPage() {
+    Get.toNamed(Routes.signIn);
   }
 }

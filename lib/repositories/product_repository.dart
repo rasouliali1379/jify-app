@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
@@ -34,5 +35,25 @@ class ProductRepository {
     }
 
     return variants.length;
+  }
+
+  Future<Either<String, List<ProductModel>>> searchProducts(
+      String query, int page) async {
+    final result = await _apiRequests.getProducts(query, page);
+    String error = "";
+    List<ProductModel>? products;
+
+    result.fold((l) => error = l, (r) {
+      final rawAddresses = r.data["data"]["products"] as List<dynamic>;
+
+      products = List<ProductModel>.from(
+          rawAddresses.map((value) => ProductModel.fromJson(value)));
+    });
+
+    if (products != null) {
+      return Right(products!);
+    } else {
+      return Left(error);
+    }
   }
 }

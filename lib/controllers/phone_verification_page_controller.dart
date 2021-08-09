@@ -4,7 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/controllers/account_fragment_controller.dart';
+import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
+import 'package:jify_app/controllers/orders_fragment_controller.dart';
 import 'package:jify_app/models/user_model.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/repositories/user_repository.dart';
@@ -93,6 +95,10 @@ class PhoneVerificationPageController extends GetxController {
               "You're successfully signed in."
               " Welcome ${userData.firstname}",
               length: Toast.LENGTH_LONG);
+          final ordersController = Get.find<OrdersFragmentController>();
+          ordersController.checkUserLogStatus();
+          ordersController.getOrderList();
+          Get.find<CheckoutFragmentController>().checkUserLogStatus();
           Get.back();
         }
       });

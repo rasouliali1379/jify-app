@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
+import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
+import 'package:jify_app/controllers/orders_fragment_controller.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/utilities/utilities.dart';
@@ -38,9 +40,15 @@ class AccountFragmentController extends GetxController {
   void openTermsAndConditions() {}
 
   void logout() {
-    storageRemove(AppKeys.token);
-    globalController.initialDataModel.user = null;
-    checkLoginStatus();
+    storageRemove(AppKeys.token).then((value) {
+      globalController.initialDataModel.user = null;
+      final ordersController = Get.find<OrdersFragmentController>();
+      ordersController.ordersList.clear();
+      ordersController.previousOrdersList.clear();
+      ordersController.checkUserLogStatus();
+      Get.find<CheckoutFragmentController>().checkUserLogStatus();
+      checkLoginStatus();
+    });
   }
 
   void login() {

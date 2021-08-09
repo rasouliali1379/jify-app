@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
+import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/models/category_model.dart';
 import 'package:jify_app/models/product_model.dart';
@@ -10,6 +11,7 @@ import 'package:jify_app/repositories/product_repository.dart';
 class CategoryFragmentController extends GetxController {
   final globalController = Get.find<GlobalController>();
   final mainPageController = Get.find<MainPageController>();
+  final homePageController = Get.find<HomeFragmentController>();
   final productRepository = ProductRepository();
 
   final _selectedSubcategory = (-1).obs;

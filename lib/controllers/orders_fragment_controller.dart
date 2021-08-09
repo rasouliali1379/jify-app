@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
+import 'package:jify_app/controllers/checkout_fragment_controller.dart';
+import 'package:jify_app/controllers/global_controller.dart';
+import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/models/order_model.dart';
+import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/repositories/order_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
@@ -12,18 +16,11 @@ class OrdersFragmentController extends GetxController {
   final _previousOrdersList = <OrderModel>[].obs;
   final _loggedIn = false.obs;
   final _ordersRepository = OrderRepository();
-  final refreshKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   void onInit() {
     checkUserLogStatus();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    refreshKey.currentState!.show();
-    super.onReady();
   }
 
   bool get loggedIn => _loggedIn.value;
@@ -81,5 +78,24 @@ class OrdersFragmentController extends GetxController {
       }
     }
     loggedIn = false;
+  }
+
+  void openSignInPage() {
+    Get.toNamed(Routes.signIn);
+  }
+
+  void reorder(OrderModel orderModel) {
+    final basket = <ProductModel>[];
+
+    for (final product in orderModel.products!) {
+      for (int i = 0; i < product.qty!; i++) {
+        basket.add(product);
+      }
+    }
+    final globalController = Get.find<GlobalController>();
+    globalController.basket.clear();
+    globalController.basket.addAll(basket);
+    Get.find<CheckoutFragmentController>().populateOrders();
+    Get.find<MainPageController>().onBottomNavClickHandler(4);
   }
 }

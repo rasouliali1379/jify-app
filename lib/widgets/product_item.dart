@@ -44,6 +44,8 @@ class ProductItem extends StatelessWidget {
                 ),
                 Text(
                   product.title!,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.darkPurple13Normal300,
                   textAlign: TextAlign.center,
                 ),

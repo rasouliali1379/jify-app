@@ -38,7 +38,7 @@ class Checkout {
         products?.add(ProductModel.fromJson(v));
       });
     }
-    promotion = json['promotion'] as String;
+    promotion = json['promotion'] == null ? null : json['promotion'] as String;
     address = json['address'] != null
         ? AddressModel.fromJson(json['address'] as Map<String, dynamic>)
         : null;

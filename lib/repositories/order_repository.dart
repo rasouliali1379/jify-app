@@ -11,7 +11,7 @@ class OrderRepository {
     List<OrderModel>? ordersList;
 
     result.fold((l) => error = l, (r) {
-      final rawJson = r.data["data"]["orders"] as List<Map<String, dynamic>>;
+      final rawJson = r.data["data"]["orders"] as List<dynamic>;
       ordersList =
           List<OrderModel>.from(rawJson.map((e) => OrderModel.fromJson(e)));
     });
