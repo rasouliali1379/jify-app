@@ -88,6 +88,10 @@ class PhoneVerificationPageController extends GetxController {
             UserModel.fromJson(loginData["user"] as Map<String, dynamic>);
         Get.find<AccountFragmentController>().checkLoginStatus();
         globalController.initialDataModel.user = userData;
+        final ordersController = Get.find<OrdersFragmentController>();
+        ordersController.checkUserLogStatus();
+        ordersController.getOrderList();
+        Get.find<CheckoutFragmentController>().checkUserLogStatus();
         if (userData.firstname == null && userData.lastname == null) {
           Get.offNamed(Routes.signUp);
         } else {
@@ -95,10 +99,6 @@ class PhoneVerificationPageController extends GetxController {
               "You're successfully signed in."
               " Welcome ${userData.firstname}",
               length: Toast.LENGTH_LONG);
-          final ordersController = Get.find<OrdersFragmentController>();
-          ordersController.checkUserLogStatus();
-          ordersController.getOrderList();
-          Get.find<CheckoutFragmentController>().checkUserLogStatus();
           Get.back();
         }
       });

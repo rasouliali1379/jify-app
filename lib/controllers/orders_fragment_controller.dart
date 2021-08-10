@@ -74,6 +74,7 @@ class OrdersFragmentController extends GetxController {
     if (storageExists(AppKeys.token)) {
       if ((storageRead(AppKeys.token) as String).isNotEmpty) {
         loggedIn = true;
+        getOrderList();
         return;
       }
     }

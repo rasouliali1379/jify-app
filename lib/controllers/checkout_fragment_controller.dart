@@ -271,6 +271,8 @@ class CheckoutFragmentController extends GetxController {
         return;
       }
     }
+    promoCode = PromotionCodeModel();
+    selectedAddress = AddressModel();
     loggedIn = false;
   }
 

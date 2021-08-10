@@ -201,7 +201,8 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                                       Expanded(
                                           child: Obx(() => Text(
                                                 _controller
-                                                    .selectedAddress.address!,
+                                                    .selectedAddress.address != null ?  _controller
+                                                    .selectedAddress.address! : 'No address defined',
                                                 style: AppTextStyles
                                                     .darkGrey13Normal300,
                                               ))),
