@@ -7,9 +7,9 @@ import 'package:jify_app/network/api_requests.dart';
 
 class ProductRepository {
   final _apiRequests = ApiRequests();
-  final globalController = Get.find<GlobalController>();
 
   int countInBasket(String id) {
+    final globalController = Get.find<GlobalController>();
     final items = <ProductModel>[];
     for (final item in globalController.basket) {
       if (item.id == id) {
@@ -20,6 +20,7 @@ class ProductRepository {
   }
 
   void removeProductFromBasket(String id) {
+    final globalController = Get.find<GlobalController>();
     for (int i = 0; i < globalController.basket.length; i++) {
       if (globalController.basket[i].id == id) {
         globalController.basket.removeAt(i);
@@ -29,12 +30,24 @@ class ProductRepository {
   }
 
   int getProductVariantsCount() {
+    final globalController = Get.find<GlobalController>();
     final variants = <String>{};
     for (final item in globalController.basket) {
       variants.add(item.id!);
     }
 
     return variants.length;
+  }
+
+  double calculateTotalCost() {
+    final globalController = Get.find<GlobalController>();
+    double total = 0.0;
+
+    for (final item in globalController.basket) {
+      total += item.price!;
+    }
+
+    return total;
   }
 
   Future<Either<String, List<ProductModel>>> searchProducts(

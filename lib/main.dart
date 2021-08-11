@@ -9,8 +9,8 @@ import 'package:jify_app/navigation/pages.dart';
 import 'package:jify_app/navigation/routes.dart';
 
 void main() {
-  GetStorage.init().then((value) => runApp(JiffyApp()));
   Get.put(GlobalController(), permanent: true);
+  GetStorage.init().then((value) => runApp(JiffyApp()));
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

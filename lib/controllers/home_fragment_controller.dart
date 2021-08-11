@@ -26,6 +26,7 @@ class HomeFragmentController extends GetxController {
   final _pageMode = "categories".obs;
   final _searchLoading = false.obs;
   final _pagginationStatus = (AppStatus.done).obs;
+  final _productStatus = (AppStatus.loading).obs;
 
   String selectedCategoryId = "";
   String lastPage = "category";
@@ -37,6 +38,12 @@ class HomeFragmentController extends GetxController {
   void onInit() {
     categoryItems = _globalController.initialDataModel.categories!;
     super.onInit();
+  }
+
+  String get productStatus => _productStatus.value;
+
+  set productStatus(String value) {
+    _productStatus.value = value;
   }
 
   String get pagginationStatus => _pagginationStatus.value;
@@ -149,12 +156,14 @@ class HomeFragmentController extends GetxController {
     }
     update();
     Get.find<CheckoutFragmentController>().populateOrders();
+    Get.find<GlobalController>().updateTotalCost();
   }
 
   void removeFromBasket(String id) {
     productRepository.removeProductFromBasket(id);
     update();
     Get.find<CheckoutFragmentController>().populateOrders();
+    Get.find<GlobalController>().updateTotalCost();
   }
 
   void browseProduct(ProductModel product) {
@@ -192,7 +201,7 @@ class HomeFragmentController extends GetxController {
         products.clear();
         page = 1;
         requestPermitted = false;
-        pagginationStatus = "hidden";
+        pagginationStatus = AppStatus.done;
         break;
     }
     update();
@@ -208,11 +217,15 @@ class HomeFragmentController extends GetxController {
       selectedSubcategory = -1;
       lastPage = pageMode;
       pageMode = "subcategory";
+      products.clear();
+      page = 1;
+      pagginationStatus = AppStatus.done;
     } else {
       selectedSubcategory = categoryIndex;
       lastPage = pageMode;
       pageMode = "subcategory_products";
       requestPermitted = true;
+      productStatus = AppStatus.loading;
       requestProducts();
     }
     update();
@@ -221,25 +234,34 @@ class HomeFragmentController extends GetxController {
   void requestProducts() {
     if (requestPermitted) {
       productRepository
-          .getProductsBySubCategoryId(selectedCategoryId, "", page)
+          .getProductsBySubCategoryId(
+              subCategories[selectedSubcategory].id!, "", page)
           .then((value) => value.fold(
               (l) => attemptFailed(l), (r) => productsAttemptSucceed(r)));
     }
   }
 
   void productsAttemptSucceed(List<ProductModel> productList) {
+    if (products.isEmpty && productList.isNotEmpty) {
+      productStatus = AppStatus.done;
+    }
+
     if (productList.length < 10) {
       pagginationStatus = AppStatus.done;
       requestPermitted = false;
-    } else {
       if (productList.isNotEmpty) {
         final previousProducts = List<ProductModel>.from(products);
         previousProducts.addAll(productList);
         products = previousProducts;
       } else {
-        pagginationStatus = AppStatus.done;
-        requestPermitted = false;
+        if (products.isEmpty) {
+          productStatus = AppStatus.nothingFound;
+        }
       }
+    } else {
+      final previousProducts = List<ProductModel>.from(products);
+      previousProducts.addAll(productList);
+      products = previousProducts;
     }
     update();
   }

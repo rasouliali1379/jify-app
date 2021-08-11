@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
+import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/widgets/custom_bottom_nav_item.dart';
 
 class CustomBottomNav extends StatelessWidget {
@@ -56,10 +57,12 @@ class CustomBottomNav extends StatelessWidget {
                     const SizedBox(
                       width: 8,
                     ),
-                    const Text(
-                      '\$ 27.50',
-                      style: AppTextStyles.white14Normal700,
-                    )
+                    GetX<GlobalController>(builder: (controller) {
+                      return Text(
+                        controller.totalCost.toStringAsFixed(2),
+                        style: AppTextStyles.white14Normal700,
+                      );
+                    })
                   ],
                 ),
               ),

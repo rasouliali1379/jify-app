@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:jify_app/constants/app_colors.dart';
+import 'package:jify_app/constants/app_status.dart';
+import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/widgets/change_address_container.dart';
 import 'package:jify_app/widgets/custom_app_bar.dart';
@@ -73,38 +77,63 @@ class _HomeFragmentState extends State<HomeFragment>
                           controller.productRepository.countInBasket(
                               _controller.searchedProducts[index].id!)));
                 case "subcategory_products":
-                  return Column(
-                    children: [
-                      Obx(() => SubCategoryRowList(
-                          _controller.subCategories,
-                          _controller.onSubcategoryItemClickHandler,
-                          _controller.selectedSubcategory)),
-                      SubcategoryProductsList(
-                          controller
-                              .subCategories[controller.selectedSubcategory]
-                              .products!,
-                          controller.scrollController,
-                          controller.addProductToBasket,
-                          controller.removeFromBasket,
-                          controller.browseProduct,
-                          controller.productRepository.countInBasket),
-                    ],
+                  return SizedBox(
+                    height: Get.height * 0.752,
+                    child: Column(
+                      children: [
+                        Obx(() => SubCategoryRowList(
+                            _controller.subCategories,
+                            _controller.onSubcategoryItemClickHandler,
+                            _controller.selectedSubcategory)),
+                        Expanded(
+                          child: Obx(() {
+                            if (controller.productStatus == AppStatus.loading) {
+                              return const Center(
+                                child: SpinKitRing(
+                                  color: AppColors.blue,
+                                ),
+                              );
+                            } else if (controller.productStatus ==
+                                AppStatus.nothingFound) {
+                              return const Center(
+                                child: Text(
+                                  'Nothing to show',
+                                  style: AppTextStyles.lightGrey14Normal300,
+                                ),
+                              );
+                            }
+                            return SubcategoryProductsList(
+                                controller.products,
+                                controller.scrollController,
+                                controller.addProductToBasket,
+                                controller.removeFromBasket,
+                                controller.browseProduct,
+                                controller.productRepository.countInBasket,
+                                controller.pagginationStatus);
+                          }),
+                        ),
+                      ],
+                    ),
                   );
                 case "subcategory":
-                  return Column(
-                    children: [
-                      Obx(() => SubCategoryRowList(
-                          _controller.subCategories,
-                          _controller.onSubcategoryItemClickHandler,
-                          _controller.selectedSubcategory)),
-                      SubcategoryList(
-                          controller.subCategories,
-                          controller.onSubcategoryItemClickHandler,
-                          controller.addProductToBasket,
-                          controller.removeFromBasket,
-                          controller.browseProduct,
-                          controller.productRepository.countInBasket),
-                    ],
+                  return Expanded(
+                    child: Column(
+                      children: [
+                        Obx(() => SubCategoryRowList(
+                            _controller.subCategories,
+                            _controller.onSubcategoryItemClickHandler,
+                            _controller.selectedSubcategory)),
+                        Expanded(
+                          child: SubcategoryList(
+                              controller.subCategories,
+                              controller.onSubcategoryItemClickHandler,
+                              controller.addProductToBasket,
+                              controller.removeFromBasket,
+                              controller.browseProduct,
+                              controller.productRepository.countInBasket),
+                        ),
+                      ],
+                    ),
                   );
               }
               return GridView.builder(
