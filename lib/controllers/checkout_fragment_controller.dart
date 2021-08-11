@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
@@ -16,7 +18,6 @@ import 'package:jify_app/repositories/checkout_repository.dart';
 import 'package:jify_app/repositories/product_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/utilities/utilities.dart';
-import 'package:jify_app/widgets/checkout_orders_list_item.dart';
 
 class CheckoutFragmentController extends GetxController {
   final mainController = Get.find<MainPageController>();
@@ -41,7 +42,8 @@ class CheckoutFragmentController extends GetxController {
 
   @override
   void onInit() {
-    checkUserLogStatus();
+    populateOrders();
+    checkSelectedAddress();
     super.onInit();
   }
 
@@ -162,24 +164,30 @@ class CheckoutFragmentController extends GetxController {
   }
 
   void checkSelectedAddress() {
-    final userInfo = globalController.initialDataModel.user;
-    if (userInfo!.addresses!.isNotEmpty) {
-      if (storageExists(AppKeys.address)) {
-        AddressModel? address = findAddress(
-            userInfo.addresses!, storageRead(AppKeys.address) as String);
+    if (storageExists(AppKeys.token)) {
+      final userInfo = globalController.initialDataModel.user;
+      if (userInfo!.addresses!.isNotEmpty) {
+        if (storageExists(AppKeys.address)) {
+          AddressModel? address = findAddress(
+              userInfo.addresses!, storageRead(AppKeys.address) as String);
 
-        if (address != null) {
-          selectedAddress = address;
+          if (address != null) {
+            selectedAddress = address;
+          } else {
+            selectedAddress = userInfo.addresses!.last;
+            storageWrite(AppKeys.address, userInfo.addresses!.last.id)
+                .then((value) => null);
+          }
         } else {
           selectedAddress = userInfo.addresses!.last;
           storageWrite(AppKeys.address, userInfo.addresses!.last.id)
               .then((value) => null);
         }
-      } else {
-        selectedAddress = userInfo.addresses!.last;
-        storageWrite(AppKeys.address, userInfo.addresses!.last.id)
-            .then((value) => null);
       }
+    } else {
+      final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
+      print(rawAddress);
+      selectedAddress = AddressModel.fromJson(jsonDecode(rawAddress));
     }
   }
 
@@ -213,6 +221,7 @@ class CheckoutFragmentController extends GetxController {
 
   void attemptFailed(String message) {
     promoLoadingStatus = false;
+    loadingStatus = false;
     Utilities.makeCustomToast(message);
   }
 
@@ -241,19 +250,24 @@ class CheckoutFragmentController extends GetxController {
   }
 
   void checkout() {
-    if (orders.isNotEmpty) {
-      promoFocus.unfocus();
-      loadingStatus = true;
-      _checkoutRepository
-          .checkout(BasketModel(
-              products: orders,
-              address: Address(id: selectedAddress.id),
-              promotion: Promotion(code: promoCode.code)))
-          .then((value) => value.fold(
-              (l) => attemptFailed(l), (r) => checkoutAttemptSucceed(r)));
+    if (storageExists(AppKeys.token)) {
+      if (orders.isNotEmpty) {
+        promoFocus.unfocus();
+        loadingStatus = true;
+        final checkoutModel = BasketModel(
+            products: orders,
+            address: Address(id: selectedAddress.id),
+            promotion: Promotion(code: promoCode.code));
+        print(storageRead(AppKeys.token));
+        print(checkoutModel.toJson().toString());
+        _checkoutRepository.checkout(checkoutModel).then((value) => value.fold(
+            (l) => attemptFailed(l), (r) => checkoutAttemptSucceed(r)));
+      } else {
+        Utilities.makeCustomToast(
+            "You need to add product into your basket to checkout");
+      }
     } else {
-      Utilities.makeCustomToast(
-          "You need to add product into your basket to checkout");
+      Get.toNamed(Routes.signIn);
     }
   }
 
@@ -262,19 +276,19 @@ class CheckoutFragmentController extends GetxController {
     Get.toNamed(Routes.confirmation, arguments: checkoutData);
   }
 
-  void checkUserLogStatus() {
-    if (storageExists(AppKeys.token)) {
-      if ((storageRead(AppKeys.token) as String).isNotEmpty) {
-        loggedIn = true;
-        populateOrders();
-        checkSelectedAddress();
-        return;
-      }
-    }
-    promoCode = PromotionCodeModel();
-    selectedAddress = AddressModel();
-    loggedIn = false;
-  }
+  // void checkUserLogStatus() {
+  //   if (storageExists(AppKeys.token)) {
+  //     if ((storageRead(AppKeys.token) as String).isNotEmpty) {
+  //       loggedIn = true;
+  //       populateOrders();
+  //       checkSelectedAddress();
+  //       return;
+  //     }
+  //   }
+  //   promoCode = PromotionCodeModel();
+  //   selectedAddress = AddressModel();
+  //   loggedIn = false;
+  // }
 
   void openSignInPage() {
     Get.toNamed(Routes.signIn);

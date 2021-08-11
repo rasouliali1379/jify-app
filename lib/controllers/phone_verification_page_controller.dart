@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -7,8 +9,10 @@ import 'package:jify_app/controllers/account_fragment_controller.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/orders_fragment_controller.dart';
+import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/models/user_model.dart';
 import 'package:jify_app/navigation/routes.dart';
+import 'package:jify_app/repositories/address_repository.dart';
 import 'package:jify_app/repositories/user_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/utilities/utilities.dart';
@@ -16,6 +20,8 @@ import 'package:jify_app/utilities/utilities.dart';
 class PhoneVerificationPageController extends GetxController {
   final globalController = Get.find<GlobalController>();
   final _userRepository = UserRepository();
+  final _addressRepository = AddressRepository();
+
   late CountdownTimerController countdownController;
   final pinCodeFieldFocus = FocusNode();
   final _resendStatus = "countdown".obs;
@@ -83,15 +89,30 @@ class PhoneVerificationPageController extends GetxController {
   void attemptSucceed(Map<String, dynamic> loginData) {
     final token = loginData["token"] as String;
     if (token.isNotEmpty) {
-      storageWrite(AppKeys.token, token).then((_) {
+      storageWrite(AppKeys.token, token).then((_) async {
         final userData =
             UserModel.fromJson(loginData["user"] as Map<String, dynamic>);
         Get.find<AccountFragmentController>().checkLoginStatus();
         globalController.initialDataModel.user = userData;
+
+        if (storageExists(AppKeys.unsavedAddress)) {
+          final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
+          final addressModel = AddressModel.fromJson(jsonDecode(rawAddress));
+          final result = await _addressRepository.addAddress(addressModel);
+          result.fold((l) => attemptFailed(l), (r) async {
+            globalController.initialDataModel.user!.addresses = r;
+            await storageWrite(AppKeys.address, r.last.id);
+            await storageRemove(AppKeys.unsavedAddress);
+          });
+        }
+
         final ordersController = Get.find<OrdersFragmentController>();
         ordersController.checkUserLogStatus();
         ordersController.getOrderList();
-        Get.find<CheckoutFragmentController>().checkUserLogStatus();
+        final checkoutController = Get.find<CheckoutFragmentController>();
+        checkoutController.populateOrders();
+        checkoutController.checkSelectedAddress();
+
         if (userData.firstname == null && userData.lastname == null) {
           Get.offNamed(Routes.signUp);
         } else {

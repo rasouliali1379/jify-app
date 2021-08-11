@@ -46,7 +46,7 @@ class AccountFragmentController extends GetxController {
       ordersController.ordersList.clear();
       ordersController.previousOrdersList.clear();
       ordersController.checkUserLogStatus();
-      Get.find<CheckoutFragmentController>().checkUserLogStatus();
+      Get.find<CheckoutFragmentController>().populateOrders();
       checkLoginStatus();
     });
   }

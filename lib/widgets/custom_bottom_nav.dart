@@ -59,7 +59,7 @@ class CustomBottomNav extends StatelessWidget {
                     ),
                     GetX<GlobalController>(builder: (controller) {
                       return Text(
-                        controller.totalCost.toStringAsFixed(2),
+                        "\$${controller.totalCost.toStringAsFixed(2)}",
                         style: AppTextStyles.white14Normal700,
                       );
                     })

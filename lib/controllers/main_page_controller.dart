@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/modals/choose_delivery_address_modal.dart';
 import 'package:jify_app/navigation/routes.dart';
+import 'package:jify_app/utilities/storage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MainPageController extends GetxController {
@@ -35,13 +37,12 @@ class MainPageController extends GetxController {
   }
 
   void openDeliveryAddressModal() {
-    showMaterialModalBottomSheet(
-        builder: (BuildContext context) => ChooseDeliveryAddressModal(),
-        context: Get.context!);
+    Get.bottomSheet(ChooseDeliveryAddressModal(),
+        isDismissible: false, enableDrag: false);
   }
 
   void openDeliveryAddressesPage() {
-    Get.toNamed(Routes.signIn);
+    Get.toNamed(Routes.deliveryAddresses);
   }
 
   Future<bool> onBackPressedHandler() {
@@ -65,5 +66,16 @@ class MainPageController extends GetxController {
       }
     }
     return Future.value(false);
+  }
+
+  @override
+  void onReady() {
+    if (!storageExists(AppKeys.token)) {
+      if (storageExists(AppKeys.unsavedAddress)) {
+      } else {
+        openDeliveryAddressModal();
+      }
+    }
+    super.onReady();
   }
 }

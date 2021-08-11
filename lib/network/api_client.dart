@@ -17,14 +17,8 @@ class ApiClient {
           queryParameters: map);
       return Right(_response);
     } on DioError catch (e) {
-      if (_response != null) {
-        if (_response.data is Map<String, dynamic>) {
-          final _rawJson = _response.data as Map<String, dynamic>;
-
-          if (_rawJson.containsKey("msg")) {
-            return Left(_rawJson["msg"] as String);
-          }
-        }
+      if (e.response != null) {
+        return Left(e.response!.data["msg"] as String);
       }
       return const Left("Something unexpected happened");
     }
@@ -43,14 +37,8 @@ class ApiClient {
           data: map);
       return Right(_response);
     } on DioError catch (e) {
-      if (_response != null) {
-        if (_response.data is Map<String, dynamic>) {
-          final _rawJson = _response.data as Map<String, dynamic>;
-
-          if (_rawJson.containsKey("msg")) {
-            return Left(_rawJson["msg"] as String);
-          }
-        }
+      if (e.response != null) {
+        return Left(e.response!.data["msg"] as String);
       }
       return const Left("Something unexpected happened");
     }
@@ -68,15 +56,9 @@ class ApiClient {
           ),
           data: map);
       return Right(_response);
-    } on DioError catch (_) {
-      if (_response != null) {
-        if (_response.data is Map<String, dynamic>) {
-          final _rawJson = _response.data as Map<String, dynamic>;
-
-          if (_rawJson.containsKey("msg")) {
-            return Left(_rawJson["msg"] as String);
-          }
-        }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        return Left(e.response!.data["msg"] as String);
       }
       return const Left("Something unexpected happened");
     }
@@ -94,15 +76,9 @@ class ApiClient {
           ),
           data: map);
       return Right(_response);
-    } on DioError catch (_) {
-      if (_response != null) {
-        if (_response.data is Map<String, dynamic>) {
-          final _rawJson = _response.data as Map<String, dynamic>;
-
-          if (_rawJson.containsKey("msg")) {
-            return Left(_rawJson["msg"] as String);
-          }
-        }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        return Left(e.response!.data["msg"] as String);
       }
       return const Left("Something unexpected happened");
     }

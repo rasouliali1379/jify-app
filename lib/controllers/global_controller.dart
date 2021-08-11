@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/models/initial_data_model.dart';
 import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/repositories/product_repository.dart';
@@ -10,6 +11,8 @@ class GlobalController extends GetxController {
   final _totalCost = 0.0.obs;
 
   late InitialDataModel _initialDataModel;
+
+  late AddressModel unsavedAddress;
 
   InitialDataModel get initialDataModel => _initialDataModel;
 

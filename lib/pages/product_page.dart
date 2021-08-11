@@ -22,24 +22,27 @@ class ProductPage extends GetView<ProductPageController> {
         systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar(controller.product.title!,
-          action: Obx(() => Badge(
-                badgeContent: Text(
-                  controller.variants.toString(),
-                  style: AppTextStyles.white12Normal400,
-                ),
-                padding: const EdgeInsets.all(6),
-                borderSide: const BorderSide(
-                  color: AppColors.white,
-                ),
-                badgeColor: AppColors.lightGreen,
-                position: BadgePosition.topStart(top: -17, start: 6),
-                toAnimate: false,
-                child: SvgPicture.asset(
-                  'assets/icons/shop_basket.svg',
-                  width: 24,
-                  height: 24,
-                ),
-              ))),
+          action: InkWell(
+            onTap: controller.openBasket,
+            child: Obx(() => Badge(
+                  badgeContent: Text(
+                    controller.variants.toString(),
+                    style: AppTextStyles.white12Normal400,
+                  ),
+                  padding: const EdgeInsets.all(6),
+                  borderSide: const BorderSide(
+                    color: AppColors.white,
+                  ),
+                  badgeColor: AppColors.lightGreen,
+                  position: BadgePosition.topStart(top: -17, start: 6),
+                  toAnimate: false,
+                  child: SvgPicture.asset(
+                    'assets/icons/shop_basket.svg',
+                    width: 24,
+                    height: 24,
+                  ),
+                )),
+          )),
       body: Stack(
         children: [
           SingleChildScrollView(

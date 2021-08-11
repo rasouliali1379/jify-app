@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -109,9 +110,15 @@ class DeliveryAddressesPageController extends GetxController {
         building: buildingTextController.text,
         note: noteTextController.text,
       );
-      loadingStatus = true;
-      _addressRepository.addAddress(addressModel).then((value) =>
-          value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+      if (!storageExists(AppKeys.token) &&
+          !storageExists(AppKeys.unsavedAddress)) {
+        storageWrite(AppKeys.unsavedAddress, json.encode(addressModel.toJson()))
+            .then((value) => Get.close(2));
+      } else {
+        loadingStatus = true;
+        _addressRepository.addAddress(addressModel).then((value) =>
+            value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+      }
     } else {
       Utilities.makeCustomToast('You need to enter your address');
     }
