@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
-import 'package:jify_app/controllers/category_fragment_controller.dart';
 import 'package:jify_app/models/category_model.dart';
 import 'package:jify_app/widgets/product_item.dart';
 
-class SubcategoryProductRowList extends GetView<CategoryFragmentController> {
+class SubcategoryProductRowList extends StatelessWidget {
   final CategoryModel category;
   final Function showAllOnClick;
   final Function addToBasket;
   final Function removeFromBasket;
   final Function onProductClickHandler;
+  final Function countInBasket;
   final int index;
 
   const SubcategoryProductRowList(
@@ -20,6 +20,7 @@ class SubcategoryProductRowList extends GetView<CategoryFragmentController> {
       this.addToBasket,
       this.removeFromBasket,
       this.onProductClickHandler,
+      this.countInBasket,
       this.index);
 
   @override
@@ -72,8 +73,7 @@ class SubcategoryProductRowList extends GetView<CategoryFragmentController> {
                 addToBasket,
                 removeFromBasket,
                 onProductClickHandler,
-                controller.productRepository
-                    .countInBasket(category.products![index].id!)),
+                countInBasket(category.products![index].id!) as int),
           ),
         )
       ],

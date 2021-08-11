@@ -66,7 +66,7 @@ class ApiRequests {
     return _apiClient.get('/product/category', {});
   }
 
-  Future<Either<String, Response>> getSubcategories(
+  Future<Either<String, Response>> getProductsBySubcategoryId(
       String id, int page, String search) async {
     return _apiClient
         .get('/product/category/$id', {"page": page, "search": search});

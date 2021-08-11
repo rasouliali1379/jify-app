@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -200,9 +201,13 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                                     children: [
                                       Expanded(
                                           child: Obx(() => Text(
-                                                _controller
-                                                    .selectedAddress.address != null ?  _controller
-                                                    .selectedAddress.address! : 'No address defined',
+                                                _controller.selectedAddress
+                                                            .address !=
+                                                        null
+                                                    ? _controller
+                                                        .selectedAddress
+                                                        .address!
+                                                    : 'No address defined',
                                                 style: AppTextStyles
                                                     .darkGrey13Normal300,
                                               ))),

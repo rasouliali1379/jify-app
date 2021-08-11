@@ -6,14 +6,16 @@ import 'package:jify_app/constants/app_text_styles.dart';
 class CategoryGridItem extends StatelessWidget {
   final String name;
   final String image;
-  final GestureTapCallback onClick;
+  final Function onItemClickHandler;
+  final int index;
 
-  const CategoryGridItem(this.name, this.image, this.onClick);
+  const CategoryGridItem(
+      this.name, this.image, this.onItemClickHandler, this.index);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onClick,
+      onTap: () => onItemClickHandler(index),
       child: Container(
         height: 50,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(14)),

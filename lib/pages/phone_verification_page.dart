@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,12 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarDividerColor: AppColors.white,
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar('Phone Verification'),
       body: Padding(
@@ -45,7 +52,6 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
                   borderRadius: BorderRadius.circular(5),
                   fieldHeight: 50,
                   fieldWidth: 40,
-                  errorBorderColor: AppColors.red,
                   inactiveColor: AppColors.lightGrey,
                   activeColor: AppColors.blue),
             ),

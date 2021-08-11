@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/help_center_page_controller.dart';
 import 'package:jify_app/widgets/custom_toolbar.dart';
@@ -9,6 +11,12 @@ import 'package:jify_app/widgets/long_button.dart';
 class HelpCenterPage extends GetView<HelpCenterPageController> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarDividerColor: AppColors.white,
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomToolBar('Help Center'),

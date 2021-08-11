@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
@@ -14,6 +15,12 @@ import 'package:jify_app/widgets/titled_textfield.dart';
 class AccountInformationPage extends GetView<AccountInformationPageController> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.blue,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        systemNavigationBarDividerColor: AppColors.white,
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar(
         'Account Information',
@@ -39,7 +46,7 @@ class AccountInformationPage extends GetView<AccountInformationPageController> {
               SizedBox(
                 height: Get.height * 0.0221,
               ),
-              TitledTextField('Email number', controller.emailTextController),
+              TitledTextField('Email', controller.emailTextController),
               SizedBox(
                 height: Get.height * 0.0221,
               ),

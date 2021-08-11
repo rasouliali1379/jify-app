@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:jify_app/controllers/category_fragment_controller.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
+import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/repositories/product_repository.dart';
 
@@ -53,7 +53,7 @@ class ProductPageController extends GetxController {
   }
 
   void addToBasket() {
-    Get.find<CategoryFragmentController>()
+    Get.find<HomeFragmentController>()
         .addProductToBasket(product, count: count);
     Get.find<CheckoutFragmentController>().populateOrders();
     variants = productRepository.getProductVariantsCount();

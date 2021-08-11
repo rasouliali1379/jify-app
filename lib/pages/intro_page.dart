@@ -1,7 +1,9 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
@@ -11,6 +13,10 @@ import 'package:jify_app/widgets/long_button.dart';
 class IntroPage extends GetView<IntroPageController> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: AppColors.blue,
+        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: AppColors.blue));
     return WillPopScope(
       onWillPop: controller.onBackPressedHandler,
       child: Scaffold(
@@ -57,13 +63,13 @@ class IntroPage extends GetView<IntroPageController> {
             Stack(
               children: [
                 Positioned(
-                  left: 15,
-                  top: 88,
+                  left: Get.width * 0.04,
+                  top: Get.height * 0.0875,
                   child: RotationTransition(
                     turns: const AlwaysStoppedAnimation(-25 / 360),
                     child: Container(
                       width: Get.width * 2,
-                      height: Get.height * 0.2672,
+                      height: Get.height * 0.28,
                       decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(200)),
@@ -135,13 +141,13 @@ class IntroPage extends GetView<IntroPageController> {
             Stack(
               children: [
                 Positioned(
-                  left: -400,
-                  top: 91,
+                  left: Get.width * -1.03,
+                  top: Get.height * 0.09,
                   child: RotationTransition(
                     turns: const AlwaysStoppedAnimation(205 / 360),
                     child: Container(
                       width: Get.width * 2,
-                      height: Get.height * 0.2672,
+                      height: Get.height * 0.28,
                       decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(200)),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
-import 'package:jify_app/controllers/category_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
+import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/modals/payment_modal.dart';
 import 'package:jify_app/models/address_model.dart';
@@ -152,13 +152,13 @@ class CheckoutFragmentController extends GetxController {
   void increaseAmount(ProductModel product) {
     globalController.basket.add(product);
     populateOrders();
-    Get.find<CategoryFragmentController>().update();
+    Get.find<HomeFragmentController>().update();
   }
 
   void decreaseAmount(String id) {
     _productRepository.removeProductFromBasket(id);
     populateOrders();
-    Get.find<CategoryFragmentController>().update();
+    Get.find<HomeFragmentController>().update();
   }
 
   void checkSelectedAddress() {

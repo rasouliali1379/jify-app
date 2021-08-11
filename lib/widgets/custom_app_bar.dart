@@ -9,14 +9,16 @@ import 'package:jify_app/controllers/main_page_controller.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final GestureTapCallback backClickHandler;
+  final GestureTapCallback clearSearch;
   final Function searchChangeHandler;
   final TextEditingController textController;
-
+  final FocusNode focusNode;
   @override
   final Size preferredSize;
 
-  CustomAppBar(this.backClickHandler, this.searchChangeHandler, this.textController)
-      : preferredSize = const Size.fromHeight(kToolbarHeight);
+  CustomAppBar(this.backClickHandler, this.clearSearch,
+      this.searchChangeHandler, this.textController, this.focusNode)
+      : preferredSize = Size.fromHeight(Get.height * 0.0763);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                     return Row(
                       children: [
                         SizedBox(
-                          width: controller.backBtnVisibility ? 0 : 16,
+                          width: controller.backBtnVisibility
+                              ? 0
+                              : Get.width * 0.0426,
                         ),
                         Visibility(
                           visible: controller.backBtnVisibility,
@@ -72,8 +76,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   Expanded(
                       child: Container(
                     margin: const EdgeInsets.only(bottom: 12, top: 8),
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         color: AppColors.white),
@@ -82,12 +85,14 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                         Expanded(
                           child: TextField(
                             decoration: InputDecoration(
-                                hintText: 'Search within Snacks',
+                                hintText: "Search items ...",
                                 border: InputBorder.none,
                                 focusedBorder: InputBorder.none,
                                 enabledBorder: InputBorder.none,
                                 errorBorder: InputBorder.none,
                                 disabledBorder: InputBorder.none,
+                                contentPadding:
+                                    const EdgeInsets.only(bottom: 4),
                                 hintStyle: AppTextStyles.grayishBlack14Normal400
                                     .copyWith(
                                         color: AppTextColors.grayishBlack
@@ -97,16 +102,27 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                             cursorColor: AppColors.blue,
                             cursorHeight: 18,
                             cursorWidth: 1.2,
+                            controller: textController,
+                            focusNode: focusNode,
                           ),
                         ),
                         GetX<HomeFragmentController>(builder: (controller) {
-                          return controller.searchLoading
-                              ? const SpinKitRing(
-                                  color: AppColors.blue,
+                          if (controller.searchLoading) {
+                            return const SpinKitRing(
+                              color: AppColors.blue,
+                              size: 20,
+                              lineWidth: 2,
+                            );
+                          } else if (textController.text.isNotEmpty) {
+                            return InkWell(
+                                onTap: clearSearch,
+                                child: const Icon(
+                                  Icons.clear,
                                   size: 20,
-                                  lineWidth: 2,
-                                )
-                              : SvgPicture.asset('assets/icons/search.svg');
+                                  color: AppColors.grayishBlack,
+                                ));
+                          }
+                          return SvgPicture.asset('assets/icons/search.svg');
                         })
                       ],
                     ),

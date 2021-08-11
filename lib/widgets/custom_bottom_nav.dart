@@ -43,7 +43,7 @@ class CustomBottomNav extends StatelessWidget {
               width: Get.width * 0.1,
             ),
             GestureDetector(
-              onTap: () => onClick(4),
+              onTap: () => onClick(3),
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 7),

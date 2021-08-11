@@ -1,5 +1,6 @@
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
@@ -14,6 +15,12 @@ import 'package:jify_app/widgets/titled_textfield.dart';
 class SignUpPage extends GetView<SignUpPageController> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarDividerColor: AppColors.white,
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar('Sign Up'),
       body: SingleChildScrollView(

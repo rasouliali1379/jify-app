@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,12 @@ import 'package:jify_app/widgets/clickable_text.dart';
 class SplashPage extends GetView<SplashPageController> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: AppColors.blue,
+        systemNavigationBarIconBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarDividerColor: AppColors.blue,
+        systemNavigationBarColor: AppColors.blue));
     return Scaffold(
       backgroundColor: AppColors.blue,
       body: Container(

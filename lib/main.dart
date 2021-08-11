@@ -8,17 +8,13 @@ import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/navigation/pages.dart';
 import 'package:jify_app/navigation/routes.dart';
 
-main() async {
-  await GetStorage.init();
+void main() {
+  GetStorage.init().then((value) => runApp(JiffyApp()));
   Get.put(GlobalController(), permanent: true);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      systemNavigationBarColor: AppColors.white,
-      statusBarColor: Colors.transparent));
-  runApp(JiffyApp());
 }
 
 class JiffyApp extends StatelessWidget {
