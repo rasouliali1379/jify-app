@@ -6,6 +6,7 @@ import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/addresses_page_controller.dart';
 import 'package:jify_app/widgets/address_item.dart';
 import 'package:jify_app/widgets/custom_toolbar.dart';
+import 'package:jify_app/widgets/long_button.dart';
 
 class AddressesPage extends GetView<AddressesPageController> {
   @override
@@ -22,13 +23,35 @@ class AddressesPage extends GetView<AddressesPageController> {
             'Edit',
             style: AppTextStyles.white16Normal400,
           )),
-      body: ListView.builder(
-        itemCount: controller.addressList.length,
-        itemBuilder: (context, index) => AddressItem(
-            controller.addressList[index],
-            controller.addressList[index].id == controller.selectedAddress,
-            controller.onAddressClickHandler,
-            controller.getIcon(controller.addressList[index].type!)),
+      body: Stack(
+        children: [
+          Obx(
+            () => ListView.builder(
+              itemCount: controller.addressList.length,
+              padding: EdgeInsets.only(bottom: Get.height * 0.1),
+              itemBuilder: (context, index) => AddressItem(
+                  controller.addressList[index],
+                  controller.addressList[index].id ==
+                      controller.selectedAddress,
+                  controller.onAddressClickHandler,
+                  controller.getIcon(controller.addressList[index].type!)),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: Get.width * 0.0369,
+                  vertical: Get.height * 0.03),
+              child: LongButton(
+                controller.openDeliveryAddressPage,
+                'Add Address',
+                double.maxFinite,
+                Get.height * 0.064,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
