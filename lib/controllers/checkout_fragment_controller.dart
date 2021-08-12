@@ -185,9 +185,10 @@ class CheckoutFragmentController extends GetxController {
         }
       }
     } else {
-      final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
-      print(rawAddress);
-      selectedAddress = AddressModel.fromJson(jsonDecode(rawAddress));
+      if (storageExists(AppKeys.unsavedAddress)) {
+        final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
+        selectedAddress = AddressModel.fromJson(jsonDecode(rawAddress));
+      }
     }
   }
 
@@ -234,6 +235,7 @@ class CheckoutFragmentController extends GetxController {
   }
 
   void calculatePrices() {
+    deliveryPrice = globalController.initialDataModel.delivery!;
     double _subtotal = 0.0;
     for (final order in orders) {
       final product = findProduct(order.id!);
@@ -246,25 +248,26 @@ class CheckoutFragmentController extends GetxController {
       _promoCodeDiscount = _subtotal * promoCode.value!.toDouble() / 100;
       promoCodePrice = _promoCodeDiscount;
     }
-    totalPrice = _subtotal - _promoCodeDiscount;
+    totalPrice = _subtotal - _promoCodeDiscount + deliveryPrice;
   }
 
   void checkout() {
     if (storageExists(AppKeys.token)) {
       if (orders.isNotEmpty) {
-        promoFocus.unfocus();
-        loadingStatus = true;
-        final checkoutModel = BasketModel(
-            products: orders,
-            address: Address(id: selectedAddress.id),
-            promotion: Promotion(code: promoCode.code));
-        print(storageRead(AppKeys.token));
-        print(checkoutModel.toJson().toString());
-        _checkoutRepository.checkout(checkoutModel).then((value) => value.fold(
-            (l) => attemptFailed(l), (r) => checkoutAttemptSucceed(r)));
+        if (Get.find<GlobalController>().isAddressInRange) {
+          promoFocus.unfocus();
+          loadingStatus = true;
+          final checkoutModel = BasketModel(
+              products: orders,
+              address: Address(id: selectedAddress.id),
+              promotion: Promotion(code: promoCode.code));
+          _checkoutRepository.checkout(checkoutModel).then((value) => value
+              .fold((l) => attemptFailed(l), (r) => checkoutAttemptSucceed(r)));
+        } else {
+          makeCustomToast("We don't support your address");
+        }
       } else {
-        makeCustomToast(
-            "You need to add product into your basket to checkout");
+        makeCustomToast("You need to add product into your basket to checkout");
       }
     } else {
       Get.toNamed(Routes.signIn);

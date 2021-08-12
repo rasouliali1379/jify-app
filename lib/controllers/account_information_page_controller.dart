@@ -60,9 +60,11 @@ class AccountInformationPageController extends GetxController {
     final userInfo = globalController.initialDataModel.user;
     if (userInfo != null) {
       phoneNumber = userInfo.mobileNumber!;
-      nameTextController.text = userInfo.firstname!;
-      lastNameTextController.text = userInfo.lastname!;
-      emailTextController.text = userInfo.email!;
+      nameTextController.text =
+          userInfo.firstname != null ? userInfo.firstname! : "";
+      lastNameTextController.text =
+          userInfo.lastname != null ? userInfo.lastname! : "";
+      emailTextController.text = userInfo.email != null ? userInfo.email! : "";
     }
     checkSelectedAddress();
   }
@@ -71,16 +73,18 @@ class AccountInformationPageController extends GetxController {
     final userInfo = globalController.initialDataModel.user;
     if (userInfo!.addresses!.isNotEmpty) {
       if (storageExists(AppKeys.address)) {
-        AddressModel? address = findAddress(
+        final AddressModel? address = findAddress(
             userInfo.addresses!, storageRead(AppKeys.address) as String);
 
         if (address != null) {
           selectedAddress = address.address!;
         } else {
-          storageRemove(AppKeys.address).then((value) => null);
+          storageWrite(AppKeys.address, userInfo.addresses!.last.id);
+          selectedAddress = userInfo.addresses!.last.id!;
         }
       } else {
-        storageRemove(AppKeys.address).then((value) => null);
+        storageWrite(AppKeys.address, userInfo.addresses!.last.id);
+        selectedAddress = userInfo.addresses!.last.id!;
       }
     }
   }

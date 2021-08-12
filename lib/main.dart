@@ -10,10 +10,11 @@ import 'package:jify_app/navigation/routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp().then((value) {
-    Get.put(GlobalController(), permanent: true);
-    GetStorage.init().then((value) => runApp(JiffyApp()));
-  });
+  // Firebase.initializeApp().then((value) {
+  //
+  // });
+  Get.put(GlobalController(), permanent: true);
+  GetStorage.init().then((value) => runApp(JiffyApp()));
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

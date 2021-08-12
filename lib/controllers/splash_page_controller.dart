@@ -32,7 +32,8 @@ class SplashPageController extends GetxController {
         tryAgainVisibility = true;
       }, (initialData) {
         _globalController.initialDataModel = initialData;
-        Get.find<GlobalController>().initFireBaseListeners();
+
+        // Get.find<GlobalController>().initFireBaseListeners();
         Future.delayed(const Duration(seconds: 1)).then((value) => leavePage());
       });
     });

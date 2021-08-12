@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jify_app/constants/app_keys.dart';
+import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/models/location_model.dart';
@@ -112,8 +113,28 @@ class DeliveryAddressesPageController extends GetxController {
       );
       if (!storageExists(AppKeys.token) &&
           !storageExists(AppKeys.unsavedAddress)) {
+        final distance = _addressRepository.calculateDistance(LatLng(
+            selectedAddress.geometry!.location!.lat!,
+            selectedAddress.geometry!.location!.lng!));
+        final globalController = Get.find<GlobalController>();
+        final availableDistance =
+            globalController.initialDataModel.supportedDistance;
+
+        if (distance > availableDistance!) {
+          globalController.isAddressInRange = false;
+        } else {
+          globalController.isAddressInRange = true;
+        }
         storageWrite(AppKeys.unsavedAddress, json.encode(addressModel.toJson()))
-            .then((value) => Get.close(2));
+            .then((value) {
+          if (globalController.isAddAddressModalOpen) {
+            globalController.isAddAddressModalOpen = false;
+            Get.close(2);
+          } else {
+            Get.back();
+          }
+          Get.find<CheckoutFragmentController>().checkSelectedAddress();
+        });
       } else {
         loadingStatus = true;
         _addressRepository.addAddress(addressModel).then((value) =>
@@ -131,8 +152,12 @@ class DeliveryAddressesPageController extends GetxController {
 
   void attemptSucceed(List<AddressModel> addresses) {
     loadingStatus = false;
-    Get.find<GlobalController>().initialDataModel.user!.addresses = addresses;
+    final globalController = Get.find<GlobalController>();
+    globalController.initialDataModel.user!.addresses = addresses;
     storageWrite(AppKeys.address, addresses.last.id).then((value) {
+      globalController.isAddressInRange = addresses.last.distance! <=
+          globalController.initialDataModel.supportedDistance!;
+      Get.find<CheckoutFragmentController>().checkSelectedAddress();
       Get.back();
     });
   }

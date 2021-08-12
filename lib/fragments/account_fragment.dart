@@ -56,7 +56,7 @@ class AccountFragment extends GetView<AccountFragmentController> {
           Obx(() => controller.loggedIn
               ? AccountItems(
                   'Log out',
-                  controller.logout,
+                  controller.openLogoutModal,
                   color: AppTextColors.red,
                 )
               : AccountItems(

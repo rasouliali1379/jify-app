@@ -8,10 +8,10 @@ import 'package:jify_app/controllers/orders_fragment_controller.dart';
 class MainPageBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => MainPageController());
-    Get.lazyPut(() => HomeFragmentController());
-    Get.lazyPut(() => AccountFragmentController());
-    Get.lazyPut(() => OrdersFragmentController());
-    Get.lazyPut(() => CheckoutFragmentController());
+    Get.put(MainPageController());
+    Get.put(HomeFragmentController());
+    Get.put(AccountFragmentController());
+    Get.put(OrdersFragmentController());
+    Get.put(CheckoutFragmentController());
   }
 }

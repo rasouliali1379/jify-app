@@ -4,11 +4,16 @@ import 'user_model.dart';
 class InitialDataModel {
   List<CategoryModel>? categories;
   UserModel? user;
-  int? supportedDistance;
+  double? supportedDistance;
   String? msg;
+  double? delivery;
 
   InitialDataModel(
-      {this.categories, this.user, this.supportedDistance, this.msg});
+      {this.categories,
+      this.user,
+      this.supportedDistance,
+      this.msg,
+      this.delivery});
 
   InitialDataModel.fromJson(Map<String, dynamic> json) {
     if (json['categories'] != null) {
@@ -20,8 +25,13 @@ class InitialDataModel {
     user = json['user'] != null
         ? UserModel.fromJson(json['user'] as Map<String, dynamic>)
         : null;
-    supportedDistance = json['supportedDistance'] as int;
+    if (json['supportedDistance'] is double) {
+      supportedDistance = json['supportedDistance'] as double;
+    } else {
+      supportedDistance = (json['supportedDistance'] as int).toDouble();
+    }
     msg = json['msg'] as String;
+    delivery = json['delivery'] as double;
   }
 
   Map<String, dynamic> toJson() {
@@ -34,6 +44,7 @@ class InitialDataModel {
     }
     map['supportedDistance'] = supportedDistance;
     map['msg'] = msg;
+    map['delivery'] = delivery;
     return map;
   }
 }

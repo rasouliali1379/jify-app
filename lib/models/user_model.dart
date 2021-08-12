@@ -29,10 +29,10 @@ class UserModel {
     mobileNumber = json['mobileNumber'] as String;
     email = json['email'] != null ? json['email'] as String : null;
     date = json['date'] as String;
-    addresses = [];
     if (json['addresses'] != null) {
+      addresses = <AddressModel>[];
       json['addresses'].forEach((v) {
-        addresses?.add(AddressModel.fromJson(v as Map<String, dynamic>));
+        addresses!.add(AddressModel.fromJson(v as Map<String, dynamic>));
       });
     }
     fcmToken = json['fcmToken'] != null ? json['fcmToken'] as String : null;

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_status.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
+import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/widgets/change_address_container.dart';
 import 'package:jify_app/widgets/custom_app_bar.dart';
@@ -53,8 +54,12 @@ class _HomeFragmentState extends State<HomeFragment>
             //         ]),
             //   ),
             // ),
-            ChangeAddressContainer(
-                _controller.mainController.openDeliveryAddressModal),
+            GetX<GlobalController>(builder: (controller) {
+              return controller.isAddressInRange
+                  ? const SizedBox()
+                  : ChangeAddressContainer(
+                      _controller.mainController.openAddressesPage);
+            }),
             Builder(builder: (context) {
               switch (controller.pageMode) {
                 case "search":

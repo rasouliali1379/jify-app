@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
+import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/modals/choose_delivery_address_modal.dart';
 import 'package:jify_app/navigation/routes.dart';
@@ -40,10 +41,20 @@ class MainPageController extends GetxController {
   void openDeliveryAddressModal() {
     Get.bottomSheet(ChooseDeliveryAddressModal(),
         isDismissible: false, enableDrag: false);
+    Get.find<GlobalController>().isAddAddressModalOpen = true;
   }
 
   void openDeliveryAddressesPage() {
     Get.toNamed(Routes.deliveryAddresses);
+  }
+
+  void openAddressesPage() {
+    if (storageExists(AppKeys.token)) {
+      Get.toNamed(Routes.addresses);
+    } else {
+      storageRemove(AppKeys.unsavedAddress);
+      Get.toNamed(Routes.deliveryAddresses);
+    }
   }
 
   Future<bool> onBackPressedHandler() {

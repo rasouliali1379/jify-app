@@ -16,7 +16,7 @@ class AddressItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => onClick(addressModel.id),
+      onTap: () => onClick(addressModel),
       child: Container(
         width: double.maxFinite,
         height: Get.height * 0.0612,

@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
+import 'package:jify_app/controllers/account_fragment_controller.dart';
 import 'package:jify_app/controllers/account_information_page_controller.dart';
+import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/utilities/storage.dart';
@@ -17,9 +19,12 @@ class AddressesPageController extends GetxController {
     super.onInit();
   }
 
-  Future<void> onAddressClickHandler(String id) async {
-    await storageWrite(AppKeys.address, id);
-    Get.find<AccountInformationPageController>().checkSelectedAddress();
+  Future<void> onAddressClickHandler(AddressModel addressModel) async {
+    await storageWrite(AppKeys.address, addressModel.id);
+    Get.find<CheckoutFragmentController>().checkSelectedAddress();
+    final globalController = Get.find<GlobalController>();
+    globalController.isAddressInRange = addressModel.distance! <=
+        globalController.initialDataModel.supportedDistance!;
     Get.back();
   }
 

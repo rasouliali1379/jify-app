@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:dartz/dartz.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/models/address_prediction_model.dart';
 import 'package:jify_app/models/predicted_lat_long_model.dart';
@@ -81,5 +84,23 @@ class AddressRepository {
     } else {
       return Left(error);
     }
+  }
+
+  double calculateDistance(LatLng latLng) {
+    const earthRadius = 6371;
+    const marketLatLng = LatLng(-33.865143, 151.209900);
+    final dLat = deg2rad(latLng.latitude - marketLatLng.latitude);
+    final dLon = deg2rad(latLng.longitude - marketLatLng.longitude);
+    final a = sin(dLat / 2) * sin(dLat / 2) +
+        cos(deg2rad(marketLatLng.latitude)) *
+            cos(deg2rad(latLng.latitude)) *
+            sin(dLon / 2) *
+            sin(dLon / 2);
+    final curve = 2 * atan2(sqrt(a), sqrt(1 - a));
+    return earthRadius * curve;
+  }
+
+  double deg2rad(double deg) {
+    return deg * (pi / 180);
   }
 }

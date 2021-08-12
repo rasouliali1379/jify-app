@@ -11,47 +11,31 @@ import 'package:jify_app/utilities/storage.dart';
 class GlobalController extends GetxController {
   final userRepository = UserRepository();
   final productRepository = ProductRepository();
-  final fcm = FirebaseMessaging.instance;
+  // final fcm = FirebaseMessaging.instance;
 
   final basket = <ProductModel>[];
   final _totalCost = 0.0.obs;
+  final _isAddressInRange = true.obs;
 
   late InitialDataModel _initialDataModel;
 
   late AddressModel unsavedAddress;
 
-  void initFireBaseListeners() {
-    fcm.getToken().then((value) {
-      if (value != null) {
-        print("getToken : $value");
-        saveToken(value);
-      }
-    });
+  bool isAddAddressModalOpen = false;
 
-    fcm.onTokenRefresh.listen((event) {
-      print("tokenRefreshed : $event");
-      saveToken(event);
-    });
-  }
-
-  void saveToken(String token) {
-    if (storageExists(AppKeys.token)) {
-      final userData = initialDataModel.user;
-
-      if (userData != null) {
-        userData.fcmToken = token;
-        userRepository.updateUser(userData).then((value) => value.fold(
-            (l) => attemptFailed(l), (r) {
-          initialDataModel.user = r;
-          print(r.fcmToken);
-        }));
-      }
-    }
-  }
-
-  void attemptFailed(String message) {
-    print(message);
-  }
+  // void initFireBaseListeners() {
+  //   fcm.getToken().then((value) {
+  //     if (value != null) {
+  //       print("getToken : $value");
+  //       saveToken(value);
+  //     }
+  //   });
+  //
+  //   fcm.onTokenRefresh.listen((event) {
+  //     print("tokenRefreshed : $event");
+  //     saveToken(event);
+  //   });
+  // }
 
   InitialDataModel get initialDataModel => _initialDataModel;
 
@@ -63,6 +47,32 @@ class GlobalController extends GetxController {
 
   set totalCost(double value) {
     _totalCost.value = value;
+  }
+
+  bool get isAddressInRange => _isAddressInRange.value;
+
+  set isAddressInRange(bool value) {
+    _isAddressInRange.value = value;
+  }
+
+  void saveToken(String token) {
+    if (storageExists(AppKeys.token)) {
+      final userData = initialDataModel.user;
+
+      if (userData != null) {
+        userData.fcmToken = token;
+        userRepository
+            .updateUser(userData)
+            .then((value) => value.fold((l) => attemptFailed(l), (r) {
+                  initialDataModel.user = r;
+                  print(r.fcmToken);
+                }));
+      }
+    }
+  }
+
+  void attemptFailed(String message) {
+    print(message);
   }
 
   void updateTotalCost() {
