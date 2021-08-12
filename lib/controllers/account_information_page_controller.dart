@@ -108,13 +108,13 @@ class AccountInformationPageController extends GetxController {
 
   void attemptFailed(String message) {
     loadingStatus = false;
-    Utilities.makeCustomToast(message);
+    makeCustomToast(message);
   }
 
   void attemptSucceed(UserModel user) {
     loadingStatus = false;
     globalController.initialDataModel.user = user;
-    Utilities.makeCustomToast("You're information updated");
+    makeCustomToast("You're information updated");
     Get.back();
   }
 

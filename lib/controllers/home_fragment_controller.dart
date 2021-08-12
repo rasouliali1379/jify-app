@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_status.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
@@ -141,7 +144,7 @@ class HomeFragmentController extends GetxController {
 
   void attemptFailed(String message) {
     searchLoading = false;
-    Utilities.makeCustomToast(message);
+    makeCustomToast(message);
   }
 
   void attemptSucceed(List<ProductModel> products) {
@@ -151,12 +154,17 @@ class HomeFragmentController extends GetxController {
   }
 
   void addProductToBasket(ProductModel product, {int count = 1}) {
-    for (int i = 0; i < count; i++) {
-      _globalController.basket.add(product);
+    if (productRepository.countInBasket(product.id!) + count <=
+        product.stock!) {
+      for (int i = 0; i < count; i++) {
+        _globalController.basket.add(product);
+      }
+      update();
+      Get.find<CheckoutFragmentController>().populateOrders();
+      Get.find<GlobalController>().updateTotalCost();
+    } else {
+      showCustomSnackBar("Only ${product.stock} mars bar available");
     }
-    update();
-    Get.find<CheckoutFragmentController>().populateOrders();
-    Get.find<GlobalController>().updateTotalCost();
   }
 
   void removeFromBasket(String id) {
@@ -202,6 +210,9 @@ class HomeFragmentController extends GetxController {
         page = 1;
         requestPermitted = false;
         pagginationStatus = AppStatus.done;
+        break;
+      default:
+        SystemNavigator.pop();
         break;
     }
     update();

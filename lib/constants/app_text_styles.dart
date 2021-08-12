@@ -15,6 +15,8 @@ class AppTextStyles {
       fontSize: 12, color: AppTextColors.white, fontWeight: FontWeight.w400);
   static const white12Normal700 = TextStyle(
       fontSize: 12, color: AppTextColors.white, fontWeight: FontWeight.w700);
+  static const white12Normal800 = TextStyle(
+      fontSize: 12, color: AppTextColors.white, fontWeight: FontWeight.w800);
   static const white13Normal300 = TextStyle(
       fontSize: 13, color: AppTextColors.white, fontWeight: FontWeight.w300);
   static const white13Normal400 = TextStyle(

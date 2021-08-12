@@ -28,10 +28,11 @@ class SplashPageController extends GetxController {
     tryAgainVisibility = false;
     _appRepository.getInitialData().then((value) {
       value.fold((l) {
-        Utilities.makeCustomToast(l);
+        makeCustomToast(l);
         tryAgainVisibility = true;
       }, (initialData) {
         _globalController.initialDataModel = initialData;
+        Get.find<GlobalController>().initFireBaseListeners();
         Future.delayed(const Duration(seconds: 1)).then((value) => leavePage());
       });
     });

@@ -119,20 +119,20 @@ class SignUpPageController extends GetxController {
       _userRepository.updateUser(userModel).then((value) =>
           value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
     } else {
-      Utilities.makeCustomToast('You need to agree to our terms and conditions',
+      makeCustomToast('You need to agree to our terms and conditions',
           textColor: AppTextColors.white, bgColor: AppColors.red);
     }
   }
 
   void attemptFailed(String message) {
     loadingStatus = false;
-    Utilities.makeCustomToast(message);
+    makeCustomToast(message);
   }
 
   void attemptSucceed(UserModel user) {
     loadingStatus = false;
     globalController.initialDataModel.user = user;
-    Utilities.makeCustomToast("You're successfully signed in. Welcome ${user.firstname}");
+    makeCustomToast("You're successfully signed in. Welcome ${user.firstname}");
     Get.find<AccountFragmentController>().checkLoginStatus();
     Get.back();
   }

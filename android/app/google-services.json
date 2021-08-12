@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1086710813456",
+    "project_id": "jiffy-9d77e",
+    "storage_bucket": "jiffy-9d77e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086710813456:android:f1efad30c1b743e925cb95",
+        "android_client_info": {
+          "package_name": "com.jify.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086710813456-nbodht2sbd1vc287f47iepcf96ej8sur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3nE6qr__9jusHNh5Qd_qX30SUxJrIdLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086710813456-nbodht2sbd1vc287f47iepcf96ej8sur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

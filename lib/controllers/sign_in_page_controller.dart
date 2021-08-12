@@ -45,7 +45,7 @@ class SignInPageController extends GetxController {
 
   void attemptFailed(String message) {
     loadingStatus = false;
-    Utilities.makeCustomToast(message);
+    makeCustomToast(message);
   }
 
   void attemptSucceed({bool codeSent = false}) {

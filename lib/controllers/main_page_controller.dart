@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
+import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/modals/choose_delivery_address_modal.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/utilities/storage.dart';
@@ -46,25 +47,30 @@ class MainPageController extends GetxController {
   }
 
   Future<bool> onBackPressedHandler() {
-    if (pageStack.length == 1) {
-      return Future.value(true);
+    if (index == 0) {
+      Get.find<HomeFragmentController>().onAppBarBackPressed();
     } else {
-      pageStack.removeLast();
-      if (pageStack.last >= 0 && pageStack.last <= 2) {
-        index = pageStack.last;
-        backBtnVisibility = false;
-      }
-      pageController.jumpToPage(pageStack.last);
+      if (pageStack.length == 1) {
+        return Future.value(true);
+      } else {
+        pageStack.removeLast();
+        if (pageStack.last >= 0 && pageStack.last <= 2) {
+          index = pageStack.last;
+          backBtnVisibility = false;
+        }
+        pageController.jumpToPage(pageStack.last);
 
-      final pageStackCopy = List<int>.from(pageStack.reversed.toList());
+        final pageStackCopy = List<int>.from(pageStack.reversed.toList());
 
-      for (int i = 0; i < pageStackCopy.length; i++) {
-        if (pageStackCopy[i] >= 0 && pageStackCopy[i] <= 2) {
-          index = pageStackCopy[i];
-          break;
+        for (int i = 0; i < pageStackCopy.length; i++) {
+          if (pageStackCopy[i] >= 0 && pageStackCopy[i] <= 2) {
+            index = pageStackCopy[i];
+            break;
+          }
         }
       }
     }
+
     return Future.value(false);
   }
 

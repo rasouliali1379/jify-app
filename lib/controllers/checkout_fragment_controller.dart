@@ -215,14 +215,14 @@ class CheckoutFragmentController extends GetxController {
           (value) =>
               value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
     } else {
-      Utilities.makeCustomToast('Enter your promo code');
+      makeCustomToast('Enter your promo code');
     }
   }
 
   void attemptFailed(String message) {
     promoLoadingStatus = false;
     loadingStatus = false;
-    Utilities.makeCustomToast(message);
+    makeCustomToast(message);
   }
 
   void attemptSucceed(PromotionCodeModel promo) {
@@ -230,7 +230,7 @@ class CheckoutFragmentController extends GetxController {
     promoCodeController.text = "";
     promoCode = promo;
     calculatePrices();
-    Utilities.makeCustomToast("Promotion applied");
+    makeCustomToast("Promotion applied");
   }
 
   void calculatePrices() {
@@ -263,7 +263,7 @@ class CheckoutFragmentController extends GetxController {
         _checkoutRepository.checkout(checkoutModel).then((value) => value.fold(
             (l) => attemptFailed(l), (r) => checkoutAttemptSucceed(r)));
       } else {
-        Utilities.makeCustomToast(
+        makeCustomToast(
             "You need to add product into your basket to checkout");
       }
     } else {

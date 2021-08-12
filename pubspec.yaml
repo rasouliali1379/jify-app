@@ -26,6 +26,8 @@ dependencies:
   custom_check_box: 0.0.4
   flutter_countdown_timer: 4.1.0
   google_maps_flutter: 2.0.6
+  firebase_messaging: ^10.0.4
+  firebase_core: ^1.4.0
 
 dev_dependencies:
   flutter_test:

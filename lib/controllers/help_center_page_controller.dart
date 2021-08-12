@@ -98,12 +98,12 @@ class HelpCenterPageController extends GetxController {
 
   void attemptFailed(String message) {
     loadingStatus = false;
-    Utilities.makeCustomToast(message);
+    makeCustomToast(message);
   }
 
   void attemptSucceed(String message) {
     loadingStatus = false;
-    Utilities.makeCustomToast(message);
+    makeCustomToast(message);
     Get.back();
     clearTextFields();
   }

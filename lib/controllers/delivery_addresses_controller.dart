@@ -120,13 +120,13 @@ class DeliveryAddressesPageController extends GetxController {
             value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
       }
     } else {
-      Utilities.makeCustomToast('You need to enter your address');
+      makeCustomToast('You need to enter your address');
     }
   }
 
   void attemptFailed(String message) {
     loadingStatus = false;
-    Utilities.makeCustomToast(message);
+    makeCustomToast(message);
   }
 
   void attemptSucceed(List<AddressModel> addresses) {

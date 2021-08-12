@@ -28,8 +28,11 @@ class ProductItem extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
-                border:
-                    Border.all(color: AppColors.extraLightBLue, width: 1.2)),
+                border: Border.all(
+                    color: count == product.stock && count != 0
+                        ? AppColors.red
+                        : AppColors.extraLightBLue,
+                    width: 1.2)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -65,44 +68,60 @@ class ProductItem extends StatelessWidget {
                       width: double.maxFinite,
                       height: Get.height * 0.0369,
                       child: Builder(builder: (context) {
-                        return count > 0
-                            ? Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CircleButton(
-                                    SizedBox(
-                                        width: Get.width * 0.08,
-                                        height: Get.width * 0.08,
-                                        child: const Icon(
-                                          Icons.remove,
-                                          color: AppColors.green,
-                                          size: 20,
-                                        )),
-                                    const Color.fromRGBO(200, 255, 216, 1),
-                                    () => removeFromBasket(product.id),
-                                    border: Border.all(
-                                        color: AppColors.green, width: 2),
-                                  ),
-                                  Text(
-                                    count.toString(),
-                                    style:
-                                        AppTextStyles.extraDarkCyan15Normal400,
-                                  ),
-                                  CircleButton(
-                                      SizedBox(
-                                          width: Get.width * 0.08,
-                                          height: Get.width * 0.08,
-                                          child: const Icon(
-                                            Icons.add,
-                                            color: AppColors.white,
-                                            size: 20,
-                                          )),
-                                      AppColors.green,
-                                      () => addToBasket(product)),
-                                ],
-                              )
-                            : AddButton(() => addToBasket(product));
+                        if (product.stock == 0) {
+                          return Container(
+                            height: Get.height * 0.0369,
+                            width: double.maxFinite,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: const Color.fromRGBO(72, 72, 72, 0.2),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: const Text(
+                              'Back Soon',
+                              style: AppTextStyles.white12Normal800,
+                            ),
+                          );
+                        } else if (count > 0) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CircleButton(
+                                SizedBox(
+                                    width: Get.width * 0.08,
+                                    height: Get.width * 0.08,
+                                    child: const Icon(
+                                      Icons.remove,
+                                      color: AppColors.green,
+                                      size: 20,
+                                    )),
+                                const Color.fromRGBO(200, 255, 216, 1),
+                                () => removeFromBasket(product.id),
+                                border: Border.all(
+                                    color: AppColors.green, width: 2),
+                              ),
+                              Text(
+                                count.toString(),
+                                style: count == product.stock
+                                    ? AppTextStyles.extraDarkCyan15Normal400
+                                        .copyWith(color: AppColors.red)
+                                    : AppTextStyles.extraDarkCyan15Normal400,
+                              ),
+                              CircleButton(
+                                  SizedBox(
+                                      width: Get.width * 0.08,
+                                      height: Get.width * 0.08,
+                                      child: const Icon(
+                                        Icons.add,
+                                        color: AppColors.white,
+                                        size: 20,
+                                      )),
+                                  AppColors.green,
+                                  () => addToBasket(product)),
+                            ],
+                          );
+                        }
+                        return AddButton(() => addToBasket(product));
                       })),
                 ),
               ],

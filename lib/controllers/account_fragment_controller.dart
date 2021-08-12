@@ -27,7 +27,7 @@ class AccountFragmentController extends GetxController {
     if (loggedIn) {
       Get.toNamed(Routes.accountInformation);
     } else {
-      Utilities.makeCustomToast('You need to sign in/up first');
+      makeCustomToast('You need to sign in/up first');
     }
   }
 

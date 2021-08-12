@@ -67,7 +67,7 @@ class PhoneVerificationPageController extends GetxController {
         resendStatus = "try_again";
         attemptFailed(l);
       }, (r) {
-        Utilities.makeCustomToast('Code has been sent again');
+        makeCustomToast('Code has been sent again');
         final endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 120;
         countdownController = CountdownTimerController(
             endTime: endTime, onEnd: onCountdownFinished);
@@ -83,7 +83,7 @@ class PhoneVerificationPageController extends GetxController {
   }
 
   void attemptFailed(String message) {
-    Utilities.makeCustomToast(message);
+    makeCustomToast(message);
   }
 
   void attemptSucceed(Map<String, dynamic> loginData) {
@@ -116,7 +116,7 @@ class PhoneVerificationPageController extends GetxController {
         if (userData.firstname == null && userData.lastname == null) {
           Get.offNamed(Routes.signUp);
         } else {
-          Utilities.makeCustomToast(
+          makeCustomToast(
               "You're successfully signed in."
               " Welcome ${userData.firstname}",
               length: Toast.LENGTH_LONG);
