@@ -53,7 +53,7 @@ class AccountInformationPageController extends GetxController {
   }
 
   void openAddressesPage() {
-    Get.toNamed(Routes.addresses);
+    Get.toNamed(Routes.addresses, arguments: true);
   }
 
   void getUserData() {

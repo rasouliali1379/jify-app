@@ -49,7 +49,7 @@ void showCustomSnackBar(String text) {
             SizedBox(
               width: Get.width * 0.032,
             ),
-            Text(text),
+            Flexible(child: Text(text)),
           ],
         )));
     messagePermitted = false;

@@ -35,7 +35,17 @@ class DeliveryAddressesPageController extends GetxController {
 
   late GoogleMapController mapController;
 
+  late AddressModel edititngAddress;
+
   bool get loadingStatus => _loadingStatus.value;
+
+  bool editMode = false;
+
+  @override
+  void onInit() {
+    defineMode();
+    super.onInit();
+  }
 
   set loadingStatus(bool value) {
     _loadingStatus.value = value;
@@ -63,6 +73,15 @@ class DeliveryAddressesPageController extends GetxController {
 
   set selectedTag(int value) {
     _selectedTag.value = value;
+  }
+
+  void defineMode() {
+    if (Get.arguments != null) {
+      if (Get.arguments is AddressModel) {
+        edititngAddress = Get.arguments as AddressModel;
+        editMode = true;
+      }
+    }
   }
 
   Function() onTagClickHandler(int index) {
@@ -95,6 +114,7 @@ class DeliveryAddressesPageController extends GetxController {
   void onMapCreated(GoogleMapController controller) {
     mapCompleter.complete(controller);
     mapController = controller;
+    fillData();
   }
 
   void addAddress() {
@@ -137,8 +157,15 @@ class DeliveryAddressesPageController extends GetxController {
         });
       } else {
         loadingStatus = true;
-        _addressRepository.addAddress(addressModel).then((value) =>
-            value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+        if (editMode) {
+          _addressRepository
+              .updateAddress(edititngAddress.id!, addressModel)
+              .then((value) => value.fold(
+                  (l) => attemptFailed(l), (r) => attemptSucceed(r)));
+        } else {
+          _addressRepository.addAddress(addressModel).then((value) =>
+              value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+        }
       }
     } else {
       makeCustomToast('You need to enter your address');
@@ -154,12 +181,19 @@ class DeliveryAddressesPageController extends GetxController {
     loadingStatus = false;
     final globalController = Get.find<GlobalController>();
     globalController.initialDataModel.user!.addresses = addresses;
-    storageWrite(AppKeys.address, addresses.last.id).then((value) {
-      globalController.isAddressInRange = addresses.last.distance! <=
+    if (editMode) {
+      final address =
+          _addressRepository.findAddress(addresses, edititngAddress.id!);
+      globalController.isAddressInRange = address.distance! <=
           globalController.initialDataModel.supportedDistance!;
-      Get.find<CheckoutFragmentController>().checkSelectedAddress();
-      Get.back();
-    });
+    } else {
+      storageWrite(AppKeys.address, addresses.last.id).then((value) {
+        globalController.isAddressInRange = addresses.last.distance! <=
+            globalController.initialDataModel.supportedDistance!;
+      });
+    }
+    Get.find<CheckoutFragmentController>().checkSelectedAddress();
+    Get.back();
   }
 
   String getTag(int index) {
@@ -173,10 +207,27 @@ class DeliveryAddressesPageController extends GetxController {
         tag = "Office";
         break;
       case 2:
-        tag = "Custom";
+        tag = "Gym";
         break;
     }
     return tag;
+  }
+
+  int getTagIndex(String tag) {
+    int index = 3;
+
+    switch (tag.toLowerCase()) {
+      case "home":
+        index = 0;
+        break;
+      case "office":
+        index = 1;
+        break;
+      case "gym":
+        index = 2;
+        break;
+    }
+    return index;
   }
 
   String getOption(int index) {
@@ -191,5 +242,41 @@ class DeliveryAddressesPageController extends GetxController {
         break;
     }
     return option;
+  }
+
+  int getOptionIndex(String option) {
+    int index = 3;
+
+    switch (option) {
+      case "Leave at door":
+        index = 0;
+        break;
+      case "Meet at door":
+        index = 1;
+        break;
+    }
+    return index;
+  }
+
+  void fillData() {
+    if (editMode) {
+      print(edititngAddress.toJson().toString());
+      selectedTag = getTagIndex(edititngAddress.type!);
+      selectedOption = getOptionIndex(edititngAddress.options!);
+      selectedAddress = PredictedLatLongModel(
+          name: edititngAddress.address,
+          geometry: Geometry(
+              location: Location(
+                  lat: edititngAddress.location!.coordinates![0] as double,
+                  lng: edititngAddress.location!.coordinates![1] as double)));
+      mapController.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng(edititngAddress.location!.coordinates![0] as double,
+            edititngAddress.location!.coordinates![1] as double),
+        zoom: 14.4746,
+      )));
+      floorTextController.text = edititngAddress.apt!;
+      buildingTextController.text = edititngAddress.building!;
+      noteTextController.text = edititngAddress.note!;
+    }
   }
 }

@@ -10,8 +10,12 @@ class AddressItem extends StatelessWidget {
   final bool selected;
   final Function onClick;
   final String icon;
+  final bool editMode;
+  final Function editAddress;
 
-  const AddressItem(this.addressModel, this.selected, this.onClick, this.icon);
+  const AddressItem(
+      this.addressModel, this.onClick, this.icon, this.editAddress,
+      {required this.selected, required this.editMode});
 
   @override
   Widget build(BuildContext context) {
@@ -70,22 +74,35 @@ class AddressItem extends StatelessWidget {
             SizedBox(
               width: Get.width * 0.0373,
             ),
-            Visibility(
-              visible: selected,
-              child: Container(
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: AppColors.blue),
-                width: 22,
-                height: 22,
-                child: Container(
-                  margin: const EdgeInsets.all(1.5),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.blue,
-                      border: Border.all(color: AppColors.white, width: 3)),
+            if (editMode)
+              InkWell(
+                customBorder: const CircleBorder(),
+                onTap: () => editAddress(addressModel),
+                child: const Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Icon(
+                    Icons.edit,
+                    color: AppColors.blue,
+                  ),
                 ),
-              ),
-            )
+              )
+            else
+              Visibility(
+                visible: selected,
+                child: Container(
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: AppColors.blue),
+                  width: 22,
+                  height: 22,
+                  child: Container(
+                    margin: const EdgeInsets.all(1.5),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.blue,
+                        border: Border.all(color: AppColors.white, width: 3)),
+                  ),
+                ),
+              )
           ],
         ),
       ),

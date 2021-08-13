@@ -25,36 +25,37 @@ class CustomToolBar extends StatelessWidget with PreferredSizeWidget {
       child: SafeArea(
           child: SizedBox(
         height: preferredSize.height,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Stack(
           children: [
-            if (backButtonVisibility)
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: onBackPressed ?? () => Get.back(),
-                  customBorder: const CircleBorder(),
-                  child: const Padding(
-                    padding: EdgeInsets.all(14.0),
-                    child: Icon(
-                      Icons.arrow_back_ios_rounded,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                ),
-              )
-            else
-              const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: SizedBox()),
-            Text(
-              title,
-              style: AppTextStyles.white20Normal400,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: backButtonVisibility
+                  ? Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: onBackPressed ?? () => Get.back(),
+                        customBorder: const CircleBorder(),
+                        child: const Padding(
+                          padding: EdgeInsets.all(14.0),
+                          child: Icon(
+                            Icons.arrow_back_ios_rounded,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                    )
+                  : const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: SizedBox()),
             ),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: action)
+            Center(
+              child: Text(
+                title,
+                style: AppTextStyles.white20Normal400,
+              ),
+            ),
+            Align(alignment: Alignment.centerRight, child: action)
           ],
         ),
       )),

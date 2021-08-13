@@ -49,7 +49,7 @@ class CheckoutOrdersListItem extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: Text(
                             product.title!,
                             overflow: TextOverflow.ellipsis,
@@ -58,7 +58,7 @@ class CheckoutOrdersListItem extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            ' - ${amount.toString()}kg',
+                            ' - ${amount.toString()}',
                             style: AppTextStyles.extraDarkCyan15Normal400,
                           ),
                         ),

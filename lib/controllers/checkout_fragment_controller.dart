@@ -107,8 +107,12 @@ class CheckoutFragmentController extends GetxController {
     _orders.value = value;
   }
 
-  void openDeliveryAddresses() {
-    Get.toNamed(Routes.deliveryAddresses);
+  void openAddresses() {
+    if (storageExists(AppKeys.token)) {
+      Get.toNamed(Routes.addresses);
+    } else {
+      makeCustomToast('Login to change the address');
+    }
   }
 
   void openPaymentModal() {
@@ -152,15 +156,11 @@ class CheckoutFragmentController extends GetxController {
   }
 
   void increaseAmount(ProductModel product) {
-    globalController.basket.add(product);
-    populateOrders();
-    Get.find<HomeFragmentController>().update();
+    Get.find<HomeFragmentController>().addProductToBasket(product);
   }
 
   void decreaseAmount(String id) {
-    _productRepository.removeProductFromBasket(id);
-    populateOrders();
-    Get.find<HomeFragmentController>().update();
+    Get.find<HomeFragmentController>().removeFromBasket(id);
   }
 
   void checkSelectedAddress() {

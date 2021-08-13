@@ -195,7 +195,7 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                                               AppTextStyles.darkGrey13Normal300,
                                         ))),
                                 ClickableText(
-                                    'Edit', _controller.openDeliveryAddresses)
+                                    'Change', _controller.openAddresses)
                               ],
                             ),
                           ),

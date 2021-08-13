@@ -163,7 +163,7 @@ class HomeFragmentController extends GetxController {
       Get.find<CheckoutFragmentController>().populateOrders();
       Get.find<GlobalController>().updateTotalCost();
     } else {
-      showCustomSnackBar("Only ${product.stock} mars bar available");
+      showCustomSnackBar("Only ${product.stock} ${product.title} available");
     }
   }
 

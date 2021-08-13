@@ -15,11 +15,12 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
+        // statusBarColor: AppColors.blue,
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white));
+        systemNavigationBarColor: AppColors.white
+    ));
     return Scaffold(
       appBar: CustomToolBar('Confirmation'),
       body: SingleChildScrollView(

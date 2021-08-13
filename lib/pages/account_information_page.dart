@@ -16,11 +16,12 @@ class AccountInformationPage extends GetView<AccountInformationPageController> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: Colors.blue,
+        // statusBarColor: AppColors.blue,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white));
+        systemNavigationBarColor: AppColors.white
+    ));
     return Scaffold(
       appBar: CustomToolBar(
         'Account Information',
