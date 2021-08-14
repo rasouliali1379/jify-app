@@ -30,7 +30,7 @@ class _ExpandableContainerState extends State<ExpandableContainer>
   Widget build(BuildContext context) {
     return AnimatedContainer(
       width: double.maxFinite,
-      height: expanded ? Get.height * 0.16 : Get.height * 0.07,
+      height: expanded ? Get.height * 0.18 : Get.height * 0.07,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(11),
           border: Border.all(color: AppColors.milky),
@@ -47,7 +47,7 @@ class _ExpandableContainerState extends State<ExpandableContainer>
               children: [
                 Text(
                   widget.title,
-                  style: AppTextStyles.extraDarkCyan14Normal400,
+                  style: AppTextStyles.extraDarkCyan14Normal500,
                 ),
                 RotationTransition(
                   turns:
@@ -72,7 +72,8 @@ class _ExpandableContainerState extends State<ExpandableContainer>
                 ),
                 Text(
                   widget.content,
-                  style: AppTextStyles.black12Normal400.copyWith(height: 1.25),
+                  style: AppTextStyles.black12Normal400.copyWith(
+                      height: 1.6, color: AppTextColors.black.withOpacity(0.7)),
                 ),
               ],
             ),

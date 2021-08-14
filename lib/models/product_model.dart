@@ -8,7 +8,7 @@ class ProductModel {
   String? id;
   String? category;
   int? qty;
-
+  double? off;
   ProductModel(
       {this.title,
       this.image,
@@ -18,7 +18,8 @@ class ProductModel {
       this.stock,
       this.id,
       this.category,
-      this.qty});
+      this.qty,
+      this.off});
 
   ProductModel.fromJson(dynamic json) {
     title = json['title'] as String;
@@ -31,10 +32,17 @@ class ProductModel {
     id = json['_id'] as String;
     category = json['category'] == null ? null : json['category'] as String;
     qty = json['qty'] == null ? null : json['qty'] as int;
+    if (json["off"] != null) {
+      if (json["off"] is int) {
+        off = (json["off"] as int).toDouble();
+      } else {
+        off = json["off"] as double;
+      }
+    }
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['title'] = title;
     map['image'] = image;
     map['imageThumbnail'] = imageThumbnail;
@@ -44,6 +52,7 @@ class ProductModel {
     map['_id'] = id;
     map['category'] = category;
     map['qty'] = qty;
+    map['off'] = off;
     return map;
   }
 }

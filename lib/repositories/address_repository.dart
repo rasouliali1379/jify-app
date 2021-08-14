@@ -72,6 +72,26 @@ class AddressRepository {
     }
   }
 
+  Future<Either<String, List<AddressModel>>> deleteAddress(String id) async {
+    final result = await _apiRequests.deleteAddress(id);
+    String error = "";
+    List<AddressModel>? addresses;
+
+    result.fold((l) => error = l, (r) {
+      final rawAddresses =
+          r.data["data"]["addresses"] as List<dynamic>;
+
+      addresses = List<AddressModel>.from(
+          rawAddresses.map((value) => AddressModel.fromJson(value)));
+    });
+
+    if (addresses != null) {
+      return Right(addresses!);
+    } else {
+      return Left(error);
+    }
+  }
+
   Future<Either<String, List<AddressPredictionModel>>> predictAddress(
       String input) async {
     final result = await _apiRequests.predictPlaces(input);
@@ -92,7 +112,7 @@ class AddressRepository {
     }
   }
 
-  AddressModel findAddress(List<AddressModel>addresses, String id) {
+  AddressModel findAddress(List<AddressModel> addresses, String id) {
     for (final address in addresses) {
       if (address.id == id) {
         return address;

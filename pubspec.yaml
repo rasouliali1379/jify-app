@@ -29,6 +29,7 @@ dependencies:
   firebase_messaging: ^10.0.4
   firebase_core: ^1.4.0
   connectivity: ^3.0.6
+  carousel_slider: ^4.0.0
 
 dev_dependencies:
   flutter_test:

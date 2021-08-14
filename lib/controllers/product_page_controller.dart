@@ -4,6 +4,7 @@ import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/repositories/product_repository.dart';
+import 'package:jify_app/utilities/utilities.dart';
 
 class ProductPageController extends GetxController {
   final productRepository = ProductRepository();
@@ -41,27 +42,36 @@ class ProductPageController extends GetxController {
 
   void getProduct() {
     product = ProductModel.fromJson(Get.arguments);
+    count = productRepository.countInBasket(product.id!);
   }
 
   void increaseCount() {
-    count++;
-  }
-
-  void decreaseCount() {
-    if (count != 1) {
-      count--;
+    if (count + 1 < product.stock!) {
+      Get.find<HomeFragmentController>().addProductToBasket(product);
+      count = productRepository.countInBasket(product.id!);
+    } else {
+      showCustomSnackBar("Only ${product.stock} ${product.title} available");
     }
   }
 
-  void addToBasket() {
-    Get.find<HomeFragmentController>()
-        .addProductToBasket(product, count: count);
-    Get.find<CheckoutFragmentController>().populateOrders();
-    variants = productRepository.getProductVariantsCount();
+  void decreaseCount() {
+    if (count != 0) {
+      Get.find<HomeFragmentController>().removeFromBasket(product.id!);
+      count = productRepository.countInBasket(product.id!);
+    }
   }
 
   void openBasket() {
     Get.back();
     Get.find<MainPageController>().onBottomNavClickHandler(3);
+  }
+
+  double calculateDiscountedPrice(double price, double discount) {
+    final discountAmount = price * discount / 100;
+    return (price - discountAmount).toDouble();
+  }
+
+  double getTotalPrice() {
+    return productRepository.countInBasket(product.id!) * product.price!;
   }
 }

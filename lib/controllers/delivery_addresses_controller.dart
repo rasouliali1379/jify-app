@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
+import 'package:jify_app/modals/custom_alert_dialog.dart';
 import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/models/location_model.dart';
 import 'package:jify_app/models/predicted_lat_long_model.dart';
@@ -27,6 +28,7 @@ class DeliveryAddressesPageController extends GetxController {
   final _selectedOption = 0.obs;
   final _selectedAddress = PredictedLatLongModel().obs;
   final _loadingStatus = false.obs;
+  final _deletionLoading = false.obs;
 
   final _cameraPosition = const CameraPosition(
     target: LatLng(-35.282001, 149.128998),
@@ -45,6 +47,12 @@ class DeliveryAddressesPageController extends GetxController {
   void onInit() {
     defineMode();
     super.onInit();
+  }
+
+  bool get deletionLoading => _deletionLoading.value;
+
+  set deletionLoading(bool value) {
+    _deletionLoading.value = value;
   }
 
   set loadingStatus(bool value) {
@@ -172,13 +180,35 @@ class DeliveryAddressesPageController extends GetxController {
     }
   }
 
+  void confirmDeletion() {
+    Get.bottomSheet(
+      CustomAlertDialog(
+          "Delete Address",
+          "Are you sure about deleting this delivery address?",
+          "Yes",
+          "No",
+          deleteAddress,
+          () => Get.back()),
+      enableDrag: false,
+    );
+  }
+
+  void deleteAddress() {
+    Get.back();
+    deletionLoading = true;
+    _addressRepository.deleteAddress(edititngAddress.id!).then((value) =>
+        value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+  }
+
   void attemptFailed(String message) {
     loadingStatus = false;
+    deletionLoading = false;
     makeCustomToast(message);
   }
 
   void attemptSucceed(List<AddressModel> addresses) {
     loadingStatus = false;
+    deletionLoading = false;
     final globalController = Get.find<GlobalController>();
     globalController.initialDataModel.user!.addresses = addresses;
     if (editMode) {

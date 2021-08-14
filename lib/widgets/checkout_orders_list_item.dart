@@ -18,105 +18,99 @@ class CheckoutOrdersListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Container(
+          width: Get.width * 0.16,
+          height: Get.width * 0.16,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: AppColors.grey)),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: CachedNetworkImage(
+                imageUrl: product.image!,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: Get.width * 0.0373,
+        ),
         Expanded(
-          child: Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: Get.width * 0.16,
-                height: Get.width * 0.16,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.grey)),
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: CachedNetworkImage(
-                      imageUrl: product.image!,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      product.title!,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: AppTextStyles.extraDarkCyan15Normal400,
                     ),
                   ),
-                ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: RichText(
+                        text: TextSpan(
+                            text: '\$',
+                            style: AppTextStyles.green13Normal400,
+                            children: [
+                              TextSpan(
+                                text: product.price.toString(),
+                                style: AppTextStyles.green15Normal400,
+                              )
+                            ]),
+                      ),
+                    ),
+                  )
+                ],
               ),
               SizedBox(
-                width: Get.width * 0.0373,
+                height: Get.height * 0.016,
               ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Text(
-                            product.title!,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTextStyles.extraDarkCyan15Normal400,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            ' - ${amount.toString()}',
-                            style: AppTextStyles.extraDarkCyan15Normal400,
-                          ),
-                        ),
-                      ],
+              Row(
+                children: [
+                  CircleButton(
+                    const Icon(
+                      Icons.remove,
+                      color: AppColors.white,
+                      size: 18,
                     ),
-                    SizedBox(
-                      height: Get.height * 0.016,
+                    AppColors.darkGrey,
+                    () => decreaseHandler(product.id),
+                    width: Get.width * 0.0533,
+                    height: Get.width * 0.0533,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      amount.toString(),
+                      style: AppTextStyles.darkGrey17Normal300,
                     ),
-                    Row(
-                      children: [
-                        CircleButton(
-                          const Icon(
-                            Icons.remove,
-                            color: AppColors.white,
-                            size: 18,
-                          ),
-                          AppColors.darkGrey,
-                          () => decreaseHandler(product.id),
-                          width: Get.width * 0.0533,
-                          height: Get.width * 0.0533,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            amount.toString(),
-                            style: AppTextStyles.darkGrey17Normal300,
-                          ),
-                        ),
-                        CircleButton(
-                          const Icon(
-                            Icons.add,
-                            color: AppColors.white,
-                            size: 18,
-                          ),
-                          AppColors.darkGrey,
-                          () => increaseHandler(product),
-                          width: Get.width * 0.0533,
-                          height: Get.width * 0.0533,
-                        ),
-                      ],
+                  ),
+                  CircleButton(
+                    const Icon(
+                      Icons.add,
+                      color: AppColors.white,
+                      size: 18,
                     ),
-                  ],
-                ),
+                    AppColors.darkGrey,
+                    () => increaseHandler(product),
+                    width: Get.width * 0.0533,
+                    height: Get.width * 0.0533,
+                  ),
+                ],
               ),
             ],
           ),
         ),
-        RichText(
-          text: TextSpan(
-              text: '\$',
-              style: AppTextStyles.green13Normal400,
-              children: [
-                TextSpan(
-                  text: product.price.toString(),
-                  style: AppTextStyles.green15Normal400,
-                )
-              ]),
-        )
       ],
     );
   }

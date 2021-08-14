@@ -6,6 +6,7 @@ import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/modals/choose_delivery_address_modal.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/utilities/storage.dart';
+import 'package:jify_app/utilities/utilities.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MainPageController extends GetxController {
@@ -28,13 +29,18 @@ class MainPageController extends GetxController {
     _index.value = value;
   }
 
-  void onBottomNavClickHandler(int value) {
-    if (pageStack.last != value) {
-      if (value < 3) {
-        index = value;
+  void onBottomNavClickHandler(int index) {
+    if (pageStack.last != index) {
+      if (index < 3) {
+        this.index = index;
       }
-      pageStack.add(value);
-      pageController.jumpToPage(value);
+
+      if (index == 3 && !storageExists(AppKeys.token)) {
+        makeCustomToast("You need to sign in first");
+      } else {
+        pageStack.add(index);
+        pageController.jumpToPage(index);
+      }
     }
   }
 

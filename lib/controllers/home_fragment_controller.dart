@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:jify_app/constants/app_status.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
+import 'package:jify_app/models/banner_model.dart';
 import 'package:jify_app/models/category_model.dart';
 import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/navigation/routes.dart';
@@ -23,14 +25,16 @@ class HomeFragmentController extends GetxController {
 
   final _selectedSubcategory = (-1).obs;
   final _subCategories = <CategoryModel>[].obs;
-  final _categoryItems = <CategoryModel>[].obs;
   final _searchedProducts = <ProductModel>[].obs;
   final _products = <ProductModel>[].obs;
   final _pageMode = "categories".obs;
   final _searchLoading = false.obs;
   final _pagginationStatus = (AppStatus.done).obs;
   final _productStatus = (AppStatus.loading).obs;
+  final _carouselIndex = 0.0.obs;
 
+  late List<CategoryModel> categoryItems;
+  late List<BannerModel> banners;
   String selectedCategoryId = "";
   String lastPage = "category";
   bool searchMode = false;
@@ -39,8 +43,15 @@ class HomeFragmentController extends GetxController {
 
   @override
   void onInit() {
+    banners = _globalController.initialDataModel.banners!;
     categoryItems = _globalController.initialDataModel.categories!;
     super.onInit();
+  }
+
+  double get carouselIndex => _carouselIndex.value;
+
+  set carouselIndex(double value) {
+    _carouselIndex.value = value;
   }
 
   String get productStatus => _productStatus.value;
@@ -77,12 +88,6 @@ class HomeFragmentController extends GetxController {
 
   set products(List<ProductModel> value) {
     _products.value = value;
-  }
-
-  List<CategoryModel> get categoryItems => _categoryItems.value;
-
-  set categoryItems(List<CategoryModel> value) {
-    _categoryItems.value = value;
   }
 
   List<CategoryModel> get subCategories => _subCategories.value;
@@ -175,9 +180,11 @@ class HomeFragmentController extends GetxController {
   }
 
   void browseProduct(ProductModel product) {
-    searchFocusNode.unfocus();
-    Get.toNamed(Routes.product,
-        preventDuplicates: true, arguments: product.toJson());
+    if (product.stock! > 0) {
+      searchFocusNode.unfocus();
+      Get.toNamed(Routes.product,
+          preventDuplicates: true, arguments: product.toJson());
+    }
   }
 
   void clearSearch() {
@@ -275,5 +282,79 @@ class HomeFragmentController extends GetxController {
       products = previousProducts;
     }
     update();
+  }
+
+  void onCarouselChangeHandler(int index, CarouselPageChangedReason reason) {
+    carouselIndex = index.toDouble();
+  }
+
+  void carouselButtonClickHandler(String destination, String object) {
+    switch (destination) {
+      case "/category":
+        onCategoryItemClickHandler(findCategoryIndex(object));
+        break;
+      case "/subcategory":
+        onCategoryItemClickHandler(findCategorySubcategoryIndex(object));
+        onSubcategoryItemClickHandler(findSubcategoryIndex(object));
+        break;
+      case "/product":
+        final foundProduct = findProduct(object);
+        if (foundProduct != null) {
+          browseProduct(foundProduct);
+        } else {
+          makeCustomToast("Couldn't find the product!");
+        }
+        break;
+    }
+  }
+
+  int findCategoryIndex(String id) {
+    for (int i = 0; i < categoryItems.length; i++) {
+      if (categoryItems[i].id == id) {
+        return i;
+      }
+    }
+    return 0;
+  }
+
+  int findSubcategoryIndex(String id) {
+    for (int i = 0; i < subCategories.length; i++) {
+      if (subCategories[i].id == id) {
+        return i;
+      }
+    }
+    return 0;
+  }
+
+  int findCategorySubcategoryIndex(String id) {
+    for (int i = 0; i < categoryItems.length; i++) {
+      final subs = categoryItems[i].subCategories;
+      for (int j = 0; j < subs!.length; j++) {
+        if (subs[j].id == id) {
+          return i;
+        }
+      }
+    }
+    return 0;
+  }
+
+  ProductModel? findProduct(String id) {
+    for (int i = 0; i < categoryItems.length; i++) {
+      final subs = categoryItems[i].subCategories;
+      for (int j = 0; j < subs!.length; j++) {
+        final goods = subs[j].products;
+        for (int k = 0; j < goods!.length; k++) {
+          if (goods[k].id == id) {
+            return goods[k];
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  double calculateDiscountedPrice(double price, double discount) {
+    final discountAmount = price * discount / 100;
+    return (price - discountAmount).toDouble();
   }
 }

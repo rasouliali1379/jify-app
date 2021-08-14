@@ -9,6 +9,7 @@ class SubcategoryList extends StatelessWidget {
   final Function removeFromBasket;
   final Function browseProduct;
   final Function countInBasket;
+  final Function calculateDiscount;
 
   const SubcategoryList(
       this.subcategories,
@@ -16,7 +17,8 @@ class SubcategoryList extends StatelessWidget {
       this.addProductToBasket,
       this.removeFromBasket,
       this.browseProduct,
-      this.countInBasket);
+      this.countInBasket,
+      this.calculateDiscount);
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class SubcategoryList extends StatelessWidget {
             removeFromBasket,
             browseProduct,
             countInBasket,
+            calculateDiscount,
             index));
   }
 }

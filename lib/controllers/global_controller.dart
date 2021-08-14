@@ -11,7 +11,7 @@ import 'package:jify_app/utilities/storage.dart';
 class GlobalController extends GetxController {
   final userRepository = UserRepository();
   final productRepository = ProductRepository();
-  // final fcm = FirebaseMessaging.instance;
+  final fcm = FirebaseMessaging.instance;
 
   final basket = <ProductModel>[];
   final _totalCost = 0.0.obs;
@@ -23,19 +23,19 @@ class GlobalController extends GetxController {
 
   bool isAddAddressModalOpen = false;
 
-  // void initFireBaseListeners() {
-  //   fcm.getToken().then((value) {
-  //     if (value != null) {
-  //       print("getToken : $value");
-  //       saveToken(value);
-  //     }
-  //   });
-  //
-  //   fcm.onTokenRefresh.listen((event) {
-  //     print("tokenRefreshed : $event");
-  //     saveToken(event);
-  //   });
-  // }
+  void initFireBaseListeners() {
+    fcm.getToken().then((value) {
+      if (value != null) {
+        print("getToken : $value");
+        saveToken(value);
+      }
+    });
+
+    fcm.onTokenRefresh.listen((event) {
+      print("tokenRefreshed : $event");
+      saveToken(event);
+    });
+  }
 
   InitialDataModel get initialDataModel => _initialDataModel;
 

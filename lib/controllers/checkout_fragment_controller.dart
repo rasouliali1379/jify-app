@@ -253,21 +253,28 @@ class CheckoutFragmentController extends GetxController {
 
   void checkout() {
     if (storageExists(AppKeys.token)) {
-      if (orders.isNotEmpty) {
-        if (Get.find<GlobalController>().isAddressInRange) {
-          promoFocus.unfocus();
-          loadingStatus = true;
-          final checkoutModel = BasketModel(
-              products: orders,
-              address: Address(id: selectedAddress.id),
-              promotion: Promotion(code: promoCode.code));
-          _checkoutRepository.checkout(checkoutModel).then((value) => value
-              .fold((l) => attemptFailed(l), (r) => checkoutAttemptSucceed(r)));
+      if (globalController.initialDataModel.isOpen!) {
+        if (orders.isNotEmpty) {
+          if (Get.find<GlobalController>().isAddressInRange) {
+            promoFocus.unfocus();
+            loadingStatus = true;
+            final checkoutModel = BasketModel(
+                products: orders,
+                address: Address(id: selectedAddress.id),
+                promotion: Promotion(code: promoCode.code));
+            _checkoutRepository.checkout(checkoutModel).then((value) =>
+                value.fold(
+                    (l) => attemptFailed(l), (r) => checkoutAttemptSucceed(r)));
+          } else {
+            makeCustomToast("We don't support your address");
+          }
         } else {
-          makeCustomToast("We don't support your address");
+          makeCustomToast(
+              "You need to add product into your basket to checkout");
         }
       } else {
-        makeCustomToast("You need to add product into your basket to checkout");
+        makeCustomToast(
+            "Store is currently closed, you can't submit an order.");
       }
     } else {
       Get.toNamed(Routes.signIn);

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
@@ -7,20 +8,65 @@ import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/widgets/add_button.dart';
 import 'package:jify_app/widgets/circle_button.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItem extends StatefulWidget {
   final ProductModel product;
   final Function addToBasket;
   final Function removeFromBasket;
   final Function onProductClickHandler;
   final int count;
+  final double? discountedPrice;
 
   const ProductItem(this.product, this.addToBasket, this.removeFromBasket,
-      this.onProductClickHandler, this.count);
+      this.onProductClickHandler, this.count,
+      {this.discountedPrice});
+
+  @override
+  _ProductItemState createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _colorTweenController;
+  late Animation<Color?> _animation;
+  late Animation<Color?> _textColorAnimation;
+
+  bool alreadyDone = false;
+  @override
+  void initState() {
+    _colorTweenController = AnimationController(
+        duration: const Duration(milliseconds: 200), vsync: this);
+    _animation = ColorTween(begin: AppColors.extraLightBLue, end: AppColors.red)
+        .animate(_colorTweenController)
+          ..addListener(() {
+            setState(() {});
+          });
+    _textColorAnimation =
+        ColorTween(begin: AppTextColors.extraDarkCyan, end: AppColors.red)
+            .animate(_colorTweenController)
+              ..addListener(() {
+                setState(() {});
+              });
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant ProductItem oldWidget) {
+    if (widget.count == widget.product.stock &&
+        widget.count != 0 &&
+        !alreadyDone) {
+      changeColor();
+    }
+
+    if (widget.count < widget.product.stock!) {
+      alreadyDone = false;
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onProductClickHandler(product),
+      onTap: () => widget.onProductClickHandler(widget.product),
       child: Padding(
         padding: const EdgeInsets.all(5),
         child: AspectRatio(
@@ -28,25 +74,49 @@ class ProductItem extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(
-                    color: count == product.stock && count != 0
-                        ? AppColors.red
-                        : AppColors.extraLightBLue,
-                    width: 1.2)),
+                border: Border.all(color: _animation.value!, width: 1.2)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const SizedBox(
                   height: 4,
                 ),
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: CachedNetworkImage(imageUrl: product.image!)),
+                Stack(
+                  children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: CachedNetworkImage(
+                            imageUrl: widget.product.image!)),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Visibility(
+                        visible: widget.product.off! > 0,
+                        child: SizedBox(
+                          width: Get.width * 0.106,
+                          height: Get.width * 0.106,
+                          child: Stack(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/discount.svg',
+                              ),
+                              Center(
+                                child: Text(
+                                  "${widget.product.off!.toStringAsFixed(0)}%",
+                                  style: AppTextStyles.white13Normal800,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  product.title!,
+                  widget.product.title!,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.darkPurple13Normal300,
@@ -55,9 +125,30 @@ class ProductItem extends StatelessWidget {
                 const SizedBox(
                   height: 4,
                 ),
-                Text(
-                  product.price.toString(),
-                  style: AppTextStyles.darkPurple13Normal700,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.product.price!.toStringAsFixed(2),
+                      style: AppTextStyles.darkPurple13Normal700,
+                    ),
+                    SizedBox(
+                      width: Get.width * 0.0213,
+                    ),
+                    Flexible(
+                      child: Visibility(
+                        visible: widget.product.off! > 0,
+                        child: Text(
+                            widget.product.off! > 0 ? widget.discountedPrice!.toStringAsFixed(2) : '',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.darkPurple13Normal700.copyWith(
+                              color: const Color.fromRGBO(171, 171, 171, 1),
+                              decoration: TextDecoration.lineThrough),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 6,
@@ -68,7 +159,7 @@ class ProductItem extends StatelessWidget {
                       width: double.maxFinite,
                       height: Get.height * 0.0369,
                       child: Builder(builder: (context) {
-                        if (product.stock == 0) {
+                        if (widget.product.stock == 0) {
                           return Container(
                             height: Get.height * 0.0369,
                             width: double.maxFinite,
@@ -82,7 +173,7 @@ class ProductItem extends StatelessWidget {
                               style: AppTextStyles.white12Normal800,
                             ),
                           );
-                        } else if (count > 0) {
+                        } else if (widget.count > 0) {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -96,16 +187,15 @@ class ProductItem extends StatelessWidget {
                                       size: 20,
                                     )),
                                 const Color.fromRGBO(200, 255, 216, 1),
-                                () => removeFromBasket(product.id),
+                                () =>
+                                    widget.removeFromBasket(widget.product.id),
                                 border: Border.all(
                                     color: AppColors.green, width: 2),
                               ),
                               Text(
-                                count.toString(),
-                                style: count == product.stock
-                                    ? AppTextStyles.extraDarkCyan15Normal400
-                                        .copyWith(color: AppColors.red)
-                                    : AppTextStyles.extraDarkCyan15Normal400,
+                                widget.count.toString(),
+                                style: AppTextStyles.extraDarkCyan15Normal400
+                                    .copyWith(color: _textColorAnimation.value),
                               ),
                               CircleButton(
                                   SizedBox(
@@ -117,11 +207,12 @@ class ProductItem extends StatelessWidget {
                                         size: 20,
                                       )),
                                   AppColors.green,
-                                  () => addToBasket(product)),
+                                  () => widget.addToBasket(widget.product)),
                             ],
                           );
                         }
-                        return AddButton(() => addToBasket(product));
+                        return AddButton(
+                            () => widget.addToBasket(widget.product));
                       })),
                 ),
               ],
@@ -130,5 +221,18 @@ class ProductItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void changeColor() {
+    _colorTweenController.forward();
+    alreadyDone = true;
+    Future.delayed(const Duration(seconds: 5))
+        .then((value) => _colorTweenController.reverse());
+  }
+
+  @override
+  void dispose() {
+    _colorTweenController.dispose();
+    super.dispose();
   }
 }

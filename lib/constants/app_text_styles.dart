@@ -13,6 +13,8 @@ class AppTextStyles {
   // White Normal
   static const white12Normal400 = TextStyle(
       fontSize: 12, color: AppTextColors.white, fontWeight: FontWeight.w400);
+  static const white12Normal600 = TextStyle(
+      fontSize: 12, color: AppTextColors.white, fontWeight: FontWeight.w600);
   static const white12Normal700 = TextStyle(
       fontSize: 12, color: AppTextColors.white, fontWeight: FontWeight.w700);
   static const white12Normal800 = TextStyle(
@@ -39,6 +41,8 @@ class AppTextStyles {
       fontSize: 19, color: AppTextColors.white, fontWeight: FontWeight.w700);
   static const white20Normal400 = TextStyle(
       fontSize: 20, color: AppTextColors.white, fontWeight: FontWeight.w400);
+  static const white22Normal700 = TextStyle(
+      fontSize: 22, color: AppTextColors.white, fontWeight: FontWeight.w700);
   static const white26Normal600 = TextStyle(
       fontSize: 26, color: AppTextColors.white, fontWeight: FontWeight.w600);
 
@@ -127,6 +131,8 @@ class AppTextStyles {
       fontWeight: FontWeight.w300);
 
   // Blue Normal
+  static const blue10Normal400 = TextStyle(
+      fontSize: 10, color: AppTextColors.blue, fontWeight: FontWeight.w400);
   static const blue12Normal300 = TextStyle(
       fontSize: 12, color: AppTextColors.blue, fontWeight: FontWeight.w300);
   static const blue12Normal400 = TextStyle(
@@ -183,6 +189,10 @@ class AppTextStyles {
       fontSize: 14,
       color: AppTextColors.extraDarkCyan,
       fontWeight: FontWeight.w400);
+  static const extraDarkCyan14Normal500 = TextStyle(
+      fontSize: 14,
+      color: AppTextColors.extraDarkCyan,
+      fontWeight: FontWeight.w500);
   static const extraDarkCyan15Normal400 = TextStyle(
       fontSize: 15,
       color: AppTextColors.extraDarkCyan,
@@ -203,6 +213,10 @@ class AppTextStyles {
       fontSize: 20,
       color: AppTextColors.extraDarkCyan,
       fontWeight: FontWeight.w600);
+  static const extraDarkCyan24Normal700 = TextStyle(
+      fontSize: 24,
+      color: AppTextColors.extraDarkCyan,
+      fontWeight: FontWeight.w700);
   static const extraDarkCyan38Normal200 = TextStyle(
       fontSize: 38,
       color: AppTextColors.extraDarkCyan,

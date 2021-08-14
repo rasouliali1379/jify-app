@@ -50,9 +50,14 @@ class CustomToolBar extends StatelessWidget with PreferredSizeWidget {
                       child: SizedBox()),
             ),
             Center(
-              child: Text(
-                title,
-                style: AppTextStyles.white20Normal400,
+              child: SizedBox(
+                width: Get.width * 0.6,
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.white20Normal400,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
             Align(alignment: Alignment.centerRight, child: action)

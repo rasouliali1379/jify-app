@@ -58,13 +58,17 @@ class ApiRequests {
     return _apiClient.get('/user/addresses', {});
   }
 
+  Future<Either<String, Response>> addAddress(Map<String, dynamic> map) async {
+    return _apiClient.post('/user/addresses/add', map);
+  }
+
   Future<Either<String, Response>> updateAddress(
       String id, Map<String, dynamic> map) async {
     return _apiClient.put('/user/addresses/$id', map);
   }
 
-  Future<Either<String, Response>> addAddress(Map<String, dynamic> map) async {
-    return _apiClient.post('/user/addresses/add', map);
+  Future<Either<String, Response>> deleteAddress(String id) async {
+    return _apiClient.delete('/user/addresses/$id', {});
   }
 
   Future<Either<String, Response>> getCategories() async {

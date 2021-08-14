@@ -20,8 +20,7 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar('Delivery Addresses'),
       backgroundColor: AppColors.milky,
@@ -269,17 +268,46 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                   SizedBox(
                     height: Get.height * 0.0357,
                   ),
-                  Obx(() => LongButton(
-                        controller.addAddress,
-                        'Save',
-                        double.maxFinite,
-                        Get.height * 0.064,
-                        customText: controller.loadingStatus
-                            ? const SpinKitThreeBounce(
-                                color: AppColors.white,
-                                size: 15,
-                              )
-                            : null,
+                  Obx(() => Row(
+                        children: [
+                          Visibility(
+                            visible: controller.editMode,
+                            child: Expanded(
+                              child: LongButton(
+                                controller.confirmDeletion,
+                                'Delete',
+                                double.maxFinite,
+                                Get.height * 0.064,
+                                customText: controller.deletionLoading
+                                    ? const SpinKitThreeBounce(
+                                        color: AppColors.white,
+                                        size: 15,
+                                      )
+                                    : null,
+                                color: AppColors.red,
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                              visible: controller.editMode,
+                              child: SizedBox(
+                                width: Get.width * 0.0426,
+                              )),
+                          Expanded(
+                            child: LongButton(
+                              controller.addAddress,
+                              'Save',
+                              double.maxFinite,
+                              Get.height * 0.064,
+                              customText: controller.loadingStatus
+                                  ? const SpinKitThreeBounce(
+                                      color: AppColors.white,
+                                      size: 15,
+                                    )
+                                  : null,
+                            ),
+                          ),
+                        ],
                       )),
                   SizedBox(
                     height: Get.height * 0.0418,

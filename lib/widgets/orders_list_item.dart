@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/models/order_model.dart';
+import 'package:jify_app/widgets/product_preview_row.dart';
 
 class OrdersListItem extends StatelessWidget {
   final OrderModel orderModel;
@@ -51,7 +52,10 @@ class OrdersListItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 100, height: 32, child: fruitsGroup()),
+              SizedBox(
+                  width: Get.width * 0.266,
+                  height: Get.height * 0.0394,
+                  child: ProductPreviewRow(orderModel.products!)),
               GestureDetector(
                 onTap: () => onClick(orderModel),
                 child: Container(
@@ -70,55 +74,6 @@ class OrdersListItem extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-
-  Widget fruitsGroup() {
-    return Stack(
-      children: [
-        Positioned(
-          left: 0,
-          child: Container(
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.lightGrey,
-                border: Border.all(color: AppColors.white)),
-            child: Image.asset(
-              'assets/images/kiwi.png',
-              height: 30,
-              width: 30,
-            ),
-          ),
-        ),
-        Positioned(
-          left: 20,
-          child: Container(
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.lightGrey,
-                border: Border.all(color: AppColors.white)),
-            child: Image.asset(
-              'assets/images/pomegranate.png',
-              height: 30,
-              width: 30,
-            ),
-          ),
-        ),
-        Positioned(
-          left: 38,
-          child: Container(
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.lightGrey,
-                border: Border.all(color: AppColors.white)),
-            child: Image.asset(
-              'assets/images/lemons.png',
-              height: 30,
-              width: 30,
-            ),
-          ),
-        )
-      ],
     );
   }
 }

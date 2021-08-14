@@ -59,7 +59,7 @@ class OrderInfoPageController extends GetxController {
     globalController.basket.clear();
     globalController.basket.addAll(basket);
     Get.find<CheckoutFragmentController>().populateOrders();
-    Get.find<MainPageController>().onBottomNavClickHandler(4);
+    Get.find<MainPageController>().onBottomNavClickHandler(3);
     Get.back();
   }
 }

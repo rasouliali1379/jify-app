@@ -153,213 +153,213 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
             SizedBox(
               height: Get.height * 0.0344,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Delivery Times',
-                    style: AppTextStyles.extraDarkCyan16Normal500,
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.027,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: controller.onStandardScheduleClickHandler,
-                          child: Obx(() => Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * 0.032),
-                                height: Get.height * 0.0837,
-                                decoration: controller
-                                        .selectedSchedule.isNotEmpty
-                                    ? BoxDecoration(
-                                        color: AppColors.white,
-                                        border:
-                                            Border.all(color: AppColors.grey),
-                                        borderRadius: BorderRadius.circular(9))
-                                    : BoxDecoration(
-                                        color: AppColors.blue.withOpacity(0.12),
-                                        border:
-                                            Border.all(color: AppColors.blue),
-                                        borderRadius: BorderRadius.circular(9)),
-                                child: Row(
-                                  children: [
-                                    if (controller.selectedSchedule.isNotEmpty)
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: AppColors.white,
-                                            border: Border.all(
-                                                color: AppColors.grey,
-                                                width: 1.2)),
-                                        width: 22,
-                                        height: 22,
-                                      )
-                                    else
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: AppColors.blue),
-                                        width: 22,
-                                        height: 22,
-                                        child: Container(
-                                          margin: const EdgeInsets.all(1.5),
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: AppColors.blue,
-                                              border: Border.all(
-                                                  color: const Color.fromRGBO(
-                                                      231, 238, 252, 1.0),
-                                                  width: 3)),
-                                        ),
-                                      ),
-                                    SizedBox(
-                                      width: Get.width * 0.0266,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Standard',
-                                          style: controller
-                                                  .selectedSchedule.isNotEmpty
-                                              ? AppTextStyles
-                                                  .darkCyan14Normal500
-                                                  .copyWith(
-                                                      color: AppColors.darkCyan)
-                                              : AppTextStyles.blue14Normal500,
-                                        ),
-                                        SizedBox(
-                                          height: Get.height * 0.0086,
-                                        ),
-                                        Text(
-                                          'Available',
-                                          style: controller
-                                                  .selectedSchedule.isNotEmpty
-                                              ? AppTextStyles
-                                                  .lightGrey14Normal300
-                                                  .copyWith(fontSize: 11)
-                                              : AppTextStyles.blue14Normal300
-                                                  .copyWith(fontSize: 11),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )),
-                        ),
-                      ),
-                      SizedBox(
-                        width: Get.width * 0.024,
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                            onTap: controller.openSchedule,
-                            child: Obx(() => Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: Get.width * 0.032),
-                                  height: Get.height * 0.0837,
-                                  decoration: controller
-                                          .selectedSchedule.isNotEmpty
-                                      ? BoxDecoration(
-                                          color:
-                                              AppColors.blue.withOpacity(0.12),
-                                          border:
-                                              Border.all(color: AppColors.blue),
-                                          borderRadius:
-                                              BorderRadius.circular(9))
-                                      : BoxDecoration(
-                                          color: AppColors.white,
-                                          border:
-                                              Border.all(color: AppColors.grey),
-                                          borderRadius:
-                                              BorderRadius.circular(9)),
-                                  child: Row(
-                                    children: [
-                                      if (controller
-                                          .selectedSchedule.isNotEmpty)
-                                        Container(
-                                          decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: AppColors.blue),
-                                          width: 22,
-                                          height: 22,
-                                          child: Container(
-                                            margin: const EdgeInsets.all(1.5),
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: AppColors.blue,
-                                                border: Border.all(
-                                                    color: const Color.fromRGBO(
-                                                        231, 238, 252, 1.0),
-                                                    width: 3)),
-                                          ),
-                                        )
-                                      else
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: AppColors.white,
-                                              border: Border.all(
-                                                  color: AppColors.grey,
-                                                  width: 1.2)),
-                                          width: 22,
-                                          height: 22,
-                                        ),
-                                      SizedBox(
-                                        width: Get.width * 0.0266,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Schedule',
-                                            style: controller
-                                                    .selectedSchedule.isNotEmpty
-                                                ? AppTextStyles.blue14Normal500
-                                                : AppTextStyles
-                                                    .darkCyan14Normal500
-                                                    .copyWith(
-                                                        color:
-                                                            AppColors.darkCyan),
-                                          ),
-                                          SizedBox(
-                                            height: Get.height * 0.0086,
-                                          ),
-                                          Text(
-                                            controller
-                                                    .selectedSchedule.isNotEmpty
-                                                ? controller.selectedSchedule
-                                                : 'Not Defined',
-                                            style: controller
-                                                    .selectedSchedule.isNotEmpty
-                                                ? AppTextStyles.blue14Normal300
-                                                    .copyWith(fontSize: 11)
-                                                : AppTextStyles
-                                                    .lightGrey14Normal300
-                                                    .copyWith(fontSize: 11),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ))),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       const Text(
+            //         'Delivery Times',
+            //         style: AppTextStyles.extraDarkCyan16Normal500,
+            //       ),
+            //       SizedBox(
+            //         height: Get.height * 0.027,
+            //       ),
+            //       Row(
+            //         children: [
+            //           Expanded(
+            //             child: GestureDetector(
+            //               onTap: controller.onStandardScheduleClickHandler,
+            //               child: Obx(() => Container(
+            //                     padding: EdgeInsets.symmetric(
+            //                         horizontal: Get.width * 0.032),
+            //                     height: Get.height * 0.0837,
+            //                     decoration: controller
+            //                             .selectedSchedule.isNotEmpty
+            //                         ? BoxDecoration(
+            //                             color: AppColors.white,
+            //                             border:
+            //                                 Border.all(color: AppColors.grey),
+            //                             borderRadius: BorderRadius.circular(9))
+            //                         : BoxDecoration(
+            //                             color: AppColors.blue.withOpacity(0.12),
+            //                             border:
+            //                                 Border.all(color: AppColors.blue),
+            //                             borderRadius: BorderRadius.circular(9)),
+            //                     child: Row(
+            //                       children: [
+            //                         if (controller.selectedSchedule.isNotEmpty)
+            //                           Container(
+            //                             decoration: BoxDecoration(
+            //                                 shape: BoxShape.circle,
+            //                                 color: AppColors.white,
+            //                                 border: Border.all(
+            //                                     color: AppColors.grey,
+            //                                     width: 1.2)),
+            //                             width: 22,
+            //                             height: 22,
+            //                           )
+            //                         else
+            //                           Container(
+            //                             decoration: const BoxDecoration(
+            //                                 shape: BoxShape.circle,
+            //                                 color: AppColors.blue),
+            //                             width: 22,
+            //                             height: 22,
+            //                             child: Container(
+            //                               margin: const EdgeInsets.all(1.5),
+            //                               decoration: BoxDecoration(
+            //                                   shape: BoxShape.circle,
+            //                                   color: AppColors.blue,
+            //                                   border: Border.all(
+            //                                       color: const Color.fromRGBO(
+            //                                           231, 238, 252, 1.0),
+            //                                       width: 3)),
+            //                             ),
+            //                           ),
+            //                         SizedBox(
+            //                           width: Get.width * 0.0266,
+            //                         ),
+            //                         Column(
+            //                           mainAxisAlignment:
+            //                               MainAxisAlignment.center,
+            //                           crossAxisAlignment:
+            //                               CrossAxisAlignment.start,
+            //                           children: [
+            //                             Text(
+            //                               'Standard',
+            //                               style: controller
+            //                                       .selectedSchedule.isNotEmpty
+            //                                   ? AppTextStyles
+            //                                       .darkCyan14Normal500
+            //                                       .copyWith(
+            //                                           color: AppColors.darkCyan)
+            //                                   : AppTextStyles.blue14Normal500,
+            //                             ),
+            //                             SizedBox(
+            //                               height: Get.height * 0.0086,
+            //                             ),
+            //                             Text(
+            //                               'Available',
+            //                               style: controller
+            //                                       .selectedSchedule.isNotEmpty
+            //                                   ? AppTextStyles
+            //                                       .lightGrey14Normal300
+            //                                       .copyWith(fontSize: 11)
+            //                                   : AppTextStyles.blue14Normal300
+            //                                       .copyWith(fontSize: 11),
+            //                             ),
+            //                           ],
+            //                         )
+            //                       ],
+            //                     ),
+            //                   )),
+            //             ),
+            //           ),
+            //           SizedBox(
+            //             width: Get.width * 0.024,
+            //           ),
+            //           Expanded(
+            //             child: GestureDetector(
+            //                 onTap: controller.openSchedule,
+            //                 child: Obx(() => Container(
+            //                       padding: EdgeInsets.symmetric(
+            //                           horizontal: Get.width * 0.032),
+            //                       height: Get.height * 0.0837,
+            //                       decoration: controller
+            //                               .selectedSchedule.isNotEmpty
+            //                           ? BoxDecoration(
+            //                               color:
+            //                                   AppColors.blue.withOpacity(0.12),
+            //                               border:
+            //                                   Border.all(color: AppColors.blue),
+            //                               borderRadius:
+            //                                   BorderRadius.circular(9))
+            //                           : BoxDecoration(
+            //                               color: AppColors.white,
+            //                               border:
+            //                                   Border.all(color: AppColors.grey),
+            //                               borderRadius:
+            //                                   BorderRadius.circular(9)),
+            //                       child: Row(
+            //                         children: [
+            //                           if (controller
+            //                               .selectedSchedule.isNotEmpty)
+            //                             Container(
+            //                               decoration: const BoxDecoration(
+            //                                   shape: BoxShape.circle,
+            //                                   color: AppColors.blue),
+            //                               width: 22,
+            //                               height: 22,
+            //                               child: Container(
+            //                                 margin: const EdgeInsets.all(1.5),
+            //                                 decoration: BoxDecoration(
+            //                                     shape: BoxShape.circle,
+            //                                     color: AppColors.blue,
+            //                                     border: Border.all(
+            //                                         color: const Color.fromRGBO(
+            //                                             231, 238, 252, 1.0),
+            //                                         width: 3)),
+            //                               ),
+            //                             )
+            //                           else
+            //                             Container(
+            //                               decoration: BoxDecoration(
+            //                                   shape: BoxShape.circle,
+            //                                   color: AppColors.white,
+            //                                   border: Border.all(
+            //                                       color: AppColors.grey,
+            //                                       width: 1.2)),
+            //                               width: 22,
+            //                               height: 22,
+            //                             ),
+            //                           SizedBox(
+            //                             width: Get.width * 0.0266,
+            //                           ),
+            //                           Column(
+            //                             mainAxisAlignment:
+            //                                 MainAxisAlignment.center,
+            //                             crossAxisAlignment:
+            //                                 CrossAxisAlignment.start,
+            //                             children: [
+            //                               Text(
+            //                                 'Schedule',
+            //                                 style: controller
+            //                                         .selectedSchedule.isNotEmpty
+            //                                     ? AppTextStyles.blue14Normal500
+            //                                     : AppTextStyles
+            //                                         .darkCyan14Normal500
+            //                                         .copyWith(
+            //                                             color:
+            //                                                 AppColors.darkCyan),
+            //                               ),
+            //                               SizedBox(
+            //                                 height: Get.height * 0.0086,
+            //                               ),
+            //                               Text(
+            //                                 controller
+            //                                         .selectedSchedule.isNotEmpty
+            //                                     ? controller.selectedSchedule
+            //                                     : 'Not Defined',
+            //                                 style: controller
+            //                                         .selectedSchedule.isNotEmpty
+            //                                     ? AppTextStyles.blue14Normal300
+            //                                         .copyWith(fontSize: 11)
+            //                                     : AppTextStyles
+            //                                         .lightGrey14Normal300
+            //                                         .copyWith(fontSize: 11),
+            //                               ),
+            //                             ],
+            //                           )
+            //                         ],
+            //                       ),
+            //                     ))),
+            //           )
+            //         ],
+            //       ),
+            //     ],
+            //   ),
+            // ),
             SizedBox(
               height: Get.height * 0.0307,
             ),
