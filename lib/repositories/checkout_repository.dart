@@ -53,8 +53,8 @@ class CheckoutRepository {
 
     result.fold(
         (l) => error = l,
-        (r) => checkoutModel = CheckoutModel.fromJson(
-            r.data["data"] as Map<String, dynamic>));
+        (r) => checkoutModel =
+            CheckoutModel.fromJson(r.data["data"] as Map<String, dynamic>));
 
     if (checkoutModel != null) {
       return Right(checkoutModel!);
@@ -69,10 +69,14 @@ class CheckoutRepository {
     String error = "";
     PromotionCodeModel? promotionCode;
 
-    result.fold(
-        (l) => error = l,
-        (r) => promotionCode = PromotionCodeModel.fromJson(
-            r.data["data"]["promotion"] as Map<String, dynamic>));
+    result.fold((l) => error = l, (r) {
+      if (r.data["data"]["promotion"] != null) {
+        promotionCode = PromotionCodeModel.fromJson(
+            r.data["data"]["promotion"] as Map<String, dynamic>);
+      } else {
+        error = "Promotion not found";
+      }
+    });
 
     if (promotionCode != null) {
       return Right(promotionCode!);

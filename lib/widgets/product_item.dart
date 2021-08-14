@@ -14,11 +14,9 @@ class ProductItem extends StatefulWidget {
   final Function removeFromBasket;
   final Function onProductClickHandler;
   final int count;
-  final double? discountedPrice;
 
   const ProductItem(this.product, this.addToBasket, this.removeFromBasket,
-      this.onProductClickHandler, this.count,
-      {this.discountedPrice});
+      this.onProductClickHandler, this.count);
 
   @override
   _ProductItemState createState() => _ProductItemState();
@@ -128,18 +126,23 @@ class _ProductItemState extends State<ProductItem>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      widget.product.price!.toStringAsFixed(2),
-                      style: AppTextStyles.darkPurple13Normal700,
-                    ),
-                    SizedBox(
-                      width: Get.width * 0.0213,
-                    ),
-                    Flexible(
-                      child: Visibility(
-                        visible: widget.product.off! > 0,
+                    if (widget.product.off! > 0)
+                      Flexible(
                         child: Text(
-                            widget.product.off! > 0 ? widget.discountedPrice!.toStringAsFixed(2) : '',
+                          "\$${widget.product.offPrice!.toStringAsFixed(2)}",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.darkPurple13Normal700,
+                        ),
+                      ),
+                    if (widget.product.off! > 0)
+                      SizedBox(
+                        width: Get.width * 0.0213,
+                      ),
+                    if (widget.product.off! > 0)
+                      Flexible(
+                        child: Text(
+                          "\$${widget.product.price!.toStringAsFixed(2)}",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: AppTextStyles.darkPurple13Normal700.copyWith(
@@ -147,7 +150,15 @@ class _ProductItemState extends State<ProductItem>
                               decoration: TextDecoration.lineThrough),
                         ),
                       ),
-                    ),
+                    if (widget.product.off! == 0)
+                      Flexible(
+                        child: Text(
+                          "\$${widget.product.price!.toStringAsFixed(2)}",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.darkPurple13Normal700,
+                        ),
+                      ),
                   ],
                 ),
                 const SizedBox(

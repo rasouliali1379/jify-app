@@ -175,7 +175,8 @@ class AppTextStyles {
       fontSize: 14, color: AppTextColors.red, fontWeight: FontWeight.w400);
   static const red15Normal400 = TextStyle(
       fontSize: 15, color: AppTextColors.red, fontWeight: FontWeight.w400);
-
+  static const red16Normal500 = TextStyle(
+      fontSize: 16, color: AppTextColors.red, fontWeight: FontWeight.w500);
   // Dark Cyan
   static const darkCyan14Normal500 = TextStyle(
       fontSize: 14, color: AppTextColors.darkCyan, fontWeight: FontWeight.w500);

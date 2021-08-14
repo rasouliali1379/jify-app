@@ -352,9 +352,4 @@ class HomeFragmentController extends GetxController {
     }
     return null;
   }
-
-  double calculateDiscountedPrice(double price, double discount) {
-    final discountAmount = price * discount / 100;
-    return (price - discountAmount).toDouble();
-  }
 }

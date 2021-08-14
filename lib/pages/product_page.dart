@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/product_page_controller.dart';
-import 'package:jify_app/widgets/circle_button.dart';
 import 'package:jify_app/widgets/custom_toolbar.dart';
 
 class ProductPage extends GetView<ProductPageController> {
@@ -78,8 +77,9 @@ class ProductPage extends GetView<ProductPageController> {
                         if (controller.product.off! > 0)
                           Container(
                             alignment: Alignment.center,
-                            width: Get.width * 0.16,
                             height: Get.height * 0.0246,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Get.width * 0.0213),
                             decoration: BoxDecoration(
                               color: AppColors.red,
                               borderRadius: BorderRadius.circular(50),
@@ -91,46 +91,51 @@ class ProductPage extends GetView<ProductPageController> {
                               style: AppTextStyles.white12Normal600,
                             ),
                           )
-                        else
-                          const SizedBox(),
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: Get.height * 0.01,
+                    height: Get.height * 0.02,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.ideographic,
                     children: [
                       if (controller.product.off! > 0)
-                        Text("\$${controller.product.price!.toString()}",
+                        Text("\$ ${controller.product.price!.toString()}",
                             style: const TextStyle(
                                 color: Color.fromRGBO(161, 161, 161, 1),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                decoration: TextDecoration.lineThrough))
-                      else
-                        const SizedBox(),
+                                decoration: TextDecoration.lineThrough)),
                       SizedBox(
                         width: Get.width * 0.024,
                       ),
-                      RichText(
-                        text: TextSpan(
-                            text: ' \$ ',
-                            style: AppTextStyles.green16Normal600,
-                            children: [
-                              TextSpan(
-                                  text: controller.product.off! > 0
-                                      ? controller
-                                          .calculateDiscountedPrice(
-                                            controller.product.price!,
-                                            controller.product.off!,
-                                          )
-                                          .toStringAsFixed(2)
-                                      : controller.product.price!.toString(),
-                                  style: AppTextStyles.green20Normal600)
-                            ]),
-                      ),
+                      if (controller.product.off! > 0)
+                        RichText(
+                          text: TextSpan(
+                              text: ' \$ ',
+                              style: AppTextStyles.green16Normal600,
+                              children: [
+                                TextSpan(
+                                    text: controller.product.offPrice!
+                                        .toStringAsFixed(2),
+                                    style: AppTextStyles.green20Normal600)
+                              ]),
+                        ),
+                      if (controller.product.off! == 0)
+                        RichText(
+                          text: TextSpan(
+                              text: ' \$ ',
+                              style: AppTextStyles.green16Normal600,
+                              children: [
+                                TextSpan(
+                                    text: controller.product.price!
+                                        .toStringAsFixed(2),
+                                    style: AppTextStyles.green20Normal600)
+                              ]),
+                        ),
                     ],
                   ),
                   Divider(

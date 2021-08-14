@@ -12,7 +12,6 @@ class SubcategoryProductRowList extends StatelessWidget {
   final Function removeFromBasket;
   final Function onProductClickHandler;
   final Function countInBasket;
-  final Function calculateDiscount;
   final int index;
 
   const SubcategoryProductRowList(
@@ -22,7 +21,6 @@ class SubcategoryProductRowList extends StatelessWidget {
       this.removeFromBasket,
       this.onProductClickHandler,
       this.countInBasket,
-      this.calculateDiscount,
       this.index);
 
   @override
@@ -76,11 +74,6 @@ class SubcategoryProductRowList extends StatelessWidget {
               removeFromBasket,
               onProductClickHandler,
               countInBasket(category.products![index].id!) as int,
-              discountedPrice: category.products![index].off! > 0
-                  ? calculateDiscount(
-                      category.products![index].price!.toDouble(),
-                      category.products![index].off!.toDouble()) as double
-                  : null,
             ),
           ),
         )

@@ -14,7 +14,6 @@ class SubcategoryProductsList extends StatelessWidget {
   final Function removeFromBasket;
   final Function browseProduct;
   final Function countInBasket;
-  final Function calculateDiscount;
   final String pagginationStatus;
 
   const SubcategoryProductsList(
@@ -24,7 +23,6 @@ class SubcategoryProductsList extends StatelessWidget {
       this.removeFromBasket,
       this.browseProduct,
       this.countInBasket,
-      this.calculateDiscount,
       this.pagginationStatus);
 
   @override
@@ -48,10 +46,6 @@ class SubcategoryProductsList extends StatelessWidget {
                     removeFromBasket,
                     browseProduct,
                     countInBasket(products[index].id!) as int,
-                    discountedPrice: products[index].off! > 0
-                        ? calculateDiscount(products[index].price!.toDouble(),
-                            products[index].off!.toDouble()) as double
-                        : null,
                   )),
           if (pagginationStatus == AppStatus.loading)
             const SpinKitRing(color: AppColors.blue)

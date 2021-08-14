@@ -78,6 +78,7 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                         Expanded(
                           flex: 2,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Obx(() => Flexible(
                                     child: Text(
@@ -145,14 +146,14 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                 ],
               ),
             ),
-            const Divider(
-              height: 0,
-              thickness: 2,
-              color: AppColors.grey,
-            ),
-            SizedBox(
-              height: Get.height * 0.0344,
-            ),
+            // const Divider(
+            //   height: 0,
+            //   thickness: 2,
+            //   color: AppColors.grey,
+            // ),
+            // SizedBox(
+            //   height: Get.height * 0.0344,
+            // ),
             // Padding(
             //   padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
             //   child: Column(
@@ -360,9 +361,9 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
             //     ],
             //   ),
             // ),
-            SizedBox(
-              height: Get.height * 0.0307,
-            ),
+            // SizedBox(
+            //   height: Get.height * 0.0307,
+            // ),
             const Divider(
               height: 0,
               thickness: 2,

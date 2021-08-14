@@ -9,6 +9,8 @@ class ProductModel {
   String? category;
   int? qty;
   double? off;
+  double? offPrice;
+
   ProductModel(
       {this.title,
       this.image,
@@ -19,7 +21,8 @@ class ProductModel {
       this.id,
       this.category,
       this.qty,
-      this.off});
+      this.off,
+      this.offPrice});
 
   ProductModel.fromJson(dynamic json) {
     title = json['title'] as String;
@@ -38,6 +41,16 @@ class ProductModel {
       } else {
         off = json["off"] as double;
       }
+    } else {
+      off = 0.0;
+    }
+
+    if (json["offPrice"] != null) {
+      if (json["offPrice"] is int) {
+        offPrice = (json["offPrice"] as int).toDouble();
+      } else {
+        offPrice = json["offPrice"] as double;
+      }
     }
   }
 
@@ -53,6 +66,7 @@ class ProductModel {
     map['category'] = category;
     map['qty'] = qty;
     map['off'] = off;
+    map['offPrice'] = offPrice;
     return map;
   }
 }

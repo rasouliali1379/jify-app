@@ -4,6 +4,7 @@ import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/modals/choose_delivery_address_modal.dart';
+import 'package:jify_app/modals/store_closed_modal.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/utilities/utilities.dart';
@@ -38,8 +39,12 @@ class MainPageController extends GetxController {
       if (index == 3 && !storageExists(AppKeys.token)) {
         makeCustomToast("You need to sign in first");
       } else {
-        pageStack.add(index);
-        pageController.jumpToPage(index);
+        if (Get.find<GlobalController>().initialDataModel.isOpen!) {
+          pageStack.add(index);
+          pageController.jumpToPage(index);
+        } else {
+          Get.bottomSheet(StoreClosedModal());
+        }
       }
     }
   }
@@ -93,6 +98,11 @@ class MainPageController extends GetxController {
 
   @override
   void onReady() {
+    if (!Get.find<GlobalController>().initialDataModel.isOpen!) {
+      Get.bottomSheet(StoreClosedModal());
+      return;
+    }
+
     if (!storageExists(AppKeys.token)) {
       if (storageExists(AppKeys.unsavedAddress)) {
       } else {

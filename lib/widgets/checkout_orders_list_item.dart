@@ -63,7 +63,9 @@ class CheckoutOrdersListItem extends StatelessWidget {
                             style: AppTextStyles.green13Normal400,
                             children: [
                               TextSpan(
-                                text: product.price.toString(),
+                                text: product.off! > 0
+                                    ? product.offPrice!.toStringAsFixed(2)
+                                    : product.price!.toStringAsFixed(2),
                                 style: AppTextStyles.green15Normal400,
                               )
                             ]),

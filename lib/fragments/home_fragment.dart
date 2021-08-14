@@ -86,16 +86,6 @@ class _HomeFragmentState extends State<HomeFragment>
                               controller.browseProduct,
                               controller.productRepository.countInBasket(
                                   _controller.searchedProducts[index].id!),
-                              discountedPrice:
-                                  _controller.searchedProducts[index].off! > 0
-                                      ? _controller.calculateDiscountedPrice(
-                                          _controller
-                                              .searchedProducts[index].price!
-                                              .toDouble(),
-                                          _controller
-                                              .searchedProducts[index].off!
-                                              .toDouble())
-                                      : null,
                             )),
                   );
                 case "subcategory_products":
@@ -130,7 +120,6 @@ class _HomeFragmentState extends State<HomeFragment>
                                 controller.removeFromBasket,
                                 controller.browseProduct,
                                 controller.productRepository.countInBasket,
-                                controller.calculateDiscountedPrice,
                                 controller.pagginationStatus);
                           }),
                         ),
@@ -153,7 +142,6 @@ class _HomeFragmentState extends State<HomeFragment>
                             controller.removeFromBasket,
                             controller.browseProduct,
                             controller.productRepository.countInBasket,
-                            controller.calculateDiscountedPrice,
                           ),
                         ),
                       ],

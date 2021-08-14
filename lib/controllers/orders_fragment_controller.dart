@@ -60,6 +60,8 @@ class OrdersFragmentController extends GetxController {
   }
 
   void attemptSucceed(List<OrderModel> orders) {
+    ordersList.clear();
+    previousOrdersList.clear();
     for (final order in orders) {
       if (order.status == "unknown") {
         ordersList.add(order);

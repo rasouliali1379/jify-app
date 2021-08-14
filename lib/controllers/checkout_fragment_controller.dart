@@ -239,7 +239,11 @@ class CheckoutFragmentController extends GetxController {
     double _subtotal = 0.0;
     for (final order in orders) {
       final product = findProduct(order.id!);
-      _subtotal += product!.price! * order.qty!;
+      if (product!.off! > 0) {
+        _subtotal += product.offPrice! * order.qty!;
+      } else {
+        _subtotal += product.price! * order.qty!;
+      }
     }
     subtotalPrice = _subtotal;
 
