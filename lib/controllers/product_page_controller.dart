@@ -46,7 +46,7 @@ class ProductPageController extends GetxController {
   }
 
   void increaseCount() {
-    if (count + 1 < product.stock!) {
+    if (count < product.stock!) {
       Get.find<HomeFragmentController>().addProductToBasket(product);
       count = productRepository.countInBasket(product.id!);
     } else {

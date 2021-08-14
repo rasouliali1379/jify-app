@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
+import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/modals/custom_alert_dialog.dart';
 import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/models/location_model.dart';
@@ -210,6 +211,15 @@ class DeliveryAddressesPageController extends GetxController {
     loadingStatus = false;
     deletionLoading = false;
     final globalController = Get.find<GlobalController>();
+
+    if (addresses.isEmpty) {
+      final _mainController = Get.find<MainPageController>();
+      _mainController.onBottomNavClickHandler(0);
+      Get.back();
+      _mainController.openDeliveryAddressModal();
+      return;
+    }
+
     globalController.initialDataModel.user!.addresses = addresses;
     if (editMode) {
       final address =

@@ -8,7 +8,6 @@ import 'package:jify_app/modals/store_closed_modal.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/utilities/utilities.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MainPageController extends GetxController {
   final _index = 0.obs;
