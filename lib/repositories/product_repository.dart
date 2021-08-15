@@ -44,7 +44,11 @@ class ProductRepository {
     double total = 0.0;
 
     for (final item in globalController.basket) {
-      total += item.price!;
+      if (item.off! > 0) {
+        total += item.offPrice!;
+      } else {
+        total += item.price!;
+      }
     }
 
     return total;

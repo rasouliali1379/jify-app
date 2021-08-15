@@ -17,6 +17,16 @@ class MainPageController extends GetxController {
 
   int selectedCategory = -1;
 
+  @override
+  void onReady() {
+    if (!Get.find<GlobalController>().initialDataModel.isOpen!) {
+      Get.bottomSheet(StoreClosedModal());
+      return;
+    }
+    checkInitialAddress();
+    super.onReady();
+  }
+
   bool get backBtnVisibility => _backBtnVisibility.value;
 
   set backBtnVisibility(bool value) {
@@ -52,10 +62,6 @@ class MainPageController extends GetxController {
     Get.bottomSheet(ChooseDeliveryAddressModal(),
         isDismissible: false, enableDrag: false);
     Get.find<GlobalController>().isAddAddressModalOpen = true;
-  }
-
-  void openDeliveryAddressesPage() {
-    Get.toNamed(Routes.deliveryAddresses);
   }
 
   void openAddressesPage() {
@@ -95,19 +101,12 @@ class MainPageController extends GetxController {
     return Future.value(false);
   }
 
-  @override
-  void onReady() {
-    if (!Get.find<GlobalController>().initialDataModel.isOpen!) {
-      Get.bottomSheet(StoreClosedModal());
-      return;
-    }
-
+  void checkInitialAddress() {
     if (!storageExists(AppKeys.token)) {
       if (storageExists(AppKeys.unsavedAddress)) {
       } else {
         openDeliveryAddressModal();
       }
     }
-    super.onReady();
   }
 }

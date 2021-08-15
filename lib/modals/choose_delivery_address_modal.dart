@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
+import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/widgets/long_button.dart';
 
 class ChooseDeliveryAddressModal extends GetView<MainPageController> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
+        statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarDividerColor: AppColors.white,
@@ -65,8 +66,11 @@ class ChooseDeliveryAddressModal extends GetView<MainPageController> {
                 ),
               ],
             ),
-            LongButton(controller.openDeliveryAddressesPage, 'Add New Address',
-                Get.width, Get.height * 0.064)
+            LongButton(
+                () => Navigator.of(context).pushNamed(Routes.deliveryAddresses),
+                'Add New Address',
+                Get.width,
+                Get.height * 0.064)
           ],
         ),
       ),

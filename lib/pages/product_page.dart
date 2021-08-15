@@ -227,10 +227,16 @@ class ProductPage extends GetView<ProductPageController> {
                         '${controller.count} Added to basket',
                         style: AppTextStyles.white18Normal500,
                       ),
-                      Text(
-                        '\$${(controller.count * controller.product.price!).toStringAsFixed(2)}',
-                        style: AppTextStyles.white18Normal500,
-                      ),
+                      if (controller.product.off! > 0)
+                        Text(
+                          '\$${(controller.count * controller.product.offPrice!).toStringAsFixed(2)}',
+                          style: AppTextStyles.white18Normal500,
+                        )
+                      else
+                        Text(
+                          '\$${(controller.count * controller.product.price!).toStringAsFixed(2)}',
+                          style: AppTextStyles.white18Normal500,
+                        ),
                     ],
                   ),
                 ),

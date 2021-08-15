@@ -49,6 +49,7 @@ class ProductPageController extends GetxController {
     if (count < product.stock!) {
       Get.find<HomeFragmentController>().addProductToBasket(product);
       count = productRepository.countInBasket(product.id!);
+      variants = productRepository.getProductVariantsCount();
     } else {
       showCustomSnackBar("Only ${product.stock} ${product.title} available");
     }
@@ -58,6 +59,7 @@ class ProductPageController extends GetxController {
     if (count != 0) {
       Get.find<HomeFragmentController>().removeFromBasket(product.id!);
       count = productRepository.countInBasket(product.id!);
+      variants = productRepository.getProductVariantsCount();
     }
   }
 
@@ -69,9 +71,5 @@ class ProductPageController extends GetxController {
   double calculateDiscountedPrice(double price, double discount) {
     final discountAmount = price * discount / 100;
     return (price - discountAmount).toDouble();
-  }
-
-  double getTotalPrice() {
-    return productRepository.countInBasket(product.id!) * product.price!;
   }
 }
