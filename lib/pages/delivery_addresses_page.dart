@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/delivery_addresses_controller.dart';
+import 'package:jify_app/widgets/clickable_text.dart';
 import 'package:jify_app/widgets/custom_toolbar.dart';
 import 'package:jify_app/widgets/location_tag_item.dart';
 import 'package:jify_app/widgets/long_button.dart';
@@ -22,7 +23,17 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
         systemNavigationBarDividerColor: AppColors.white,
         systemNavigationBarColor: AppColors.white));
     return Scaffold(
-      appBar: CustomToolBar('Delivery Addresses'),
+      appBar: CustomToolBar(
+        'Delivery Addresses',
+        action: Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: ClickableText(
+            'Delete',
+            controller.confirmDeletion,
+            style: AppTextStyles.white16Normal400,
+          ),
+        ),
+      ),
       backgroundColor: AppColors.milky,
       body: SingleChildScrollView(
         child: Column(
@@ -270,29 +281,6 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                   ),
                   Obx(() => Row(
                         children: [
-                          Visibility(
-                            visible: controller.editMode,
-                            child: Expanded(
-                              child: LongButton(
-                                controller.confirmDeletion,
-                                'Delete',
-                                double.maxFinite,
-                                Get.height * 0.064,
-                                customText: controller.deletionLoading
-                                    ? const SpinKitThreeBounce(
-                                        color: AppColors.white,
-                                        size: 15,
-                                      )
-                                    : null,
-                                color: AppColors.red,
-                              ),
-                            ),
-                          ),
-                          Visibility(
-                              visible: controller.editMode,
-                              child: SizedBox(
-                                width: Get.width * 0.0426,
-                              )),
                           Expanded(
                             child: LongButton(
                               controller.addAddress,

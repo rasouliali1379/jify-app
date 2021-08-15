@@ -18,14 +18,16 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar(
         'Order Info',
-        action: const Text(
-          'Help',
-          style: AppTextStyles.white16Normal400,
+        action: Padding(
+          padding: EdgeInsets.only(right: Get.width * 0.04),
+          child: const Text(
+            'Help',
+            style: AppTextStyles.white16Normal400,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -39,7 +41,7 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Order status',
                         style: AppTextStyles.darkGrey14Normal300,
                       ),
