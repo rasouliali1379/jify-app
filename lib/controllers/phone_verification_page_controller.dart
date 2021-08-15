@@ -94,20 +94,16 @@ class PhoneVerificationPageController extends GetxController {
             UserModel.fromJson(loginData["user"] as Map<String, dynamic>);
         Get.find<AccountFragmentController>().checkLoginStatus();
         globalController.initialDataModel.user = userData;
-
         if (storageExists(AppKeys.unsavedAddress)) {
           final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
           final addressModel = AddressModel.fromJson(jsonDecode(rawAddress));
-          print(addressModel.address);
           final result = await _addressRepository.addAddress(addressModel);
           result.fold((l) => attemptFailed(l), (r) async {
-            print(r.last.address);
             globalController.initialDataModel.user!.addresses = r;
             await storageWrite(AppKeys.address, r.last.id);
             await storageRemove(AppKeys.unsavedAddress);
           });
         }
-
         final ordersController = Get.find<OrdersFragmentController>();
         ordersController.checkUserLogStatus();
         ordersController.getOrderList();

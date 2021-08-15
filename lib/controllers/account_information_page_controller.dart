@@ -16,9 +16,6 @@ class AccountInformationPageController extends GetxController {
   final nameTextController = TextEditingController();
   final lastNameTextController = TextEditingController();
   final emailTextController = TextEditingController();
-  // final oldPassTextController = TextEditingController();
-  // final newPassTextController = TextEditingController();
-  // final confirmPassTextController = TextEditingController();
 
   final _phoneNumber = "".obs;
   final _loadingStatus = false.obs;
@@ -49,11 +46,14 @@ class AccountInformationPageController extends GetxController {
   }
 
   void openDeliveryAddressesPage() {
-    Get.toNamed(Routes.deliveryAddresses);
+    Get.toNamed(Routes.deliveryAddresses)!
+        .then((value) => checkSelectedAddress());
   }
 
   void openAddressesPage() {
-    Get.toNamed(Routes.addresses, arguments: true);
+    Get.toNamed(Routes.addresses,
+            arguments: true, parameters: {"from": "account_information"})!
+        .then((value) => checkSelectedAddress());
   }
 
   void getUserData() {
@@ -127,9 +127,6 @@ class AccountInformationPageController extends GetxController {
     nameTextController.dispose();
     lastNameTextController.dispose();
     emailTextController.dispose();
-    // oldPassTextController.dispose();
-    // newPassTextController.dispose();
-    // confirmPassTextController.dispose();
     super.onClose();
   }
 }

@@ -25,12 +25,15 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
     return Scaffold(
       appBar: CustomToolBar(
         'Delivery Addresses',
-        action: Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: ClickableText(
-            'Delete',
-            controller.confirmDeletion,
-            style: AppTextStyles.white16Normal400,
+        action: Visibility(
+          visible: controller.editMode,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: ClickableText(
+              'Delete',
+              controller.confirmDeletion,
+              style: AppTextStyles.white16Normal400,
+            ),
           ),
         ),
       ),

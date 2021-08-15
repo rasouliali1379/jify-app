@@ -2,7 +2,9 @@
     package="au.com.jify.customer">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="Jify App"
+       android:allowBackup="false"
+       android:fullBackupContent="false"
+       android:label="Jify App"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAV0JgeJ28lOl9qqCuVYz4c6Ns3tEqvPwc"/>

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jify_app/constants/app_keys.dart';
+import 'package:jify_app/controllers/account_information_page_controller.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
@@ -38,11 +39,13 @@ class DeliveryAddressesPageController extends GetxController {
 
   late GoogleMapController mapController;
 
-  late AddressModel edititngAddress;
+  late AddressModel editingAddress;
 
   bool get loadingStatus => _loadingStatus.value;
 
   bool editMode = false;
+
+  String? from;
 
   @override
   void onInit() {
@@ -87,10 +90,14 @@ class DeliveryAddressesPageController extends GetxController {
   void defineMode() {
     if (Get.arguments != null) {
       if (Get.arguments is AddressModel) {
-        edititngAddress = Get.arguments as AddressModel;
+        editingAddress = Get.arguments as AddressModel;
         editMode = true;
       }
     }
+    final params = Get.parameters;
+    from = params["from"];
+    print(editingAddress.toJson().toString());
+    print(storageRead(AppKeys.token));
   }
 
   Function() onTagClickHandler(int index) {
@@ -113,7 +120,7 @@ class DeliveryAddressesPageController extends GetxController {
   void selectAddress(PredictedLatLongModel model) {
     selectedAddress = model;
 
-    mapController.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
+    mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
       target: LatLng(selectedAddress.geometry!.location!.lat!,
           selectedAddress.geometry!.location!.lng!),
       zoom: 14.4746,
@@ -168,7 +175,7 @@ class DeliveryAddressesPageController extends GetxController {
         loadingStatus = true;
         if (editMode) {
           _addressRepository
-              .updateAddress(edititngAddress.id!, addressModel)
+              .updateAddress(editingAddress.id!, addressModel)
               .then((value) => value.fold(
                   (l) => attemptFailed(l), (r) => attemptSucceed(r)));
         } else {
@@ -197,7 +204,7 @@ class DeliveryAddressesPageController extends GetxController {
   void deleteAddress() {
     Get.back();
     deletionLoading = true;
-    _addressRepository.deleteAddress(edititngAddress.id!).then((value) =>
+    _addressRepository.deleteAddress(editingAddress.id!).then((value) =>
         value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
   }
 
@@ -215,7 +222,17 @@ class DeliveryAddressesPageController extends GetxController {
     if (addresses.isEmpty) {
       final _mainController = Get.find<MainPageController>();
       _mainController.onBottomNavClickHandler(0);
-      Get.back();
+      globalController.isAddressInRange = true;
+      if (from != null) {
+        switch (from) {
+          case "account_information":
+            Get.close(3);
+            break;
+          case "checkout":
+            Get.close(2);
+            break;
+        }
+      }
       _mainController.openDeliveryAddressModal();
       return;
     }
@@ -223,7 +240,7 @@ class DeliveryAddressesPageController extends GetxController {
     globalController.initialDataModel.user!.addresses = addresses;
     if (editMode) {
       final address =
-          _addressRepository.findAddress(addresses, edititngAddress.id!);
+          _addressRepository.findAddress(addresses, editingAddress.id!);
       globalController.isAddressInRange = address.distance! <=
           globalController.initialDataModel.supportedDistance!;
     } else {
@@ -233,7 +250,12 @@ class DeliveryAddressesPageController extends GetxController {
       });
     }
     Get.find<CheckoutFragmentController>().checkSelectedAddress();
-    Get.back();
+    if (globalController.isAddAddressModalOpen) {
+      globalController.isAddAddressModalOpen = false;
+      Get.close(2);
+    } else {
+      Get.back();
+    }
   }
 
   String getTag(int index) {
@@ -300,23 +322,22 @@ class DeliveryAddressesPageController extends GetxController {
 
   void fillData() {
     if (editMode) {
-      print(edititngAddress.toJson().toString());
-      selectedTag = getTagIndex(edititngAddress.type!);
-      selectedOption = getOptionIndex(edititngAddress.options!);
+      selectedTag = getTagIndex(editingAddress.type!);
+      selectedOption = getOptionIndex(editingAddress.options!);
       selectedAddress = PredictedLatLongModel(
-          name: edititngAddress.address,
+          name: editingAddress.address,
           geometry: Geometry(
               location: Location(
-                  lat: edititngAddress.location!.coordinates![0] as double,
-                  lng: edititngAddress.location!.coordinates![1] as double)));
-      mapController.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(edititngAddress.location!.coordinates![0] as double,
-            edititngAddress.location!.coordinates![1] as double),
+                  lat: editingAddress.location!.coordinates![0] as double,
+                  lng: editingAddress.location!.coordinates![1] as double)));
+      mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng(editingAddress.location!.coordinates![0] as double,
+            editingAddress.location!.coordinates![1] as double),
         zoom: 14.4746,
       )));
-      floorTextController.text = edititngAddress.apt!;
-      buildingTextController.text = edititngAddress.building!;
-      noteTextController.text = edititngAddress.note!;
+      floorTextController.text = editingAddress.apt!;
+      buildingTextController.text = editingAddress.building!;
+      noteTextController.text = editingAddress.note!;
     }
   }
 }

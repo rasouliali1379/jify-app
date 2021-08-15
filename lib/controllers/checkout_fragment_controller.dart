@@ -25,7 +25,6 @@ class CheckoutFragmentController extends GetxController {
   final promoCodeController = TextEditingController();
   final cardNumberController = TextEditingController();
   final promoFocus = FocusNode();
-  final _productRepository = ProductRepository();
   final _checkoutRepository = CheckoutRepository();
 
   final _orders = <CheckoutOrderModel>[].obs;
@@ -109,7 +108,7 @@ class CheckoutFragmentController extends GetxController {
 
   void openAddresses() {
     if (storageExists(AppKeys.token)) {
-      Get.toNamed(Routes.addresses);
+      Get.toNamed(Routes.addresses, parameters: {"from": "checkout"});
     } else {
       makeCustomToast('Login to change the address');
     }
@@ -168,7 +167,7 @@ class CheckoutFragmentController extends GetxController {
       final userInfo = globalController.initialDataModel.user;
       if (userInfo!.addresses!.isNotEmpty) {
         if (storageExists(AppKeys.address)) {
-          AddressModel? address = findAddress(
+          final AddressModel? address = findAddress(
               userInfo.addresses!, storageRead(AppKeys.address) as String);
 
           if (address != null) {

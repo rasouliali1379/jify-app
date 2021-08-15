@@ -25,7 +25,7 @@ class IntroPageController extends GetxController
   }
 
   void nextPage() {
-    pageController.animateTo(200,
+    pageController.animateToPage(1,
         duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
   }
 

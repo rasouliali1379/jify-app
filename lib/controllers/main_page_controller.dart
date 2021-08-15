@@ -103,8 +103,15 @@ class MainPageController extends GetxController {
 
   void checkInitialAddress() {
     if (!storageExists(AppKeys.token)) {
-      if (storageExists(AppKeys.unsavedAddress)) {
-      } else {
+      if (!storageExists(AppKeys.unsavedAddress)) {
+        openDeliveryAddressModal();
+      }
+    } else {
+      if (Get.find<GlobalController>()
+          .initialDataModel
+          .user!
+          .addresses!
+          .isEmpty) {
         openDeliveryAddressModal();
       }
     }

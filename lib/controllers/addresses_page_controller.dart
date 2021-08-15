@@ -12,16 +12,13 @@ class AddressesPageController extends GetxController {
   late String selectedAddress;
   final _editMode = false.obs;
 
-  bool fromAccountInfo = false;
+  String? from;
 
   @override
   Future<void> onInit() async {
-    if (Get.arguments != null) {
-      if (Get.arguments is bool) {
-        fromAccountInfo = Get.arguments as bool;
-      }
-    }
     populateAddresses();
+    final params = Get.parameters;
+    from = params["from"];
     super.onInit();
   }
 
@@ -45,7 +42,8 @@ class AddressesPageController extends GetxController {
   }
 
   void editAddresses(AddressModel addressModel) {
-    Get.toNamed(Routes.deliveryAddresses, arguments: addressModel)!
+    Get.toNamed(Routes.deliveryAddresses,
+            arguments: addressModel, parameters: {"from": from!})!
         .then((value) => populateAddresses());
   }
 
@@ -57,10 +55,6 @@ class AddressesPageController extends GetxController {
   Future<void> onAddressClickHandler(AddressModel addressModel) async {
     await storageWrite(AppKeys.address, addressModel.id);
     Get.find<CheckoutFragmentController>().checkSelectedAddress();
-    if (fromAccountInfo) {
-      print("account info");
-      Get.find<AccountInformationPageController>().checkSelectedAddress();
-    }
     final globalController = Get.find<GlobalController>();
     globalController.isAddressInRange = addressModel.distance! <=
         globalController.initialDataModel.supportedDistance!;
