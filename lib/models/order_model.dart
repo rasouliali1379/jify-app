@@ -67,7 +67,7 @@ class OrderModel {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     if (address != null) {
       map['address'] = address?.toJson();
     }

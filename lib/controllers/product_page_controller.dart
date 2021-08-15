@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/models/product_model.dart';

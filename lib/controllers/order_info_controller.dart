@@ -40,11 +40,12 @@ class OrderInfoPageController extends GetxController {
   }
 
   String getFormattedDate(String date) {
-    var b = DateTime.now().timeZoneOffset;
+    final timeZone = DateTime.now().timeZoneOffset;
 
-    DateTime dt = DateTime.parse(date).add(b);
+    final dateTime = DateTime.parse(date).add(timeZone);
 
-    return "${month[dt.month - 1]} ${dt.day} , ${dt.year} - ${dt.hour}:${dt.minute}";
+    return "${month[dateTime.month - 1]} ${dateTime.day} ,"
+        " ${dateTime.year} - ${dateTime.hour}:${dateTime.minute}";
   }
 
   void reorder() {

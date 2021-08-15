@@ -42,7 +42,7 @@ class UserModel {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['_id'] = id;
     map['firstname'] = firstname;
     map['lastname'] = lastname;

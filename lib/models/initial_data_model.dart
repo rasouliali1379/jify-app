@@ -49,7 +49,7 @@ class InitialDataModel {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
 
     if (banners != null) {
       map['banners'] = banners?.map((v) => v.toJson()).toList();

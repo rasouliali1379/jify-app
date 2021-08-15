@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
-import 'package:jify_app/controllers/account_information_page_controller.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/models/address_model.dart';

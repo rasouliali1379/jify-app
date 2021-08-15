@@ -17,7 +17,7 @@ class GlobalController extends GetxController {
   final _totalCost = 0.0.obs;
   final _isAddressInRange = true.obs;
 
-  late InitialDataModel _initialDataModel;
+  late InitialDataModel initialDataModel;
 
   late AddressModel unsavedAddress;
 
@@ -26,21 +26,13 @@ class GlobalController extends GetxController {
   void initFireBaseListeners() {
     fcm.getToken().then((value) {
       if (value != null) {
-        print("getToken : $value");
         saveToken(value);
       }
     });
 
     fcm.onTokenRefresh.listen((event) {
-      print("tokenRefreshed : $event");
       saveToken(event);
     });
-  }
-
-  InitialDataModel get initialDataModel => _initialDataModel;
-
-  set initialDataModel(InitialDataModel value) {
-    _initialDataModel = value;
   }
 
   double get totalCost => _totalCost.value;
@@ -63,16 +55,11 @@ class GlobalController extends GetxController {
         userData.fcmToken = token;
         userRepository
             .updateUser(userData)
-            .then((value) => value.fold((l) => attemptFailed(l), (r) {
+            .then((value) => value.fold((l) => null, (r) {
                   initialDataModel.user = r;
-                  print(r.fcmToken);
                 }));
       }
     }
-  }
-
-  void attemptFailed(String message) {
-    print(message);
   }
 
   void updateTotalCost() {

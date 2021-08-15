@@ -22,7 +22,7 @@ class BasketModel {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     if (products != null) {
       map['products'] = products?.map((v) => v.toJson()).toList();
     }
@@ -66,7 +66,7 @@ class Promotion {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['code'] = code;
     return map;
   }
@@ -87,7 +87,7 @@ class Products {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['_id'] = id;
     map['qty'] = qty;
     return map;

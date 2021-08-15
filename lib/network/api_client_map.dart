@@ -13,7 +13,7 @@ class ApiClientMap {
       _response =
           await _dio.get(AppVariables.mapUrl + endPoint, queryParameters: map);
       return Right(_response);
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       if (_response != null) {
         if (_response.data is Map<String, dynamic>) {
           final _rawJson = _response.data as Map<String, dynamic>;

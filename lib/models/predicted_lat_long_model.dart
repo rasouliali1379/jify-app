@@ -13,7 +13,7 @@ class PredictedLatLongModel {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['formatted_address'] = formattedAddress;
     map['name'] = name;
     if (geometry != null) {
@@ -34,7 +34,7 @@ class Geometry {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     if (location != null) {
       map['location'] = location?.toJson();
     }
@@ -55,7 +55,7 @@ class Location {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['lat'] = lat;
     map['lng'] = lng;
     return map;

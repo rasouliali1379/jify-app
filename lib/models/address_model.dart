@@ -37,7 +37,7 @@ class AddressModel {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     if (location != null) {
       map['location'] = location?.toJson();
     }

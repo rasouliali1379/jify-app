@@ -96,8 +96,6 @@ class DeliveryAddressesPageController extends GetxController {
     }
     final params = Get.parameters;
     from = params["from"];
-    print(editingAddress.toJson().toString());
-    print(storageRead(AppKeys.token));
   }
 
   Function() onTagClickHandler(int index) {

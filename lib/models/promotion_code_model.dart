@@ -30,7 +30,7 @@ class PromotionCodeModel {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['value'] = value;
     map['end'] = end;
     map['_id'] = id;

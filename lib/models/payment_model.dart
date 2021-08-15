@@ -8,7 +8,7 @@ class PaymentModel {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['code'] = code;
     return map;
   }

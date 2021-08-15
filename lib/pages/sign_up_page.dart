@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/sign_up_page_controller.dart';
-import 'package:jify_app/widgets/clickable_text.dart';
 import 'package:jify_app/widgets/custom_toolbar.dart';
 import 'package:jify_app/widgets/long_button.dart';
 import 'package:jify_app/widgets/phone_number_text.dart';

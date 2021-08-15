@@ -1,9 +1,7 @@
 import 'dart:math';
 
 import 'package:dartz/dartz.dart';
-import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/models/address_prediction_model.dart';
 import 'package:jify_app/models/predicted_lat_long_model.dart';

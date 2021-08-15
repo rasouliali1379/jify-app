@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/models/order_model.dart';
-import 'package:jify_app/widgets/orders_list_item.dart';
 import 'package:jify_app/widgets/previous_orders_list_item.dart';
 
 class PreviousOrdersList extends StatelessWidget {

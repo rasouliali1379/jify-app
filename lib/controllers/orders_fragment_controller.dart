@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
@@ -51,7 +50,6 @@ class OrdersFragmentController extends GetxController {
 
   Future<void> getOrderList() async {
     final result = await _ordersRepository.getOrdersList();
-    print(storageRead(AppKeys.token));
     result.fold((l) => attemptFailed(l), (r) => attemptSucceed(r));
   }
 
@@ -62,7 +60,6 @@ class OrdersFragmentController extends GetxController {
   void attemptSucceed(List<OrderModel> orders) {
     ordersList.clear();
     previousOrdersList.clear();
-    print(orders.toString());
     for (final order in orders) {
       if (order.status == "unknown") {
         ordersList.add(order);

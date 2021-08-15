@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
-import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/network/api_requests.dart';

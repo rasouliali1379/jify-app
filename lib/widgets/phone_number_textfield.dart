@@ -113,8 +113,6 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField>
   }
 
   void focusChangeHandler(bool focus) {
-    print(focus);
-
     if (focus) {
       _animationController.forward();
     } else {

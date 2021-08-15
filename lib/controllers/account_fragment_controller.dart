@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';

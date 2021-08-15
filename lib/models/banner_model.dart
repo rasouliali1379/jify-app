@@ -27,7 +27,7 @@ class BannerModel {
   }
 
   Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['image'] = image;
     map['thumbnail'] = thumbnail;
     map['linkTo'] = linkTo;

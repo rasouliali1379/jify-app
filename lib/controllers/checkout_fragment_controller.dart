@@ -15,7 +15,6 @@ import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/models/promotion_code_model.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/repositories/checkout_repository.dart';
-import 'package:jify_app/repositories/product_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/utilities/utilities.dart';
 
