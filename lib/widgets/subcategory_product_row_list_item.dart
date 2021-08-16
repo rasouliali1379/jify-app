@@ -28,8 +28,11 @@ class SubcategoryProductRowList extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: Get.width * 0.0453, vertical: 9),
+          padding: EdgeInsets.only(
+              left: Get.width * 0.0453,
+              top: Get.width * 0.0295,
+              bottom: Get.width * 0.02,
+              right: Get.width * 0.03),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

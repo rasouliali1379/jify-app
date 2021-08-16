@@ -3,5 +3,4 @@ class AppStatus {
   static const tryAgain = "try_again";
   static const done = "done";
   static const nothingFound = "nothing_found";
-
 }

@@ -88,43 +88,40 @@ class IntroPage extends GetView<IntroPageController> {
             ),
           ],
         ),
-        Column(
-          children: [
-            const Text(
-              'We’ve got your back',
-              style: AppTextStyles.white26Normal600,
-            ),
-            SizedBox(
-              height: Get.height * 0.0307,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0746),
-              child: Text(
-                'From snacks & drinks to cleaning products & home essentials.'
-                ' Hundreds of different items are available instantly'
-                ' at your fingertips delivered straight to your doorstep.',
-                style: AppTextStyles.white14Normal300.copyWith(height: 1.25),
-                textAlign: TextAlign.center,
+        SizedBox(
+          height: Get.height * 0.261,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'We’ve got your back',
+                style: AppTextStyles.white26Normal600,
               ),
-            ),
-            SizedBox(
-              height: Get.height * 0.0738,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
-              child: LongButton(
-                controller.nextPage,
-                'Next',
-                double.maxFinite,
-                Get.height * 0.064,
-                color: AppColors.white,
-                labelColor: AppColors.blue,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0746),
+                child: Text(
+                  'From snacks & drinks to cleaning products & home essentials.'
+                  ' Hundreds of different items are available instantly'
+                  ' at your fingertips delivered straight to your doorstep.',
+                  style: AppTextStyles.white14Normal300.copyWith(height: 1.25),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            SizedBox(
-              height: Get.height * 0.0258,
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Get.width * 0.0453,
+                    vertical: Get.height * 0.0258),
+                child: LongButton(
+                  controller.nextPage,
+                  'Next',
+                  double.maxFinite,
+                  Get.height * 0.064,
+                  color: AppColors.white,
+                  labelColor: AppColors.blue,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -166,43 +163,40 @@ class IntroPage extends GetView<IntroPageController> {
             ),
           ],
         ),
-        Column(
-          children: [
-            const Text(
-              'Super Fast Delivery',
-              style: AppTextStyles.white26Normal600,
-            ),
-            SizedBox(
-              height: Get.height * 0.0307,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0746),
-              child: Text(
-                'We operate our hyperlocal warehouses in neighourhoods'
-                ' across Australia and will deliver to you in as'
-                ' little as 15 minutes, we’re only ever a Jify away.',
-                style: AppTextStyles.white14Normal300.copyWith(height: 1.25),
-                textAlign: TextAlign.center,
+        SizedBox(
+          height: Get.height * 0.261,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Super Fast Delivery',
+                style: AppTextStyles.white26Normal600,
               ),
-            ),
-            SizedBox(
-              height: Get.height * 0.0738,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
-              child: LongButton(
-                controller.getStarted,
-                'Let’s Start',
-                double.maxFinite,
-                Get.height * 0.064,
-                color: AppColors.white,
-                labelColor: AppColors.blue,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0746),
+                child: Text(
+                  'We operate our hyperlocal warehouses in neighourhoods'
+                  ' across Australia and will deliver to you in as'
+                  ' little as 15 minutes, we’re only ever a Jify away.',
+                  style: AppTextStyles.white14Normal300.copyWith(height: 1.25),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            SizedBox(
-              height: Get.height * 0.0258,
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Get.width * 0.0453,
+                    vertical: Get.height * 0.0258),
+                child: LongButton(
+                  controller.getStarted,
+                  'Let’s Start',
+                  double.maxFinite,
+                  Get.height * 0.064,
+                  color: AppColors.white,
+                  labelColor: AppColors.blue,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

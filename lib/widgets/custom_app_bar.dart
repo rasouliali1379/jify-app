@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -70,61 +71,75 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                       SvgPicture.asset('assets/icons/tuka.svg'),
                     ],
                   ),
-                  const SizedBox(
-                    width: 8,
+                  SizedBox(
+                    width: Get.width * 0.0213,
                   ),
                   Expanded(
                       child: Container(
                     margin: const EdgeInsets.only(bottom: 12, top: 8),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: AppColors.white),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                                hintText: "Search items ...",
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                contentPadding:
-                                    const EdgeInsets.only(bottom: 4),
-                                hintStyle: AppTextStyles.grayishBlack14Normal400
-                                    .copyWith(
-                                        color: AppTextColors.grayishBlack
-                                            .withOpacity(0.3))),
-                            onChanged: (value) => searchChangeHandler(value),
-                            style: AppTextStyles.extraDarkCyan16Normal500,
-                            cursorColor: AppColors.blue,
-                            cursorHeight: 18,
-                            cursorWidth: 1.2,
-                            controller: textController,
-                            focusNode: focusNode,
-                          ),
-                        ),
-                        GetX<HomeFragmentController>(builder: (controller) {
-                          if (controller.searchLoading) {
-                            return const SpinKitRing(
-                              color: AppColors.blue,
-                              size: 20,
-                              lineWidth: 2,
-                            );
-                          } else if (textController.text.isNotEmpty) {
-                            return InkWell(
-                                onTap: clearSearch,
-                                child: const Icon(
-                                  Icons.clear,
+                        color: Colors.transparent),
+                    child: Neumorphic(
+                      style: NeumorphicStyle(
+                          color: AppColors.white,
+                          depth: -1,
+                          shadowDarkColor: Colors.black,
+                          shadowDarkColorEmboss: Colors.black,
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(30))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                decoration: InputDecoration(
+                                    hintText: "Search items ...",
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    contentPadding:
+                                        const EdgeInsets.only(bottom: 4),
+                                    hintStyle: AppTextStyles
+                                        .grayishBlack14Normal400
+                                        .copyWith(
+                                            color: AppTextColors.grayishBlack
+                                                .withOpacity(0.3))),
+                                onChanged: (value) =>
+                                    searchChangeHandler(value),
+                                style: AppTextStyles.extraDarkCyan16Normal500,
+                                cursorColor: AppColors.blue,
+                                cursorHeight: 18,
+                                cursorWidth: 1.2,
+                                controller: textController,
+                                focusNode: focusNode,
+                              ),
+                            ),
+                            GetX<HomeFragmentController>(builder: (controller) {
+                              if (controller.searchLoading) {
+                                return const SpinKitRing(
+                                  color: AppColors.blue,
                                   size: 20,
-                                  color: AppColors.grayishBlack,
-                                ));
-                          }
-                          return SvgPicture.asset('assets/icons/search.svg');
-                        })
-                      ],
+                                  lineWidth: 2,
+                                );
+                              } else if (textController.text.isNotEmpty) {
+                                return InkWell(
+                                    onTap: clearSearch,
+                                    child: const Icon(
+                                      Icons.clear,
+                                      size: 20,
+                                      color: AppColors.grayishBlack,
+                                    ));
+                              }
+                              return SvgPicture.asset(
+                                  'assets/icons/search.svg');
+                            })
+                          ],
+                        ),
+                      ),
                     ),
                   )),
                   const SizedBox(

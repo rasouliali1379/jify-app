@@ -11,7 +11,7 @@ class StoreClosedModal extends GetView<MainPageController> {
   Widget build(BuildContext context) {
     return Container(
         width: double.maxFinite,
-        height: Get.height * 0.3879,
+        height: Get.height * 0.3497,
         padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0506),
         decoration: const BoxDecoration(
             color: AppColors.white,
@@ -61,10 +61,11 @@ class StoreClosedModal extends GetView<MainPageController> {
                     SizedBox(
                       height: Get.height * 0.016,
                     ),
-                    const Text(
-                      'Thank you but at the moment our store is closed.'
-                      ' please return later.',
-                      style: AppTextStyles.grey14Normal400,
+                    Text(
+                      'Thank you but at the moment our '
+                      'store is closed. We will be back soon.',
+                      style:
+                          AppTextStyles.grey14Normal400.copyWith(height: 1.4),
                     )
                   ],
                 ),

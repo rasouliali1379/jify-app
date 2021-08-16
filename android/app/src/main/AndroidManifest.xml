@@ -1,13 +1,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="au.com.jify.customer">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
        android:allowBackup="false"
        android:fullBackupContent="false"
        android:label="Jify App"
+       tools:replace="android:label"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAV0JgeJ28lOl9qqCuVYz4c6Ns3tEqvPwc"/>
+       <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true"/>
+
+        <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="${applicationId}.braintree" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

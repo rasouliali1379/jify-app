@@ -8,7 +8,7 @@ class InitialDataModel {
   List<CategoryModel>? categories;
   UserModel? user;
   double? supportedDistance;
-  String? msg;
+  double? freeShipping;
   double? delivery;
   bool? isOpen;
 
@@ -17,7 +17,7 @@ class InitialDataModel {
       this.categories,
       this.user,
       this.supportedDistance,
-      this.msg,
+      this.freeShipping,
       this.delivery,
       this.isOpen});
 
@@ -43,9 +43,14 @@ class InitialDataModel {
     } else {
       supportedDistance = (json['supportedDistance'] as int).toDouble();
     }
-    msg = json['msg'] as String;
     delivery = json['delivery'] as double;
     isOpen = json['isOpen'] as bool;
+
+    if (json['supportedDistance'] is double) {
+      freeShipping = json['freeShipping'] as double;
+    } else {
+      freeShipping = (json['freeShipping'] as int).toDouble();
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -62,9 +67,9 @@ class InitialDataModel {
       map['user'] = user?.toJson();
     }
     map['supportedDistance'] = supportedDistance;
-    map['msg'] = msg;
     map['delivery'] = delivery;
     map['isOpen'] = isOpen;
+    map['freeShipping'] = freeShipping;
     return map;
   }
 }

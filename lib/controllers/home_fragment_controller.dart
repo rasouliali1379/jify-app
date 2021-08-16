@@ -26,7 +26,7 @@ class HomeFragmentController extends GetxController {
   final _subCategories = <CategoryModel>[].obs;
   final _searchedProducts = <ProductModel>[].obs;
   final _products = <ProductModel>[].obs;
-  final _pageMode = "categories".obs;
+  final _pageMode = "category".obs;
   final _searchLoading = false.obs;
   final _pagginationStatus = (AppStatus.done).obs;
   final _productStatus = (AppStatus.loading).obs;
@@ -141,7 +141,7 @@ class HomeFragmentController extends GetxController {
     } else {
       searchMode = false;
       mainController.backBtnVisibility = false;
-      pageMode = "categories";
+      pageMode = "category";
     }
     update();
   }
@@ -199,6 +199,7 @@ class HomeFragmentController extends GetxController {
         searchFocusNode.unfocus();
         searchMode = false;
         pageMode = lastPage;
+        print(lastPage);
         if (lastPage == "category") {
           mainController.backBtnVisibility = false;
         }
@@ -216,9 +217,6 @@ class HomeFragmentController extends GetxController {
         page = 1;
         requestPermitted = false;
         pagginationStatus = AppStatus.done;
-        break;
-      default:
-        SystemNavigator.pop();
         break;
     }
     update();
