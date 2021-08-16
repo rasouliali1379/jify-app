@@ -49,8 +49,13 @@ class MainPageController extends GetxController {
         makeCustomToast("You need to sign in first");
       } else {
         if (Get.find<GlobalController>().initialDataModel.isOpen!) {
-          pageStack.add(index);
-          pageController.jumpToPage(index);
+          // if (Get.find<GlobalController>().basket.isNotEmpty) {
+          //   pageStack.add(index);
+          //   pageController.jumpToPage(index);
+          // }
+
+            pageStack.add(index);
+            pageController.jumpToPage(index);
         } else {
           Get.bottomSheet(StoreClosedModal());
         }
