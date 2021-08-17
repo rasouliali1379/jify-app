@@ -14,7 +14,6 @@ class SubcategoryProductsList extends StatelessWidget {
   final Function removeFromBasket;
   final Function browseProduct;
   final Function countInBasket;
-  final String pagginationStatus;
 
   const SubcategoryProductsList(
       this.products,
@@ -22,8 +21,7 @@ class SubcategoryProductsList extends StatelessWidget {
       this.addProductToBasket,
       this.removeFromBasket,
       this.browseProduct,
-      this.countInBasket,
-      this.pagginationStatus);
+      this.countInBasket);
 
   @override
   Widget build(BuildContext context) {
@@ -47,19 +45,6 @@ class SubcategoryProductsList extends StatelessWidget {
                     browseProduct,
                     countInBasket(products[index].id!) as int,
                   )),
-          if (pagginationStatus == AppStatus.loading)
-            const SpinKitRing(color: AppColors.blue)
-          else if (pagginationStatus == AppStatus.tryAgain)
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.blue)),
-              child: SvgPicture.asset('assets/icons/refresh.svg'),
-            )
-          else
-            const SizedBox()
         ],
       ),
     );

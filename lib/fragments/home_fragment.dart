@@ -119,8 +119,7 @@ class _HomeFragmentState extends State<HomeFragment>
                                 controller.addProductToBasket,
                                 controller.removeFromBasket,
                                 controller.browseProduct,
-                                controller.productRepository.countInBasket,
-                                controller.pagginationStatus);
+                                controller.productRepository.countInBasket);
                           }),
                         ),
                       ],

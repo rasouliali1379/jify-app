@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_status.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
@@ -28,7 +27,6 @@ class HomeFragmentController extends GetxController {
   final _products = <ProductModel>[].obs;
   final _pageMode = "category".obs;
   final _searchLoading = false.obs;
-  final _pagginationStatus = (AppStatus.done).obs;
   final _productStatus = (AppStatus.loading).obs;
   final _carouselIndex = 0.0.obs;
 
@@ -37,8 +35,6 @@ class HomeFragmentController extends GetxController {
   String selectedCategoryId = "";
   String lastPage = "category";
   bool searchMode = false;
-  bool requestPermitted = true;
-  int page = 1;
 
   @override
   void onInit() {
@@ -57,12 +53,6 @@ class HomeFragmentController extends GetxController {
 
   set productStatus(String value) {
     _productStatus.value = value;
-  }
-
-  String get pagginationStatus => _pagginationStatus.value;
-
-  set pagginationStatus(String value) {
-    _pagginationStatus.value = value;
   }
 
   bool get searchLoading => _searchLoading.value;
@@ -99,20 +89,6 @@ class HomeFragmentController extends GetxController {
 
   set selectedSubcategory(int value) {
     _selectedSubcategory.value = value;
-  }
-
-  void initScrollListener() {
-    scrollController.addListener(() {
-      //Reach Bottom
-      if (scrollController.offset >=
-              scrollController.position.maxScrollExtent &&
-          !scrollController.position.outOfRange &&
-          pagginationStatus == AppStatus.loading &&
-          requestPermitted) {
-        requestPermitted = false;
-        requestProducts();
-      }
-    });
   }
 
   void onCategoryItemClickHandler(int index) {
@@ -214,9 +190,6 @@ class HomeFragmentController extends GetxController {
         searchTextController.text = "";
         selectedSubcategory = -1;
         products.clear();
-        page = 1;
-        requestPermitted = false;
-        pagginationStatus = AppStatus.done;
         break;
     }
     update();
@@ -233,13 +206,10 @@ class HomeFragmentController extends GetxController {
       lastPage = pageMode;
       pageMode = "subcategory";
       products.clear();
-      page = 1;
-      pagginationStatus = AppStatus.done;
     } else {
       selectedSubcategory = categoryIndex;
       lastPage = pageMode;
       pageMode = "subcategory_products";
-      requestPermitted = true;
       productStatus = AppStatus.loading;
       requestProducts();
     }
@@ -247,36 +217,19 @@ class HomeFragmentController extends GetxController {
   }
 
   void requestProducts() {
-    if (requestPermitted) {
-      productRepository
-          .getProductsBySubCategoryId(
-              subCategories[selectedSubcategory].id!, "", page)
-          .then((value) => value.fold(
-              (l) => attemptFailed(l), (r) => productsAttemptSucceed(r)));
-    }
+    productRepository
+        .getProductsBySubCategoryId(
+            subCategories[selectedSubcategory].id!, "", 1)
+        .then((value) => value.fold(
+            (l) => attemptFailed(l), (r) => productsAttemptSucceed(r)));
   }
 
   void productsAttemptSucceed(List<ProductModel> productList) {
-    if (products.isEmpty && productList.isNotEmpty) {
+    if (productList.isNotEmpty) {
+      products = productList;
       productStatus = AppStatus.done;
-    }
-
-    if (productList.length < 10) {
-      pagginationStatus = AppStatus.done;
-      requestPermitted = false;
-      if (productList.isNotEmpty) {
-        final previousProducts = List<ProductModel>.from(products);
-        previousProducts.addAll(productList);
-        products = previousProducts;
-      } else {
-        if (products.isEmpty) {
-          productStatus = AppStatus.nothingFound;
-        }
-      }
     } else {
-      final previousProducts = List<ProductModel>.from(products);
-      previousProducts.addAll(productList);
-      products = previousProducts;
+      productStatus = AppStatus.nothingFound;
     }
     update();
   }
