@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
+import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/models/order_model.dart';
 import 'package:jify_app/models/product_model.dart';
@@ -61,6 +62,7 @@ class OrderInfoPageController extends GetxController {
     globalController.basket.addAll(basket);
     Get.find<CheckoutFragmentController>().populateOrders();
     Get.find<MainPageController>().onBottomNavClickHandler(3);
+    Get.find<HomeFragmentController>().update();
     Get.back();
   }
 }

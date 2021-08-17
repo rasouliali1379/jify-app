@@ -15,7 +15,7 @@ class SubCategoryRowList extends StatelessWidget {
     return SizedBox(
       height: Get.height * 0.076,
       child: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
+        padding: EdgeInsets.symmetric(vertical: Get.height * 0.0172, horizontal: 10),
         scrollDirection: Axis.horizontal,
         itemCount: items.length,
         physics: const BouncingScrollPhysics(),

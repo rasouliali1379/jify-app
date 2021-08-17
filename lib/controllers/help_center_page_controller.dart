@@ -132,7 +132,7 @@ class HelpCenterPageController extends GetxController {
       return false;
     }
 
-    if (emailTextController.text.isEmail) {
+    if (!emailTextController.text.isEmail) {
       emailError = "You need to enter a valid email";
       return false;
     }

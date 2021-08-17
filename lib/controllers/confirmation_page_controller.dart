@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
+import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/controllers/orders_fragment_controller.dart';
 import 'package:jify_app/models/checkout_model.dart';
@@ -91,6 +92,9 @@ class ConfirmationPageController extends GetxController {
                   as double),
           zoom: 14.4746,
         ))));
+
+    selectedOption = getOptionIndex(checkoutData.checkout!.address!.options!);
+    noteTextController.text = checkoutData.checkout!.address!.note!;
   }
 
   String getOption(int index) {
@@ -105,6 +109,20 @@ class ConfirmationPageController extends GetxController {
         break;
     }
     return option;
+  }
+
+  int getOptionIndex(String option) {
+    int index = 2;
+
+    switch (option) {
+      case "Leave at door":
+        index = 0;
+        break;
+      case "Meet at door":
+        index = 1;
+        break;
+    }
+    return index;
   }
 
   void onStandardScheduleClickHandler() {
@@ -138,6 +156,8 @@ class ConfirmationPageController extends GetxController {
     checkoutController.promoCode = PromotionCodeModel();
     Get.find<MainPageController>().onBottomNavClickHandler(2);
     Get.find<OrdersFragmentController>().getOrderList();
+    Get.find<GlobalController>().updateTotalCost();
+    Get.find<HomeFragmentController>().update();
     Get.back();
     makeCustomToast("Order submitted");
   }

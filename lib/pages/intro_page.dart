@@ -62,7 +62,7 @@ class IntroPage extends GetView<IntroPageController> {
               children: [
                 Positioned(
                   left: Get.width * 0.04,
-                  top: Get.height * 0.0875,
+                  top: Get.height * 0.08,
                   child: RotationTransition(
                     turns: const AlwaysStoppedAnimation(-25 / 360),
                     child: Container(
@@ -80,8 +80,8 @@ class IntroPage extends GetView<IntroPageController> {
                       right: Get.width * 0.083,
                       top: Get.height * 0.10),
                   child: SizedBox(
-                      width: Get.width * 0.8346,
-                      height: Get.height * 0.4445,
+                      width: Get.width * 0.8773,
+                      height: Get.height * 0.4273,
                       child: Image.asset('assets/images/delivery_man.png')),
                 ),
               ],
@@ -89,23 +89,32 @@ class IntroPage extends GetView<IntroPageController> {
           ],
         ),
         SizedBox(
-          height: Get.height * 0.261,
+          height: Get.height * 0.267,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'We’ve got your back',
-                style: AppTextStyles.white26Normal600,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0746),
-                child: Text(
-                  'From snacks & drinks to cleaning products & home essentials.'
-                  ' Hundreds of different items are available instantly'
-                  ' at your fingertips delivered straight to your doorstep.',
-                  style: AppTextStyles.white14Normal300.copyWith(height: 1.25),
-                  textAlign: TextAlign.center,
-                ),
+              Column(
+                children: [
+                  const Text(
+                    'We’ve got your back',
+                    style: AppTextStyles.white26Normal600,
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.0307,
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: Get.width * 0.0746),
+                    child: Text(
+                      'From snacks & drinks to cleaning products & home essentials.'
+                      ' Hundreds of different items are available instantly'
+                      ' at your fingertips delivered straight to your doorstep.',
+                      style:
+                          AppTextStyles.white14Normal300.copyWith(height: 1.25),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -137,7 +146,7 @@ class IntroPage extends GetView<IntroPageController> {
               children: [
                 Positioned(
                   left: Get.width * -1.03,
-                  top: Get.height * 0.09,
+                  top: Get.height * 0.082,
                   child: RotationTransition(
                     turns: const AlwaysStoppedAnimation(205 / 360),
                     child: Container(
@@ -164,23 +173,32 @@ class IntroPage extends GetView<IntroPageController> {
           ],
         ),
         SizedBox(
-          height: Get.height * 0.261,
+          height: Get.height * 0.267,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Super Fast Delivery',
-                style: AppTextStyles.white26Normal600,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0746),
-                child: Text(
-                  'We operate our hyperlocal warehouses in neighourhoods'
-                  ' across Australia and will deliver to you in as'
-                  ' little as 15 minutes, we’re only ever a Jify away.',
-                  style: AppTextStyles.white14Normal300.copyWith(height: 1.25),
-                  textAlign: TextAlign.center,
-                ),
+              Column(
+                children: [
+                  const Text(
+                    'Super Fast Delivery',
+                    style: AppTextStyles.white26Normal600,
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.0307,
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: Get.width * 0.0746),
+                    child: Text(
+                      'We operate our hyperlocal warehouses in neighourhoods'
+                      ' across Australia and will deliver to you in as'
+                      ' little as 15 minutes, we’re only ever a Jify away.',
+                      style:
+                          AppTextStyles.white14Normal300.copyWith(height: 1.25),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: EdgeInsets.symmetric(

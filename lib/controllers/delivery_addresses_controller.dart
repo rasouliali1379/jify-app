@@ -305,7 +305,7 @@ class DeliveryAddressesPageController extends GetxController {
   }
 
   int getOptionIndex(String option) {
-    int index = 3;
+    int index = 2;
 
     switch (option) {
       case "Leave at door":

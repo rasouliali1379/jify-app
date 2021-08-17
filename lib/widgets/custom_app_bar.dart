@@ -89,7 +89,8 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                           boxShape: NeumorphicBoxShape.roundRect(
                               BorderRadius.circular(30))),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Get.width * 0.0426),
                         child: Row(
                           children: [
                             Expanded(
@@ -101,8 +102,8 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                                     enabledBorder: InputBorder.none,
                                     errorBorder: InputBorder.none,
                                     disabledBorder: InputBorder.none,
-                                    contentPadding:
-                                        const EdgeInsets.only(bottom: 4),
+                                    contentPadding: EdgeInsets.only(
+                                        bottom: Get.height * 0.0035),
                                     hintStyle: AppTextStyles
                                         .grayishBlack14Normal400
                                         .copyWith(
