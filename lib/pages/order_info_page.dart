@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/order_info_controller.dart';
+import 'package:jify_app/widgets/clickable_text.dart';
 import 'package:jify_app/widgets/custom_tile.dart';
 import 'package:jify_app/widgets/custom_toolbar.dart';
 import 'package:jify_app/widgets/dashed_divider.dart';
@@ -24,8 +25,9 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
         'Order Info',
         action: Padding(
           padding: EdgeInsets.only(right: Get.width * 0.04),
-          child: const Text(
-            'Help',
+          child: ClickableText(
+            'help',
+            controller.openHelpCenter,
             style: AppTextStyles.white16Normal400,
           ),
         ),

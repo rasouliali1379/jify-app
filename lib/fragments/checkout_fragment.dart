@@ -252,55 +252,55 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: Get.height * 0.0369,
-                                  ),
-                                  const Text(
-                                    'Payment',
-                                    style:
-                                        AppTextStyles.extraDarkCyan16Normal500,
-                                  ),
-                                  SizedBox(
-                                    height: Get.height * 0.0221,
-                                  ),
-                                  GestureDetector(
-                                    onTap: _controller.openPaymentModal,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: Get.height * 0.013,
-                                          horizontal: Get.width * 0.0426),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(11),
-                                          color: AppColors.white),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                              child: Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/icons/apple_logo.svg',
-                                                width: 16,
-                                                height: 16,
-                                              ),
-                                              SizedBox(
-                                                width: Get.width * 0.024,
-                                              ),
-                                              const Text(
-                                                'Apple Pay',
-                                                style: AppTextStyles
-                                                    .darkGrey13Normal300,
-                                              ),
-                                            ],
-                                          )),
-                                          const Icon(
-                                            Icons.keyboard_arrow_down_rounded,
-                                            color: AppColors.grayishBlack,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                  // SizedBox(
+                                  //   height: Get.height * 0.0369,
+                                  // ),
+                                  // const Text(
+                                  //   'Payment',
+                                  //   style:
+                                  //       AppTextStyles.extraDarkCyan16Normal500,
+                                  // ),
+                                  // SizedBox(
+                                  //   height: Get.height * 0.0221,
+                                  // ),
+                                  // GestureDetector(
+                                  //   onTap: _controller.openPaymentModal,
+                                  //   child: Container(
+                                  //     padding: EdgeInsets.symmetric(
+                                  //         vertical: Get.height * 0.013,
+                                  //         horizontal: Get.width * 0.0426),
+                                  //     decoration: BoxDecoration(
+                                  //         borderRadius:
+                                  //             BorderRadius.circular(11),
+                                  //         color: AppColors.white),
+                                  //     child: Row(
+                                  //       children: [
+                                  //         Expanded(
+                                  //             child: Row(
+                                  //           children: [
+                                  //             SvgPicture.asset(
+                                  //               'assets/icons/apple_logo.svg',
+                                  //               width: 16,
+                                  //               height: 16,
+                                  //             ),
+                                  //             SizedBox(
+                                  //               width: Get.width * 0.024,
+                                  //             ),
+                                  //             const Text(
+                                  //               'Apple Pay',
+                                  //               style: AppTextStyles
+                                  //                   .darkGrey13Normal300,
+                                  //             ),
+                                  //           ],
+                                  //         )),
+                                  //         const Icon(
+                                  //           Icons.keyboard_arrow_down_rounded,
+                                  //           color: AppColors.grayishBlack,
+                                  //         )
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -385,35 +385,41 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                                   SizedBox(
                                     height: Get.height * 0.0197,
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Text(
-                                        'Promo code',
-                                        style:
-                                            AppTextStyles.darkGrey14Normal300,
-                                      ),
-                                      Obx(() => RichText(
-                                            text: TextSpan(
-                                                text: '- \$',
-                                                style: AppTextStyles
-                                                    .red13Normal400,
-                                                children: [
-                                                  TextSpan(
-                                                    text: _controller
-                                                        .promoCodePrice
-                                                        .toStringAsFixed(2),
-                                                    style: AppTextStyles
-                                                        .red15Normal400,
-                                                  )
-                                                ]),
-                                          )),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: Get.height * 0.0258,
-                                  ),
+                                  if (_controller.promoCode.value != null)
+                                    Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Text(
+                                              'Promo code',
+                                              style: AppTextStyles
+                                                  .darkGrey14Normal300,
+                                            ),
+                                            Obx(() => RichText(
+                                                  text: TextSpan(
+                                                      text: '- \$',
+                                                      style: AppTextStyles
+                                                          .red13Normal400,
+                                                      children: [
+                                                        TextSpan(
+                                                          text: _controller
+                                                              .promoCodePrice
+                                                              .toStringAsFixed(
+                                                                  2),
+                                                          style: AppTextStyles
+                                                              .red15Normal400,
+                                                        )
+                                                      ]),
+                                                )),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: Get.height * 0.0258,
+                                        ),
+                                      ],
+                                    ),
                                   DashedDivider(
                                     height: 1,
                                     color: AppColors.darkGrey.withOpacity(0.2),

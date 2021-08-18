@@ -19,8 +19,7 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar('Confirmation'),
       body: SingleChildScrollView(
@@ -64,45 +63,53 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                     'Delivery Details',
                     style: AppTextStyles.extraDarkCyan16Normal500,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: Get.height * 0.032, bottom: Get.height * 0.0233),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Address',
-                          style: AppTextStyles.darkGrey14Normal400,
-                        ),
-                        const Expanded(child: SizedBox()),
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Obx(() => Flexible(
-                                    child: Text(
-                                      controller.checkoutData.checkout!.address!
-                                          .address!,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: AppTextStyles
-                                          .extraDarkCyan14Normal400
-                                          .copyWith(
-                                              color: AppTextColors.darkCyan),
-                                    ),
-                                  )),
-                              SizedBox(
-                                width: Get.width * 0.0373,
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () => {},
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: Get.height * 0.032,
+                            bottom: Get.height * 0.0233),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Address',
+                              style: AppTextStyles.darkGrey14Normal400,
+                            ),
+                            const Expanded(child: SizedBox()),
+                            Expanded(
+                              flex: 2,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Obx(() => Flexible(
+                                        child: Text(
+                                          controller.checkoutData.checkout!
+                                              .address!.address!,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: AppTextStyles
+                                              .extraDarkCyan14Normal400
+                                              .copyWith(
+                                                  color:
+                                                      AppTextColors.darkCyan),
+                                        ),
+                                      )),
+                                  SizedBox(
+                                    width: Get.width * 0.0373,
+                                  ),
+                                  const Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: AppColors.darkGrey,
+                                    size: 15,
+                                  )
+                                ],
                               ),
-                              const Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: AppColors.darkGrey,
-                                size: 15,
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                   const Divider(
@@ -127,14 +134,14 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                               style: AppTextStyles.extraDarkCyan14Normal400
                                   .copyWith(color: AppTextColors.darkCyan),
                             ),
-                            SizedBox(
-                              width: Get.width * 0.0373,
-                            ),
-                            const Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              color: AppColors.darkGrey,
-                              size: 15,
-                            )
+                            // SizedBox(
+                            //   width: Get.width * 0.0373,
+                            // ),
+                            // const Icon(
+                            //   Icons.arrow_forward_ios_rounded,
+                            //   color: AppColors.darkGrey,
+                            //   size: 15,
+                            // )
                           ],
                         )
                       ],

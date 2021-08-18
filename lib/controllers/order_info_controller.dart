@@ -5,6 +5,7 @@ import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/models/order_model.dart';
 import 'package:jify_app/models/product_model.dart';
+import 'package:jify_app/navigation/routes.dart';
 
 class OrderInfoPageController extends GetxController {
   final _orderDetail = OrderModel().obs;
@@ -64,5 +65,10 @@ class OrderInfoPageController extends GetxController {
     Get.find<MainPageController>().onBottomNavClickHandler(3);
     Get.find<HomeFragmentController>().update();
     Get.back();
+  }
+
+
+  void openHelpCenter(){
+    Get.toNamed(Routes.helpCenter);
   }
 }

@@ -161,4 +161,8 @@ class ConfirmationPageController extends GetxController {
     Get.back();
     makeCustomToast("Order submitted");
   }
+
+  void openAddressesPage(){
+    Get.toNamed(Routes.addresses).then((value) => che);
+  }
 }
