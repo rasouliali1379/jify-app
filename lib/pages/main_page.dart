@@ -23,23 +23,25 @@ class MainPage extends GetView<MainPageController> {
       onWillPop: controller.onBackPressedHandler,
       child: Scaffold(
           resizeToAvoidBottomInset: false,
-          body: Column(
-            children: [
-              Expanded(
-                child: PageView(
-                  controller: controller.pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    HomeFragment(),
-                    AccountFragment(),
-                    OrdersFragment(),
-                    CheckoutFragment()
-                  ],
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    controller: controller.pageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      HomeFragment(),
+                      AccountFragment(),
+                      OrdersFragment(),
+                      CheckoutFragment()
+                    ],
+                  ),
                 ),
-              ),
-              Obx(() => CustomBottomNav(
-                  controller.index, controller.onBottomNavClickHandler))
-            ],
+                Obx(() => CustomBottomNav(
+                    controller.index, controller.onBottomNavClickHandler))
+              ],
+            ),
           )),
     );
   }

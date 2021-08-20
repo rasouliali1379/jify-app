@@ -46,7 +46,7 @@ class MainPageController extends GetxController {
       }
 
       if (index == 3 && !storageExists(AppKeys.token)) {
-        makeCustomToast("You need to sign in first");
+        Get.toNamed(Routes.signIn, preventDuplicates: true);
       } else {
         if (Get.find<GlobalController>().initialDataModel.isOpen!) {
           // if (Get.find<GlobalController>().basket.isNotEmpty) {
@@ -54,8 +54,8 @@ class MainPageController extends GetxController {
           //   pageController.jumpToPage(index);
           // }
 
-            pageStack.add(index);
-            pageController.jumpToPage(index);
+          pageStack.add(index);
+          pageController.jumpToPage(index);
         } else {
           Get.bottomSheet(StoreClosedModal());
         }
