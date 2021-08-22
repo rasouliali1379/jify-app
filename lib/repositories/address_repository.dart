@@ -76,8 +76,7 @@ class AddressRepository {
     List<AddressModel>? addresses;
 
     result.fold((l) => error = l, (r) {
-      final rawAddresses =
-          r.data["data"]["addresses"] as List<dynamic>;
+      final rawAddresses = r.data["data"]["addresses"] as List<dynamic>;
 
       addresses = List<AddressModel>.from(
           rawAddresses.map((value) => AddressModel.fromJson(value)));
@@ -136,13 +135,12 @@ class AddressRepository {
     }
   }
 
-  double calculateDistance(LatLng latLng) {
+  double calculateDistance(LatLng latLng, LatLng storeLocation) {
     const earthRadius = 6371;
-    const marketLatLng = LatLng(-33.865143, 151.209900);
-    final dLat = deg2rad(latLng.latitude - marketLatLng.latitude);
-    final dLon = deg2rad(latLng.longitude - marketLatLng.longitude);
+    final dLat = deg2rad(latLng.latitude - storeLocation.latitude);
+    final dLon = deg2rad(latLng.longitude - storeLocation.longitude);
     final a = sin(dLat / 2) * sin(dLat / 2) +
-        cos(deg2rad(marketLatLng.latitude)) *
+        cos(deg2rad(storeLocation.latitude)) *
             cos(deg2rad(latLng.latitude)) *
             sin(dLon / 2) *
             sin(dLon / 2);

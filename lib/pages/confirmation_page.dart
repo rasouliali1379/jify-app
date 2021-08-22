@@ -38,6 +38,8 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                     zoomControlsEnabled: false,
                     tiltGesturesEnabled: false,
                     scrollGesturesEnabled: false,
+                    compassEnabled: false,
+                    myLocationButtonEnabled: false,
                     onMapCreated: controller.onMapCreated,
                   ),
                   Align(
@@ -66,7 +68,7 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                   Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () => {},
+                      onTap: controller.openAddressesPage,
                       child: Padding(
                         padding: EdgeInsets.only(
                             top: Get.height * 0.032,
@@ -86,8 +88,9 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                                 children: [
                                   Obx(() => Flexible(
                                         child: Text(
-                                          controller.checkoutData.checkout!
-                                              .address!.address!,
+                                          controller.getDeliveryAddress(
+                                              controller
+                                                  .selectedAddress.address!),
                                           overflow: TextOverflow.ellipsis,
                                           style: AppTextStyles
                                               .extraDarkCyan14Normal400

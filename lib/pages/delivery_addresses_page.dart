@@ -53,6 +53,8 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                     zoomControlsEnabled: false,
                     tiltGesturesEnabled: false,
                     scrollGesturesEnabled: false,
+                    compassEnabled: false,
+                    myLocationButtonEnabled: false,
                     onMapCreated: controller.onMapCreated,
                   ),
                   Align(
@@ -142,11 +144,12 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                               ),
                               Expanded(
                                 child: Text(
-                                  controller.selectedAddress.name ??
+                                  controller.selectedAddress.address ??
                                       'Search for location',
-                                  style: controller.selectedAddress.name == null
-                                      ? AppTextStyles.lightGrey14Normal300
-                                      : AppTextStyles.darkGrey14Normal300,
+                                  style:
+                                      controller.selectedAddress.address == null
+                                          ? AppTextStyles.lightGrey14Normal300
+                                          : AppTextStyles.darkGrey14Normal300,
                                 ),
                               )
                             ],

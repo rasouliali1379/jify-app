@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 
 class CustomBottomNavItem extends StatelessWidget {
@@ -21,6 +22,8 @@ class CustomBottomNavItem extends StatelessWidget {
               child: SvgPicture.asset(
                 image,
                 color: selected ? AppColors.blue : AppColors.lightGrey,
+                width: Get.width * 0.0586,
+                height: Get.width * 0.0586,
               ),
             )));
   }

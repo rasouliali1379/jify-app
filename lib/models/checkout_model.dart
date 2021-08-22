@@ -25,10 +25,9 @@ class Checkout {
   String? id;
   List<ProductModel>? products;
   String? promotion;
-  AddressModel? address;
   AmountModel? amount;
 
-  Checkout({this.id, this.products, this.promotion, this.address, this.amount});
+  Checkout({this.id, this.products, this.promotion, this.amount});
 
   Checkout.fromJson(dynamic json) {
     id = json['_id'] as String;
@@ -39,9 +38,6 @@ class Checkout {
       });
     }
     promotion = json['promotion'] == null ? null : json['promotion'] as String;
-    address = json['address'] != null
-        ? AddressModel.fromJson(json['address'] as Map<String, dynamic>)
-        : null;
     amount =
         json['amount'] != null ? AmountModel.fromJson(json['amount']) : null;
   }
@@ -53,9 +49,6 @@ class Checkout {
       map['products'] = products?.map((v) => v.toJson()).toList();
     }
     map['promotion'] = promotion;
-    if (address != null) {
-      map['address'] = address?.toJson();
-    }
     if (amount != null) {
       map['amount'] = amount?.toJson();
     }

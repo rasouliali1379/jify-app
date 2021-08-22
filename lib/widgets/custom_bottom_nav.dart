@@ -41,7 +41,7 @@ class CustomBottomNav extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: Get.width * 0.1,
+              width: Get.width * 0.07,
             ),
             GestureDetector(
               onTap: () => onClick(3),
@@ -51,7 +51,10 @@ class CustomBottomNav extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: AppColors.blue,
                     borderRadius: BorderRadius.circular(25)),
+                height: Get.height * 0.0369,
+                width: Get.width * 0.272,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset('assets/icons/shop_basket.svg'),
                     const SizedBox(
@@ -59,7 +62,7 @@ class CustomBottomNav extends StatelessWidget {
                     ),
                     GetX<GlobalController>(builder: (controller) {
                       return Text(
-                        "\$${controller.totalCost.toStringAsFixed(2)}",
+                        "\$${controller.totalCost > 999.99 ? "999.99" : controller.totalCost.toStringAsFixed(2)}",
                         style: AppTextStyles.white14Normal700,
                       );
                     })

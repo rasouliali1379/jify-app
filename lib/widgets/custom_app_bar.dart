@@ -33,21 +33,21 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   GetX<MainPageController>(builder: (controller) {
                     return Row(
                       children: [
-                        SizedBox(
-                          width: controller.backBtnVisibility
-                              ? 0
-                              : Get.width * 0.0426,
-                        ),
-                        Visibility(
-                          visible: controller.backBtnVisibility,
+                        // SizedBox(
+                        //   width: controller.backBtnVisibility
+                        //       ? 0
+                        //       : Get.width * 0.0426,
+                        // ),
+                        Opacity(
+                          opacity: controller.backBtnVisibility ? 1 : 0,
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
                               onTap: backClickHandler,
                               customBorder: const CircleBorder(),
-                              child: const Padding(
-                                padding: EdgeInsets.all(14.0),
-                                child: Icon(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: Get.width * 0.0373, right: Get.width * 0.0266),
+                                child: const Icon(
                                   Icons.arrow_back_ios_rounded,
                                   color: Colors.white,
                                   size: 20,
@@ -72,7 +72,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                     ],
                   ),
                   SizedBox(
-                    width: Get.width * 0.0213,
+                    width: Get.width * 0.025,
                   ),
                   Expanded(
                       child: Container(

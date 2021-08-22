@@ -246,6 +246,9 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                                                       : 'No address defined',
                                                   style: AppTextStyles
                                                       .darkGrey13Normal300,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ))),
                                         ClickableText(
                                             'Change', _controller.openAddresses)

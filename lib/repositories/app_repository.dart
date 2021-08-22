@@ -9,7 +9,6 @@ class AppRepository {
     final result = await _apiRequests.init();
     String? error;
     InitialDataModel? data;
-
     result.fold((l) {
       error = l;
     }, (r) {

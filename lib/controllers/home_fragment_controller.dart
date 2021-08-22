@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/constants/app_status.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
@@ -10,7 +11,9 @@ import 'package:jify_app/models/banner_model.dart';
 import 'package:jify_app/models/category_model.dart';
 import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/navigation/routes.dart';
+import 'package:jify_app/repositories/address_repository.dart';
 import 'package:jify_app/repositories/product_repository.dart';
+import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/utilities/utilities.dart';
 
 class HomeFragmentController extends GetxController {
@@ -18,6 +21,7 @@ class HomeFragmentController extends GetxController {
   final _globalController = Get.find<GlobalController>();
   final scrollController = ScrollController();
   final productRepository = ProductRepository();
+  final addressRepository = AddressRepository();
   final searchTextController = TextEditingController();
   final searchFocusNode = FocusNode();
 
@@ -145,6 +149,11 @@ class HomeFragmentController extends GetxController {
     } else {
       showCustomSnackBar("Only ${product.stock} ${product.title} available");
     }
+    showCustomSnackBar("1 item added to basket",
+        duration: 1,
+        padding: EdgeInsets.symmetric(
+            vertical: Get.height * 0.0, horizontal: Get.width * 0.0426));
+    vibrateWithDuration(50);
   }
 
   void removeFromBasket(String id) {
@@ -152,6 +161,7 @@ class HomeFragmentController extends GetxController {
     update();
     Get.find<CheckoutFragmentController>().populateOrders();
     Get.find<GlobalController>().updateTotalCost();
+    vibrateWithDuration(50);
   }
 
   void browseProduct(ProductModel product) {
@@ -175,7 +185,6 @@ class HomeFragmentController extends GetxController {
         searchFocusNode.unfocus();
         searchMode = false;
         pageMode = lastPage;
-        print(lastPage);
         if (lastPage == "category") {
           mainController.backBtnVisibility = false;
         }
@@ -301,5 +310,15 @@ class HomeFragmentController extends GetxController {
       }
     }
     return null;
+  }
+
+  String getDeliveryAddress() {
+    final address = addressRepository.findAddress(
+        _globalController.initialDataModel.user!.addresses!,
+        storageRead(AppKeys.address) as String);
+    if (address.address!.length > 30) {
+      return '${address.address!.substring(0, 30)}...';
+    }
+    return address.address!;
   }
 }

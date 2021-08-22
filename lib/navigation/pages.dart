@@ -15,6 +15,7 @@ import 'package:jify_app/controllers/search_address_page_controller.dart';
 import 'package:jify_app/controllers/sign_in_page_controller.dart';
 import 'package:jify_app/controllers/sign_up_page_controller.dart';
 import 'package:jify_app/controllers/splash_page_controller.dart';
+import 'package:jify_app/controllers/store_unavailable_page_controller.dart';
 import 'package:jify_app/pages/account_information_page.dart';
 import 'package:jify_app/pages/addresses_page.dart';
 import 'package:jify_app/pages/confirmation_page.dart';
@@ -31,6 +32,7 @@ import 'package:jify_app/pages/search_address_page.dart';
 import 'package:jify_app/pages/sign_in_page.dart';
 import 'package:jify_app/pages/sign_up_page.dart';
 import 'package:jify_app/pages/splash_page.dart';
+import 'package:jify_app/pages/store_unavailable_page.dart';
 
 import 'routes.dart';
 
@@ -103,5 +105,10 @@ class Pages {
         page: () => SearchAddressPage(),
         binding:
             BindingsBuilder(() => {Get.put(SearchAddressPageController())})),
+    GetPage(
+        name: Routes.storeUnavailable,
+        page: () => StoreUnavailablePage(),
+        binding:
+            BindingsBuilder(() => {Get.put(StoreUnavailablePageController())})),
   ];
 }

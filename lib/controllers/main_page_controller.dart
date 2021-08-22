@@ -6,13 +6,14 @@ import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/modals/choose_delivery_address_modal.dart';
 import 'package:jify_app/modals/store_closed_modal.dart';
 import 'package:jify_app/navigation/routes.dart';
+import 'package:jify_app/repositories/address_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
-import 'package:jify_app/utilities/utilities.dart';
 
 class MainPageController extends GetxController {
   final _index = 0.obs;
   final _backBtnVisibility = false.obs;
   final pageController = PageController();
+  final _addressRepository = AddressRepository();
   final pageStack = <int>[0];
 
   int selectedCategory = -1;
@@ -40,6 +41,18 @@ class MainPageController extends GetxController {
   }
 
   void onBottomNavClickHandler(int index) {
+    final _homeFragmentController = Get.find<HomeFragmentController>();
+
+    _homeFragmentController.lastPage = "category";
+    _homeFragmentController.searchMode = false;
+    _homeFragmentController.searchTextController.text = "";
+    _homeFragmentController.pageMode = "category";
+    _homeFragmentController.searchLoading = false;
+    _homeFragmentController.selectedSubcategory = -1;
+    _homeFragmentController.searchedProducts.clear();
+    backBtnVisibility = false;
+    _homeFragmentController.update();
+
     if (pageStack.last != index) {
       if (index < 3) {
         this.index = index;
@@ -65,7 +78,7 @@ class MainPageController extends GetxController {
 
   void openDeliveryAddressModal() {
     Get.bottomSheet(ChooseDeliveryAddressModal(),
-        isDismissible: false, enableDrag: false);
+        isDismissible: false, enableDrag: false, ignoreSafeArea: true);
     Get.find<GlobalController>().isAddAddressModalOpen = true;
   }
 
@@ -107,17 +120,21 @@ class MainPageController extends GetxController {
   }
 
   void checkInitialAddress() {
+    final globalController = Get.find<GlobalController>();
     if (!storageExists(AppKeys.token)) {
       if (!storageExists(AppKeys.unsavedAddress)) {
         openDeliveryAddressModal();
       }
     } else {
-      if (Get.find<GlobalController>()
-          .initialDataModel
-          .user!
-          .addresses!
-          .isEmpty) {
+      if (globalController.initialDataModel.user!.addresses!.isEmpty) {
         openDeliveryAddressModal();
+      } else {
+        final address = _addressRepository.findAddress(
+            globalController.initialDataModel.user!.addresses!,
+            storageRead(AppKeys.address) as String);
+
+        globalController.isAddressInRange = address.distance! <=
+            globalController.initialDataModel.supportedDistance!;
       }
     }
   }

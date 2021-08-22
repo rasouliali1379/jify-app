@@ -35,6 +35,8 @@ class AppTextStyles {
       fontSize: 15, color: AppTextColors.white, fontWeight: FontWeight.w400);
   static const white16Normal400 = TextStyle(
       fontSize: 16, color: AppTextColors.white, fontWeight: FontWeight.w400);
+  static const white18Normal400 = TextStyle(
+      fontSize: 18, color: AppTextColors.white, fontWeight: FontWeight.w400);
   static const white18Normal500 = TextStyle(
       fontSize: 18, color: AppTextColors.white, fontWeight: FontWeight.w500);
   static const white19Normal700 = TextStyle(
@@ -149,6 +151,8 @@ class AppTextStyles {
       fontSize: 14, color: AppTextColors.blue, fontWeight: FontWeight.w400);
   static const blue14Normal500 = TextStyle(
       fontSize: 14, color: AppTextColors.blue, fontWeight: FontWeight.w500);
+  static const blue17Normal400 = TextStyle(
+      fontSize: 17, color: AppTextColors.blue, fontWeight: FontWeight.w400);
 
   // Green Normal
   static const green12Normal400 = TextStyle(
@@ -177,6 +181,8 @@ class AppTextStyles {
       fontSize: 15, color: AppTextColors.red, fontWeight: FontWeight.w400);
   static const red16Normal500 = TextStyle(
       fontSize: 16, color: AppTextColors.red, fontWeight: FontWeight.w500);
+  static const red22Normal700 = TextStyle(
+      fontSize: 22, color: AppTextColors.red, fontWeight: FontWeight.w700);
   // Dark Cyan
   static const darkCyan14Normal500 = TextStyle(
       fontSize: 14, color: AppTextColors.darkCyan, fontWeight: FontWeight.w500);
@@ -238,6 +244,8 @@ class AppTextStyles {
       fontSize: 16, color: AppTextColors.black, fontWeight: FontWeight.w600);
   static const black17Normal300 = TextStyle(
       fontSize: 17, color: AppTextColors.black, fontWeight: FontWeight.w300);
+  static const black18Normal600 = TextStyle(
+      fontSize: 18, color: AppTextColors.black, fontWeight: FontWeight.w600);
   static const black21Normal500 = TextStyle(
       fontSize: 21, color: AppTextColors.black, fontWeight: FontWeight.w500);
 }

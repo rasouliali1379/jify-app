@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="au.com.jify.customer">
     <uses-permission android:name="android.permission.INTERNET"/>
-   <application
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <application
        android:allowBackup="false"
        android:fullBackupContent="false"
        android:label="Jify App"

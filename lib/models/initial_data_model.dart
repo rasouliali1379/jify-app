@@ -11,6 +11,7 @@ class InitialDataModel {
   double? freeShipping;
   double? delivery;
   bool? isOpen;
+  List<double>? storeLocation;
 
   InitialDataModel(
       {this.banners,
@@ -19,7 +20,8 @@ class InitialDataModel {
       this.supportedDistance,
       this.freeShipping,
       this.delivery,
-      this.isOpen});
+      this.isOpen,
+      this.storeLocation});
 
   InitialDataModel.fromJson(Map<String, dynamic> json) {
     if (json['banners'] != null) {
@@ -50,6 +52,13 @@ class InitialDataModel {
       freeShipping = json['freeShipping'] as double;
     } else {
       freeShipping = (json['freeShipping'] as int).toDouble();
+    }
+
+    if (json['location'] != null) {
+      storeLocation = <double>[];
+      json['location'].forEach((v) {
+        storeLocation?.add(v as double);
+      });
     }
   }
 

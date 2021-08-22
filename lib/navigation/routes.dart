@@ -15,4 +15,5 @@ class Routes {
   static const signUp = '/sign_up';
   static const splash = '/splash';
   static const searchAddress = '/search_address';
+  static const storeUnavailable = '/store_unavailable';
 }

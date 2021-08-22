@@ -8,6 +8,7 @@ import 'package:jify_app/constants/app_status.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/home_fragment_controller.dart';
+import 'package:jify_app/widgets/address_container.dart';
 import 'package:jify_app/widgets/banner_item.dart';
 import 'package:jify_app/widgets/change_address_container.dart';
 import 'package:jify_app/widgets/custom_app_bar.dart';
@@ -43,23 +44,24 @@ class _HomeFragmentState extends State<HomeFragment>
         resizeToAvoidBottomInset: false,
         body: Column(
           children: [
-            // AddressContainer(
-            //   RichText(
-            //     text: TextSpan(
-            //         style: AppTextStyles.lightPurple11Normal500,
-            //         children: [
-            //           const TextSpan(text: 'Delivery to '),
-            //           TextSpan(
-            //               text: 'Bouazar ST 305',
-            //               style: AppTextStyles.lightPurple11Normal500
-            //                   .copyWith(decoration: TextDecoration.underline)),
-            //           const TextSpan(text: ' within 15 minutes')
-            //         ]),
-            //   ),
-            // ),
             GetX<GlobalController>(builder: (controller) {
               return controller.isAddressInRange
-                  ? const SizedBox()
+                  ? AddressContainer(
+                      RichText(
+                        text: TextSpan(
+                            style: AppTextStyles.lightPurple11Normal500,
+                            children: [
+                              const TextSpan(text: 'Delivery to '),
+                              TextSpan(
+                                  text: _controller.getDeliveryAddress(),
+                                  style: AppTextStyles.lightPurple11Normal500
+                                      .copyWith(
+                                          decoration:
+                                              TextDecoration.underline)),
+                              const TextSpan(text: ' within 15 minutes')
+                            ]),
+                      ),
+                    )
                   : ChangeAddressContainer(
                       _controller.mainController.openAddressesPage);
             }),
