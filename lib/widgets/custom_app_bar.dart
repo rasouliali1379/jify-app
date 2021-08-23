@@ -29,7 +29,6 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           child: SizedBox(
               height: preferredSize.height,
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   GetX<MainPageController>(builder: (controller) {
                     return Row(
@@ -62,87 +61,98 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                       ],
                     );
                   }),
-                  Container(
-                    height: Get.height * 0.0665,
-                    margin:
-                        EdgeInsets.symmetric(vertical: Get.height * 0.01),
-                    child: Image.asset(
-                      'assets/images/jify.png',
-                    ),
-                  ),
-                  SizedBox(
-                    width: Get.width * 0.05,
-                  ),
                   Expanded(
-                      child: Container(
-                    height: Get.height * 0.0492,
-                    margin: EdgeInsets.symmetric(vertical: Get.height * 0.0147),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.transparent),
-                    child: Neumorphic(
-                      style: NeumorphicStyle(
-                          color: AppColors.white,
-                          depth: -1,
-                          shadowDarkColor: Colors.black,
-                          shadowDarkColorEmboss: Colors.black,
-                          boxShape: NeumorphicBoxShape.roundRect(
-                              BorderRadius.circular(30))),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Get.width * 0.0426),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                decoration: InputDecoration(
-                                    hintText: "Search items ...",
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    errorBorder: InputBorder.none,
-                                    disabledBorder: InputBorder.none,
-                                    contentPadding: EdgeInsets.only(
-                                        bottom: Get.height * 0.006),
-                                    hintStyle: AppTextStyles
-                                        .grayishBlack14Normal400
-                                        .copyWith(
-                                            color: AppTextColors.grayishBlack
-                                                .withOpacity(0.3))),
-                                onChanged: (value) =>
-                                    searchChangeHandler(value),
-                                style: AppTextStyles.extraDarkCyan16Normal500,
-                                cursorColor: AppColors.blue,
-                                cursorHeight: 18,
-                                cursorWidth: 1.2,
-                                controller: textController,
-                                focusNode: focusNode,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          height: Get.height * 0.0665,
+                          margin:
+                              EdgeInsets.symmetric(vertical: Get.height * 0.01),
+                          child: Image.asset(
+                            'assets/images/jify.png',
+                          ),
+                        ),
+                        SizedBox(
+                          width: Get.width * 0.05,
+                        ),
+                        Expanded(
+                            child: Container(
+                          height: Get.height * 0.0492,
+                          margin: EdgeInsets.symmetric(
+                              vertical: Get.height * 0.0147),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.transparent),
+                          child: Neumorphic(
+                            style: NeumorphicStyle(
+                                color: AppColors.white,
+                                depth: -1,
+                                shadowDarkColor: Colors.black,
+                                shadowDarkColorEmboss: Colors.black,
+                                boxShape: NeumorphicBoxShape.roundRect(
+                                    BorderRadius.circular(30))),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * 0.0426),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                          hintText: "Search items ...",
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          contentPadding: EdgeInsets.only(
+                                              bottom: Get.height * 0.006),
+                                          hintStyle: AppTextStyles
+                                              .grayishBlack14Normal400
+                                              .copyWith(
+                                                  color: AppTextColors
+                                                      .grayishBlack
+                                                      .withOpacity(0.3))),
+                                      onChanged: (value) =>
+                                          searchChangeHandler(value),
+                                      style: AppTextStyles
+                                          .extraDarkCyan16Normal500,
+                                      cursorColor: AppColors.blue,
+                                      cursorHeight: 18,
+                                      cursorWidth: 1.2,
+                                      controller: textController,
+                                      focusNode: focusNode,
+                                    ),
+                                  ),
+                                  GetX<HomeFragmentController>(
+                                      builder: (controller) {
+                                    if (controller.searchLoading) {
+                                      return const SpinKitRing(
+                                        color: AppColors.blue,
+                                        size: 20,
+                                        lineWidth: 2,
+                                      );
+                                    } else if (textController.text.isNotEmpty) {
+                                      return InkWell(
+                                          onTap: clearSearch,
+                                          child: const Icon(
+                                            Icons.clear,
+                                            size: 20,
+                                            color: AppColors.grayishBlack,
+                                          ));
+                                    }
+                                    return SvgPicture.asset(
+                                        'assets/icons/search.svg');
+                                  })
+                                ],
                               ),
                             ),
-                            GetX<HomeFragmentController>(builder: (controller) {
-                              if (controller.searchLoading) {
-                                return const SpinKitRing(
-                                  color: AppColors.blue,
-                                  size: 20,
-                                  lineWidth: 2,
-                                );
-                              } else if (textController.text.isNotEmpty) {
-                                return InkWell(
-                                    onTap: clearSearch,
-                                    child: const Icon(
-                                      Icons.clear,
-                                      size: 20,
-                                      color: AppColors.grayishBlack,
-                                    ));
-                              }
-                              return SvgPicture.asset(
-                                  'assets/icons/search.svg');
-                            })
-                          ],
-                        ),
-                      ),
+                          ),
+                        )),
+                      ],
                     ),
-                  )),
+                  ),
                   const SizedBox(
                     width: 21,
                   ),
