@@ -69,7 +69,9 @@ class _HomeFragmentState extends State<HomeFragment>
                     : ChangeAddressContainer(
                         _controller.mainController.openAddressesPage);
               }
-              return const SizedBox();
+              return controller.isAddressInRange
+                  ? const SizedBox()
+                  : const SizedBox();
             }),
             Builder(builder: (context) {
               switch (controller.pageMode) {
