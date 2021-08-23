@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/models/banner_model.dart';
@@ -22,6 +23,7 @@ class BannerItem extends StatelessWidget {
             top: Get.height * 0.0184),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
+            color: AppColors.white,
             boxShadow: [
               BoxShadow(
                   offset: const Offset(0, 2),
@@ -35,6 +37,12 @@ class BannerItem extends StatelessWidget {
             width: double.maxFinite,
             height: Get.height * 0.166,
             fit: BoxFit.cover,
+            placeholder: (context, url) => const Center(
+              child: SpinKitThreeBounce(
+                size: 20,
+                color: AppColors.blue,
+              ),
+            ),
           ),
         ),
       ),
