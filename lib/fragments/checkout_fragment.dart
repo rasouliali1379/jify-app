@@ -215,47 +215,47 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                                             ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: Get.height * 0.0369,
-                                  ),
-                                  const Text(
-                                    'Delivery Addresses',
-                                    style:
-                                        AppTextStyles.extraDarkCyan16Normal500,
-                                  ),
-                                  SizedBox(
-                                    height: Get.height * 0.0221,
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: Get.height * 0.013,
-                                        horizontal: Get.width * 0.0426),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(11),
-                                        color: AppColors.white),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            child: Obx(() => Text(
-                                                  _controller.selectedAddress
-                                                              .address !=
-                                                          null
-                                                      ? _controller
-                                                          .selectedAddress
-                                                          .address!
-                                                      : 'No address defined',
-                                                  style: AppTextStyles
-                                                      .darkGrey13Normal300,
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ))),
-                                        ClickableText(
-                                            'Change', _controller.openAddresses)
-                                      ],
-                                    ),
-                                  ),
                                   // SizedBox(
+                                  //   height: Get.height * 0.0369,
+                                  // ),
+                                  // const Text(
+                                  //   'Delivery Addresses',
+                                  //   style:
+                                  //       AppTextStyles.extraDarkCyan16Normal500,
+                                  // ),
+                                  // SizedBox(
+                                  //   height: Get.height * 0.0221,
+                                  // ),
+                                  // Container(
+                                  //   padding: EdgeInsets.symmetric(
+                                  //       vertical: Get.height * 0.013,
+                                  //       horizontal: Get.width * 0.0426),
+                                  //   decoration: BoxDecoration(
+                                  //       borderRadius: BorderRadius.circular(11),
+                                  //       color: AppColors.white),
+                                  //   child: Row(
+                                  //     children: [
+                                  //       Expanded(
+                                  //           child: Obx(() => Text(
+                                  //                 _controller.selectedAddress
+                                  //                             .address !=
+                                  //                         null
+                                  //                     ? _controller
+                                  //                         .selectedAddress
+                                  //                         .address!
+                                  //                     : 'No address defined',
+                                  //                 style: AppTextStyles
+                                  //                     .darkGrey13Normal300,
+                                  //                 maxLines: 1,
+                                  //                 overflow:
+                                  //                     TextOverflow.ellipsis,
+                                  //               ))),
+                                  //       ClickableText(
+                                  //           'Change', _controller.openAddresses)
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                  // // SizedBox(
                                   //   height: Get.height * 0.0369,
                                   // ),
                                   // const Text(

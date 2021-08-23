@@ -109,7 +109,7 @@ class PhoneVerificationPageController extends GetxController {
         ordersController.getOrderList();
         final checkoutController = Get.find<CheckoutFragmentController>();
         checkoutController.populateOrders();
-        checkoutController.checkSelectedAddress();
+        // checkoutController.checkSelectedAddress();
 
         if (userData.firstname == null && userData.lastname == null) {
           Get.offNamed(Routes.signUp);

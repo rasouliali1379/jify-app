@@ -53,7 +53,7 @@ class AddressesPageController extends GetxController {
 
   Future<void> onAddressClickHandler(AddressModel addressModel) async {
     await storageWrite(AppKeys.address, addressModel.id);
-    Get.find<CheckoutFragmentController>().checkSelectedAddress();
+    // Get.find<CheckoutFragmentController>().checkSelectedAddress();
     final globalController = Get.find<GlobalController>();
     globalController.isAddressInRange = addressModel.distance! <=
         globalController.initialDataModel.supportedDistance!;

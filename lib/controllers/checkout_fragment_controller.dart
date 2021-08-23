@@ -27,7 +27,7 @@ class CheckoutFragmentController extends GetxController {
   final _checkoutRepository = CheckoutRepository();
 
   final _orders = <CheckoutOrderModel>[].obs;
-  final _selectedAddress = AddressModel().obs;
+  // final _selectedAddress = AddressModel().obs;
   final _promoLoadingStatus = false.obs;
   final _loadingStatus = false.obs;
   final _promoCode = PromotionCodeModel().obs;
@@ -39,7 +39,7 @@ class CheckoutFragmentController extends GetxController {
   @override
   void onInit() {
     populateOrders();
-    checkSelectedAddress();
+    // checkSelectedAddress();
     super.onInit();
   }
 
@@ -85,11 +85,11 @@ class CheckoutFragmentController extends GetxController {
     _loadingStatus.value = value;
   }
 
-  AddressModel get selectedAddress => _selectedAddress.value;
-
-  set selectedAddress(AddressModel value) {
-    _selectedAddress.value = value;
-  }
+  // AddressModel get selectedAddress => _selectedAddress.value;
+  //
+  // set selectedAddress(AddressModel value) {
+  //   _selectedAddress.value = value;
+  // }
 
   List<CheckoutOrderModel> get orders => _orders.value;
 
@@ -196,34 +196,34 @@ class CheckoutFragmentController extends GetxController {
     Get.find<HomeFragmentController>().removeFromBasket(id);
   }
 
-  void checkSelectedAddress() {
-    if (storageExists(AppKeys.token)) {
-      final userInfo = globalController.initialDataModel.user;
-      if (userInfo!.addresses!.isNotEmpty) {
-        if (storageExists(AppKeys.address)) {
-          final AddressModel? address = findAddress(
-              userInfo.addresses!, storageRead(AppKeys.address) as String);
-
-          if (address != null) {
-            selectedAddress = address;
-          } else {
-            selectedAddress = userInfo.addresses!.last;
-            storageWrite(AppKeys.address, userInfo.addresses!.last.id)
-                .then((value) => null);
-          }
-        } else {
-          selectedAddress = userInfo.addresses!.last;
-          storageWrite(AppKeys.address, userInfo.addresses!.last.id)
-              .then((value) => null);
-        }
-      }
-    } else {
-      if (storageExists(AppKeys.unsavedAddress)) {
-        final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
-        selectedAddress = AddressModel.fromJson(jsonDecode(rawAddress));
-      }
-    }
-  }
+  // void checkSelectedAddress() {
+  //   if (storageExists(AppKeys.token)) {
+  //     final userInfo = globalController.initialDataModel.user;
+  //     if (userInfo!.addresses!.isNotEmpty) {
+  //       if (storageExists(AppKeys.address)) {
+  //         final AddressModel? address = findAddress(
+  //             userInfo.addresses!, storageRead(AppKeys.address) as String);
+  //
+  //         if (address != null) {
+  //           selectedAddress = address;
+  //         } else {
+  //           selectedAddress = userInfo.addresses!.last;
+  //           storageWrite(AppKeys.address, userInfo.addresses!.last.id)
+  //               .then((value) => null);
+  //         }
+  //       } else {
+  //         selectedAddress = userInfo.addresses!.last;
+  //         storageWrite(AppKeys.address, userInfo.addresses!.last.id)
+  //             .then((value) => null);
+  //       }
+  //     }
+  //   } else {
+  //     if (storageExists(AppKeys.unsavedAddress)) {
+  //       final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
+  //       selectedAddress = AddressModel.fromJson(jsonDecode(rawAddress));
+  //     }
+  //   }
+  // }
 
   AddressModel? findAddress(List<AddressModel> addresses, String id) {
     for (final address in addresses) {
@@ -297,7 +297,7 @@ class CheckoutFragmentController extends GetxController {
             loadingStatus = true;
             final checkoutModel = BasketModel(
                 products: orders,
-                address: Address(id: selectedAddress.id),
+                // address: Address(id: selectedAddress.id),
                 promotion: Promotion(code: promoCode.code));
             _checkoutRepository.checkout(checkoutModel).then((value) =>
                 value.fold(
