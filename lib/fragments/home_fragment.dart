@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
+import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/constants/app_status.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/home_fragment_controller.dart';
+import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/widgets/address_container.dart';
 import 'package:jify_app/widgets/banner_item.dart';
 import 'package:jify_app/widgets/change_address_container.dart';
@@ -45,25 +47,28 @@ class _HomeFragmentState extends State<HomeFragment>
         body: Column(
           children: [
             GetX<GlobalController>(builder: (controller) {
-              return controller.isAddressInRange
-                  ? AddressContainer(
-                      RichText(
-                        text: TextSpan(
-                            style: AppTextStyles.lightPurple11Normal500,
-                            children: [
-                              const TextSpan(text: 'Delivery to '),
-                              TextSpan(
-                                  text: _controller.getDeliveryAddress(),
-                                  style: AppTextStyles.lightPurple11Normal500
-                                      .copyWith(
-                                          decoration:
-                                              TextDecoration.underline)),
-                              const TextSpan(text: ' within 15 minutes')
-                            ]),
-                      ),
-                    )
-                  : ChangeAddressContainer(
-                      _controller.mainController.openAddressesPage);
+              if (controller.initialDataModel.user != null || storageExists(AppKeys.unsavedAddress)) {
+                return controller.isAddressInRange
+                    ? AddressContainer(
+                        RichText(
+                          text: TextSpan(
+                              style: AppTextStyles.lightPurple11Normal500,
+                              children: [
+                                const TextSpan(text: 'Delivery to '),
+                                TextSpan(
+                                    text: _controller.getDeliveryAddress(),
+                                    style: AppTextStyles.lightPurple11Normal500
+                                        .copyWith(
+                                            decoration:
+                                                TextDecoration.underline)),
+                                const TextSpan(text: ' within 15 minutes')
+                              ]),
+                        ),
+                      )
+                    : ChangeAddressContainer(
+                        _controller.mainController.openAddressesPage);
+              }
+              return const SizedBox();
             }),
             Builder(builder: (context) {
               switch (controller.pageMode) {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:jify_app/constants/app_status.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
+import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/models/banner_model.dart';
 import 'package:jify_app/models/category_model.dart';
 import 'package:jify_app/models/product_model.dart';
@@ -313,12 +316,23 @@ class HomeFragmentController extends GetxController {
   }
 
   String getDeliveryAddress() {
-    final address = addressRepository.findAddress(
-        _globalController.initialDataModel.user!.addresses!,
-        storageRead(AppKeys.address) as String);
-    if (address.address!.length > 30) {
-      return '${address.address!.substring(0, 30)}...';
+    if (_globalController.initialDataModel.user != null) {
+      final address = addressRepository.findAddress(
+          _globalController.initialDataModel.user!.addresses!,
+          storageRead(AppKeys.address) as String);
+      if (address.address!.length > 30) {
+        return '${address.address!.substring(0, 30)}...';
+      }
+      return address.address!;
     }
-    return address.address!;
+
+    final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
+    final addressModel = AddressModel.fromJson(jsonDecode(rawAddress));
+
+    if (addressModel.address!.length > 30) {
+      return '${addressModel.address!.substring(0, 30)}...';
+    }
+
+    return addressModel.address!;
   }
 }

@@ -8,6 +8,7 @@ import 'package:jify_app/modals/store_closed_modal.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/repositories/address_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MainPageController extends GetxController {
   final _index = 0.obs;
@@ -70,15 +71,26 @@ class MainPageController extends GetxController {
           pageStack.add(index);
           pageController.jumpToPage(index);
         } else {
-          Get.bottomSheet(StoreClosedModal());
+          showMaterialModalBottomSheet(
+            context: Get.context!,
+            builder: (context) => StoreClosedModal(),
+
+          );
+          // Get.bottomSheet(StoreClosedModal());
         }
       }
     }
   }
 
   void openDeliveryAddressModal() {
-    Get.bottomSheet(ChooseDeliveryAddressModal(),
-        isDismissible: false, enableDrag: false, ignoreSafeArea: true);
+    showMaterialModalBottomSheet(
+      context: Get.context!,
+      builder: (context) => ChooseDeliveryAddressModal(),
+      enableDrag: false,
+      isDismissible: false
+    );
+    // Get.bottomSheet(ChooseDeliveryAddressModal(),
+    //     isDismissible: false, enableDrag: false, ignoreSafeArea: true);
     Get.find<GlobalController>().isAddAddressModalOpen = true;
   }
 

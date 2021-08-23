@@ -113,7 +113,7 @@ class ConfirmationPageController extends GetxController {
   }
 
   String getDeliveryAddress(String address) {
-    if (address!.length > 30) {
+    if (address.length > 30) {
       return '${address.substring(0, 30)}...';
     }
     return address;

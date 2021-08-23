@@ -4,6 +4,7 @@ import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/modals/contact_us_modal.dart';
 import 'package:jify_app/repositories/app_repository.dart';
 import 'package:jify_app/utilities/utilities.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class HelpCenterPageController extends GetxController {
   final _globalController = Get.find<GlobalController>();
@@ -58,9 +59,13 @@ class HelpCenterPageController extends GetxController {
   }
 
   void openContactUsModal() {
-    Get.bottomSheet(ContactUsModal(),
-            isScrollControlled: true, ignoreSafeArea: false)
-        .then((value) => clearTextFields());
+    showMaterialModalBottomSheet(
+      context: Get.context!,
+      builder: (context) => ContactUsModal(),
+    ).then((value) => clearTextFields());
+    // Get.bottomSheet(ContactUsModal(),
+    //         isScrollControlled: true, ignoreSafeArea: false)
+    //     .then((value) => clearTextFields());
   }
 
   void clearTextFields() {
