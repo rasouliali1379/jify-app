@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
 
   CustomAppBar(this.backClickHandler, this.clearSearch,
       this.searchChangeHandler, this.textController, this.focusNode)
-      : preferredSize = Size.fromHeight(Get.height * 0.0763);
+      : preferredSize = Size.fromHeight(Get.height * 0.09);
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +29,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           child: SizedBox(
               height: preferredSize.height,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   GetX<MainPageController>(builder: (controller) {
                     return Row(
@@ -46,7 +47,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                               onTap: backClickHandler,
                               customBorder: const CircleBorder(),
                               child: Padding(
-                                padding: EdgeInsets.only(left: Get.width * 0.0373, right: Get.width * 0.0266),
+                                padding: EdgeInsets.only(
+                                    left: Get.width * 0.0373,
+                                    right: Get.width * 0.0266),
                                 child: const Icon(
                                   Icons.arrow_back_ios_rounded,
                                   color: Colors.white,
@@ -59,24 +62,21 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                       ],
                     );
                   }),
-                  Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1.5),
-                        child: SvgPicture.asset(
-                          'assets/icons/tuka.svg',
-                          color: Colors.black.withOpacity(0.5),
-                        ),
-                      ),
-                      SvgPicture.asset('assets/icons/tuka.svg'),
-                    ],
+                  Container(
+                    height: Get.height * 0.0665,
+                    margin:
+                        EdgeInsets.symmetric(vertical: Get.height * 0.01),
+                    child: Image.asset(
+                      'assets/images/jify.png',
+                    ),
                   ),
                   SizedBox(
-                    width: Get.width * 0.025,
+                    width: Get.width * 0.05,
                   ),
                   Expanded(
                       child: Container(
-                    margin: const EdgeInsets.only(bottom: 12, top: 8),
+                    height: Get.height * 0.0492,
+                    margin: EdgeInsets.symmetric(vertical: Get.height * 0.0147),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         color: Colors.transparent),
@@ -103,7 +103,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                                     errorBorder: InputBorder.none,
                                     disabledBorder: InputBorder.none,
                                     contentPadding: EdgeInsets.only(
-                                        bottom: Get.height * 0.0035),
+                                        bottom: Get.height * 0.006),
                                     hintStyle: AppTextStyles
                                         .grayishBlack14Normal400
                                         .copyWith(

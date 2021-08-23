@@ -47,7 +47,8 @@ class _HomeFragmentState extends State<HomeFragment>
         body: Column(
           children: [
             GetX<GlobalController>(builder: (controller) {
-              if (controller.initialDataModel.user != null || storageExists(AppKeys.unsavedAddress)) {
+              if (controller.initialDataModel.user != null ||
+                  storageExists(AppKeys.unsavedAddress)) {
                 return controller.isAddressInRange
                     ? AddressContainer(
                         RichText(
@@ -159,7 +160,7 @@ class _HomeFragmentState extends State<HomeFragment>
                   child: Column(
                     children: [
                       SizedBox(
-                        height: Get.height * 0.1847,
+                        height: Get.height * 0.2093,
                         child: Stack(
                           children: [
                             CarouselSlider(
@@ -168,7 +169,7 @@ class _HomeFragmentState extends State<HomeFragment>
                                         _controller.carouselButtonClickHandler))
                                     .toList(),
                                 options: CarouselOptions(
-                                  height: Get.height * 0.1847,
+                                  height: Get.height * 0.2093,
                                   viewportFraction: 1,
                                   autoPlay: true,
                                   autoPlayInterval: const Duration(seconds: 3),
@@ -177,7 +178,7 @@ class _HomeFragmentState extends State<HomeFragment>
                                       _controller.onCarouselChangeHandler,
                                 )),
                             Positioned(
-                              bottom: 5,
+                              bottom: Get.height * 0.0221,
                               right: 0,
                               left: 0,
                               child: Obx(() => DotsIndicator(
@@ -195,12 +196,16 @@ class _HomeFragmentState extends State<HomeFragment>
                       GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        padding: EdgeInsets.all(Get.width * 0.0426),
+                        padding: EdgeInsets.only(
+                            top: Get.width * 0.0213,
+                            bottom: Get.width * 0.0426,
+                            left: Get.width * 0.0426,
+                            right: Get.width * 0.0426),
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: Get.width / 2,
-                            childAspectRatio: 163 / 95,
-                            crossAxisSpacing: 16,
-                            mainAxisSpacing: 16),
+                            childAspectRatio: 165 / 124,
+                            crossAxisSpacing: Get.width * 0.0266,
+                            mainAxisSpacing: Get.width * 0.0266),
                         itemCount: controller.categoryItems.length,
                         itemBuilder: (context, index) => CategoryGridItem(
                             controller.categoryItems[index].title!,

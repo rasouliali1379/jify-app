@@ -21,7 +21,9 @@ class CustomBottomNavItem extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: SvgPicture.asset(
                 image,
-                color: selected ? AppColors.blue : AppColors.lightGrey,
+                color: selected
+                    ? AppColors.blue
+                    : const Color.fromRGBO(206, 207, 208, 1),
                 width: Get.width * 0.0586,
                 height: Get.width * 0.0586,
               ),
