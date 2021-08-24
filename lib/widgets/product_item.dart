@@ -14,9 +14,10 @@ class ProductItem extends StatefulWidget {
   final Function removeFromBasket;
   final Function onProductClickHandler;
   final int count;
+  final double imageHeight;
 
   const ProductItem(this.product, this.addToBasket, this.removeFromBasket,
-      this.onProductClickHandler, this.count);
+      this.onProductClickHandler, this.count, this.imageHeight);
 
   @override
   _ProductItemState createState() => _ProductItemState();
@@ -85,7 +86,7 @@ class _ProductItemState extends State<ProductItem>
                         borderRadius: BorderRadius.circular(14),
                         child: CachedNetworkImage(
                             width: double.maxFinite,
-                            height: Get.height * 0.165,
+                            height: widget.imageHeight,
                             imageUrl: widget.product.image!)),
                     Align(
                       alignment: Alignment.topRight,

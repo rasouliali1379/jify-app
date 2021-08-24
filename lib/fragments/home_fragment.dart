@@ -78,25 +78,26 @@ class _HomeFragmentState extends State<HomeFragment>
                 case "search":
                   return Expanded(
                     child: GridView.builder(
-                        shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Get.width * 0.03,
-                            vertical: Get.height * 0.0147),
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: Get.width / 3,
-                          childAspectRatio: 110 / 204,
-                          mainAxisSpacing: 5,
-                        ),
-                        itemCount: _controller.searchedProducts.length,
-                        itemBuilder: (context, index) => ProductItem(
-                              controller.searchedProducts[index],
-                              controller.addProductToBasket,
-                              controller.removeFromBasket,
-                              controller.browseProduct,
-                              controller.productRepository.countInBasket(
-                                  _controller.searchedProducts[index].id!),
-                            )),
+                      shrinkWrap: true,
+                      // physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Get.width * 0.03,
+                          vertical: Get.height * 0.0147),
+                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: Get.width / 3,
+                        childAspectRatio: 110 / 204,
+                        mainAxisSpacing: 5,
+                      ),
+                      itemCount: _controller.searchedProducts.length,
+                      itemBuilder: (context, index) => ProductItem(
+                          controller.searchedProducts[index],
+                          controller.addProductToBasket,
+                          controller.removeFromBasket,
+                          controller.browseProduct,
+                          controller.productRepository.countInBasket(
+                              _controller.searchedProducts[index].id!),
+                          Get.height * 0.1),
+                    ),
                   );
                 case "subcategory_products":
                   return Expanded(

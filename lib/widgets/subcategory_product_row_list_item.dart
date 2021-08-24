@@ -72,12 +72,12 @@ class SubcategoryProductRowList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: category.products!.length,
             itemBuilder: (context, index) => ProductItem(
-              category.products![index],
-              addToBasket,
-              removeFromBasket,
-              onProductClickHandler,
-              countInBasket(category.products![index].id!) as int,
-            ),
+                category.products![index],
+                addToBasket,
+                removeFromBasket,
+                onProductClickHandler,
+                countInBasket(category.products![index].id!) as int,
+                Get.height * 0.165),
           ),
         )
       ],

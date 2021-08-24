@@ -39,12 +39,12 @@ class SubcategoryProductsList extends StatelessWidget {
               ),
               itemCount: products.length,
               itemBuilder: (context, index) => ProductItem(
-                    products[index],
-                    addProductToBasket,
-                    removeFromBasket,
-                    browseProduct,
-                    countInBasket(products[index].id!) as int,
-                  )),
+                  products[index],
+                  addProductToBasket,
+                  removeFromBasket,
+                  browseProduct,
+                  countInBasket(products[index].id!) as int,
+                  Get.height * 0.135)),
         ],
       ),
     );

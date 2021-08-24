@@ -36,7 +36,7 @@ class AccountFragment extends GetView<AccountFragmentController> {
               thickness: 1,
             ),
           ),
-          AccountItems('Privacy and Policy', controller.openPrivacyAndTerms),
+          AccountItems('Privacy Policy', controller.openPrivacyAndTerms),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
             child: const Divider(
