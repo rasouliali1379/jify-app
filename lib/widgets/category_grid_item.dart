@@ -34,6 +34,7 @@ class CategoryGridItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: image,
                   width: double.maxFinite,
+                  height: double.maxFinite,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => const Center(
                     child: SpinKitThreeBounce(

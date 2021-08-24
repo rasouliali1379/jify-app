@@ -84,6 +84,8 @@ class _ProductItemState extends State<ProductItem>
                     ClipRRect(
                         borderRadius: BorderRadius.circular(14),
                         child: CachedNetworkImage(
+                            width: double.maxFinite,
+                            height: Get.height * 0.165,
                             imageUrl: widget.product.image!)),
                     Align(
                       alignment: Alignment.topRight,
