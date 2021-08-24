@@ -6,7 +6,7 @@ class ProductModel {
   String? description;
   int? stock;
   String? id;
-  String? category;
+  // String? category;
   int? qty;
   double? off;
   double? offPrice;
@@ -19,7 +19,7 @@ class ProductModel {
       this.description,
       this.stock,
       this.id,
-      this.category,
+      // this.category,
       this.qty,
       this.off,
       this.offPrice});
@@ -33,7 +33,7 @@ class ProductModel {
         json['description'] == null ? null : json['description'] as String;
     stock = json['stock'] == null ? null : json['stock'] as int;
     id = json['_id'] as String;
-    category = json['category'] == null ? null : json['category'] as String;
+    // category = json['category'] == null ? null : json['category'] as String;
     qty = json['qty'] == null ? null : json['qty'] as int;
     if (json["off"] != null) {
       if (json["off"] is int) {
@@ -63,7 +63,7 @@ class ProductModel {
     map['description'] = description;
     map['stock'] = stock;
     map['_id'] = id;
-    map['category'] = category;
+    // map['category'] = category;
     map['qty'] = qty;
     map['off'] = off;
     map['offPrice'] = offPrice;
