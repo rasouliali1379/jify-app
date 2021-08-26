@@ -40,10 +40,14 @@ class AddressesPageController extends GetxController {
     update();
   }
 
-  void editAddresses(AddressModel addressModel) {
-    Get.toNamed(Routes.deliveryAddresses,
-            arguments: addressModel, parameters: {"from": from!})!
-        .then((value) => populateAddresses());
+  Future<void> editAddresses(AddressModel addressModel) async {
+    if (from != null) {
+      await Get.toNamed(Routes.deliveryAddresses,
+          arguments: addressModel, parameters: {"from": from!});
+    } else {
+      await Get.toNamed(Routes.deliveryAddresses, arguments: addressModel);
+    }
+    populateAddresses();
   }
 
   void toggleEditMode() {

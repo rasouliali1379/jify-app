@@ -93,7 +93,9 @@ class DeliveryAddressesPageController extends GetxController {
       }
     }
     final params = Get.parameters;
-    from = params["from"];
+    if (params.containsKey("from")) {
+      from = params["from"];
+    }
   }
 
   Function() onTagClickHandler(int index) {
