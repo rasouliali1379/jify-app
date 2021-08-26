@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/models/basket_model.dart';
 import 'package:jify_app/models/checkout_model.dart';
 import 'package:jify_app/models/delivery_model.dart';
@@ -11,9 +12,15 @@ class CheckoutRepository {
   final _apiRequests = ApiRequests();
 
   Future<Either<String, OrderModel>> completeCheckout(
-      String id, DeliveryModel delivery, PaymentModel payment) async {
-    final result = await _apiRequests
-        .completeCheckout(id, {"delivery": delivery, "payment": payment});
+      String id,
+      DeliveryModel delivery,
+      PaymentModel payment,
+      AddressModel address) async {
+    final result = await _apiRequests.completeCheckout(id, {
+      "delivery": delivery,
+      "payment": payment,
+      "address": address.toJson()
+    });
     String error = "";
     OrderModel? checkoutModel;
 

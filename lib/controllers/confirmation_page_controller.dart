@@ -159,9 +159,12 @@ class ConfirmationPageController extends GetxController {
             DeliveryModel(
               note: noteTextController.text,
               options: getOption(selectedOption),
+
               // time: selectedSchedule
             ),
-            PaymentModel(code: "asdasdfriwqejrioqwuer8932ur98432uc9823uj49"))
+            PaymentModel(code: "asdasdfriwqejrioqwuer8932ur98432uc9823uj49"),
+            AddressModel(id: selectedAddress.id)
+    )
         .then((value) =>
             value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
   }

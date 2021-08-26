@@ -6,9 +6,9 @@ class DeliveryModel {
   DeliveryModel({this.options, this.time, this.note});
 
   DeliveryModel.fromJson(dynamic json) {
-    options = json['options'] as String;
-    time = json['time'] as String;
-    note = json['note'] as String;
+    options = json['options'] != null ? json['options'] as String : null;
+    time = json['time'] != null ? json['time'] as String : null;
+    note = json['note'] != null ? json['note'] as String : null;
   }
 
   Map<String, dynamic> toJson() {
