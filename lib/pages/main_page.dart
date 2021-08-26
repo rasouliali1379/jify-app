@@ -24,6 +24,7 @@ class MainPage extends GetView<MainPageController> {
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: SafeArea(
+            top: false,
             child: Column(
               children: [
                 Expanded(

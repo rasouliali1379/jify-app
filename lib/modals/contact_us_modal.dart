@@ -14,6 +14,7 @@ class ContactUsModal extends GetView<HelpCenterPageController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      bottom: false,
       child: Container(
         width: double.maxFinite,
         height: Get.height * 0.8349,
