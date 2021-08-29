@@ -66,7 +66,7 @@ class SubcategoryProductRowList extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: Get.height * 0.3078,
+          height: Get.height * 0.25,
           child: ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.029),
             scrollDirection: Axis.horizontal,
@@ -76,8 +76,7 @@ class SubcategoryProductRowList extends StatelessWidget {
                 addToBasket,
                 removeFromBasket,
                 onProductClickHandler,
-                countInBasket(category.products![index].id!) as int,
-                Get.height * 0.165),
+                countInBasket(category.products![index].id!) as int),
           ),
         )
       ],

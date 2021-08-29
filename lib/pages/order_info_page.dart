@@ -26,7 +26,7 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
         action: Padding(
           padding: EdgeInsets.only(right: Get.width * 0.04),
           child: ClickableText(
-            'help',
+            'Help',
             controller.openHelpCenter,
             style: AppTextStyles.white16Normal400,
           ),

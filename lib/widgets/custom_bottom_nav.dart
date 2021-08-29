@@ -71,7 +71,7 @@ class CustomBottomNav extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: Get.width * 0.0906,
+              width: Get.width * 0.1,
             )
           ],
         ),

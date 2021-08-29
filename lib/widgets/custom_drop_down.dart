@@ -25,7 +25,7 @@ class CustomDropDown extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
+            Expanded(
               child: Text(
                 label,
                 overflow: TextOverflow.ellipsis,

@@ -86,7 +86,7 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Obx(() => Flexible(
+                                  Obx(() => Expanded(
                                         child: Text(
                                           controller.getDeliveryAddress(
                                               controller

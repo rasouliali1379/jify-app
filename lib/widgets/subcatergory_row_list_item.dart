@@ -23,7 +23,7 @@ class SubCategoryRowListItem extends StatelessWidget {
             EdgeInsets.symmetric(horizontal: 16, vertical: Get.height * 0.0123),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          border: selected ? null : Border.all(color: AppColors.blue),
+          border: Border.all(color: AppColors.blue),
           color: selected ? AppColors.blue : AppColors.semiLightBlue,
         ),
         child: Text(

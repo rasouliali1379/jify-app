@@ -7,7 +7,6 @@ import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/widgets/checkout_orders_list_item.dart';
 import 'package:jify_app/widgets/circle_button.dart';
-import 'package:jify_app/widgets/clickable_text.dart';
 import 'package:jify_app/widgets/custom_toolbar.dart';
 import 'package:jify_app/widgets/dashed_divider.dart';
 import 'package:jify_app/widgets/long_button.dart';

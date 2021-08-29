@@ -85,7 +85,7 @@ class _HomeFragmentState extends State<HomeFragment>
                           vertical: Get.height * 0.0147),
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: Get.width / 3,
-                        childAspectRatio: 110 / 204,
+                        mainAxisExtent: Get.height * 0.25,
                         mainAxisSpacing: 5,
                       ),
                       itemCount: _controller.searchedProducts.length,
@@ -95,8 +95,7 @@ class _HomeFragmentState extends State<HomeFragment>
                           controller.removeFromBasket,
                           controller.browseProduct,
                           controller.productRepository.countInBasket(
-                              _controller.searchedProducts[index].id!),
-                          Get.height * 0.1),
+                              _controller.searchedProducts[index].id!)),
                     ),
                   );
                 case "subcategory_products":

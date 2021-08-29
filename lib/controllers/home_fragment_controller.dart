@@ -156,7 +156,7 @@ class HomeFragmentController extends GetxController {
         duration: 1,
         padding: EdgeInsets.symmetric(
             vertical: Get.height * 0.0, horizontal: Get.width * 0.0426));
-    vibrateWithDuration(50);
+    vibrateWithDuration(25);
   }
 
   void removeFromBasket(String id) {
@@ -164,7 +164,7 @@ class HomeFragmentController extends GetxController {
     update();
     Get.find<CheckoutFragmentController>().populateOrders();
     Get.find<GlobalController>().updateTotalCost();
-    vibrateWithDuration(50);
+    vibrateWithDuration(25);
   }
 
   void browseProduct(ProductModel product) {
