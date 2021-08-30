@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,7 +52,7 @@ class CheckoutOrdersListItem extends StatelessWidget {
                     child: Text(
                       product.title!,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
+                      maxLines: Platform.isIOS ? 3 : 2,
                       style: AppTextStyles.extraDarkCyan15Normal400,
                     ),
                   ),
