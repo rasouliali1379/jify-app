@@ -91,7 +91,7 @@ class _HomeFragmentState extends State<HomeFragment>
                       itemCount: _controller.searchedProducts.length,
                       itemBuilder: (context, index) => ProductItem(
                           controller.searchedProducts[index],
-                          controller.addProductToBasket,
+                          controller.addProduct,
                           controller.removeFromBasket,
                           controller.browseProduct,
                           controller.productRepository.countInBasket(
@@ -126,7 +126,7 @@ class _HomeFragmentState extends State<HomeFragment>
                             return SubcategoryProductsList(
                                 controller.products,
                                 controller.scrollController,
-                                controller.addProductToBasket,
+                                controller.addProduct,
                                 controller.removeFromBasket,
                                 controller.browseProduct,
                                 controller.productRepository.countInBasket);
@@ -147,7 +147,7 @@ class _HomeFragmentState extends State<HomeFragment>
                           child: SubcategoryList(
                             controller.subCategories,
                             controller.onSubcategoryItemClickHandler,
-                            controller.addProductToBasket,
+                            controller.addProduct,
                             controller.removeFromBasket,
                             controller.browseProduct,
                             controller.productRepository.countInBasket,

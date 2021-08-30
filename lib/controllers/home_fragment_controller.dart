@@ -131,13 +131,20 @@ class HomeFragmentController extends GetxController {
 
   void attemptFailed(String message) {
     searchLoading = false;
-    makeCustomToast(message);
+    showCustomSnackBar(message);
   }
 
   void attemptSucceed(List<ProductModel> products) {
     searchLoading = false;
     searchedProducts = products;
     update();
+  }
+
+  void addProduct(ProductModel product) {
+    addProductToBasket(product);
+    showCustomSnackBar(
+        "${productRepository.countInBasket(product.id!)} item added to basket",
+        duration: 1);
   }
 
   void addProductToBasket(ProductModel product, {int count = 1}) {
@@ -152,10 +159,6 @@ class HomeFragmentController extends GetxController {
     } else {
       showCustomSnackBar("Only ${product.stock} ${product.title} available");
     }
-    showCustomSnackBar("1 item added to basket",
-        duration: 1,
-        padding: EdgeInsets.symmetric(
-            vertical: Get.height * 0.0, horizontal: Get.width * 0.0426));
     vibrateWithDuration(25);
   }
 
@@ -264,7 +267,7 @@ class HomeFragmentController extends GetxController {
         if (foundProduct != null) {
           browseProduct(foundProduct);
         } else {
-          makeCustomToast("Couldn't find the product!");
+          showCustomSnackBar("Couldn't find the product!");
         }
         break;
     }

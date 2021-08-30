@@ -41,7 +41,7 @@ class SearchAddressPageController extends GetxController {
 
   void attemptFailed(String message) {
     loadingStatus = false;
-    makeCustomToast(message);
+    showCustomSnackBar(message);
   }
 
   void attemptSucceed(List<AddressPredictionModel> addresses) {

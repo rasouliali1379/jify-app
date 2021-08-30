@@ -171,7 +171,7 @@ class ConfirmationPageController extends GetxController {
 
   void attemptFailed(String message) {
     loadingStatus = false;
-    makeCustomToast(message);
+    showCustomSnackBar(message);
   }
 
   void attemptSucceed(OrderModel promo) {
@@ -185,7 +185,7 @@ class ConfirmationPageController extends GetxController {
     Get.find<GlobalController>().updateTotalCost();
     Get.find<HomeFragmentController>().update();
     Get.back();
-    makeCustomToast("Order submitted");
+    showCustomSnackBar("Order submitted");
   }
 
   void openAddressesPage() {

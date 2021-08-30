@@ -50,7 +50,7 @@ class ProductPage extends GetView<ProductPageController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 AspectRatio(
                   aspectRatio: 1.25,
@@ -67,12 +67,11 @@ class ProductPage extends GetView<ProductPageController> {
                       Expanded(
                         child: Text(
                           controller.product.title!,
-                          overflow: TextOverflow.ellipsis,
                           style: AppTextStyles.black21Normal500,
                         ),
                       ),
                       SizedBox(
-                        width: Get.width * 0.0186,
+                        width: Get.width * 0,
                       ),
                       if (controller.product.off! > 0)
                         SizedBox(
@@ -154,7 +153,7 @@ class ProductPage extends GetView<ProductPageController> {
                   child: SingleChildScrollView(
                     padding: EdgeInsets.symmetric(vertical: Get.height * 0.02),
                     child: Text(
-                      "wefojwofhweofwefohjwefohwefoiwefouwehjfoe",
+                      controller.product.description!,
                       style: AppTextStyles.grayishBlack12Normal300
                           .copyWith(height: 1.6),
                       textAlign: TextAlign.justify,

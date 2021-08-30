@@ -16,7 +16,6 @@ class MainPageController extends GetxController {
   final pageController = PageController();
   final _addressRepository = AddressRepository();
   final pageStack = <int>[0];
-
   int selectedCategory = -1;
 
   @override
@@ -55,10 +54,6 @@ class MainPageController extends GetxController {
     _homeFragmentController.update();
 
     if (pageStack.last != index) {
-      if (index < 3) {
-        this.index = index;
-      }
-
       if (index == 3 && !storageExists(AppKeys.token)) {
         Get.toNamed(Routes.signIn, preventDuplicates: true);
       } else {
@@ -67,14 +62,13 @@ class MainPageController extends GetxController {
           //   pageStack.add(index);
           //   pageController.jumpToPage(index);
           // }
-
+          this.index = index;
           pageStack.add(index);
           pageController.jumpToPage(index);
         } else {
           showMaterialModalBottomSheet(
             context: Get.context!,
             builder: (context) => StoreClosedModal(),
-
           );
           // Get.bottomSheet(StoreClosedModal());
         }
@@ -84,11 +78,10 @@ class MainPageController extends GetxController {
 
   void openDeliveryAddressModal() {
     showMaterialModalBottomSheet(
-      context: Get.context!,
-      builder: (context) => ChooseDeliveryAddressModal(),
-      enableDrag: false,
-      isDismissible: false
-    );
+        context: Get.context!,
+        builder: (context) => ChooseDeliveryAddressModal(),
+        enableDrag: false,
+        isDismissible: false);
     // Get.bottomSheet(ChooseDeliveryAddressModal(),
     //     isDismissible: false, enableDrag: false, ignoreSafeArea: true);
     Get.find<GlobalController>().isAddAddressModalOpen = true;
@@ -104,8 +97,9 @@ class MainPageController extends GetxController {
   }
 
   Future<bool> onBackPressedHandler() {
-    if (index == 0) {
-      Get.find<HomeFragmentController>().onAppBarBackPressed();
+    final _homeController = Get.find<HomeFragmentController>();
+    if (index == 0 && _homeController.pageMode != "category") {
+      _homeController.onAppBarBackPressed();
     } else {
       if (pageStack.length == 1) {
         return Future.value(true);

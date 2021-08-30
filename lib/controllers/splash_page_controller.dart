@@ -28,7 +28,7 @@ class SplashPageController extends GetxController {
     tryAgainVisibility = false;
     _appRepository.getInitialData().then((value) {
       value.fold((l) {
-        makeCustomToast(l);
+        showCustomSnackBar(l);
         tryAgainVisibility = true;
       }, (initialData) {
         _globalController.initialDataModel = initialData;

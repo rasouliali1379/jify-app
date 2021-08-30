@@ -15,6 +15,7 @@ import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/models/promotion_code_model.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/repositories/checkout_repository.dart';
+import 'package:jify_app/repositories/product_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/utilities/utilities.dart';
 
@@ -25,6 +26,7 @@ class CheckoutFragmentController extends GetxController {
   final cardNumberController = TextEditingController();
   final promoFocus = FocusNode();
   final _checkoutRepository = CheckoutRepository();
+  final _productRepository = ProductRepository();
 
   final _orders = <CheckoutOrderModel>[].obs;
   // final _selectedAddress = AddressModel().obs;
@@ -101,7 +103,7 @@ class CheckoutFragmentController extends GetxController {
     if (storageExists(AppKeys.token)) {
       Get.toNamed(Routes.addresses, parameters: {"from": "checkout"});
     } else {
-      makeCustomToast('Login to change the address');
+      showCustomSnackBar('Login to change the address');
     }
   }
 
@@ -190,6 +192,9 @@ class CheckoutFragmentController extends GetxController {
 
   void increaseAmount(ProductModel product) {
     Get.find<HomeFragmentController>().addProductToBasket(product);
+    showCustomSnackBar(
+        "${_productRepository.countInBasket(product.id!)} item added to basket",
+        duration: 1);
   }
 
   void decreaseAmount(String id) {
@@ -249,14 +254,14 @@ class CheckoutFragmentController extends GetxController {
           (value) =>
               value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
     } else {
-      makeCustomToast('Enter your promo code');
+      showCustomSnackBar('Enter your promo code');
     }
   }
 
   void attemptFailed(String message) {
     promoLoadingStatus = false;
     loadingStatus = false;
-    makeCustomToast(message);
+    showCustomSnackBar(message);
   }
 
   void attemptSucceed(PromotionCodeModel promo) {
@@ -264,7 +269,7 @@ class CheckoutFragmentController extends GetxController {
     promoCodeController.text = "";
     promoCode = promo;
     calculatePrices();
-    makeCustomToast("Promotion applied");
+    showCustomSnackBar("Promotion applied");
   }
 
   void calculatePrices() {
@@ -303,14 +308,14 @@ class CheckoutFragmentController extends GetxController {
                 value.fold(
                     (l) => attemptFailed(l), (r) => checkoutAttemptSucceed(r)));
           } else {
-            makeCustomToast("We don't support your address");
+            showCustomSnackBar("We don't support your address");
           }
         } else {
-          makeCustomToast(
+          showCustomSnackBar(
               "You need to add product into your basket to checkout");
         }
       } else {
-        makeCustomToast(
+        showCustomSnackBar(
             "Store is currently closed, you can't submit an order.");
       }
     } else {

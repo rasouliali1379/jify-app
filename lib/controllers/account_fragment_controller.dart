@@ -29,7 +29,7 @@ class AccountFragmentController extends GetxController {
     if (loggedIn) {
       Get.toNamed(Routes.accountInformation);
     } else {
-      makeCustomToast('You need to sign in/up first');
+      showCustomSnackBar('You need to sign in/up first');
     }
   }
 

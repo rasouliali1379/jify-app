@@ -29,6 +29,8 @@ class AppTextStyles {
       fontSize: 14, color: AppTextColors.white, fontWeight: FontWeight.w300);
   static const white14Normal400 = TextStyle(
       fontSize: 14, color: AppTextColors.white, fontWeight: FontWeight.w400);
+  static const white14Normal600 = TextStyle(
+      fontSize: 14, color: AppTextColors.white, fontWeight: FontWeight.w600);
   static const white14Normal700 = TextStyle(
       fontSize: 14, color: AppTextColors.white, fontWeight: FontWeight.w700);
   static const white15Normal400 = TextStyle(

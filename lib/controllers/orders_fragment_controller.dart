@@ -55,7 +55,7 @@ class OrdersFragmentController extends GetxController {
   }
 
   void attemptFailed(String message) {
-    makeCustomToast(message);
+    showCustomSnackBar(message);
   }
 
   void attemptSucceed(List<OrderModel> orders) {

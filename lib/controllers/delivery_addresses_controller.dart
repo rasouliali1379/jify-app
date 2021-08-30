@@ -201,7 +201,7 @@ class DeliveryAddressesPageController extends GetxController {
         }
       }
     } else {
-      makeCustomToast('You need to enter your address');
+      showCustomSnackBar('You need to enter your address');
     }
   }
 
@@ -228,7 +228,7 @@ class DeliveryAddressesPageController extends GetxController {
   void attemptFailed(String message) {
     loadingStatus = false;
     deletionLoading = false;
-    makeCustomToast(message);
+    showCustomSnackBar(message);
   }
 
   void attemptSucceed(List<AddressModel> addresses) {
