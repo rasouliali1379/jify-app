@@ -136,7 +136,7 @@ class AddressRepository {
   }
 
   double calculateDistance(LatLng latLng, LatLng storeLocation) {
-    const earthRadius = 6371;
+    const earthRadius = 3958.8;
     final dLat = deg2rad(latLng.latitude - storeLocation.latitude);
     final dLon = deg2rad(latLng.longitude - storeLocation.longitude);
     final a = sin(dLat / 2) * sin(dLat / 2) +
