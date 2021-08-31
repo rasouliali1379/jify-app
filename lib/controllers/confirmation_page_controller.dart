@@ -152,21 +152,24 @@ class ConfirmationPageController extends GetxController {
   // }
 
   void placeOrder() {
-    loadingStatus = true;
-    checkoutRepository
-        .completeCheckout(
-            checkoutData.checkout!.id!,
-            DeliveryModel(
-              note: noteTextController.text,
-              options: getOption(selectedOption),
+    if (globalController.isAddressInRange) {
+      loadingStatus = true;
+      checkoutRepository
+          .completeCheckout(
+              checkoutData.checkout!.id!,
+              DeliveryModel(
+                note: noteTextController.text,
+                options: getOption(selectedOption),
 
-              // time: selectedSchedule
-            ),
-            PaymentModel(code: "asdasdfriwqejrioqwuer8932ur98432uc9823uj49"),
-            AddressModel(id: selectedAddress.id)
-    )
-        .then((value) =>
-            value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+                // time: selectedSchedule
+              ),
+              PaymentModel(code: "asdasdfriwqejrioqwuer8932ur98432uc9823uj49"),
+              AddressModel(id: selectedAddress.id))
+          .then((value) =>
+              value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+    } else {
+      showCustomSnackBar("Address not in range");
+    }
   }
 
   void attemptFailed(String message) {

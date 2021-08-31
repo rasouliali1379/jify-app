@@ -297,7 +297,7 @@ class CheckoutFragmentController extends GetxController {
     if (storageExists(AppKeys.token)) {
       if (globalController.initialDataModel.isOpen!) {
         if (orders.isNotEmpty) {
-          if (Get.find<GlobalController>().isAddressInRange) {
+          if (globalController.isAddressInRange) {
             promoFocus.unfocus();
             loadingStatus = true;
             final checkoutModel = BasketModel(
@@ -308,7 +308,7 @@ class CheckoutFragmentController extends GetxController {
                 value.fold(
                     (l) => attemptFailed(l), (r) => checkoutAttemptSucceed(r)));
           } else {
-            showCustomSnackBar("We don't support your address");
+            showCustomSnackBar("Address not in range");
           }
         } else {
           showCustomSnackBar(
