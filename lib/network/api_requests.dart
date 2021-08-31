@@ -121,4 +121,8 @@ class ApiRequests {
       "fields": "name,geometry,formatted_address",
     });
   }
+
+  Future<Either<String, Response>> notifyAddress(String id) async {
+    return _apiClient.get('/user/addresses/$id/notify', {});
+  }
 }

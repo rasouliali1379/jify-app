@@ -10,6 +10,7 @@ class AddressModel {
   String? options;
   double? distance;
   String? id;
+  bool? notify;
 
   AddressModel(
       {this.location,
@@ -20,7 +21,8 @@ class AddressModel {
       this.note,
       this.options,
       this.distance,
-      this.id});
+      this.id,
+      this.notify});
 
   AddressModel.fromJson(dynamic json) {
     location = json['location'] != null
@@ -34,6 +36,7 @@ class AddressModel {
     options = json['options'] as String;
     distance = json['distance'] == null ? null : json['distance'] as double;
     id = json['_id'] == null ? null : json['_id'] as String;
+    notify = json['notify'] as bool;
   }
 
   Map<String, dynamic> toJson() {
@@ -49,6 +52,7 @@ class AddressModel {
     map['options'] = options;
     map['distance'] = distance;
     map['_id'] = id;
+    map['notify'] = notify;
     return map;
   }
 }

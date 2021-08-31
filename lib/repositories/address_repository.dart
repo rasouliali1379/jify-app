@@ -135,6 +135,34 @@ class AddressRepository {
     }
   }
 
+  Future<Either<String, bool>> notifyAddress(String id) async {
+    final result = await _apiRequests.notifyAddress(id);
+    String error = "";
+    List<AddressModel>? addresses;
+
+    result.fold((l) => error = l, (r) {
+      final rawAddresses = r.data["data"]["addresses"] as List<dynamic>;
+
+      addresses = List<AddressModel>.from(
+          rawAddresses.map((value) => AddressModel.fromJson(value)));
+    });
+
+    AddressModel? addressModel;
+
+    if (addresses != null) {
+      addressModel = findAddress(addresses!, id);
+    }
+
+    if (addressModel != null) {
+      if (addressModel.notify!) {
+        return const Right(true);
+      }
+      return const Left("Something Unexpected happened");
+    } else {
+      return Left(error);
+    }
+  }
+
   double calculateDistance(LatLng latLng, LatLng storeLocation) {
     const earthRadius = 3958.8;
     final dLat = deg2rad(latLng.latitude - storeLocation.latitude);

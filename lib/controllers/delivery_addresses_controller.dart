@@ -185,7 +185,7 @@ class DeliveryAddressesPageController extends GetxController {
           }
           // Get.find<CheckoutFragmentController>().checkSelectedAddress();
           if (!globalController.isAddressInRange && !editMode) {
-            Get.toNamed(Routes.storeUnavailable);
+            Get.toNamed(Routes.storeUnavailable, arguments: addressModel);
           }
         });
       } else {
@@ -274,7 +274,7 @@ class DeliveryAddressesPageController extends GetxController {
       Get.back();
     }
     if (!globalController.isAddressInRange && !editMode) {
-      Get.toNamed(Routes.storeUnavailable);
+      Get.toNamed(Routes.storeUnavailable, arguments: addresses.last);
     }
   }
 

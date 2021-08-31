@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
@@ -75,23 +76,30 @@ class StoreUnavailablePage extends GetView<StoreUnavailablePageController> {
             SizedBox(
               height: Get.height * 0.0517,
             ),
-            LongButton(
-              controller.notifyCustomer,
-              '',
-              Get.width,
-              Get.height * 0.064,
-              customText: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset("assets/icons/bell.svg"),
-                  SizedBox(
-                    width: Get.width * 0.024,
-                  ),
-                  const Text(
-                    "Notify Me When Available",
-                    style: AppTextStyles.white18Normal400,
-                  )
-                ],
+            Obx(
+              () => LongButton(
+                controller.notifyCustomer,
+                '',
+                Get.width,
+                Get.height * 0.064,
+                customText: controller.loadingStatus
+                    ? const SpinKitThreeBounce(
+                        color: AppColors.white,
+                        size: 15,
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset("assets/icons/bell.svg"),
+                          SizedBox(
+                            width: Get.width * 0.024,
+                          ),
+                          const Text(
+                            "Notify Me When Available",
+                            style: AppTextStyles.white18Normal400,
+                          )
+                        ],
+                      ),
               ),
             ),
             SizedBox(
