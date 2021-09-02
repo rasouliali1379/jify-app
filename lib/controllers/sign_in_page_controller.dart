@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/repositories/user_repository.dart';
 import 'package:jify_app/utilities/utilities.dart';
@@ -52,7 +53,7 @@ class SignInPageController extends GetxController {
     loadingStatus = false;
 
     if (codeSent) {
-      Get.offNamed(Routes.phoneVerification,
+      Get.toNamed(Routes.phoneVerification,
           parameters: {"phone_number": mobileTextController.text});
     }
   }

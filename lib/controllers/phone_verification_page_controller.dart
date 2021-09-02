@@ -8,6 +8,7 @@ import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/controllers/account_fragment_controller.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
+import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/controllers/orders_fragment_controller.dart';
 import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/models/user_model.dart';
@@ -112,13 +113,16 @@ class PhoneVerificationPageController extends GetxController {
         // checkoutController.checkSelectedAddress();
 
         if (userData.firstname == null && userData.lastname == null) {
-          Get.offNamed(Routes.signUp);
+          globalController.addressModalCanOpen = false;
+          Get.close(2);
+          Get.toNamed(Routes.signUp)!.then(
+              (value) => Get.find<MainPageController>().checkInitialAddress());
         } else {
           showCustomSnackBar(
               "You're successfully signed in."
               " Welcome ${userData.firstname}",
               length: Toast.LENGTH_LONG);
-          Get.back();
+          Get.close(2);
         }
       });
     }

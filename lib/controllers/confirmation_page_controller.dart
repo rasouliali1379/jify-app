@@ -155,16 +155,16 @@ class ConfirmationPageController extends GetxController {
   void placeOrder() {
     if (globalController.isAddressInRange) {
       loadingStatus = true;
-      if(orderModel == null){
+      if (orderModel == null) {
         checkoutRepository
             .completeCheckout(
-            checkoutData.checkout!.id!,
-            DeliveryModel(
-              note: noteTextController.text,
-              options: getOption(selectedOption),
-              // time: selectedSchedule
-            ),
-            AddressModel(id: selectedAddress.id))
+                checkoutData.checkout!.id!,
+                DeliveryModel(
+                  note: noteTextController.text,
+                  options: getOption(selectedOption),
+                  // time: selectedSchedule
+                ),
+                AddressModel(id: selectedAddress.id))
             .then((value) => value.fold((l) => attemptFailed(l),
                 (r) => orderSubmissionAttemptSucceed(r)));
       } else {
@@ -215,8 +215,8 @@ class ConfirmationPageController extends GetxController {
 
     if (result != null) {
       checkoutRepository
-          .pay(result.paymentMethodNonce.nonce, result.deviceData!, orderModel!.id!,
-              result.paymentMethodNonce.description, 0)
+          .pay(result.paymentMethodNonce.nonce, result.deviceData!,
+              orderModel!.id!, result.paymentMethodNonce.description, 0)
           .then((result) => result.fold(
               (l) => attemptFailed(l), (r) => paymentAttemptSucceed()));
     } else {

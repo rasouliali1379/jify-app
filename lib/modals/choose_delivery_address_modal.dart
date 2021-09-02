@@ -5,6 +5,7 @@ import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/navigation/routes.dart';
+import 'package:jify_app/widgets/clickable_text.dart';
 import 'package:jify_app/widgets/long_button.dart';
 
 class ChooseDeliveryAddressModal extends GetView<MainPageController> {
@@ -25,7 +26,7 @@ class ChooseDeliveryAddressModal extends GetView<MainPageController> {
             top: 10,
             left: Get.width * 0.0453,
             right: Get.width * 0.0453,
-            bottom: 30),
+            bottom: Get.height * 0.0221),
         decoration: const BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.only(
@@ -66,11 +67,29 @@ class ChooseDeliveryAddressModal extends GetView<MainPageController> {
                 ),
               ],
             ),
-            LongButton(
-                () => Navigator.of(context).pushNamed(Routes.deliveryAddresses),
-                'Add New Address',
-                Get.width,
-                Get.height * 0.064)
+            Column(
+              children: [
+                LongButton(
+                    () => Navigator.of(context)
+                        .pushNamed(Routes.deliveryAddresses),
+                    'Add New Address',
+                    Get.width,
+                    Get.height * 0.064),
+                SizedBox(
+                  height: Get.height * 0.0172,
+                ),
+                Obx(
+                  () => Visibility(
+                    visible: controller.signInVisibility,
+                    child: ClickableText(
+                      "or sign in instead",
+                      controller.openSignInPage,
+                      style: AppTextStyles.blue12Normal400,
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

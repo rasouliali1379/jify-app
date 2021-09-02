@@ -11,8 +11,10 @@ import 'package:jify_app/utilities/storage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MainPageController extends GetxController {
+  final _globalController = Get.find<GlobalController>();
   final _index = 0.obs;
   final _backBtnVisibility = false.obs;
+  final _signInVisibility = false.obs;
   final pageController = PageController();
   final _addressRepository = AddressRepository();
   final pageStack = <int>[0];
@@ -20,12 +22,18 @@ class MainPageController extends GetxController {
 
   @override
   void onReady() {
-    if (!Get.find<GlobalController>().initialDataModel.isOpen!) {
+    if (!_globalController.initialDataModel.isOpen!) {
       Get.bottomSheet(StoreClosedModal());
       return;
     }
     checkInitialAddress();
     super.onReady();
+  }
+
+  bool get signInVisibility => _signInVisibility.value;
+
+  set signInVisibility(bool value) {
+    _signInVisibility.value = value;
   }
 
   bool get backBtnVisibility => _backBtnVisibility.value;
@@ -57,7 +65,7 @@ class MainPageController extends GetxController {
       if (index == 3 && !storageExists(AppKeys.token)) {
         Get.toNamed(Routes.signIn, preventDuplicates: true);
       } else {
-        if (Get.find<GlobalController>().initialDataModel.isOpen!) {
+        if (_globalController.initialDataModel.isOpen!) {
           // if (Get.find<GlobalController>().basket.isNotEmpty) {
           //   pageStack.add(index);
           //   pageController.jumpToPage(index);
@@ -84,7 +92,7 @@ class MainPageController extends GetxController {
         isDismissible: false);
     // Get.bottomSheet(ChooseDeliveryAddressModal(),
     //     isDismissible: false, enableDrag: false, ignoreSafeArea: true);
-    Get.find<GlobalController>().isAddAddressModalOpen = true;
+    _globalController.isAddAddressModalOpen = true;
   }
 
   void openAddressesPage() {
@@ -126,22 +134,31 @@ class MainPageController extends GetxController {
   }
 
   void checkInitialAddress() {
-    final globalController = Get.find<GlobalController>();
+    signInVisibility = !storageExists(AppKeys.token);
     if (!storageExists(AppKeys.token)) {
       if (!storageExists(AppKeys.unsavedAddress)) {
         openDeliveryAddressModal();
       }
     } else {
-      if (globalController.initialDataModel.user!.addresses!.isEmpty) {
+      if (_globalController.initialDataModel.user!.addresses!.isEmpty) {
         openDeliveryAddressModal();
       } else {
         final address = _addressRepository.findAddress(
-            globalController.initialDataModel.user!.addresses!,
+            _globalController.initialDataModel.user!.addresses!,
             storageRead(AppKeys.address) as String);
 
-        globalController.isAddressInRange = address.distance! <=
-            globalController.initialDataModel.supportedDistance!;
+        _globalController.isAddressInRange = address.distance! <=
+            _globalController.initialDataModel.supportedDistance!;
       }
     }
+  }
+
+  void openSignInPage() {
+    Get.offNamed(Routes.signIn)!.then((value) {
+      if (_globalController.addressModalCanOpen) {
+        _globalController.addressModalCanOpen = true;
+        checkInitialAddress();
+      }
+    });
   }
 }

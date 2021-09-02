@@ -22,6 +22,7 @@ class GlobalController extends GetxController {
   late AddressModel unsavedAddress;
 
   bool isAddAddressModalOpen = false;
+  bool addressModalCanOpen = true;
 
   void initFireBaseListeners() {
     fcm.getToken().then((value) {

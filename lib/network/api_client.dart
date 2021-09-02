@@ -16,7 +16,8 @@ class ApiClient {
       final token = storageRead(AppKeys.token) ?? "";
       Response? _response;
       try {
-        _response = await _dio.get(AppVariables.baseUrl + endPoint,
+        _response = await _dio.get(
+            '${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
             options: Options(headers: {"x-auth-token": token}),
             queryParameters: map);
         return Right(_response);
@@ -39,7 +40,8 @@ class ApiClient {
       final token = storageRead(AppKeys.token) ?? "";
       Response? _response;
       try {
-        _response = await _dio.post(AppVariables.baseUrl + endPoint,
+        _response = await _dio.post(
+            '${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
             options: Options(
               headers: {"x-auth-token": token},
               contentType: "application/json",
@@ -65,7 +67,8 @@ class ApiClient {
       final token = storageRead(AppKeys.token) ?? "";
       Response? _response;
       try {
-        _response = await _dio.put(AppVariables.baseUrl + endPoint,
+        _response = await _dio.put(
+            '${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
             options: Options(
               headers: {"x-auth-token": token},
               contentType: "application/json",
@@ -92,7 +95,8 @@ class ApiClient {
       final token = storageRead(AppKeys.token) ?? "";
       Response? _response;
       try {
-        _response = await _dio.delete(AppVariables.baseUrl + endPoint,
+        _response = await _dio.delete(
+            '${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
             options: Options(
               headers: {"x-auth-token": token},
               contentType: "application/json",
