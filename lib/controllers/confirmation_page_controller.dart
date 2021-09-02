@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jify_app/constants/app_keys.dart';
@@ -13,7 +14,6 @@ import 'package:jify_app/models/address_model.dart';
 import 'package:jify_app/models/checkout_model.dart';
 import 'package:jify_app/models/delivery_model.dart';
 import 'package:jify_app/models/order_model.dart';
-import 'package:jify_app/models/payment_model.dart';
 import 'package:jify_app/models/promotion_code_model.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/repositories/address_repository.dart';
@@ -39,6 +39,7 @@ class ConfirmationPageController extends GetxController {
   );
 
   late GoogleMapController mapController;
+  OrderModel? orderModel;
   final _checkoutData = CheckoutModel().obs;
 
   @override
@@ -154,19 +155,21 @@ class ConfirmationPageController extends GetxController {
   void placeOrder() {
     if (globalController.isAddressInRange) {
       loadingStatus = true;
-      checkoutRepository
-          .completeCheckout(
-              checkoutData.checkout!.id!,
-              DeliveryModel(
-                note: noteTextController.text,
-                options: getOption(selectedOption),
-
-                // time: selectedSchedule
-              ),
-              PaymentModel(code: "asdasdfriwqejrioqwuer8932ur98432uc9823uj49"),
-              AddressModel(id: selectedAddress.id))
-          .then((value) =>
-              value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+      if(orderModel == null){
+        checkoutRepository
+            .completeCheckout(
+            checkoutData.checkout!.id!,
+            DeliveryModel(
+              note: noteTextController.text,
+              options: getOption(selectedOption),
+              // time: selectedSchedule
+            ),
+            AddressModel(id: selectedAddress.id))
+            .then((value) => value.fold((l) => attemptFailed(l),
+                (r) => orderSubmissionAttemptSucceed(r)));
+      } else {
+        payOrder();
+      }
     } else {
       showCustomSnackBar("Address not in range");
     }
@@ -177,8 +180,59 @@ class ConfirmationPageController extends GetxController {
     showCustomSnackBar(message);
   }
 
-  void attemptSucceed(OrderModel promo) {
+  void orderSubmissionAttemptSucceed(OrderModel order) {
     loadingStatus = false;
+    orderModel = order;
+    payOrder();
+  }
+
+  Future<void> payOrder() async {
+    loadingStatus = true;
+    final request = BraintreeDropInRequest(
+      tokenizationKey: 'sandbox_q7sjs89q_d9s55gfrp6jm3qwj',
+      clientToken: "sandbox_q7sjs89q_d9s55gfrp6jm3qwj",
+      collectDeviceData: true,
+      vaultManagerEnabled: true,
+      googlePaymentRequest: BraintreeGooglePaymentRequest(
+        totalPrice: orderModel!.amount!.total.toString(),
+        currencyCode: 'USD',
+        billingAddressRequired: false,
+      ),
+      applePayRequest: BraintreeApplePayRequest(
+          amount: orderModel!.amount!.total!,
+          appleMerchantID: "",
+          countryCode: "",
+          currencyCode: "USD",
+          displayName: ""),
+      paypalRequest: BraintreePayPalRequest(
+          amount: orderModel!.amount!.total.toString(),
+          displayName: 'Example company',
+          currencyCode: "USD",
+          billingAgreementDescription: "I accept"),
+    );
+
+    final result = await BraintreeDropIn.start(request);
+
+    if (result != null) {
+      checkoutRepository
+          .pay(result.paymentMethodNonce.nonce, result.deviceData!, orderModel!.id!,
+              result.paymentMethodNonce.description, 0)
+          .then((result) => result.fold(
+              (l) => attemptFailed(l), (r) => paymentAttemptSucceed()));
+    } else {
+      loadingStatus = false;
+      showCustomSnackBar("Payment failed");
+    }
+  }
+
+  void paymentAttemptSucceed() {
+    loadingStatus = false;
+    clearBasket();
+    Get.back();
+    showCustomSnackBar("Order submitted");
+  }
+
+  void clearBasket() {
     globalController.basket.clear();
     final checkoutController = Get.find<CheckoutFragmentController>();
     checkoutController.populateOrders();
@@ -187,8 +241,6 @@ class ConfirmationPageController extends GetxController {
     Get.find<OrdersFragmentController>().getOrderList();
     Get.find<GlobalController>().updateTotalCost();
     Get.find<HomeFragmentController>().update();
-    Get.back();
-    showCustomSnackBar("Order submitted");
   }
 
   void openAddressesPage() {

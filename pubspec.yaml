@@ -34,7 +34,6 @@ dependencies:
   flutter_neumorphic: ^3.1.0
   vibration: ^1.7.4-nullsafety.0
   flash: ^2.0.1
-#  braintree_payment: ^1.2.4
 
 dev_dependencies:
   flutter_test:

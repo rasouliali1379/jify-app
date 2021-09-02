@@ -103,8 +103,16 @@ class ApiRequests {
     return _apiClient.post('/checkout/$id/complete', map);
   }
 
+  Future<Either<String, Response>> pay(Map<String, dynamic> map) async {
+    return _apiClient.post('/checkout/payment', map);
+  }
+
   Future<Either<String, Response>> getOrders() async {
     return _apiClient.get('/checkout/orders', {});
+  }
+
+  Future<Either<String, Response>> notifyAddress(String id) async {
+    return _apiClient.get('/user/addresses/$id/notify', {});
   }
 
   Future<Either<String, Response>> predictPlaces(String input) async {
@@ -120,9 +128,5 @@ class ApiRequests {
       "place_id": id,
       "fields": "name,geometry,formatted_address",
     });
-  }
-
-  Future<Either<String, Response>> notifyAddress(String id) async {
-    return _apiClient.get('/user/addresses/$id/notify', {});
   }
 }

@@ -36,7 +36,7 @@ class AddressModel {
     options = json['options'] as String;
     distance = json['distance'] == null ? null : json['distance'] as double;
     id = json['_id'] == null ? null : json['_id'] as String;
-    notify = json['notify'] as bool;
+    notify = json['notify'] == null ? null : json['notify'] as bool;
   }
 
   Map<String, dynamic> toJson() {

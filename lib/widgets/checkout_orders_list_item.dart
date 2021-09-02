@@ -52,7 +52,7 @@ class CheckoutOrdersListItem extends StatelessWidget {
                     child: Text(
                       product.title!,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: Platform.isIOS ? 3 : 2,
+                      maxLines: 2,
                       style: AppTextStyles.extraDarkCyan15Normal400,
                     ),
                   ),
