@@ -95,6 +95,8 @@ class PhoneVerificationPageController extends GetxController {
             UserModel.fromJson(loginData["user"] as Map<String, dynamic>);
         Get.find<AccountFragmentController>().checkLoginStatus();
         globalController.initialDataModel.user = userData;
+        await storageWrite(AppKeys.address, userData.addresses!.last.id);
+
         if (storageExists(AppKeys.unsavedAddress)) {
           final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
           final addressModel = AddressModel.fromJson(jsonDecode(rawAddress));

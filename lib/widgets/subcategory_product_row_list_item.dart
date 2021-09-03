@@ -66,7 +66,7 @@ class SubcategoryProductRowList extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: Get.height * 0.25,
+          height: Get.height * 0.29,
           child: ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.029),
             scrollDirection: Axis.horizontal,

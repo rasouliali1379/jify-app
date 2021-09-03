@@ -25,7 +25,7 @@ class CustomBottomNav extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: Get.width * 0.0906,
+              width: Get.width * 0.05,
             ),
             Expanded(
               child: Row(
@@ -41,7 +41,7 @@ class CustomBottomNav extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: Get.width * 0.07,
+              width: Get.width * 0.08,
             ),
             GestureDetector(
               onTap: () => onClick(3),
@@ -71,7 +71,7 @@ class CustomBottomNav extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: Get.width * 0.1,
+              width: Get.width * 0.08,
             )
           ],
         ),

@@ -30,13 +30,18 @@ class ProductRepository {
 
   int getProductVariantsCount() {
     final globalController = Get.find<GlobalController>();
-    final variants = <String>{};
-    for (final item in globalController.basket) {
-      variants.add(item.id!);
-    }
-
-    return variants.length;
+    return globalController.basket.length;
   }
+
+  // int getProductVariantsCount() {
+  //   final globalController = Get.find<GlobalController>();
+  //   final variants = <String>{};
+  //   for (final item in globalController.basket) {
+  //     variants.add(item.id!);
+  //   }
+  //
+  //   return variants.length;
+  // }
 
   double calculateTotalCost() {
     final globalController = Get.find<GlobalController>();

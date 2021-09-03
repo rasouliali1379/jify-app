@@ -34,7 +34,7 @@ class SubcategoryProductsList extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 17, left: 12, right: 12),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: Get.width / 3,
-                mainAxisExtent: Get.height * 0.25,
+                mainAxisExtent: Get.height * 0.29,
                 mainAxisSpacing: 5,
               ),
               itemCount: products.length,

@@ -73,7 +73,7 @@ class AccountFragmentController extends GetxController {
               mainController.onBottomNavClickHandler(0);
               Get.back();
               checkLoginStatus();
-              mainController.openDeliveryAddressModal();
+              mainController.checkInitialAddress();
             }));
   }
 

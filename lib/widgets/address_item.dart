@@ -46,29 +46,12 @@ class AddressItem extends StatelessWidget {
               width: Get.width * 0.0373,
             ),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Text(
-                      addressModel.address!,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.extraDarkCyan16Normal500
-                          .copyWith(color: AppTextColors.darkCyan),
-                    ),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.011,
-                  ),
-                  Flexible(
-                    child: Text(
-                      addressModel.address!,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.extraLightBlue14Normal300,
-                    ),
-                  )
-                ],
+              child: Text(
+                addressModel.address!,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: AppTextStyles.extraDarkCyan16Normal500
+                    .copyWith(color: AppTextColors.darkCyan),
               ),
             ),
             SizedBox(

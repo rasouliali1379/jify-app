@@ -34,7 +34,8 @@ class ProductPage extends GetView<ProductPageController> {
                       color: AppColors.white,
                     ),
                     badgeColor: AppColors.lightGreen,
-                    position: BadgePosition.topStart(top: -17, start: 6),
+                    position: BadgePosition.topStart(
+                        top: Get.height * -0.0184, start: Get.width * 0.0213),
                     toAnimate: false,
                     child: SvgPicture.asset(
                       'assets/icons/shop_basket.svg',
@@ -74,73 +75,78 @@ class ProductPage extends GetView<ProductPageController> {
                         width: Get.width * 0,
                       ),
                       if (controller.product.off! > 0)
-                        SizedBox(
-                          width: Get.width * 0.112,
-                          height: Get.width * 0.112,
-                          child: Stack(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/icons/discount.svg",
-                                width: Get.width * 0.112,
-                                height: Get.width * 0.112,
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: Get.width * 0.112,
+                              height: Get.width * 0.112,
+                              child: Stack(
+                                children: [
+                                  SvgPicture.asset(
+                                    "assets/icons/discount.svg",
+                                    width: Get.width * 0.112,
+                                    height: Get.width * 0.112,
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      controller.product.off! > 0
+                                          ? "-${controller.product.off!.toStringAsFixed(0)}%"
+                                          : "",
+                                      style: AppTextStyles.white12Normal700,
+                                    ),
+                                  )
+                                ],
                               ),
-                              Center(
-                                child: Text(
-                                  controller.product.off! > 0
-                                      ? "${controller.product.off!.toStringAsFixed(0)}%"
-                                      : "",
-                                  style: AppTextStyles.white13Normal800,
-                                ),
-                              )
-                            ],
-                          ),
-                        )
+                            ),
+                            if (controller.product.off! > 0)
+                              SizedBox(
+                                height: Get.height * 0.007,
+                              ),
+                            if (controller.product.off! > 0)
+                              RichText(
+                                text: TextSpan(
+                                    text: ' \$ ',
+                                    style: AppTextStyles.green16Normal600,
+                                    children: [
+                                      TextSpan(
+                                          text: controller.product.offPrice!
+                                              .toStringAsFixed(2),
+                                          style: AppTextStyles.green20Normal600)
+                                    ]),
+                              ),
+                            if (controller.product.off! > 0)
+                              SizedBox(
+                                height: Get.height * 0.007,
+                              ),
+                            if (controller.product.off! > 0)
+                              Text("\$ ${controller.product.price!.toString()}",
+                                  style: const TextStyle(
+                                      color: Color.fromRGBO(161, 161, 161, 1),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      decoration: TextDecoration.lineThrough)),
+                            SizedBox(
+                              width: Get.width * 0.024,
+                            ),
+                          ],
+                        ),
+                      if (controller.product.off! == 0)
+                        RichText(
+                          text: TextSpan(
+                              text: ' \$ ',
+                              style: AppTextStyles.green16Normal600,
+                              children: [
+                                TextSpan(
+                                    text: controller.product.price!
+                                        .toStringAsFixed(2),
+                                    style: AppTextStyles.green20Normal600)
+                              ]),
+                        ),
                     ],
                   ),
                 ),
                 SizedBox(
                   height: Get.height * 0.02,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.ideographic,
-                  children: [
-                    if (controller.product.off! > 0)
-                      Text("\$ ${controller.product.price!.toString()}",
-                          style: const TextStyle(
-                              color: Color.fromRGBO(161, 161, 161, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              decoration: TextDecoration.lineThrough)),
-                    SizedBox(
-                      width: Get.width * 0.024,
-                    ),
-                    if (controller.product.off! > 0)
-                      RichText(
-                        text: TextSpan(
-                            text: ' \$ ',
-                            style: AppTextStyles.green16Normal600,
-                            children: [
-                              TextSpan(
-                                  text: controller.product.offPrice!
-                                      .toStringAsFixed(2),
-                                  style: AppTextStyles.green20Normal600)
-                            ]),
-                      ),
-                    if (controller.product.off! == 0)
-                      RichText(
-                        text: TextSpan(
-                            text: ' \$ ',
-                            style: AppTextStyles.green16Normal600,
-                            children: [
-                              TextSpan(
-                                  text: controller.product.price!
-                                      .toStringAsFixed(2),
-                                  style: AppTextStyles.green20Normal600)
-                            ]),
-                      ),
-                  ],
                 ),
                 SizedBox(
                   height: Get.height * 0.0246,
@@ -148,15 +154,19 @@ class ProductPage extends GetView<ProductPageController> {
                 const Divider(
                   height: 0,
                 ),
-                SizedBox(
-                  height: Get.height * 0.13,
-                  child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(vertical: Get.height * 0.02),
-                    child: Text(
-                      controller.product.description!,
-                      style: AppTextStyles.grayishBlack12Normal300
-                          .copyWith(height: 1.6),
-                      textAlign: TextAlign.justify,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: SizedBox(
+                    height: Get.height * 0.13,
+                    child: SingleChildScrollView(
+                      padding:
+                          EdgeInsets.symmetric(vertical: Get.height * 0.02),
+                      child: Text(
+                        controller.product.description!,
+                        style: AppTextStyles.grayishBlack12Normal300
+                            .copyWith(height: 1.6),
+                        textAlign: TextAlign.justify,
+                      ),
                     ),
                   ),
                 ),

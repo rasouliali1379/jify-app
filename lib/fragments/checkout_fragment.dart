@@ -332,7 +332,7 @@ class _CheckoutFragmentState extends State<CheckoutFragment>
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Obx(() => Text(
-                                            'Subtotal (${_controller.orders.length} items)',
+                                            'Subtotal (${_controller.itemCount} items)',
                                             style: AppTextStyles
                                                 .darkGrey14Normal300,
                                           )),

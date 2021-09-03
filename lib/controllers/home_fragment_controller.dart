@@ -159,7 +159,7 @@ class HomeFragmentController extends GetxController {
     } else {
       showCustomSnackBar("Only ${product.stock} ${product.title} available");
     }
-    vibrateWithDuration(25);
+    vibrateWithDuration(50);
   }
 
   void removeFromBasket(String id) {
@@ -167,7 +167,7 @@ class HomeFragmentController extends GetxController {
     update();
     Get.find<CheckoutFragmentController>().populateOrders();
     Get.find<GlobalController>().updateTotalCost();
-    vibrateWithDuration(25);
+    vibrateWithDuration(50);
   }
 
   void browseProduct(ProductModel product) {

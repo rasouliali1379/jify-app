@@ -85,7 +85,7 @@ class _HomeFragmentState extends State<HomeFragment>
                           vertical: Get.height * 0.0147),
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: Get.width / 3,
-                        mainAxisExtent: Get.height * 0.25,
+                        mainAxisExtent: Get.height * 0.29,
                         mainAxisSpacing: 5,
                       ),
                       itemCount: _controller.searchedProducts.length,

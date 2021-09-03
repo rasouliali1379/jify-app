@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/controllers/global_controller.dart';
@@ -24,6 +21,7 @@ class CheckoutFragmentController extends GetxController {
   final globalController = Get.find<GlobalController>();
   final promoCodeController = TextEditingController();
   final cardNumberController = TextEditingController();
+
   final promoFocus = FocusNode();
   final _checkoutRepository = CheckoutRepository();
   final _productRepository = ProductRepository();
@@ -33,6 +31,7 @@ class CheckoutFragmentController extends GetxController {
   final _promoLoadingStatus = false.obs;
   final _loadingStatus = false.obs;
   final _promoCode = PromotionCodeModel().obs;
+  final _itemCount = 0.obs;
   final _subtotalPrice = 0.0.obs;
   final _deliveryPrice = 0.0.obs;
   final _promoCodePrice = 0.0.obs;
@@ -43,6 +42,12 @@ class CheckoutFragmentController extends GetxController {
     populateOrders();
     // checkSelectedAddress();
     super.onInit();
+  }
+
+  int get itemCount => _itemCount.value;
+
+  set itemCount(int value) {
+    _itemCount.value = value;
   }
 
   double get deliveryPrice => _deliveryPrice.value;
@@ -120,6 +125,7 @@ class CheckoutFragmentController extends GetxController {
     }
 
     orders = _tempOrders;
+    itemCount = _productRepository.getProductVariantsCount();
     calculatePrices();
   }
 

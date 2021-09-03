@@ -69,7 +69,7 @@ class _ProductItemState extends State<ProductItem>
         padding: const EdgeInsets.all(5),
         child: Container(
           width: Get.width * 0.29,
-          height: Get.height * 0.25,
+          height: Get.height * 0.29,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14),
               border: Border.all(color: _animation.value!, width: 1.2)),
@@ -85,7 +85,7 @@ class _ProductItemState extends State<ProductItem>
                       borderRadius: BorderRadius.circular(14),
                       child: CachedNetworkImage(
                           width: double.maxFinite,
-                          height: Get.height * 0.1,
+                          height: Get.height * 0.14,
                           imageUrl: widget.product.image!)),
                   Align(
                     alignment: Alignment.topRight,
@@ -101,8 +101,8 @@ class _ProductItemState extends State<ProductItem>
                             ),
                             Center(
                               child: Text(
-                                "${widget.product.off!.toStringAsFixed(0)}%",
-                                style: AppTextStyles.white13Normal800,
+                                "-${widget.product.off!.toStringAsFixed(0)}%",
+                                style: AppTextStyles.white12Normal700,
                               ),
                             )
                           ],
