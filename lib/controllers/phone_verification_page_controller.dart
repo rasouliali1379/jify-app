@@ -87,46 +87,49 @@ class PhoneVerificationPageController extends GetxController {
     showCustomSnackBar(message);
   }
 
-  void attemptSucceed(Map<String, dynamic> loginData) {
+  Future<void> attemptSucceed(Map<String, dynamic> loginData) async {
     final token = loginData["token"] as String;
     if (token.isNotEmpty) {
-      storageWrite(AppKeys.token, token).then((_) async {
-        final userData =
-            UserModel.fromJson(loginData["user"] as Map<String, dynamic>);
-        Get.find<AccountFragmentController>().checkLoginStatus();
-        globalController.initialDataModel.user = userData;
-        await storageWrite(AppKeys.address, userData.addresses!.last.id);
+      await storageWrite(AppKeys.token, token);
+      final userData =
+          UserModel.fromJson(loginData["user"] as Map<String, dynamic>);
+      Get.find<AccountFragmentController>().checkLoginStatus();
+      globalController.initialDataModel.user = userData;
 
-        if (storageExists(AppKeys.unsavedAddress)) {
-          final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
-          final addressModel = AddressModel.fromJson(jsonDecode(rawAddress));
-          final result = await _addressRepository.addAddress(addressModel);
-          result.fold((l) => attemptFailed(l), (r) async {
-            globalController.initialDataModel.user!.addresses = r;
-            await storageWrite(AppKeys.address, r.last.id);
-            await storageRemove(AppKeys.unsavedAddress);
-          });
-        }
-        final ordersController = Get.find<OrdersFragmentController>();
-        ordersController.checkUserLogStatus();
-        ordersController.getOrderList();
-        final checkoutController = Get.find<CheckoutFragmentController>();
-        checkoutController.populateOrders();
-        // checkoutController.checkSelectedAddress();
+      if (storageExists(AppKeys.unsavedAddress)) {
+        final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
+        final addressModel = AddressModel.fromJson(jsonDecode(rawAddress));
+        final result = await _addressRepository.addAddress(addressModel);
+        result.fold((l) => attemptFailed(l), (r) async {
+          globalController.initialDataModel.user!.addresses = r;
+          await storageWrite(AppKeys.address, r.last.id);
+          await storageRemove(AppKeys.unsavedAddress);
+        });
+      }
 
-        if (userData.firstname == null && userData.lastname == null) {
-          globalController.addressModalCanOpen = false;
-          Get.close(2);
-          Get.toNamed(Routes.signUp)!.then(
-              (value) => Get.find<MainPageController>().checkInitialAddress());
-        } else {
-          showCustomSnackBar(
-              "You're successfully signed in."
-              " Welcome ${userData.firstname}",
-              length: Toast.LENGTH_LONG);
-          Get.close(2);
-        }
-      });
+      if (globalController.initialDataModel.user!.addresses!.isNotEmpty) {
+        await storageWrite(AppKeys.address,
+            globalController.initialDataModel.user!.addresses!.last.id);
+      }
+      final ordersController = Get.find<OrdersFragmentController>();
+      ordersController.checkUserLogStatus();
+      ordersController.getOrderList();
+      final checkoutController = Get.find<CheckoutFragmentController>();
+      checkoutController.populateOrders();
+      // checkoutController.checkSelectedAddress();
+
+      if (userData.firstname == null && userData.lastname == null) {
+        globalController.addressModalCanOpen = false;
+        Get.close(2);
+        Get.toNamed(Routes.signUp)!.then(
+            (value) => Get.find<MainPageController>().checkInitialAddress());
+      } else {
+        showCustomSnackBar(
+            "You're successfully signed in."
+            " Welcome ${userData.firstname}",
+            length: Toast.LENGTH_LONG);
+        Get.close(2);
+      }
     }
   }
 
