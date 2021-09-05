@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/models/address_model.dart';
@@ -7,6 +10,7 @@ import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/repositories/product_repository.dart';
 import 'package:jify_app/repositories/user_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
+import 'package:jify_app/utilities/utilities.dart';
 
 class GlobalController extends GetxController {
   final userRepository = UserRepository();
@@ -23,6 +27,7 @@ class GlobalController extends GetxController {
 
   bool isAddAddressModalOpen = false;
   bool addressModalCanOpen = true;
+  bool exitAppAllowed = false;
 
   void initFireBaseListeners() {
     fcm.getToken().then((value) {
@@ -65,5 +70,18 @@ class GlobalController extends GetxController {
 
   void updateTotalCost() {
     totalCost = productRepository.calculateTotalCost();
+  }
+
+  void exitApp() {
+    if (exitAppAllowed) {
+      if (Platform.isAndroid) {
+        SystemNavigator.pop();
+      }
+    } else {
+      showCustomSnackBar("Tap again if you want to quit app");
+      exitAppAllowed = true;
+      Future.delayed(const Duration(seconds: 4))
+          .then((_) => exitAppAllowed = false);
+    }
   }
 }

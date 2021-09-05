@@ -110,7 +110,7 @@ class MainPageController extends GetxController {
       _homeController.onAppBarBackPressed();
     } else {
       if (pageStack.length == 1) {
-        return Future.value(true);
+        _globalController.exitApp();
       } else {
         pageStack.removeLast();
         if (pageStack.last >= 0 && pageStack.last <= 2) {
@@ -160,5 +160,10 @@ class MainPageController extends GetxController {
         checkInitialAddress();
       }
     });
+  }
+
+  Future<bool> onBackButtonPressed() {
+    _globalController.exitApp();
+    return Future.value(false);
   }
 }

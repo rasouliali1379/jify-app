@@ -18,7 +18,7 @@ class ChooseDeliveryAddressModal extends GetView<MainPageController> {
         systemNavigationBarDividerColor: AppColors.white,
         systemNavigationBarColor: AppColors.white));
     return WillPopScope(
-      onWillPop: () => Future.value(false),
+      onWillPop: controller.onBackButtonPressed,
       child: Container(
         width: double.maxFinite,
         height: Get.height * 0.2672,

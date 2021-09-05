@@ -142,8 +142,9 @@ class HomeFragmentController extends GetxController {
 
   void addProduct(ProductModel product) {
     addProductToBasket(product);
+    final countInBasket = productRepository.countInBasket(product.id!);
     showCustomSnackBar(
-        "${productRepository.countInBasket(product.id!)} item added to basket",
+        "$countInBasket ${countInBasket > 1 ? 'items' : 'item'} added to basket",
         duration: 1);
   }
 
