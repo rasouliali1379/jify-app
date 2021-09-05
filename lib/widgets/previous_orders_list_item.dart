@@ -34,7 +34,7 @@ class PreviousOrdersListItem extends StatelessWidget {
                       style: AppTextStyles.green12Normal400,
                       children: [
                     TextSpan(
-                        text: orderModel.amount!.total!.toString(),
+                        text: orderModel.amount!.total!.toStringAsFixed(2),
                         style: AppTextStyles.green14Normal400)
                   ]))
             ],

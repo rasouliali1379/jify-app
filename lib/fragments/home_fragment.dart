@@ -47,8 +47,30 @@ class _HomeFragmentState extends State<HomeFragment>
         body: Column(
           children: [
             GetX<GlobalController>(builder: (controller) {
-              if (controller.initialDataModel.user != null ||
-                  storageExists(AppKeys.unsavedAddress)) {
+              if (controller.initialDataModel.user != null) {
+                if (controller.initialDataModel.user!.addresses!.isNotEmpty) {
+                  return controller.isAddressInRange
+                      ? AddressContainer(
+                          RichText(
+                            text: TextSpan(
+                                style: AppTextStyles.lightPurple11Normal500,
+                                children: [
+                                  const TextSpan(text: 'Delivery to '),
+                                  TextSpan(
+                                      text: _controller.getDeliveryAddress(),
+                                      style: AppTextStyles
+                                          .lightPurple11Normal500
+                                          .copyWith(
+                                              decoration:
+                                                  TextDecoration.underline)),
+                                  const TextSpan(text: ' within 15 minutes')
+                                ]),
+                          ),
+                        )
+                      : ChangeAddressContainer(
+                          _controller.mainController.openAddressesPage);
+                }
+              } else if (storageExists(AppKeys.unsavedAddress)) {
                 return controller.isAddressInRange
                     ? AddressContainer(
                         RichText(

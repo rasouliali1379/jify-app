@@ -97,6 +97,7 @@ class OrdersFragmentController extends GetxController {
     final globalController = Get.find<GlobalController>();
     globalController.basket.clear();
     globalController.basket.addAll(basket);
+    globalController.updateTotalCost();
     Get.find<CheckoutFragmentController>().populateOrders();
     Get.find<MainPageController>().onBottomNavClickHandler(3);
     Get.find<HomeFragmentController>().update();

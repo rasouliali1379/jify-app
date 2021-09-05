@@ -187,6 +187,7 @@ class DeliveryAddressesPageController extends GetxController {
           if (!globalController.isAddressInRange && !editMode) {
             Get.toNamed(Routes.storeUnavailable, arguments: addressModel);
           }
+          Get.find<MainPageController>().checkInitialAddress();
         });
       } else {
         loadingStatus = true;
@@ -273,6 +274,7 @@ class DeliveryAddressesPageController extends GetxController {
     } else {
       Get.back();
     }
+    Get.find<MainPageController>().checkInitialAddress();
     if (!globalController.isAddressInRange && !editMode) {
       Get.toNamed(Routes.storeUnavailable, arguments: addresses.last);
     }

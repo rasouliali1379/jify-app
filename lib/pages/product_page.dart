@@ -119,7 +119,8 @@ class ProductPage extends GetView<ProductPageController> {
                                 height: Get.height * 0.007,
                               ),
                             if (controller.product.off! > 0)
-                              Text("\$ ${controller.product.price!.toString()}",
+                              Text(
+                                  "\$ ${controller.product.price!.toStringAsFixed(2)}",
                                   style: const TextStyle(
                                       color: Color.fromRGBO(161, 161, 161, 1),
                                       fontSize: 14,

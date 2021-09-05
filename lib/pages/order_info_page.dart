@@ -185,7 +185,7 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                                       TextSpan(
                                         text: controller
                                             .orderDetail.amount!.subTotal!
-                                            .toString(),
+                                            .toStringAsFixed(2),
                                         style: AppTextStyles.green15Normal400,
                                       )
                                     ]),
@@ -212,7 +212,7 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                                       TextSpan(
                                         text: controller
                                             .orderDetail.amount!.delivery!
-                                            .toString(),
+                                            .toStringAsFixed(2),
                                         style: AppTextStyles.green15Normal400,
                                       )
                                     ]),
@@ -239,7 +239,7 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                                       TextSpan(
                                         text: controller
                                             .orderDetail.amount!.promotion!
-                                            .toString(),
+                                            .toStringAsFixed(2),
                                         style: AppTextStyles.red15Normal400,
                                       )
                                     ]),
@@ -273,7 +273,7 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                                       TextSpan(
                                         text: controller
                                             .orderDetail.amount!.total!
-                                            .toString(),
+                                            .toStringAsFixed(2),
                                         style: AppTextStyles.green15Normal400,
                                       )
                                     ]),

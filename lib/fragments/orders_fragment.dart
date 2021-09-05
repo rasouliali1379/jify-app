@@ -59,49 +59,59 @@ class _OrdersFragmentState extends State<OrdersFragment>
           );
         } else if (_controller.ordersList.isEmpty &&
             _controller.previousOrdersList.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  'assets/images/orders_placeholder.svg',
-                  width: Get.width * 0.221,
-                  height: Get.width * 0.221,
+          return RefreshIndicator(
+            onRefresh: _controller.onRefresh,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: SizedBox(
+                width: double.maxFinite,
+                height: Get.height * 0.821,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/images/orders_placeholder.svg',
+                      width: Get.width * 0.221,
+                      height: Get.width * 0.221,
+                    ),
+                    SizedBox(
+                      height: Get.height * 0.0295,
+                    ),
+                    const Text(
+                      'No Orders Yet',
+                      style: AppTextStyles.extraDarkCyan24Normal700,
+                    ),
+                    SizedBox(
+                      height: Get.height * 0.02,
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: Get.width * 0.141),
+                      child: Text(
+                        'Your favorites and recent orders will live here.',
+                        style: AppTextStyles.extraDarkCyan16Normal500.copyWith(
+                            color:
+                                AppTextColors.extraDarkCyan.withOpacity(0.6)),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(
+                      height: Get.height * 0.0197,
+                    ),
+                    LongButton(
+                      _controller.startOrdering,
+                      "Start Order",
+                      Get.width * 0.33,
+                      Get.height * 0.0566,
+                      color: Colors.transparent,
+                      elevation: 0,
+                      labelColor: AppColors.blue,
+                      borderRadius: 50,
+                      borderColor: const Color.fromRGBO(216, 216, 216, 1),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  height: Get.height * 0.0295,
-                ),
-                const Text(
-                  'No Orders Yet',
-                  style: AppTextStyles.extraDarkCyan24Normal700,
-                ),
-                SizedBox(
-                  height: Get.height * 0.02,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.141),
-                  child: Text(
-                    'Your favorites and recent orders will live here.',
-                    style: AppTextStyles.extraDarkCyan16Normal500.copyWith(
-                        color: AppTextColors.extraDarkCyan.withOpacity(0.6)),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox(
-                  height: Get.height * 0.0197,
-                ),
-                LongButton(
-                  _controller.startOrdering,
-                  "Start Order",
-                  Get.width * 0.33,
-                  Get.height * 0.0566,
-                  color: Colors.transparent,
-                  elevation: 0,
-                  labelColor: AppColors.blue,
-                  borderRadius: 50,
-                  borderColor: const Color.fromRGBO(216, 216, 216, 1),
-                )
-              ],
+              ),
             ),
           );
         }
@@ -111,8 +121,7 @@ class _OrdersFragmentState extends State<OrdersFragment>
           child: SizedBox(
             height: Get.height,
             child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics()),
+              physics: const AlwaysScrollableScrollPhysics(),
               child: ListView(
                 padding: EdgeInsets.symmetric(
                     horizontal: Get.width * 0.0453,

@@ -54,7 +54,8 @@ void showCustomSnackBar(String message,
       },
     );
     messagePermitted = false;
-    Future.delayed(Duration(seconds: duration + 1)).then((value) {
+    Future.delayed(Duration(microseconds: (duration * 1000) + 200))
+        .then((value) {
       messagePermitted = true;
     });
   }

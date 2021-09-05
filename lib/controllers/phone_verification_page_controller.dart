@@ -113,7 +113,6 @@ class PhoneVerificationPageController extends GetxController {
       }
       final ordersController = Get.find<OrdersFragmentController>();
       ordersController.checkUserLogStatus();
-      ordersController.getOrderList();
       final checkoutController = Get.find<CheckoutFragmentController>();
       checkoutController.populateOrders();
       // checkoutController.checkSelectedAddress();
