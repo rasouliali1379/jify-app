@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
@@ -25,6 +26,7 @@ class IntroPageController extends GetxController
   }
 
   void nextPage() {
+
     pageController.animateToPage(1,
         duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
   }

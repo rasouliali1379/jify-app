@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
-
+import 'dart:math';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -17,6 +17,7 @@ class GlobalController extends GetxController {
   final userRepository = UserRepository();
   final productRepository = ProductRepository();
   final fcm = FirebaseMessaging.instance;
+  final firebaseMessaging = FirebaseMessaging;
 
   final basket = <ProductModel>[];
   final _totalCost = 0.0.obs;
@@ -30,7 +31,7 @@ class GlobalController extends GetxController {
   bool addressModalCanOpen = true;
   bool exitAppAllowed = false;
 
-  void initFireBaseListeners() {
+  Future<void> initFireBaseListeners() async {
     fcm.getToken().then((value) {
       if (value != null) {
         saveToken(value);
@@ -40,6 +41,18 @@ class GlobalController extends GetxController {
     fcm.onTokenRefresh.listen((event) {
       saveToken(event);
     });
+
+    final settings = await fcm.requestPermission();
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        AwesomeNotifications().createNotification(
+            content: NotificationContent(
+                id: 0,
+                channelKey: 'basic_channel',
+                title: message.notification!.title,
+                body: message.notification!.body));
+      });
+    }
   }
 
   double get totalCost => _totalCost.value;
@@ -62,10 +75,9 @@ class GlobalController extends GetxController {
         userData.fcmToken = token;
         userRepository
             .updateUser(userData)
-            .then((value) =>
-            value.fold((l) => null, (r) {
-              initialDataModel.user = r;
-            }));
+            .then((value) => value.fold((l) => null, (r) {
+                  initialDataModel.user = r;
+                }));
       }
     }
   }
@@ -86,5 +98,4 @@ class GlobalController extends GetxController {
           .then((_) => exitAppAllowed = false);
     }
   }
-
 }
