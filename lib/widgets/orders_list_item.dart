@@ -30,7 +30,9 @@ class OrdersListItem extends StatelessWidget {
                     style: AppTextStyles.extraDarkCyan14Normal400,
                   ),
                   Text(
-                    orderModel.status == "unknown" ? ' (In progress) ' : '',
+                    orderModel.status == "paid"
+                        ? ' (Preparing Order) '
+                        : ' (On its way) ',
                     style: AppTextStyles.blue12Normal400,
                   )
                 ],

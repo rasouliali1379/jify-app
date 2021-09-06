@@ -3,4 +3,5 @@ class AppKeys {
   static const address = 'address';
   static const token = 'token';
   static const unsavedAddress = 'unsaved_address';
+  static const orders = 'orders';
 }

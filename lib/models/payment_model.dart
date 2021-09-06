@@ -8,8 +8,11 @@ class PaymentModel {
 
   PaymentModel.fromJson(dynamic json) {
     nonce = json['nonce'] == null ? null : json['nonce'] as String;
-    deviceData =
-        json['device-data'] == null ? null : json['device-data'] as String;
+    if (json['device-data'] == null) {
+      deviceData = null;
+    } else {
+      deviceData = json['device-data'].toString();
+    }
     description =
         json['description'] == null ? null : json['description'] as String;
     status = json['status'] == null ? null : json['status'] as int;

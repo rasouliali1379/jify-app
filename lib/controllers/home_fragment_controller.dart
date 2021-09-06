@@ -157,10 +157,25 @@ class HomeFragmentController extends GetxController {
       update();
       Get.find<CheckoutFragmentController>().populateOrders();
       Get.find<GlobalController>().updateTotalCost();
+      cacheBasket();
     } else {
       showCustomSnackBar("Only ${product.stock} ${product.title} available");
     }
     vibrateWithDuration(50);
+  }
+
+  Future<void> cacheBasket() async {
+    if (_globalController.basket.isEmpty) {
+      await storageRemove(AppKeys.orders);
+    } else {
+      final jsonBasket = <Map<String, dynamic>>[];
+
+      for (final item in _globalController.basket) {
+        jsonBasket.add(item.toJson());
+      }
+      await storageWrite(AppKeys.orders, json.encode(jsonBasket));
+      print(storageRead(AppKeys.orders));
+    }
   }
 
   void removeFromBasket(String id) {
@@ -168,6 +183,7 @@ class HomeFragmentController extends GetxController {
     update();
     Get.find<CheckoutFragmentController>().populateOrders();
     Get.find<GlobalController>().updateTotalCost();
+    cacheBasket();
     vibrateWithDuration(50);
   }
 

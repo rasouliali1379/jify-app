@@ -62,9 +62,9 @@ class OrdersFragmentController extends GetxController {
     ordersList.clear();
     previousOrdersList.clear();
     for (final order in orders) {
-      if (order.status == "unknown") {
+      if (order.status == "paid" || order.status == "dispatched") {
         ordersList.add(order);
-      } else {
+      } else if (order.status == "finished" || order.status == "unknown") {
         previousOrdersList.add(order);
       }
     }

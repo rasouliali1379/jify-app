@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -61,9 +62,10 @@ class GlobalController extends GetxController {
         userData.fcmToken = token;
         userRepository
             .updateUser(userData)
-            .then((value) => value.fold((l) => null, (r) {
-                  initialDataModel.user = r;
-                }));
+            .then((value) =>
+            value.fold((l) => null, (r) {
+              initialDataModel.user = r;
+            }));
       }
     }
   }
@@ -84,4 +86,5 @@ class GlobalController extends GetxController {
           .then((_) => exitAppAllowed = false);
     }
   }
+
 }

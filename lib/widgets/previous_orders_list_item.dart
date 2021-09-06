@@ -24,9 +24,21 @@ class PreviousOrdersListItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                orderModel.orderNumber!.toString(),
-                style: AppTextStyles.extraDarkCyan14Normal400,
+              Row(
+                children: [
+                  Text(
+                    orderModel.orderNumber.toString(),
+                    style: AppTextStyles.extraDarkCyan14Normal400,
+                  ),
+                  Text(
+                    orderModel.status == "finished"
+                        ? ' (Finished) '
+                        : ' (Pending) ',
+                    style: orderModel.status == "finished"
+                        ? AppTextStyles.green12Normal400
+                        : AppTextStyles.blue12Normal400,
+                  )
+                ],
               ),
               RichText(
                   text: TextSpan(

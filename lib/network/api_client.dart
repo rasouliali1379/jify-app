@@ -38,6 +38,7 @@ class ApiClient {
     if (connectionStatus == ConnectivityResult.mobile ||
         connectionStatus == ConnectivityResult.wifi) {
       final token = storageRead(AppKeys.token) ?? "";
+      print(token.toString());
       Response? _response;
       try {
         _response = await _dio.post(
@@ -50,6 +51,7 @@ class ApiClient {
         return Right(_response);
       } on DioError catch (e) {
         if (e.response != null) {
+          print(e.response!.data.toString());
           return Left(e.response!.data["msg"] as String);
         }
         return const Left("Something unexpected happened");

@@ -214,14 +214,19 @@ class ConfirmationPageController extends GetxController {
     final result = await BraintreeDropIn.start(request);
 
     if (result != null) {
+      print("nonce : ${result.paymentMethodNonce.nonce}");
+      print("device-data : ${result.deviceData}");
+      print("description : ${result.paymentMethodNonce.description}");
+      print("orderID : ${orderModel!.id!}");
+
       checkoutRepository
-          .pay(result.paymentMethodNonce.nonce, result.deviceData!,
+          .pay(result.paymentMethodNonce.nonce, result.deviceData!.toString(),
               orderModel!.id!, result.paymentMethodNonce.description, 0)
           .then((result) => result.fold(
               (l) => attemptFailed(l), (r) => paymentAttemptSucceed()));
     } else {
       loadingStatus = false;
-      showCustomSnackBar("Payment failed");
+      showCustomSnackBar("Your payment could not be processed");
     }
   }
 
@@ -229,7 +234,7 @@ class ConfirmationPageController extends GetxController {
     loadingStatus = false;
     clearBasket();
     Get.back();
-    showCustomSnackBar("Order submitted");
+    showCustomSnackBar("Your payment has been processed successfully");
   }
 
   void clearBasket() {

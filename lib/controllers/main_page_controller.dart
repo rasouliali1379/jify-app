@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
+import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/modals/choose_delivery_address_modal.dart';
 import 'package:jify_app/modals/store_closed_modal.dart';
+import 'package:jify_app/models/product_model.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/repositories/address_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
@@ -165,5 +169,22 @@ class MainPageController extends GetxController {
   Future<bool> onBackButtonPressed() {
     _globalController.exitApp();
     return Future.value(false);
+  }
+
+  @override
+  void onInit() {
+    loadBasket();
+    super.onInit();
+  }
+
+  void loadBasket() {
+    if (storageExists(AppKeys.orders)) {
+      final stringBasket = storageRead(AppKeys.orders) as String;
+      final jsonBasket = jsonDecode(stringBasket) as List<dynamic>;
+      final products = List<ProductModel>.from(
+          jsonBasket.map((model) => ProductModel.fromJson(model)));
+      _globalController.basket.assignAll(products);
+      _globalController.updateTotalCost();
+    }
   }
 }
