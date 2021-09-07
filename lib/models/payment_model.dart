@@ -3,8 +3,10 @@ class PaymentModel {
   String? deviceData;
   String? description;
   int? status;
+  String? type;
 
-  PaymentModel({this.nonce, this.deviceData, this.description, this.status});
+  PaymentModel(
+      {this.nonce, this.deviceData, this.description, this.status, this.type});
 
   PaymentModel.fromJson(dynamic json) {
     nonce = json['nonce'] == null ? null : json['nonce'] as String;
@@ -16,6 +18,7 @@ class PaymentModel {
     description =
         json['description'] == null ? null : json['description'] as String;
     status = json['status'] == null ? null : json['status'] as int;
+    type = json['type'] as String;
   }
 
   Map<String, dynamic> toJson() {
@@ -24,6 +27,7 @@ class PaymentModel {
     map['device-data'] = deviceData;
     map['description'] = description;
     map['status'] = status;
+    map['type'] = type;
     return map;
   }
 }

@@ -30,13 +30,9 @@ class PreviousOrdersListItem extends StatelessWidget {
                     orderModel.orderNumber.toString(),
                     style: AppTextStyles.extraDarkCyan14Normal400,
                   ),
-                  Text(
-                    orderModel.status == "finished"
-                        ? ' (Finished) '
-                        : ' (Pending) ',
-                    style: orderModel.status == "finished"
-                        ? AppTextStyles.green12Normal400
-                        : AppTextStyles.blue12Normal400,
+                  const Text(
+                    ' (Delivered) ',
+                    style: AppTextStyles.green12Normal400,
                   )
                 ],
               ),

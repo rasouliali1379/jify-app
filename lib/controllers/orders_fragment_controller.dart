@@ -64,7 +64,7 @@ class OrdersFragmentController extends GetxController {
     for (final order in orders) {
       if (order.status == "paid" || order.status == "dispatched") {
         ordersList.add(order);
-      } else if (order.status == "finished" || order.status == "unknown") {
+      } else if (order.status == "finished") {
         previousOrdersList.add(order);
       }
     }

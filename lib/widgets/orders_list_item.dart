@@ -30,11 +30,12 @@ class OrdersListItem extends StatelessWidget {
                     style: AppTextStyles.extraDarkCyan14Normal400,
                   ),
                   Text(
-                    orderModel.status == "paid"
-                        ? ' (Preparing Order) '
-                        : ' (On its way) ',
-                    style: AppTextStyles.blue12Normal400,
-                  )
+                      orderModel.status == "paid"
+                          ? ' (In progress) '
+                          : ' (On its way) ',
+                      style: AppTextStyles.blue12Normal400.copyWith(
+                        color: const Color.fromRGBO(59, 195, 238, 1),
+                      ))
                 ],
               ),
               RichText(

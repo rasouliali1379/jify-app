@@ -24,7 +24,7 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
       appBar: CustomToolBar(
         'Order Info',
         action: Padding(
-          padding: EdgeInsets.only(right: Get.width * 0.04),
+          padding: EdgeInsets.only(right: Get.width * 0.02),
           child: ClickableText(
             'Help',
             controller.openHelpCenter,
@@ -121,8 +121,10 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                         SizedBox(
                           height: Get.height * 0.0283,
                         ),
-                        const CustomTile('assets/icons/credit_card.svg',
-                            'Payment method', 'Visa Card'),
+                        CustomTile(
+                            'assets/icons/credit_card.svg',
+                            'Payment method',
+                            controller.orderDetail.payment!.type!),
                       ],
                     ),
                   ),
@@ -285,7 +287,7 @@ class OrderInfoPage extends GetView<OrderInfoPageController> {
                           height: Get.height * 0.0381,
                         ),
                         Obx(
-                          () => controller.orderDetail.status == "unknown"
+                          () => controller.orderDetail.status == "finished"
                               ? const SizedBox()
                               : LongButton(controller.reorder, 'Re-order',
                                   double.maxFinite, Get.height * 0.064),

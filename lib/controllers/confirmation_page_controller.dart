@@ -237,7 +237,7 @@ class ConfirmationPageController extends GetxController {
     showCustomSnackBar("Your payment has been processed successfully");
   }
 
-  void clearBasket() {
+  Future<void> clearBasket() async {
     globalController.basket.clear();
     final checkoutController = Get.find<CheckoutFragmentController>();
     checkoutController.populateOrders();
@@ -246,6 +246,7 @@ class ConfirmationPageController extends GetxController {
     Get.find<OrdersFragmentController>().getOrderList();
     Get.find<GlobalController>().updateTotalCost();
     Get.find<HomeFragmentController>().update();
+    await storageRemove(AppKeys.orders);
   }
 
   void openAddressesPage() {
