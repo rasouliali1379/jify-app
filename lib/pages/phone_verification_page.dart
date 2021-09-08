@@ -18,8 +18,7 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar('Phone Verification'),
       body: Padding(
@@ -39,22 +38,31 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
               style: AppTextStyles.grayishBlack12Normal300,
             ),
             SizedBox(height: Get.height * 0.15),
-            PinCodeTextField(
-              appContext: context,
-              length: 5,
-              onChanged: (value) {},
-              focusNode: controller.pinCodeFieldFocus,
-              textStyle: AppTextStyles.extraDarkCyan38Normal200,
-              animationType: AnimationType.fade,
-              keyboardType: TextInputType.number,
-              cursorColor: Colors.transparent,
-              onCompleted: controller.onPinCodeCompleteHandler,
-              pinTheme: PinTheme(
-                  borderRadius: BorderRadius.circular(5),
-                  fieldHeight: 50,
-                  fieldWidth: 40,
-                  inactiveColor: AppColors.lightGrey,
-                  activeColor: AppColors.blue),
+            Obx(
+              () => PinCodeTextField(
+                appContext: context,
+                length: 5,
+                onChanged: (value) {},
+                controller: controller.pinCodeController,
+                errorAnimationController: controller.errorController,
+                focusNode: controller.pinCodeFieldFocus,
+                textStyle: AppTextStyles.extraDarkCyan38Normal200,
+                animationType: AnimationType.fade,
+                keyboardType: TextInputType.number,
+                cursorColor: Colors.transparent,
+                onCompleted: controller.onPinCodeCompleteHandler,
+                errorAnimationDuration: 300,
+                pinTheme: PinTheme(
+                    borderRadius: BorderRadius.circular(5),
+                    fieldHeight: 50,
+                    fieldWidth: 40,
+                    inactiveColor: controller.pinCodeFieldError
+                        ? AppColors.red
+                        : AppColors.lightGrey,
+                    activeColor: controller.pinCodeFieldError
+                        ? AppColors.red
+                        : AppColors.blue),
+              ),
             ),
             SizedBox(
               height: Get.height * 0.0566,

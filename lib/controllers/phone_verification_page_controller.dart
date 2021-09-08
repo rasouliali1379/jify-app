@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -17,9 +18,12 @@ import 'package:jify_app/repositories/address_repository.dart';
 import 'package:jify_app/repositories/user_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/utilities/utilities.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PhoneVerificationPageController extends GetxController {
   final globalController = Get.find<GlobalController>();
+  final errorController = StreamController<ErrorAnimationType>();
+  final pinCodeController = TextEditingController();
   final _userRepository = UserRepository();
   final _addressRepository = AddressRepository();
 
@@ -27,6 +31,7 @@ class PhoneVerificationPageController extends GetxController {
   final pinCodeFieldFocus = FocusNode();
   final _resendStatus = "countdown".obs;
   final _phoneNumber = "".obs;
+  final _pinCodeFieldError = false.obs;
 
   @override
   void onInit() {
@@ -41,6 +46,12 @@ class PhoneVerificationPageController extends GetxController {
   void onReady() {
     pinCodeFieldFocus.requestFocus();
     super.onReady();
+  }
+
+  bool get pinCodeFieldError => _pinCodeFieldError.value;
+
+  set pinCodeFieldError(bool value) {
+    _pinCodeFieldError.value = value;
   }
 
   String get resendStatus => _resendStatus.value;
@@ -84,7 +95,17 @@ class PhoneVerificationPageController extends GetxController {
   }
 
   void attemptFailed(String message) {
+    passwordError();
     showCustomSnackBar(message);
+  }
+
+  void passwordError() {
+    pinCodeFieldError = true;
+    Future.delayed(const Duration(seconds: 2))
+        .then((_) => pinCodeFieldError = false);
+    errorController.add(ErrorAnimationType.shake);
+    vibrateWithDuration(300);
+    pinCodeController.clear();
   }
 
   Future<void> attemptSucceed(Map<String, dynamic> loginData) async {
@@ -135,6 +156,7 @@ class PhoneVerificationPageController extends GetxController {
   @override
   void onClose() {
     countdownController.dispose();
+    errorController.close();
     super.onClose();
   }
 }
