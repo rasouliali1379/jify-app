@@ -22,15 +22,10 @@ class AppRepository {
     }
   }
 
-  Future<Either<String, String>> contactSupport(String fullName, String email,
-      String subject, String orderId, String message) async {
-    final result = await _apiRequests.contactSupport({
-      "fullname": fullName,
-      "email": email,
-      "subject": subject,
-      "orderId": orderId,
-      "message": message
-    });
+  Future<Either<String, String>> contactSupport(
+      String fullName, String email, String subject, String orderId, String message) async {
+    final result = await _apiRequests.contactSupport(
+        {"fullname": fullName, "email": email, "subject": subject, "orderId": orderId, "message": message});
 
     String? error;
     String? data;

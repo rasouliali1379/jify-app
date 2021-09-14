@@ -10,8 +10,7 @@ class PreviousOrdersList extends StatelessWidget {
   final Function openOrder;
   final Function reorder;
 
-  const PreviousOrdersList(
-      this.title, this.items, this.openOrder, this.reorder);
+  const PreviousOrdersList(this.title, this.items, this.openOrder, this.reorder);
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +40,7 @@ class PreviousOrdersList extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: items.length,
-            itemBuilder: (context, index) =>
-                PreviousOrdersListItem(items[index], openOrder, reorder),
+            itemBuilder: (context, index) => PreviousOrdersListItem(items[index], openOrder, reorder),
           )
       ],
     );

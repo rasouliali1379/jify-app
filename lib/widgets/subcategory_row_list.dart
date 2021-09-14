@@ -19,8 +19,7 @@ class SubCategoryRowList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: items.length,
         physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) => SubCategoryRowListItem(
-            items[index].title!, selected == index, onClick, index),
+        itemBuilder: (context, index) => SubCategoryRowListItem(items[index].title!, selected == index, onClick, index),
       ),
     );
   }

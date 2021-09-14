@@ -38,13 +38,11 @@ import 'routes.dart';
 
 class Pages {
   static final routes = [
-    GetPage(
-        name: Routes.main, page: () => MainPage(), binding: MainPageBinding()),
+    GetPage(name: Routes.main, page: () => MainPage(), binding: MainPageBinding()),
     GetPage(
         name: Routes.accountInformation,
         page: () => AccountInformationPage(),
-        binding: BindingsBuilder(
-            () => {Get.put(AccountInformationPageController())})),
+        binding: BindingsBuilder(() => {Get.put(AccountInformationPageController())})),
     GetPage(
         name: Routes.addresses,
         page: () => AddressesPage(),
@@ -52,17 +50,13 @@ class Pages {
     GetPage(
         name: Routes.confirmation,
         page: () => ConfirmationPage(),
-        binding:
-            BindingsBuilder(() => {Get.put(ConfirmationPageController())})),
+        binding: BindingsBuilder(() => {Get.put(ConfirmationPageController())})),
     GetPage(
         name: Routes.deliveryAddresses,
         page: () => DeliveryAddressesPage(),
-        binding: BindingsBuilder(
-            () => {Get.put(DeliveryAddressesPageController())})),
+        binding: BindingsBuilder(() => {Get.put(DeliveryAddressesPageController())})),
     GetPage(
-        name: Routes.intro,
-        page: () => IntroPage(),
-        binding: BindingsBuilder(() => {Get.put(IntroPageController())})),
+        name: Routes.intro, page: () => IntroPage(), binding: BindingsBuilder(() => {Get.put(IntroPageController())})),
     GetPage(
         name: Routes.orderInfo,
         page: () => OrderInfoPage(),
@@ -74,8 +68,7 @@ class Pages {
     GetPage(
         name: Routes.phoneVerification,
         page: () => PhoneVerificationPage(),
-        binding: BindingsBuilder(
-            () => {Get.put(PhoneVerificationPageController())})),
+        binding: BindingsBuilder(() => {Get.put(PhoneVerificationPageController())})),
     GetPage(
         name: Routes.product,
         page: () => ProductPage(),
@@ -103,12 +96,10 @@ class Pages {
     GetPage(
         name: Routes.searchAddress,
         page: () => SearchAddressPage(),
-        binding:
-            BindingsBuilder(() => {Get.put(SearchAddressPageController())})),
+        binding: BindingsBuilder(() => {Get.put(SearchAddressPageController())})),
     GetPage(
         name: Routes.storeUnavailable,
         page: () => StoreUnavailablePage(),
-        binding:
-            BindingsBuilder(() => {Get.put(StoreUnavailablePageController())})),
+        binding: BindingsBuilder(() => {Get.put(StoreUnavailablePageController())})),
   ];
 }

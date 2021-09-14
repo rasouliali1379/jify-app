@@ -17,19 +17,10 @@ class BannerItem extends StatelessWidget {
       onTap: () => onClick(bannerModel.linkTo, bannerModel.object),
       child: Container(
         margin: EdgeInsets.only(
-            left: Get.width * 0.0426,
-            right: Get.width * 0.0426,
-            bottom: Get.width * 0.0213,
-            top: Get.height * 0.0184),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            color: AppColors.white,
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 2),
-                  blurRadius: 2,
-                  color: AppColors.black.withOpacity(0.25))
-            ]),
+            left: Get.width * 0.0426, right: Get.width * 0.0426, bottom: Get.width * 0.0213, top: Get.height * 0.0184),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), color: AppColors.white, boxShadow: [
+          BoxShadow(offset: const Offset(0, 2), blurRadius: 2, color: AppColors.black.withOpacity(0.25))
+        ]),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(14),
           child: CachedNetworkImage(

@@ -90,14 +90,9 @@ class HelpCenterPageController extends GetxController {
     if (validateFields()) {
       loadingStatus = true;
       _appRepository
-          .contactSupport(
-              fullNameTextController.text,
-              emailTextController.text,
-              subjectTextController.text,
-              orderNumberTextController.text,
-              messagesTextController.text)
-          .then((value) =>
-              value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+          .contactSupport(fullNameTextController.text, emailTextController.text, subjectTextController.text,
+              orderNumberTextController.text, messagesTextController.text)
+          .then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
     }
   }
 
@@ -118,10 +113,11 @@ class HelpCenterPageController extends GetxController {
       final userData = _globalController.initialDataModel.user!;
 
       if (userData.firstname != null && userData.lastname != null) {
-        fullNameTextController.text =
-            '${userData.firstname!} ${userData.lastname!}';
+        fullNameTextController.text = '${userData.firstname!} ${userData.lastname!}';
         emailTextController.text = userData.email!;
       }
+
+      orderNumberTextController.text = Get.arguments as String;
     }
   }
 

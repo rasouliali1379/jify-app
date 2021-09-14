@@ -34,8 +34,9 @@ class SearchAddressPageController extends GetxController {
   void onSearchQueryChangeHandler(String query) {
     if (query.length % 3 == 0) {
       loadingStatus = true;
-      _addressRepository.predictAddress(query).then((value) =>
-          value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+      _addressRepository
+          .predictAddress(query)
+          .then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
     }
   }
 
@@ -50,10 +51,8 @@ class SearchAddressPageController extends GetxController {
   }
 
   void onPredictionCLickHandler(String id) {
-    _addressRepository
-        .getLatLong(id)
-        .then((value) => value.fold((l) => attemptFailed(l), (r) {
-              Get.back(result: r);
-            }));
+    _addressRepository.getLatLong(id).then((value) => value.fold((l) => attemptFailed(l), (r) {
+          Get.back(result: r);
+        }));
   }
 }

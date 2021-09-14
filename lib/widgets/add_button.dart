@@ -12,11 +12,10 @@ class AddButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onClick,
       style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
-        ),
-       backgroundColor:  MaterialStateProperty.all<Color>(AppColors.lightGreen)
-      ),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
+          ),
+          backgroundColor: MaterialStateProperty.all<Color>(AppColors.lightGreen)),
       child: const Text(
         'Add',
         style: AppTextStyles.white13Normal800,

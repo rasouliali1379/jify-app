@@ -116,8 +116,9 @@ class SignUpPageController extends GetxController {
       userModel.email = emailTextController.text;
 
       loadingStatus = true;
-      _userRepository.updateUser(userModel).then((value) =>
-          value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+      _userRepository
+          .updateUser(userModel)
+          .then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
     } else {
       showCustomSnackBar('You need to agree to our terms and conditions',
           textColor: AppTextColors.white, bgColor: AppColors.red);

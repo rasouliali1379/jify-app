@@ -2,11 +2,10 @@ class AddressPredictionModel {
   String? description;
   String? placeId;
 
-
-  AddressPredictionModel(
-      {this.description,
-      this.placeId,
-      });
+  AddressPredictionModel({
+    this.description,
+    this.placeId,
+  });
 
   AddressPredictionModel.fromJson(dynamic json) {
     description = json['description'] as String;

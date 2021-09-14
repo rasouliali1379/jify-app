@@ -3,9 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jify_app/constants/app_colors.dart';
 
 class AddressContainer extends StatelessWidget {
-
   final Widget address;
-
 
   const AddressContainer(this.address);
 

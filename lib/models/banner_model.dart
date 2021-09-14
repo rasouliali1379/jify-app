@@ -7,14 +7,7 @@ class BannerModel {
   String? id;
   int? v;
 
-  BannerModel(
-      {this.image,
-      this.thumbnail,
-      this.linkTo,
-      this.object,
-      this.available,
-      this.id,
-      this.v});
+  BannerModel({this.image, this.thumbnail, this.linkTo, this.object, this.available, this.id, this.v});
 
   BannerModel.fromJson(dynamic json) {
     image = json['image'] as String;

@@ -14,8 +14,7 @@ class OrdersFragment extends StatefulWidget {
   _OrdersFragmentState createState() => _OrdersFragmentState();
 }
 
-class _OrdersFragmentState extends State<OrdersFragment>
-    with AutomaticKeepAliveClientMixin {
+class _OrdersFragmentState extends State<OrdersFragment> with AutomaticKeepAliveClientMixin {
   final _controller = Get.find<OrdersFragmentController>();
 
   @override
@@ -57,8 +56,7 @@ class _OrdersFragmentState extends State<OrdersFragment>
               ),
             ),
           );
-        } else if (_controller.ordersList.isEmpty &&
-            _controller.previousOrdersList.isEmpty) {
+        } else if (_controller.ordersList.isEmpty && _controller.previousOrdersList.isEmpty) {
           return RefreshIndicator(
             onRefresh: _controller.onRefresh,
             child: SingleChildScrollView(
@@ -85,13 +83,11 @@ class _OrdersFragmentState extends State<OrdersFragment>
                       height: Get.height * 0.02,
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: Get.width * 0.141),
+                      padding: EdgeInsets.symmetric(horizontal: Get.width * 0.141),
                       child: Text(
                         'Your favorites and recent orders will live here.',
-                        style: AppTextStyles.extraDarkCyan16Normal500.copyWith(
-                            color:
-                                AppTextColors.extraDarkCyan.withOpacity(0.6)),
+                        style: AppTextStyles.extraDarkCyan16Normal500
+                            .copyWith(color: AppTextColors.extraDarkCyan.withOpacity(0.6)),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -123,22 +119,16 @@ class _OrdersFragmentState extends State<OrdersFragment>
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               child: ListView(
-                padding: EdgeInsets.symmetric(
-                    horizontal: Get.width * 0.0453,
-                    vertical: Get.height * 0.01),
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453, vertical: Get.height * 0.01),
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 children: [
                   GetBuilder<OrdersFragmentController>(builder: (controller) {
-                    return LiveOrdersList('Live orders', controller.ordersList,
-                        controller.openOrderDetailsPage);
+                    return LiveOrdersList('Live orders', controller.ordersList, controller.openOrderDetailsPage);
                   }),
                   GetBuilder<OrdersFragmentController>(builder: (controller) {
-                    return PreviousOrdersList(
-                        'Previous orders',
-                        controller.previousOrdersList,
-                        controller.openOrderDetailsPage,
-                        controller.reorder);
+                    return PreviousOrdersList('Previous orders', controller.previousOrdersList,
+                        controller.openOrderDetailsPage, controller.reorder);
                   }),
                 ],
               ),

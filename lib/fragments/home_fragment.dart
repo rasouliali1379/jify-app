@@ -25,8 +25,7 @@ class HomeFragment extends StatefulWidget {
   _HomeFragmentState createState() => _HomeFragmentState();
 }
 
-class _HomeFragmentState extends State<HomeFragment>
-    with AutomaticKeepAliveClientMixin {
+class _HomeFragmentState extends State<HomeFragment> with AutomaticKeepAliveClientMixin {
   final _controller = Get.find<HomeFragmentController>();
 
   @override
@@ -37,12 +36,8 @@ class _HomeFragmentState extends State<HomeFragment>
     super.build(context);
     return GetBuilder<HomeFragmentController>(builder: (controller) {
       return Scaffold(
-        appBar: CustomAppBar(
-            controller.onAppBarBackPressed,
-            controller.clearSearch,
-            controller.searchChangeHandler,
-            controller.searchTextController,
-            controller.searchFocusNode),
+        appBar: CustomAppBar(controller.onAppBarBackPressed, controller.clearSearch, controller.searchChangeHandler,
+            controller.searchTextController, controller.searchFocusNode),
         resizeToAvoidBottomInset: false,
         body: Column(
           children: [
@@ -52,48 +47,35 @@ class _HomeFragmentState extends State<HomeFragment>
                   return controller.isAddressInRange
                       ? AddressContainer(
                           RichText(
-                            text: TextSpan(
-                                style: AppTextStyles.lightPurple11Normal500,
-                                children: [
-                                  const TextSpan(text: 'Delivery to '),
-                                  TextSpan(
-                                      text: _controller.getDeliveryAddress(),
-                                      style: AppTextStyles
-                                          .lightPurple11Normal500
-                                          .copyWith(
-                                              decoration:
-                                                  TextDecoration.underline)),
-                                  const TextSpan(text: ' within 15 minutes')
-                                ]),
+                            text: TextSpan(style: AppTextStyles.lightPurple11Normal500, children: [
+                              const TextSpan(text: 'Delivery to '),
+                              TextSpan(
+                                  text: _controller.getDeliveryAddress(),
+                                  style: AppTextStyles.lightPurple11Normal500
+                                      .copyWith(decoration: TextDecoration.underline)),
+                              const TextSpan(text: ' within 15 minutes')
+                            ]),
                           ),
                         )
-                      : ChangeAddressContainer(
-                          _controller.mainController.openAddressesPage);
+                      : ChangeAddressContainer(_controller.mainController.openAddressesPage);
                 }
               } else if (storageExists(AppKeys.unsavedAddress)) {
                 return controller.isAddressInRange
                     ? AddressContainer(
                         RichText(
-                          text: TextSpan(
-                              style: AppTextStyles.lightPurple11Normal500,
-                              children: [
-                                const TextSpan(text: 'Delivery to '),
-                                TextSpan(
-                                    text: _controller.getDeliveryAddress(),
-                                    style: AppTextStyles.lightPurple11Normal500
-                                        .copyWith(
-                                            decoration:
-                                                TextDecoration.underline)),
-                                const TextSpan(text: ' within 15 minutes')
-                              ]),
+                          text: TextSpan(style: AppTextStyles.lightPurple11Normal500, children: [
+                            const TextSpan(text: 'Delivery to '),
+                            TextSpan(
+                                text: _controller.getDeliveryAddress(),
+                                style: AppTextStyles.lightPurple11Normal500
+                                    .copyWith(decoration: TextDecoration.underline)),
+                            const TextSpan(text: ' within 15 minutes')
+                          ]),
                         ),
                       )
-                    : ChangeAddressContainer(
-                        _controller.mainController.openAddressesPage);
+                    : ChangeAddressContainer(_controller.mainController.openAddressesPage);
               }
-              return controller.isAddressInRange
-                  ? const SizedBox()
-                  : const SizedBox();
+              return controller.isAddressInRange ? const SizedBox() : const SizedBox();
             }),
             Builder(builder: (context) {
               switch (controller.pageMode) {
@@ -102,12 +84,10 @@ class _HomeFragmentState extends State<HomeFragment>
                     child: GridView.builder(
                       shrinkWrap: true,
                       // physics: const NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Get.width * 0.03,
-                          vertical: Get.height * 0.0147),
+                      padding: EdgeInsets.symmetric(horizontal: Get.width * 0.03, vertical: Get.height * 0.0147),
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: Get.width / 3,
-                        mainAxisExtent: Get.height * 0.29,
+                        mainAxisExtent: Get.height * 0.278,
                         mainAxisSpacing: 5,
                       ),
                       itemCount: _controller.searchedProducts.length,
@@ -116,18 +96,15 @@ class _HomeFragmentState extends State<HomeFragment>
                           controller.addProduct,
                           controller.removeFromBasket,
                           controller.browseProduct,
-                          controller.productRepository.countInBasket(
-                              _controller.searchedProducts[index].id!)),
+                          controller.productRepository.countInBasket(_controller.searchedProducts[index].id!)),
                     ),
                   );
                 case "subcategory_products":
                   return Expanded(
                     child: Column(
                       children: [
-                        Obx(() => SubCategoryRowList(
-                            _controller.subCategories,
-                            _controller.onSubcategoryItemClickHandler,
-                            _controller.selectedSubcategory)),
+                        Obx(() => SubCategoryRowList(_controller.subCategories,
+                            _controller.onSubcategoryItemClickHandler, _controller.selectedSubcategory)),
                         Expanded(
                           child: Obx(() {
                             if (controller.productStatus == AppStatus.loading) {
@@ -136,8 +113,7 @@ class _HomeFragmentState extends State<HomeFragment>
                                   color: AppColors.blue,
                                 ),
                               );
-                            } else if (controller.productStatus ==
-                                AppStatus.nothingFound) {
+                            } else if (controller.productStatus == AppStatus.nothingFound) {
                               return const Center(
                                 child: Text(
                                   'Nothing to show',
@@ -161,10 +137,8 @@ class _HomeFragmentState extends State<HomeFragment>
                   return Expanded(
                     child: Column(
                       children: [
-                        Obx(() => SubCategoryRowList(
-                            _controller.subCategories,
-                            _controller.onSubcategoryItemClickHandler,
-                            _controller.selectedSubcategory)),
+                        Obx(() => SubCategoryRowList(_controller.subCategories,
+                            _controller.onSubcategoryItemClickHandler, _controller.selectedSubcategory)),
                         Expanded(
                           child: SubcategoryList(
                             controller.subCategories,
@@ -189,8 +163,7 @@ class _HomeFragmentState extends State<HomeFragment>
                           children: [
                             CarouselSlider(
                                 items: _controller.banners
-                                    .map((e) => BannerItem(e,
-                                        _controller.carouselButtonClickHandler))
+                                    .map((e) => BannerItem(e, _controller.carouselButtonClickHandler))
                                     .toList(),
                                 options: CarouselOptions(
                                   height: Get.height * 0.2093,
@@ -198,8 +171,7 @@ class _HomeFragmentState extends State<HomeFragment>
                                   autoPlay: true,
                                   autoPlayInterval: const Duration(seconds: 3),
                                   enlargeCenterPage: true,
-                                  onPageChanged:
-                                      _controller.onCarouselChangeHandler,
+                                  onPageChanged: _controller.onCarouselChangeHandler,
                                 )),
                             Positioned(
                               bottom: Get.height * 0.0221,
@@ -231,11 +203,8 @@ class _HomeFragmentState extends State<HomeFragment>
                             crossAxisSpacing: Get.width * 0.0266,
                             mainAxisSpacing: Get.width * 0.0266),
                         itemCount: controller.categoryItems.length,
-                        itemBuilder: (context, index) => CategoryGridItem(
-                            controller.categoryItems[index].title!,
-                            controller.categoryItems[index].image!,
-                            controller.onCategoryItemClickHandler,
-                            index),
+                        itemBuilder: (context, index) => CategoryGridItem(controller.categoryItems[index].title!,
+                            controller.categoryItems[index].image!, controller.onCategoryItemClickHandler, index),
                       ),
                     ],
                   ),

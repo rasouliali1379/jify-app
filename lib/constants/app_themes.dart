@@ -6,8 +6,7 @@ import 'package:jify_app/utilities/cupertino_theme_overrides.dart';
 
 class AppThemes {
   static final defaultTheme = ThemeData(
-    cupertinoOverrideTheme:
-        MaterialAppCupertinoThemeDataOverrides(AppFonts.pulpDisplay),
+    cupertinoOverrideTheme: MaterialAppCupertinoThemeDataOverrides(AppFonts.pulpDisplay),
     accentColor: AppColors.blue,
     primaryColor: AppColors.white,
     primaryColorBrightness: Brightness.light,

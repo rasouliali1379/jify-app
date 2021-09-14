@@ -5,10 +5,7 @@ class BasketModel {
   Promotion? promotion;
   Address? address;
 
-  BasketModel({
-      this.products, 
-      this.promotion, 
-      this.address});
+  BasketModel({this.products, this.promotion, this.address});
 
   BasketModel.fromJson(dynamic json) {
     if (json['products'] != null) {
@@ -34,14 +31,12 @@ class BasketModel {
     }
     return map;
   }
-
 }
 
 class Address {
   String? id;
 
-  Address({
-      this.id});
+  Address({this.id});
 
   Address.fromJson(dynamic json) {
     id = json['_id'] as String;
@@ -52,14 +47,12 @@ class Address {
     map['_id'] = id;
     return map;
   }
-
 }
 
 class Promotion {
   String? code;
 
-  Promotion({
-      this.code});
+  Promotion({this.code});
 
   Promotion.fromJson(dynamic json) {
     code = json['code'] as String;
@@ -70,16 +63,13 @@ class Promotion {
     map['code'] = code;
     return map;
   }
-
 }
 
 class Products {
   String? id;
   int? qty;
 
-  Products({
-      this.id, 
-      this.qty});
+  Products({this.id, this.qty});
 
   Products.fromJson(dynamic json) {
     id = json['_id'] as String;
@@ -92,5 +82,4 @@ class Products {
     map['qty'] = qty;
     return map;
   }
-
 }

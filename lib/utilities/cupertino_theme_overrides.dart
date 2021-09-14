@@ -10,24 +10,14 @@ class MaterialAppCupertinoThemeDataOverrides extends CupertinoThemeData {
           primaryContrastingColor: AppColors.blue,
           scaffoldBackgroundColor: AppColors.white,
           textTheme: CupertinoTextThemeData(
-            textStyle: TextStyle(
-                color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
-            actionTextStyle: TextStyle(
-                color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
-            dateTimePickerTextStyle: TextStyle(
-                color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
-            navActionTextStyle: TextStyle(
-                color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
-            navLargeTitleTextStyle: TextStyle(
-                color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
-            navTitleTextStyle: TextStyle(
-                color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
-            pickerTextStyle: TextStyle(
-                color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
-            tabLabelTextStyle: TextStyle(
-                color: AppTextColors.extraDarkCyan,
-                fontFamily: fontFamily,
-                fontSize: 11),
+            textStyle: TextStyle(color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
+            actionTextStyle: TextStyle(color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
+            dateTimePickerTextStyle: TextStyle(color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
+            navActionTextStyle: TextStyle(color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
+            navLargeTitleTextStyle: TextStyle(color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
+            navTitleTextStyle: TextStyle(color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
+            pickerTextStyle: TextStyle(color: AppTextColors.extraDarkCyan, fontFamily: fontFamily),
+            tabLabelTextStyle: TextStyle(color: AppTextColors.extraDarkCyan, fontFamily: fontFamily, fontSize: 11),
           ),
         );
 }

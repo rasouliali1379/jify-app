@@ -16,14 +16,12 @@ class HelpCenterPage extends GetView<HelpCenterPageController> {
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomToolBar('Help Center'),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Get.width * 0.0453, vertical: Get.height * 0.0344),
+        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453, vertical: Get.height * 0.0344),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -56,8 +54,7 @@ class HelpCenterPage extends GetView<HelpCenterPageController> {
                         ' Facilisis in accumsan maecenas pellentesque lacus, fermentum.'),
               ],
             ),
-            LongButton(controller.openContactUsModal, 'Contact Us', Get.width,
-                Get.height * 0.064)
+            LongButton(controller.openContactUsModal, 'Contact Us', Get.width, Get.height * 0.064)
           ],
         ),
       ),

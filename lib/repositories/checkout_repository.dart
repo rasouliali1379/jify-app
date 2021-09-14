@@ -10,17 +10,13 @@ import 'package:jify_app/network/api_requests.dart';
 class CheckoutRepository {
   final _apiRequests = ApiRequests();
 
-  Future<Either<String, OrderModel>> completeCheckout(
-      String id, DeliveryModel delivery, AddressModel address) async {
-    final result = await _apiRequests.completeCheckout(
-        id, {"delivery": delivery, "address": address.toJson()});
+  Future<Either<String, OrderModel>> completeCheckout(String id, DeliveryModel delivery, AddressModel address) async {
+    final result = await _apiRequests.completeCheckout(id, {"delivery": delivery, "address": address.toJson()});
     String error = "";
     OrderModel? checkoutModel;
 
     result.fold(
-        (l) => error = l,
-        (r) => checkoutModel = OrderModel.fromJson(
-            r.data["data"]["order"] as Map<String, dynamic>));
+        (l) => error = l, (r) => checkoutModel = OrderModel.fromJson(r.data["data"]["order"] as Map<String, dynamic>));
 
     if (checkoutModel != null) {
       return Right(checkoutModel!);
@@ -34,10 +30,8 @@ class CheckoutRepository {
     String error = "";
     CheckoutModel? checkoutModel;
 
-    result.fold(
-        (l) => error = l,
-        (r) => checkoutModel = CheckoutModel.fromJson(
-            r.data["data"]["checkout"] as Map<String, dynamic>));
+    result.fold((l) => error = l,
+        (r) => checkoutModel = CheckoutModel.fromJson(r.data["data"]["checkout"] as Map<String, dynamic>));
 
     if (checkoutModel != null) {
       return Right(checkoutModel!);
@@ -52,9 +46,7 @@ class CheckoutRepository {
     CheckoutModel? checkoutModel;
 
     result.fold(
-        (l) => error = l,
-        (r) => checkoutModel =
-            CheckoutModel.fromJson(r.data["data"] as Map<String, dynamic>));
+        (l) => error = l, (r) => checkoutModel = CheckoutModel.fromJson(r.data["data"] as Map<String, dynamic>));
 
     if (checkoutModel != null) {
       return Right(checkoutModel!);
@@ -63,22 +55,15 @@ class CheckoutRepository {
     }
   }
 
-  Future<Either<String, CheckoutModel>> pay(String nonce, String deviceData,
-      String orderId, String description, int status) async {
-    final result = await _apiRequests.pay({
-      "nonce": nonce,
-      "device-data": deviceData,
-      "description": description,
-      "id-order": orderId,
-      "status": status
-    });
+  Future<Either<String, CheckoutModel>> pay(
+      String nonce, String deviceData, String orderId, String description, int status) async {
+    final result = await _apiRequests.pay(
+        {"nonce": nonce, "device-data": deviceData, "description": description, "id-order": orderId, "status": status});
     String error = "";
     CheckoutModel? checkoutModel;
 
     result.fold(
-        (l) => error = l,
-        (r) => checkoutModel =
-            CheckoutModel.fromJson(r.data["data"] as Map<String, dynamic>));
+        (l) => error = l, (r) => checkoutModel = CheckoutModel.fromJson(r.data["data"] as Map<String, dynamic>));
 
     if (checkoutModel != null) {
       return Right(checkoutModel!);
@@ -87,16 +72,14 @@ class CheckoutRepository {
     }
   }
 
-  Future<Either<String, PromotionCodeModel>> checkPromotionCode(
-      String code) async {
+  Future<Either<String, PromotionCodeModel>> checkPromotionCode(String code) async {
     final result = await _apiRequests.checkPromotionCode({"code": code});
     String error = "";
     PromotionCodeModel? promotionCode;
 
     result.fold((l) => error = l, (r) {
       if (r.data["data"]["promotion"] != null) {
-        promotionCode = PromotionCodeModel.fromJson(
-            r.data["data"]["promotion"] as Map<String, dynamic>);
+        promotionCode = PromotionCodeModel.fromJson(r.data["data"]["promotion"] as Map<String, dynamic>);
       } else {
         error = "Promotion not found";
       }

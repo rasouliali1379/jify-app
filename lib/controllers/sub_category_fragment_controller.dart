@@ -1,5 +1,3 @@
 import 'package:get/get.dart';
 
-class SubCategoryFragmentController extends GetxController {
-
-}
+class SubCategoryFragmentController extends GetxController {}

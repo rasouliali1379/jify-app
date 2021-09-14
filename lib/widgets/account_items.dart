@@ -16,8 +16,7 @@ class AccountItems extends StatelessWidget {
       child: InkWell(
         onTap: onClick,
         child: Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: Get.width * 0.0453, vertical: Get.height * 0.03),
+          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453, vertical: Get.height * 0.03),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

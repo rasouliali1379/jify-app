@@ -18,10 +18,8 @@ class CustomTile extends StatelessWidget {
         Container(
           width: Get.width * 0.112,
           height: Get.width * 0.112,
-          padding: EdgeInsets.symmetric(
-              vertical: Get.width * 0.03, horizontal: Get.width * 0.03),
-          decoration: const BoxDecoration(
-              shape: BoxShape.circle, color: AppColors.white),
+          padding: EdgeInsets.symmetric(vertical: Get.width * 0.03, horizontal: Get.width * 0.03),
+          decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.white),
           child: SvgPicture.asset(
             icon,
             color: AppColors.blue,

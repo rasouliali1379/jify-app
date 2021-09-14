@@ -26,12 +26,8 @@ void showCustomSnackBar(String message,
           boxShadows: kElevationToShadow[4],
           backgroundColor: AppColors.black,
           borderRadius: BorderRadius.circular(8),
-          margin: EdgeInsets.only(
-              bottom: Get.height * 0.075,
-              left: Get.width * 0.0453,
-              right: Get.width * 0.0453),
-          horizontalDismissDirection:
-              flash.HorizontalDismissDirection.horizontal,
+          margin: EdgeInsets.only(bottom: Get.height * 0.075, left: Get.width * 0.0453, right: Get.width * 0.0453),
+          horizontalDismissDirection: flash.HorizontalDismissDirection.horizontal,
           child: flash.FlashBar(
             content: Row(
               children: [
@@ -54,16 +50,14 @@ void showCustomSnackBar(String message,
       },
     );
     messagePermitted = false;
-    Future.delayed(Duration(microseconds: (duration * 1000) + 200))
-        .then((value) {
+    Future.delayed(Duration(microseconds: (duration * 1000) + 200)).then((value) {
       messagePermitted = true;
     });
   }
 }
 
 void vibrateWithDuration(int duration) {
-  Vibration.hasCustomVibrationsSupport()
-      .then((value) => value! ? Vibration.vibrate(duration: duration) : null);
+  Vibration.hasCustomVibrationsSupport().then((value) => value! ? Vibration.vibrate(duration: duration) : null);
 }
 
 // void showCustomSnackBar(String text,

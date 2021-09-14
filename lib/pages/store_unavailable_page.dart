@@ -69,8 +69,7 @@ class StoreUnavailablePage extends GetView<StoreUnavailablePageController> {
             ),
             Text(
               "Sorry, we don't yet deliver to your address, but we are expanding fast!",
-              style: AppTextStyles.white16Normal400
-                  .copyWith(color: const Color.fromRGBO(98, 73, 73, 1)),
+              style: AppTextStyles.white16Normal400.copyWith(color: const Color.fromRGBO(98, 73, 73, 1)),
               textAlign: TextAlign.center,
             ),
             SizedBox(

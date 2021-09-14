@@ -17,8 +17,7 @@ class MainPage extends GetView<MainPageController> {
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return WillPopScope(
       onWillPop: controller.onBackPressedHandler,
       child: Scaffold(
@@ -31,16 +30,10 @@ class MainPage extends GetView<MainPageController> {
                   child: PageView(
                     controller: controller.pageController,
                     physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      HomeFragment(),
-                      AccountFragment(),
-                      OrdersFragment(),
-                      CheckoutFragment()
-                    ],
+                    children: [HomeFragment(), AccountFragment(), OrdersFragment(), CheckoutFragment()],
                   ),
                 ),
-                Obx(() => CustomBottomNav(
-                    controller.index, controller.onBottomNavClickHandler))
+                Obx(() => CustomBottomNav(controller.index, controller.onBottomNavClickHandler))
               ],
             ),
           )),

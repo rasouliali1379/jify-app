@@ -10,26 +10,15 @@ class SubcategoryList extends StatelessWidget {
   final Function browseProduct;
   final Function countInBasket;
 
-  const SubcategoryList(
-      this.subcategories,
-      this.onSubcategoryItemClickHandler,
-      this.addProductToBasket,
-      this.removeFromBasket,
-      this.browseProduct,
-      this.countInBasket);
+  const SubcategoryList(this.subcategories, this.onSubcategoryItemClickHandler, this.addProductToBasket,
+      this.removeFromBasket, this.browseProduct, this.countInBasket);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: subcategories.length,
-        itemBuilder: (context, index) => SubcategoryProductRowList(
-            subcategories[index],
-            onSubcategoryItemClickHandler,
-            addProductToBasket,
-            removeFromBasket,
-            browseProduct,
-            countInBasket,
-            index));
+        itemBuilder: (context, index) => SubcategoryProductRowList(subcategories[index], onSubcategoryItemClickHandler,
+            addProductToBasket, removeFromBasket, browseProduct, countInBasket, index));
   }
 }

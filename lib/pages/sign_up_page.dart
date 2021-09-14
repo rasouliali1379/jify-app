@@ -19,8 +19,7 @@ class SignUpPage extends GetView<SignUpPageController> {
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar('Sign Up'),
       body: SingleChildScrollView(
@@ -49,9 +48,7 @@ class SignUpPage extends GetView<SignUpPageController> {
                     Obx(() => TitledTextField(
                           'First Name',
                           controller.nameTextController,
-                          errorText: controller.nameError.isNotEmpty
-                              ? controller.nameError
-                              : null,
+                          errorText: controller.nameError.isNotEmpty ? controller.nameError : null,
                         )),
                     SizedBox(
                       height: Get.height * 0.0221,
@@ -59,9 +56,7 @@ class SignUpPage extends GetView<SignUpPageController> {
                     Obx(() => TitledTextField(
                           'Last Name',
                           controller.lastNameTextController,
-                          errorText: controller.lastNameError.isNotEmpty
-                              ? controller.lastNameError
-                              : null,
+                          errorText: controller.lastNameError.isNotEmpty ? controller.lastNameError : null,
                         )),
                     SizedBox(
                       height: Get.height * 0.0221,
@@ -69,9 +64,7 @@ class SignUpPage extends GetView<SignUpPageController> {
                     Obx(() => TitledTextField(
                           'Email address',
                           controller.emailTextController,
-                          errorText: controller.emailError.isNotEmpty
-                              ? controller.emailError
-                              : null,
+                          errorText: controller.emailError.isNotEmpty ? controller.emailError : null,
                           inputType: TextInputType.emailAddress,
                         )),
                     SizedBox(
@@ -124,8 +117,7 @@ class SignUpPage extends GetView<SignUpPageController> {
                               padding: const EdgeInsets.symmetric(vertical: 4),
                               child: Text(
                                 'Terms & Conditions ',
-                                style: AppTextStyles.blue13Normal300.copyWith(
-                                    decoration: TextDecoration.underline),
+                                style: AppTextStyles.blue13Normal300.copyWith(decoration: TextDecoration.underline),
                               ),
                             ),
                             const Padding(
@@ -164,17 +156,14 @@ class SignUpPage extends GetView<SignUpPageController> {
               ),
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
-                  child: Obx(() => LongButton(
-                      controller.registerButtonClickHandler,
-                      'Register',
-                      double.infinity,
-                      Get.height * 0.064,
-                      customText: controller.loadingStatus
-                          ? SpinKitThreeBounce(
-                              color: AppColors.white,
-                              size: Get.width * 0.0453,
-                            )
-                          : null))),
+                  child: Obx(() =>
+                      LongButton(controller.registerButtonClickHandler, 'Register', double.infinity, Get.height * 0.064,
+                          customText: controller.loadingStatus
+                              ? SpinKitThreeBounce(
+                                  color: AppColors.white,
+                                  size: Get.width * 0.0453,
+                                )
+                              : null))),
               SizedBox(
                 height: Get.height * 0.0332,
               ),

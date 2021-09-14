@@ -9,8 +9,7 @@ class SubCategoryRowListItem extends StatelessWidget {
   final Function onClick;
   final int index;
 
-  const SubCategoryRowListItem(
-      this.label, this.selected, this.onClick, this.index);
+  const SubCategoryRowListItem(this.label, this.selected, this.onClick, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +18,7 @@ class SubCategoryRowListItem extends StatelessWidget {
       child: Container(
         height: Get.height * 0.0394,
         margin: const EdgeInsets.symmetric(horizontal: 4),
-        padding:
-            EdgeInsets.symmetric(horizontal: 16, vertical: Get.height * 0.0123),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: Get.height * 0.0123),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: AppColors.blue),
@@ -28,9 +26,7 @@ class SubCategoryRowListItem extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: selected
-              ? AppTextStyles.white13Normal300
-              : AppTextStyles.blue13Normal300,
+          style: selected ? AppTextStyles.white13Normal300 : AppTextStyles.blue13Normal300,
         ),
       ),
     );

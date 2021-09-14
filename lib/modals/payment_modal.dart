@@ -15,17 +15,14 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
       height: Get.height * 0.447,
       decoration: const BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: Get.width * 0.048,
-                    vertical: Get.height * 0.0233),
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.048, vertical: Get.height * 0.0233),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -52,9 +49,7 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                 decoration: const BoxDecoration(color: AppColors.milky),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: Get.height * 0.0233,
-                    horizontal: Get.width * 0.0453),
+                padding: EdgeInsets.symmetric(vertical: Get.height * 0.0233, horizontal: Get.width * 0.0453),
                 child: Column(
                   children: [
                     TitledTextField(
@@ -63,9 +58,8 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                       titleStyle: AppTextStyles.extraDarkCyan14Normal400,
                       customTextField: Container(
                         padding: const EdgeInsets.only(right: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(11),
-                            color: AppColors.semiLightBlue),
+                        decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(11), color: AppColors.semiLightBlue),
                         child: Row(
                           children: [
                             const Expanded(
@@ -77,33 +71,25 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                                     enabledBorder: InputBorder.none,
                                     errorBorder: InputBorder.none,
                                     disabledBorder: InputBorder.none,
-                                    contentPadding: EdgeInsets.only(
-                                        left: 10,
-                                        bottom: 11,
-                                        top: 11,
-                                        right: 10),
-                                    hintStyle:
-                                        AppTextStyles.extraLightBlue16Normal300,
+                                    contentPadding: EdgeInsets.only(left: 10, bottom: 11, top: 11, right: 10),
+                                    hintStyle: AppTextStyles.extraLightBlue16Normal300,
                                     hintText: "1234 5678 9012 3456"),
                               ),
                             ),
                             Row(
                               children: [
                                 Image.asset('assets/images/discover.png',
-                                    width: Get.width * 0.0853,
-                                    height: Get.height * 0.027),
+                                    width: Get.width * 0.0853, height: Get.height * 0.027),
                                 SizedBox(
                                   width: Get.width * 0.013,
                                 ),
                                 Image.asset('assets/images/master_card.png',
-                                    width: Get.width * 0.0853,
-                                    height: Get.height * 0.027),
+                                    width: Get.width * 0.0853, height: Get.height * 0.027),
                                 SizedBox(
                                   width: Get.width * 0.013,
                                 ),
                                 Image.asset('assets/images/visa.png',
-                                    width: Get.width * 0.0853,
-                                    height: Get.height * 0.027),
+                                    width: Get.width * 0.0853, height: Get.height * 0.027),
                               ],
                             )
                           ],
@@ -123,8 +109,7 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                             customTextField: Container(
                               padding: const EdgeInsets.only(right: 10),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(11),
-                                  color: AppColors.semiLightBlue),
+                                  borderRadius: BorderRadius.circular(11), color: AppColors.semiLightBlue),
                               child: const TextField(
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
@@ -133,13 +118,8 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                                     enabledBorder: InputBorder.none,
                                     errorBorder: InputBorder.none,
                                     disabledBorder: InputBorder.none,
-                                    contentPadding: EdgeInsets.only(
-                                        left: 10,
-                                        bottom: 11,
-                                        top: 11,
-                                        right: 10),
-                                    hintStyle:
-                                        AppTextStyles.extraLightBlue16Normal300,
+                                    contentPadding: EdgeInsets.only(left: 10, bottom: 11, top: 11, right: 10),
+                                    hintStyle: AppTextStyles.extraLightBlue16Normal300,
                                     hintText: "MM/YY"),
                               ),
                             ),
@@ -156,8 +136,7 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                             customTextField: Container(
                               padding: const EdgeInsets.only(right: 10),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(11),
-                                  color: AppColors.semiLightBlue),
+                                  borderRadius: BorderRadius.circular(11), color: AppColors.semiLightBlue),
                               child: const TextField(
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
@@ -166,13 +145,8 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                                     enabledBorder: InputBorder.none,
                                     errorBorder: InputBorder.none,
                                     disabledBorder: InputBorder.none,
-                                    contentPadding: EdgeInsets.only(
-                                        left: 10,
-                                        bottom: 11,
-                                        top: 11,
-                                        right: 10),
-                                    hintStyle:
-                                        AppTextStyles.extraLightBlue16Normal300,
+                                    contentPadding: EdgeInsets.only(left: 10, bottom: 11, top: 11, right: 10),
+                                    hintStyle: AppTextStyles.extraLightBlue16Normal300,
                                     hintText: "3 digits"),
                               ),
                             ),
@@ -186,12 +160,8 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(
-                bottom: Get.height * 0.02,
-                left: Get.width * 0.0453,
-                right: Get.width * 0.0453),
-            child:
-                LongButton(() => {}, 'Add Card', Get.width, Get.height * 0.064),
+            padding: EdgeInsets.only(bottom: Get.height * 0.02, left: Get.width * 0.0453, right: Get.width * 0.0453),
+            child: LongButton(() => {}, 'Add Card', Get.width, Get.height * 0.064),
           )
         ],
       ),

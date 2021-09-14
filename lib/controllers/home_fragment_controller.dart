@@ -118,8 +118,9 @@ class HomeFragmentController extends GetxController {
       if (value.length % 3 == 0) {
         searchLoading = true;
         searchedProducts.clear();
-        productRepository.searchProducts(value, 1).then((value) =>
-            value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+        productRepository
+            .searchProducts(value, 1)
+            .then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
       }
     } else {
       searchMode = false;
@@ -143,14 +144,11 @@ class HomeFragmentController extends GetxController {
   void addProduct(ProductModel product) {
     addProductToBasket(product);
     final countInBasket = productRepository.countInBasket(product.id!);
-    showCustomSnackBar(
-        "$countInBasket ${countInBasket > 1 ? 'items' : 'item'} added to basket",
-        duration: 1);
+    showCustomSnackBar("$countInBasket ${countInBasket > 1 ? 'items' : 'item'} added to basket", duration: 1);
   }
 
   void addProductToBasket(ProductModel product, {int count = 1}) {
-    if (productRepository.countInBasket(product.id!) + count <=
-        product.stock!) {
+    if (productRepository.countInBasket(product.id!) + count <= product.stock!) {
       for (int i = 0; i < count; i++) {
         _globalController.basket.add(product);
       }
@@ -190,8 +188,7 @@ class HomeFragmentController extends GetxController {
   void browseProduct(ProductModel product) {
     if (product.stock! > 0) {
       searchFocusNode.unfocus();
-      Get.toNamed(Routes.product,
-          preventDuplicates: true, arguments: product.toJson());
+      Get.toNamed(Routes.product, preventDuplicates: true, arguments: product.toJson());
     }
   }
 
@@ -228,8 +225,7 @@ class HomeFragmentController extends GetxController {
   }
 
   void populateData(int index) {
-    subCategories =
-        _globalController.initialDataModel.categories![index].subCategories!;
+    subCategories = _globalController.initialDataModel.categories![index].subCategories!;
   }
 
   void onSubcategoryItemClickHandler(int categoryIndex) {
@@ -250,10 +246,8 @@ class HomeFragmentController extends GetxController {
 
   void requestProducts() {
     productRepository
-        .getProductsBySubCategoryId(
-            subCategories[selectedSubcategory].id!, "", 1)
-        .then((value) => value.fold(
-            (l) => attemptFailed(l), (r) => productsAttemptSucceed(r)));
+        .getProductsBySubCategoryId(subCategories[selectedSubcategory].id!, "", 1)
+        .then((value) => value.fold((l) => attemptFailed(l), (r) => productsAttemptSucceed(r)));
   }
 
   void productsAttemptSucceed(List<ProductModel> productList) {
@@ -338,8 +332,7 @@ class HomeFragmentController extends GetxController {
   String getDeliveryAddress() {
     if (_globalController.initialDataModel.user != null) {
       final address = addressRepository.findAddress(
-          _globalController.initialDataModel.user!.addresses!,
-          storageRead(AppKeys.address) as String);
+          _globalController.initialDataModel.user!.addresses!, storageRead(AppKeys.address) as String);
       if (address.address!.length > 30) {
         return '${address.address!.substring(0, 30)}...';
       }

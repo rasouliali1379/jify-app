@@ -4,15 +4,7 @@ class SchedulePageController extends GetxController {
   final _selectedTime = 0.obs;
   final _selectedDay = 0.obs;
 
-  final days = [
-    "Saturday",
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday"
-  ];
+  final days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
   int get selectedDay => _selectedDay.value;
 
@@ -34,9 +26,7 @@ class SchedulePageController extends GetxController {
   }
 
   void onSelectClickHandler() {
-    Get.back(
-        result:
-            "${days[selectedDay]} / ${getTime(selectedTime)}");
+    Get.back(result: "${days[selectedDay]} / ${getTime(selectedTime)}");
   }
 
   String getTime(int index) {

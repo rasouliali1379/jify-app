@@ -35,15 +35,13 @@ class AddressesPageController extends GetxController {
 
   void populateAddresses() {
     selectedAddress = storageRead(AppKeys.address) as String;
-    addressList =
-        Get.find<GlobalController>().initialDataModel.user!.addresses!;
+    addressList = Get.find<GlobalController>().initialDataModel.user!.addresses!;
     update();
   }
 
   Future<void> editAddresses(AddressModel addressModel) async {
     if (from != null) {
-      await Get.toNamed(Routes.deliveryAddresses,
-          arguments: addressModel, parameters: {"from": from!});
+      await Get.toNamed(Routes.deliveryAddresses, arguments: addressModel, parameters: {"from": from!});
     } else {
       await Get.toNamed(Routes.deliveryAddresses, arguments: addressModel);
     }
@@ -59,8 +57,7 @@ class AddressesPageController extends GetxController {
     await storageWrite(AppKeys.address, addressModel.id);
     // Get.find<CheckoutFragmentController>().checkSelectedAddress();
     final globalController = Get.find<GlobalController>();
-    globalController.isAddressInRange = addressModel.distance! <=
-        globalController.initialDataModel.supportedDistance!;
+    globalController.isAddressInRange = addressModel.distance! <= globalController.initialDataModel.supportedDistance!;
     Get.back();
   }
 

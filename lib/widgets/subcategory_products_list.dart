@@ -15,13 +15,8 @@ class SubcategoryProductsList extends StatelessWidget {
   final Function browseProduct;
   final Function countInBasket;
 
-  const SubcategoryProductsList(
-      this.products,
-      this.scrollController,
-      this.addProductToBasket,
-      this.removeFromBasket,
-      this.browseProduct,
-      this.countInBasket);
+  const SubcategoryProductsList(this.products, this.scrollController, this.addProductToBasket, this.removeFromBasket,
+      this.browseProduct, this.countInBasket);
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +29,12 @@ class SubcategoryProductsList extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 17, left: 12, right: 12),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: Get.width / 3,
-                mainAxisExtent: Get.height * 0.29,
+                mainAxisExtent: Get.height * 0.278,
                 mainAxisSpacing: 5,
               ),
               itemCount: products.length,
-              itemBuilder: (context, index) => ProductItem(
-                  products[index],
-                  addProductToBasket,
-                  removeFromBasket,
-                  browseProduct,
-                  countInBasket(products[index].id!) as int)),
+              itemBuilder: (context, index) => ProductItem(products[index], addProductToBasket, removeFromBasket,
+                  browseProduct, countInBasket(products[index].id!) as int)),
         ],
       ),
     );

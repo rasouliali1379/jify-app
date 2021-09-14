@@ -101,14 +101,12 @@ class ConfirmationPageController extends GetxController {
 
   void checkSelectedAddress() {
     selectedAddress = _addressRepository.findAddress(
-        globalController.initialDataModel.user!.addresses!,
-        storageRead(AppKeys.address) as String);
+        globalController.initialDataModel.user!.addresses!, storageRead(AppKeys.address) as String);
     selectedOption = getOptionIndex(selectedAddress.options!);
     noteTextController.text = selectedAddress.note!;
-    mapCompleter.future.then((value) =>
-        value.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
-          target: LatLng(selectedAddress.location!.coordinates![0] as double,
-              selectedAddress.location!.coordinates![1] as double),
+    mapCompleter.future.then((value) => value.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
+          target: LatLng(
+              selectedAddress.location!.coordinates![0] as double, selectedAddress.location!.coordinates![1] as double),
           zoom: 14.4746,
         ))));
   }
@@ -165,8 +163,7 @@ class ConfirmationPageController extends GetxController {
                   // time: selectedSchedule
                 ),
                 AddressModel(id: selectedAddress.id))
-            .then((value) => value.fold((l) => attemptFailed(l),
-                (r) => orderSubmissionAttemptSucceed(r)));
+            .then((value) => value.fold((l) => attemptFailed(l), (r) => orderSubmissionAttemptSucceed(r)));
       } else {
         payOrder();
       }
@@ -220,10 +217,9 @@ class ConfirmationPageController extends GetxController {
       print("orderID : ${orderModel!.id!}");
 
       checkoutRepository
-          .pay(result.paymentMethodNonce.nonce, result.deviceData!.toString(),
-              orderModel!.id!, result.paymentMethodNonce.description, 0)
-          .then((result) => result.fold(
-              (l) => attemptFailed(l), (r) => paymentAttemptSucceed()));
+          .pay(result.paymentMethodNonce.nonce, result.deviceData!.toString(), orderModel!.id!,
+              result.paymentMethodNonce.description, 0)
+          .then((result) => result.fold((l) => attemptFailed(l), (r) => paymentAttemptSucceed()));
     } else {
       loadingStatus = false;
       showCustomSnackBar("Your payment could not be processed");

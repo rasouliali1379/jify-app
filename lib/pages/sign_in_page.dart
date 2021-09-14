@@ -17,13 +17,11 @@ class SignInPage extends GetView<SignInPageController> {
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar('Sign In'),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Get.width * 0.0453, vertical: Get.height * 0.0467),
+        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453, vertical: Get.height * 0.0467),
         child: Column(
           children: [
             Obx(

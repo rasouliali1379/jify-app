@@ -39,9 +39,9 @@ class SignInPageController extends GetxController {
       return;
     }
     loadingStatus = true;
-    _userRepository.singInWithPhoneNumber(mobileTextController.text).then(
-        (value) => value.fold(
-            (l) => attemptFailed(l), (r) => attemptSucceed(codeSent: r)));
+    _userRepository
+        .singInWithPhoneNumber(mobileTextController.text)
+        .then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(codeSent: r)));
   }
 
   void attemptFailed(String message) {
@@ -53,8 +53,7 @@ class SignInPageController extends GetxController {
     loadingStatus = false;
 
     if (codeSent) {
-      Get.toNamed(Routes.phoneVerification,
-          parameters: {"phone_number": mobileTextController.text});
+      Get.toNamed(Routes.phoneVerification, parameters: {"phone_number": mobileTextController.text});
     }
   }
 }

@@ -10,8 +10,7 @@ class CategoryGridItem extends StatelessWidget {
   final Function onItemClickHandler;
   final int index;
 
-  const CategoryGridItem(
-      this.name, this.image, this.onItemClickHandler, this.index);
+  const CategoryGridItem(this.name, this.image, this.onItemClickHandler, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +18,9 @@ class CategoryGridItem extends StatelessWidget {
       onTap: () => onItemClickHandler(index),
       child: Container(
         height: Get.height * 0.1527,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            color: AppColors.white,
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 2),
-                  blurRadius: 2,
-                  color: AppColors.black.withOpacity(0.25))
-            ]),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), color: AppColors.white, boxShadow: [
+          BoxShadow(offset: const Offset(0, 2), blurRadius: 2, color: AppColors.black.withOpacity(0.25))
+        ]),
         child: Center(
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(14),

@@ -17,8 +17,7 @@ class AddressesPage extends GetView<AddressesPageController> {
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar('My Addresses',
           action: Padding(
@@ -42,8 +41,7 @@ class AddressesPage extends GetView<AddressesPageController> {
                 controller.onAddressClickHandler,
                 controller.getIcon(controller.addressList[index].type!),
                 controller.editAddresses,
-                selected: controller.addressList[index].id ==
-                    controller.selectedAddress,
+                selected: controller.addressList[index].id == controller.selectedAddress,
                 editMode: controller.editMode,
               ),
             ),
@@ -51,8 +49,7 @@ class AddressesPage extends GetView<AddressesPageController> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: Get.width * 0.0369, vertical: Get.height * 0.03),
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0369, vertical: Get.height * 0.03),
               child: LongButton(
                 controller.openDeliveryAddressPage,
                 'Add Address',

@@ -33,9 +33,7 @@ class ProductPreviewRow extends StatelessWidget {
           height: Get.width * 0.08,
           width: Get.width * 0.08,
           decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.lightGrey,
-              border: Border.all(color: AppColors.white)),
+              shape: BoxShape.circle, color: AppColors.lightGrey, border: Border.all(color: AppColors.white)),
           padding: EdgeInsets.all(Get.width * 0.008),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(200),

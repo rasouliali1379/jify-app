@@ -16,8 +16,7 @@ class ScheduleGridItem extends StatelessWidget {
       onTap: onClick,
       child: Container(
         alignment: Alignment.centerLeft,
-        padding: EdgeInsets.symmetric(
-            vertical: Get.height * 0.0246, horizontal: Get.width * 0.04),
+        padding: EdgeInsets.symmetric(vertical: Get.height * 0.0246, horizontal: Get.width * 0.04),
         decoration: selected
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(9),
@@ -31,8 +30,7 @@ class ScheduleGridItem extends StatelessWidget {
           children: [
             if (selected)
               Container(
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: AppColors.blue),
+                decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blue),
                 width: 22,
                 height: 22,
                 child: Container(
@@ -40,9 +38,7 @@ class ScheduleGridItem extends StatelessWidget {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppColors.blue,
-                      border: Border.all(
-                          color: const Color.fromRGBO(231, 238, 252, 1.0),
-                          width: 3)),
+                      border: Border.all(color: const Color.fromRGBO(231, 238, 252, 1.0), width: 3)),
                 ),
               )
             else

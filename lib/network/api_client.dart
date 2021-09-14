@@ -8,18 +8,14 @@ import 'package:jify_app/utilities/storage.dart';
 class ApiClient {
   final _dio = Dio();
 
-  Future<Either<String, Response>> get(
-      String endPoint, Map<String, dynamic> map) async {
+  Future<Either<String, Response>> get(String endPoint, Map<String, dynamic> map) async {
     final connectionStatus = await Connectivity().checkConnectivity();
-    if (connectionStatus == ConnectivityResult.mobile ||
-        connectionStatus == ConnectivityResult.wifi) {
+    if (connectionStatus == ConnectivityResult.mobile || connectionStatus == ConnectivityResult.wifi) {
       final token = storageRead(AppKeys.token) ?? "";
       Response? _response;
       try {
-        _response = await _dio.get(
-            '${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
-            options: Options(headers: {"x-auth-token": token}),
-            queryParameters: map);
+        _response = await _dio.get('${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
+            options: Options(headers: {"x-auth-token": token}), queryParameters: map);
         return Right(_response);
       } on DioError catch (e) {
         if (e.response != null) {
@@ -32,17 +28,14 @@ class ApiClient {
         " Please check your connection and try again");
   }
 
-  Future<Either<String, Response>> post(
-      String endPoint, Map<String, dynamic> map) async {
+  Future<Either<String, Response>> post(String endPoint, Map<String, dynamic> map) async {
     final connectionStatus = await Connectivity().checkConnectivity();
-    if (connectionStatus == ConnectivityResult.mobile ||
-        connectionStatus == ConnectivityResult.wifi) {
+    if (connectionStatus == ConnectivityResult.mobile || connectionStatus == ConnectivityResult.wifi) {
       final token = storageRead(AppKeys.token) ?? "";
       print(token.toString());
       Response? _response;
       try {
-        _response = await _dio.post(
-            '${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
+        _response = await _dio.post('${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
             options: Options(
               headers: {"x-auth-token": token},
               contentType: "application/json",
@@ -61,16 +54,13 @@ class ApiClient {
         " Please check your connection and try again");
   }
 
-  Future<Either<String, Response>> put(
-      String endPoint, Map<String, dynamic> map) async {
+  Future<Either<String, Response>> put(String endPoint, Map<String, dynamic> map) async {
     final connectionStatus = await Connectivity().checkConnectivity();
-    if (connectionStatus == ConnectivityResult.mobile ||
-        connectionStatus == ConnectivityResult.wifi) {
+    if (connectionStatus == ConnectivityResult.mobile || connectionStatus == ConnectivityResult.wifi) {
       final token = storageRead(AppKeys.token) ?? "";
       Response? _response;
       try {
-        _response = await _dio.put(
-            '${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
+        _response = await _dio.put('${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
             options: Options(
               headers: {"x-auth-token": token},
               contentType: "application/json",
@@ -89,16 +79,13 @@ class ApiClient {
         " Please check your connection and try again");
   }
 
-  Future<Either<String, Response>> delete(
-      String endPoint, Map<String, dynamic> map) async {
+  Future<Either<String, Response>> delete(String endPoint, Map<String, dynamic> map) async {
     final connectionStatus = await Connectivity().checkConnectivity();
-    if (connectionStatus == ConnectivityResult.mobile ||
-        connectionStatus == ConnectivityResult.wifi) {
+    if (connectionStatus == ConnectivityResult.mobile || connectionStatus == ConnectivityResult.wifi) {
       final token = storageRead(AppKeys.token) ?? "";
       Response? _response;
       try {
-        _response = await _dio.delete(
-            '${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
+        _response = await _dio.delete('${AppVariables.baseUrl}$endPoint?t=${DateTime.now().millisecondsSinceEpoch}',
             options: Options(
               headers: {"x-auth-token": token},
               contentType: "application/json",

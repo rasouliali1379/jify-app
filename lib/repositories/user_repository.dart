@@ -6,8 +6,7 @@ class UserRepository {
   final _apiRequests = ApiRequests();
 
   Future<Either<String, bool>> singInWithPhoneNumber(String phoneNumber) async {
-    final result =
-        await _apiRequests.signInByNumber({"mobileNumber": phoneNumber});
+    final result = await _apiRequests.signInByNumber({"mobileNumber": phoneNumber});
     String error = "";
 
     result.fold((l) {
@@ -21,15 +20,12 @@ class UserRepository {
     }
   }
 
-  Future<Either<String, Map<String, dynamic>>> validateCode(
-      String phoneNumber, String code) async {
-    final result = await _apiRequests
-        .validateCode({"mobileNumber": phoneNumber, "code": code});
+  Future<Either<String, Map<String, dynamic>>> validateCode(String phoneNumber, String code) async {
+    final result = await _apiRequests.validateCode({"mobileNumber": phoneNumber, "code": code});
     String error = "";
     Map<String, dynamic>? loginData;
 
-    result.fold((l) => error = l,
-        (r) => loginData = r.data["data"] as Map<String, dynamic>);
+    result.fold((l) => error = l, (r) => loginData = r.data["data"] as Map<String, dynamic>);
 
     if (loginData != null) {
       return Right(loginData!);
@@ -44,9 +40,7 @@ class UserRepository {
     UserModel? userModel;
 
     result.fold(
-        (l) => error = l,
-        (r) => userModel =
-            UserModel.fromJson(r.data["data"]["user"] as Map<String, dynamic>));
+        (l) => error = l, (r) => userModel = UserModel.fromJson(r.data["data"]["user"] as Map<String, dynamic>));
 
     if (userModel != null) {
       return Right(userModel!);

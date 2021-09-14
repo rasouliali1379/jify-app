@@ -39,8 +39,7 @@ class LiveOrdersList extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: items.length,
-            itemBuilder: (context, index) =>
-                OrdersListItem(items[index], openOrder),
+            itemBuilder: (context, index) => OrdersListItem(items[index], openOrder),
           )
       ],
     );

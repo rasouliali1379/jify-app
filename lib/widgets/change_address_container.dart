@@ -27,16 +27,13 @@ class ChangeAddressContainer extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              const Text('Your address is not in range',
-                  style: AppTextStyles.white14Normal700),
+              const Text('Your address is not in range', style: AppTextStyles.white14Normal700),
             ],
           ),
           GestureDetector(
             onTap: onClick,
             child: Container(
-                decoration: BoxDecoration(
-                    color: AppColors.blue,
-                    borderRadius: BorderRadius.circular(13)),
+                decoration: BoxDecoration(color: AppColors.blue, borderRadius: BorderRadius.circular(13)),
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                   child: Text(

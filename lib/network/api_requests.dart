@@ -11,28 +11,23 @@ class ApiRequests {
     return _apiClient.get('/init?t=1', {});
   }
 
-  Future<Either<String, Response>> contactSupport(
-      Map<String, dynamic> map) async {
+  Future<Either<String, Response>> contactSupport(Map<String, dynamic> map) async {
     return _apiClient.post('/support/contact', map);
   }
 
-  Future<Either<String, Response>> signInByNumber(
-      Map<String, dynamic> map) async {
+  Future<Either<String, Response>> signInByNumber(Map<String, dynamic> map) async {
     return _apiClient.post('/user/signInByMobileNumber', map);
   }
 
-  Future<Either<String, Response>> validateCode(
-      Map<String, dynamic> map) async {
+  Future<Either<String, Response>> validateCode(Map<String, dynamic> map) async {
     return _apiClient.post('/user/validatecode', map);
   }
 
-  Future<Either<String, Response>> signUpByEmail(
-      Map<String, dynamic> map) async {
+  Future<Either<String, Response>> signUpByEmail(Map<String, dynamic> map) async {
     return _apiClient.post('/user/signupByEmail', map);
   }
 
-  Future<Either<String, Response>> signInByEmail(
-      Map<String, dynamic> map) async {
+  Future<Either<String, Response>> signInByEmail(Map<String, dynamic> map) async {
     return _apiClient.post('/user/signinByEmail', map);
   }
 
@@ -40,8 +35,7 @@ class ApiRequests {
     return _apiClient.put('/user/update', map);
   }
 
-  Future<Either<String, Response>> forgotPassword(
-      Map<String, dynamic> map) async {
+  Future<Either<String, Response>> forgotPassword(Map<String, dynamic> map) async {
     return _apiClient.post('/user/forgotPassword', map);
   }
 
@@ -49,8 +43,7 @@ class ApiRequests {
     return _apiClient.get('/user/forgotPassword/$uuid', {});
   }
 
-  Future<Either<String, Response>> changePassword(
-      String uuid, Map<String, dynamic> map) async {
+  Future<Either<String, Response>> changePassword(String uuid, Map<String, dynamic> map) async {
     return _apiClient.put('/user/forgotPassword/$uuid/ChangePassword', map);
   }
 
@@ -62,8 +55,7 @@ class ApiRequests {
     return _apiClient.post('/user/addresses/add', map);
   }
 
-  Future<Either<String, Response>> updateAddress(
-      String id, Map<String, dynamic> map) async {
+  Future<Either<String, Response>> updateAddress(String id, Map<String, dynamic> map) async {
     return _apiClient.put('/user/addresses/$id', map);
   }
 
@@ -75,10 +67,8 @@ class ApiRequests {
     return _apiClient.get('/product/category', {});
   }
 
-  Future<Either<String, Response>> getProductsBySubcategoryId(
-      String id, int page, String search) async {
-    return _apiClient
-        .get('/product/category/$id', {"page": page, "search": search});
+  Future<Either<String, Response>> getProductsBySubcategoryId(String id, int page, String search) async {
+    return _apiClient.get('/product/category/$id', {"page": page, "search": search});
   }
 
   Future<Either<String, Response>> getProducts(String search, int page) async {
@@ -93,13 +83,11 @@ class ApiRequests {
     return _apiClient.get('/checkout/$id', {});
   }
 
-  Future<Either<String, Response>> checkPromotionCode(
-      Map<String, dynamic> map) async {
+  Future<Either<String, Response>> checkPromotionCode(Map<String, dynamic> map) async {
     return _apiClient.post('/checkout/promotion', map);
   }
 
-  Future<Either<String, Response>> completeCheckout(
-      String id, Map<String, dynamic> map) async {
+  Future<Either<String, Response>> completeCheckout(String id, Map<String, dynamic> map) async {
     return _apiClient.post('/checkout/$id/complete', map);
   }
 
@@ -116,11 +104,8 @@ class ApiRequests {
   }
 
   Future<Either<String, Response>> predictPlaces(String input) async {
-    return _apiClientMap.get('/autocomplete/json', {
-      "input": input,
-      "sessiontoken": "1234567890",
-      "components": "country:AU"
-    });
+    return _apiClientMap
+        .get('/autocomplete/json', {"input": input, "sessiontoken": "1234567890", "components": "country:AU"});
   }
 
   Future<Either<String, Response>> getLatLong(String id) async {

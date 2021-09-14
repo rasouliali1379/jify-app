@@ -23,9 +23,8 @@ class OrderInfoOrdersListItem extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppColors.grey)),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.grey)),
                   child: AspectRatio(
                     aspectRatio: 1,
                     child: ClipRRect(
@@ -63,17 +62,12 @@ class OrderInfoOrdersListItem extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerRight,
               child: RichText(
-                text: TextSpan(
-                    text: '\$',
-                    style: AppTextStyles.green13Normal400,
-                    children: [
-                      TextSpan(
-                        text: product.off! > 0
-                            ? product.offPrice!.toStringAsFixed(2)
-                            : product.price!.toStringAsFixed(2),
-                        style: AppTextStyles.green15Normal400,
-                      )
-                    ]),
+                text: TextSpan(text: '\$', style: AppTextStyles.green13Normal400, children: [
+                  TextSpan(
+                    text: product.off! > 0 ? product.offPrice!.toStringAsFixed(2) : product.price!.toStringAsFixed(2),
+                    style: AppTextStyles.green15Normal400,
+                  )
+                ]),
               ),
             ),
           ),

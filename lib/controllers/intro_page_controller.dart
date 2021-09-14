@@ -5,8 +5,7 @@ import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/utilities/storage.dart';
 
-class IntroPageController extends GetxController
-    with SingleGetTickerProviderMixin {
+class IntroPageController extends GetxController with SingleGetTickerProviderMixin {
   final pageController = PageController();
   final _slideIndex = 0.0.obs;
 
@@ -26,9 +25,7 @@ class IntroPageController extends GetxController
   }
 
   void nextPage() {
-
-    pageController.animateToPage(1,
-        duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
+    pageController.animateToPage(1, duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
   }
 
   Future<void> getStarted() async {

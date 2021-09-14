@@ -37,16 +37,10 @@ class OrderModel {
       this.v});
 
   OrderModel.fromJson(dynamic json) {
-    address = json['address'] != null
-        ? AddressModel.fromJson(json['address'] as Map<String, dynamic>)
-        : null;
-    delivery = json['delivery'] != null
-        ? DeliveryModel.fromJson(json['delivery'])
-        : null;
-    amount =
-        json['amount'] != null ? AmountModel.fromJson(json['amount']) : null;
-    payment =
-        json['payment'] != null ? PaymentModel.fromJson(json['payment']) : null;
+    address = json['address'] != null ? AddressModel.fromJson(json['address'] as Map<String, dynamic>) : null;
+    delivery = json['delivery'] != null ? DeliveryModel.fromJson(json['delivery']) : null;
+    amount = json['amount'] != null ? AmountModel.fromJson(json['amount']) : null;
+    payment = json['payment'] != null ? PaymentModel.fromJson(json['payment']) : null;
     status = json['status'] as String;
     driverId = json['driverId'] == null ? null : json['driverId'] as String;
 

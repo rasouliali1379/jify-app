@@ -14,14 +14,8 @@ class SubcategoryProductRowList extends StatelessWidget {
   final Function countInBasket;
   final int index;
 
-  const SubcategoryProductRowList(
-      this.category,
-      this.showAllOnClick,
-      this.addToBasket,
-      this.removeFromBasket,
-      this.onProductClickHandler,
-      this.countInBasket,
-      this.index);
+  const SubcategoryProductRowList(this.category, this.showAllOnClick, this.addToBasket, this.removeFromBasket,
+      this.onProductClickHandler, this.countInBasket, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +23,7 @@ class SubcategoryProductRowList extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(
-              left: Get.width * 0.0453,
-              top: Get.width * 0.0295,
-              bottom: Get.width * 0.02,
-              right: Get.width * 0.03),
+              left: Get.width * 0.0453, top: Get.width * 0.0295, bottom: Get.width * 0.02, right: Get.width * 0.03),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -66,17 +57,13 @@ class SubcategoryProductRowList extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: Get.height * 0.29,
+          height: Get.height * 0.278,
           child: ListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.029),
+            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0278),
             scrollDirection: Axis.horizontal,
             itemCount: category.products!.length,
-            itemBuilder: (context, index) => ProductItem(
-                category.products![index],
-                addToBasket,
-                removeFromBasket,
-                onProductClickHandler,
-                countInBasket(category.products![index].id!) as int),
+            itemBuilder: (context, index) => ProductItem(category.products![index], addToBasket, removeFromBasket,
+                onProductClickHandler, countInBasket(category.products![index].id!) as int),
           ),
         )
       ],

@@ -22,15 +22,11 @@ class ChooseDeliveryAddressModal extends GetView<MainPageController> {
       child: Container(
         width: double.maxFinite,
         height: Get.height * 0.2672,
-        padding: EdgeInsets.only(
-            top: 10,
-            left: Get.width * 0.0453,
-            right: Get.width * 0.0453,
-            bottom: Get.height * 0.0221),
+        padding:
+            EdgeInsets.only(top: 10, left: Get.width * 0.0453, right: Get.width * 0.0453, bottom: Get.height * 0.0221),
         decoration: const BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -39,9 +35,7 @@ class ChooseDeliveryAddressModal extends GetView<MainPageController> {
                 Container(
                   width: 32,
                   height: 4,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: AppColors.grey),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.grey),
                 ),
                 const SizedBox(
                   height: 16,
@@ -69,12 +63,8 @@ class ChooseDeliveryAddressModal extends GetView<MainPageController> {
             ),
             Column(
               children: [
-                LongButton(
-                    () => Navigator.of(context)
-                        .pushNamed(Routes.deliveryAddresses),
-                    'Add New Address',
-                    Get.width,
-                    Get.height * 0.064),
+                LongButton(() => Navigator.of(context).pushNamed(Routes.deliveryAddresses), 'Add New Address',
+                    Get.width, Get.height * 0.064),
                 SizedBox(
                   height: Get.height * 0.0172,
                 ),
@@ -82,9 +72,9 @@ class ChooseDeliveryAddressModal extends GetView<MainPageController> {
                   () => Visibility(
                     visible: controller.signInVisibility,
                     child: ClickableText(
-                      "or sign in instead",
+                      "OR SIGN IN INSTEAD",
                       controller.openSignInPage,
-                      style: AppTextStyles.blue12Normal400,
+                      style: AppTextStyles.blue14Normal400,
                     ),
                   ),
                 ),

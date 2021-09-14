@@ -15,68 +15,60 @@ class StoreClosedModal extends GetView<MainPageController> {
         padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0506),
         decoration: const BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: double.maxFinite,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: Get.height * 0.0221,
-                    ),
-                    Center(
-                      child: Container(
-                        width: 32,
-                        height: 4,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: AppColors.grey),
-                      ),
-                    ),
-                    SizedBox(
-                      height: Get.height * 0.009,
-                    ),
-                    Container(
-                      width: Get.width * 0.128,
-                      height: Get.width * 0.128,
-                      padding: EdgeInsets.all(Get.width * 0.0293),
-                      decoration: const BoxDecoration(
-                        color: AppColors.milky,
-                        shape: BoxShape.circle,
-                      ),
-                      child: SvgPicture.asset('assets/icons/door.svg'),
-                    ),
-                    SizedBox(
-                      height: Get.height * 0.01,
-                    ),
-                    Text(
-                      'Closed Store',
-                      style: AppTextStyles.red16Normal500
-                          .copyWith(color: const Color.fromRGBO(193, 5, 5, 1)),
-                    ),
-                    SizedBox(
-                      height: Get.height * 0.016,
-                    ),
-                    Text(
-                      'Thank you but at the moment our '
-                      'store is closed. We will be back soon.',
-                      style:
-                          AppTextStyles.grey14Normal400.copyWith(height: 1.4),
-                    )
-                  ],
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+        child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          SizedBox(
+            width: double.maxFinite,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: Get.height * 0.0221,
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: Get.height * 0.02,
+                Center(
+                  child: Container(
+                    width: 32,
+                    height: 4,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: AppColors.grey),
+                  ),
                 ),
-                child: LongButton(() => Get.back(), 'Ok Got it', Get.width,
-                    Get.height * 0.064),
-              )
-            ]));
+                SizedBox(
+                  height: Get.height * 0.009,
+                ),
+                Container(
+                  width: Get.width * 0.128,
+                  height: Get.width * 0.128,
+                  padding: EdgeInsets.all(Get.width * 0.0293),
+                  decoration: const BoxDecoration(
+                    color: AppColors.milky,
+                    shape: BoxShape.circle,
+                  ),
+                  child: SvgPicture.asset('assets/icons/door.svg'),
+                ),
+                SizedBox(
+                  height: Get.height * 0.01,
+                ),
+                Text(
+                  'Closed Store',
+                  style: AppTextStyles.red16Normal500.copyWith(color: const Color.fromRGBO(193, 5, 5, 1)),
+                ),
+                SizedBox(
+                  height: Get.height * 0.016,
+                ),
+                Text(
+                  'Thank you but at the moment our '
+                  'store is closed. We will be back soon.',
+                  style: AppTextStyles.grey14Normal400.copyWith(height: 1.4),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: Get.height * 0.02,
+            ),
+            child: LongButton(() => Get.back(), 'Ok Got it', Get.width, Get.height * 0.064),
+          )
+        ]));
   }
 }

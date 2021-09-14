@@ -16,21 +16,18 @@ class AmountModel {
     if (json['delivery'] is int) {
       delivery = (json['delivery'] as int).toDouble();
     } else {
-
-    delivery = json['delivery'] as double;
+      delivery = json['delivery'] as double;
     }
 
     if (json['promotion'] is int) {
       promotion = (json['promotion'] as int).toDouble();
     } else {
-
       promotion = json['promotion'] as double;
     }
 
     if (json['total'] is int) {
       total = (json['total'] as int).toDouble();
     } else {
-
       total = json['total'] as double;
     }
   }

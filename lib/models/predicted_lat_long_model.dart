@@ -8,8 +8,7 @@ class PredictedLatLongModel {
   PredictedLatLongModel.fromJson(dynamic json) {
     formattedAddress = json['formatted_address'] as String;
     name = json['name'] as String;
-    geometry =
-        json['geometry'] != null ? Geometry.fromJson(json['geometry']) : null;
+    geometry = json['geometry'] != null ? Geometry.fromJson(json['geometry']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -29,8 +28,7 @@ class Geometry {
   Geometry({this.location});
 
   Geometry.fromJson(dynamic json) {
-    location =
-        json['location'] != null ? Location.fromJson(json['location']) : null;
+    location = json['location'] != null ? Location.fromJson(json['location']) : null;
   }
 
   Map<String, dynamic> toJson() {

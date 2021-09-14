@@ -34,8 +34,7 @@ class ProductPage extends GetView<ProductPageController> {
                       color: AppColors.white,
                     ),
                     badgeColor: AppColors.lightGreen,
-                    position: BadgePosition.topStart(
-                        top: Get.height * -0.0184, start: Get.width * 0.0213),
+                    position: BadgePosition.topStart(top: Get.height * -0.0184, start: Get.width * 0.0213),
                     toAnimate: false,
                     child: SvgPicture.asset(
                       'assets/icons/shop_basket.svg',
@@ -55,8 +54,7 @@ class ProductPage extends GetView<ProductPageController> {
               children: [
                 AspectRatio(
                   aspectRatio: 1.25,
-                  child:
-                      CachedNetworkImage(imageUrl: controller.product.image!),
+                  child: CachedNetworkImage(imageUrl: controller.product.image!),
                 ),
                 SizedBox(
                   height: Get.width * 0.05,
@@ -104,23 +102,18 @@ class ProductPage extends GetView<ProductPageController> {
                               ),
                             if (controller.product.off! > 0)
                               RichText(
-                                text: TextSpan(
-                                    text: ' \$ ',
-                                    style: AppTextStyles.green16Normal600,
-                                    children: [
-                                      TextSpan(
-                                          text: controller.product.offPrice!
-                                              .toStringAsFixed(2),
-                                          style: AppTextStyles.green20Normal600)
-                                    ]),
+                                text: TextSpan(text: ' \$ ', style: AppTextStyles.green16Normal600, children: [
+                                  TextSpan(
+                                      text: controller.product.offPrice!.toStringAsFixed(2),
+                                      style: AppTextStyles.green20Normal600)
+                                ]),
                               ),
                             if (controller.product.off! > 0)
                               SizedBox(
                                 height: Get.height * 0.007,
                               ),
                             if (controller.product.off! > 0)
-                              Text(
-                                  "\$ ${controller.product.price!.toStringAsFixed(2)}",
+                              Text("\$ ${controller.product.price!.toStringAsFixed(2)}",
                                   style: const TextStyle(
                                       color: Color.fromRGBO(161, 161, 161, 1),
                                       fontSize: 14,
@@ -133,15 +126,11 @@ class ProductPage extends GetView<ProductPageController> {
                         ),
                       if (controller.product.off! == 0)
                         RichText(
-                          text: TextSpan(
-                              text: ' \$ ',
-                              style: AppTextStyles.green16Normal600,
-                              children: [
-                                TextSpan(
-                                    text: controller.product.price!
-                                        .toStringAsFixed(2),
-                                    style: AppTextStyles.green20Normal600)
-                              ]),
+                          text: TextSpan(text: ' \$ ', style: AppTextStyles.green16Normal600, children: [
+                            TextSpan(
+                                text: controller.product.price!.toStringAsFixed(2),
+                                style: AppTextStyles.green20Normal600)
+                          ]),
                         ),
                     ],
                   ),
@@ -160,12 +149,10 @@ class ProductPage extends GetView<ProductPageController> {
                   child: SizedBox(
                     height: Get.height * 0.13,
                     child: SingleChildScrollView(
-                      padding:
-                          EdgeInsets.symmetric(vertical: Get.height * 0.02),
+                      padding: EdgeInsets.symmetric(vertical: Get.height * 0.02),
                       child: Text(
                         controller.product.description!,
-                        style: AppTextStyles.grayishBlack12Normal300
-                            .copyWith(height: 1.6),
+                        style: AppTextStyles.grayishBlack12Normal300.copyWith(height: 1.6),
                         textAlign: TextAlign.justify,
                       ),
                     ),
@@ -182,8 +169,7 @@ class ProductPage extends GetView<ProductPageController> {
                     width: Get.width * 0.381,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        border: Border.all(
-                            color: const Color.fromRGBO(225, 225, 225, 1))),
+                        border: Border.all(color: const Color.fromRGBO(225, 225, 225, 1))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -234,9 +220,7 @@ class ProductPage extends GetView<ProductPageController> {
                 borderRadius: BorderRadius.circular(12),
               ),
               margin: EdgeInsets.only(bottom: Get.height * 0.03),
-              padding: EdgeInsets.symmetric(
-                  horizontal: Get.width * 0.0266,
-                  vertical: Get.height * 0.0209),
+              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0266, vertical: Get.height * 0.0209),
               child: Obx(
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

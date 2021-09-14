@@ -16,8 +16,7 @@ class SearchAddressPage extends GetView<SearchAddressPageController> {
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar('Delivery Addresses'),
       backgroundColor: AppColors.milky,
@@ -84,9 +83,8 @@ class SearchAddressPage extends GetView<SearchAddressPageController> {
                     height: 0,
                   ),
                 ),
-                itemBuilder: (context, index) => PredictedAddressItem(
-                    controller.predictedAddresses[index],
-                    controller.onPredictionCLickHandler),
+                itemBuilder: (context, index) =>
+                    PredictedAddressItem(controller.predictedAddresses[index], controller.onPredictionCLickHandler),
                 itemCount: controller.predictedAddresses.length,
               )))
         ],

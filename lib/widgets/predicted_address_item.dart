@@ -16,16 +16,14 @@ class PredictedAddressItem extends StatelessWidget {
     return InkWell(
       onTap: () => onClick(model.placeId),
       child: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: Get.width * 0.0453, vertical: Get.height * 0.0172),
+        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453, vertical: Get.height * 0.0172),
         child: Row(
           children: [
             Container(
                 height: Get.width * 0.0853,
                 width: Get.width * 0.0853,
                 padding: EdgeInsets.all(Get.width * 0.016),
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: AppColors.white),
+                decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.white),
                 child: SvgPicture.asset(
                   'assets/icons/location_tall.svg',
                   color: AppColors.darkGrey,

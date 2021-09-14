@@ -46,13 +46,11 @@ class AccountInformationPageController extends GetxController {
   }
 
   void openDeliveryAddressesPage() {
-    Get.toNamed(Routes.deliveryAddresses)!
-        .then((value) => checkSelectedAddress());
+    Get.toNamed(Routes.deliveryAddresses)!.then((value) => checkSelectedAddress());
   }
 
   void openAddressesPage() {
-    Get.toNamed(Routes.addresses,
-            arguments: true, parameters: {"from": "account_information"})!
+    Get.toNamed(Routes.addresses, arguments: true, parameters: {"from": "account_information"})!
         .then((value) => checkSelectedAddress());
   }
 
@@ -60,10 +58,8 @@ class AccountInformationPageController extends GetxController {
     final userInfo = globalController.initialDataModel.user;
     if (userInfo != null) {
       phoneNumber = userInfo.mobileNumber!;
-      nameTextController.text =
-          userInfo.firstname != null ? userInfo.firstname! : "";
-      lastNameTextController.text =
-          userInfo.lastname != null ? userInfo.lastname! : "";
+      nameTextController.text = userInfo.firstname != null ? userInfo.firstname! : "";
+      lastNameTextController.text = userInfo.lastname != null ? userInfo.lastname! : "";
       emailTextController.text = userInfo.email != null ? userInfo.email! : "";
     }
     checkSelectedAddress();
@@ -73,8 +69,7 @@ class AccountInformationPageController extends GetxController {
     final userInfo = globalController.initialDataModel.user;
     if (userInfo!.addresses!.isNotEmpty) {
       if (storageExists(AppKeys.address)) {
-        final AddressModel? address = findAddress(
-            userInfo.addresses!, storageRead(AppKeys.address) as String);
+        final AddressModel? address = findAddress(userInfo.addresses!, storageRead(AppKeys.address) as String);
 
         if (address != null) {
           selectedAddress = address.address!;
@@ -106,8 +101,7 @@ class AccountInformationPageController extends GetxController {
     userInfo.lastname = lastNameTextController.text;
     userInfo.email = emailTextController.text;
 
-    _userRepository.updateUser(userInfo).then((value) =>
-        value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+    _userRepository.updateUser(userInfo).then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
   }
 
   void attemptFailed(String message) {

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_keys.dart';
+import 'package:jify_app/constants/app_variables.dart';
 import 'package:jify_app/controllers/checkout_fragment_controller.dart';
 import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
@@ -8,6 +9,7 @@ import 'package:jify_app/modals/custom_alert_dialog.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/utilities/utilities.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AccountFragmentController extends GetxController {
   final globalController = Get.find<GlobalController>();
@@ -37,19 +39,18 @@ class AccountFragmentController extends GetxController {
     Get.toNamed(Routes.helpCenter);
   }
 
+  void openPromotions() {
+    launch(AppVariables.promotions);
+  }
+
   void openPrivacyAndTerms() {}
 
   void openTermsAndConditions() {}
 
   void openLogoutModal() {
     Get.bottomSheet(
-      CustomAlertDialog(
-          "Log Out from Jify",
-          "Are you sure you would like to log out of your Jify account?",
-          "Logout",
-          "Cancel",
-          logout,
-          closeModal),
+      CustomAlertDialog("Log Out from Jify", "Are you sure you would like to log out of your Jify account?", "Logout",
+          "Cancel", logout, closeModal),
       enableDrag: false,
     );
   }
@@ -59,22 +60,22 @@ class AccountFragmentController extends GetxController {
   }
 
   void logout() {
-    storageDelete().then(
-        (value) => storageWrite(AppKeys.firstTimeLaunch, true).then((value) {
-              globalController.initialDataModel.user = null;
-              globalController.basket.clear();
-              final ordersController = Get.find<OrdersFragmentController>();
-              ordersController.ordersList.clear();
-              ordersController.previousOrdersList.clear();
-              ordersController.checkUserLogStatus();
-              // Get.find<CheckoutFragmentController>().checkSelectedAddress();
-              Get.find<CheckoutFragmentController>().populateOrders();
-              final mainController = Get.find<MainPageController>();
-              mainController.onBottomNavClickHandler(0);
-              Get.back();
-              checkLoginStatus();
-              mainController.checkInitialAddress();
-            }));
+    storageDelete().then((value) => storageWrite(AppKeys.firstTimeLaunch, true).then((value) {
+          globalController.initialDataModel.user = null;
+          globalController.basket.clear();
+          globalController.updateTotalCost();
+          final ordersController = Get.find<OrdersFragmentController>();
+          ordersController.ordersList.clear();
+          ordersController.previousOrdersList.clear();
+          ordersController.checkUserLogStatus();
+          // Get.find<CheckoutFragmentController>().checkSelectedAddress();
+          Get.find<CheckoutFragmentController>().populateOrders();
+          final mainController = Get.find<MainPageController>();
+          mainController.onBottomNavClickHandler(0);
+          Get.back();
+          checkLoginStatus();
+          mainController.checkInitialAddress();
+        }));
   }
 
   void login() {

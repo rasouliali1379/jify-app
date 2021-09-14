@@ -15,15 +15,13 @@ class ProductItem extends StatefulWidget {
   final Function onProductClickHandler;
   final int count;
 
-  const ProductItem(this.product, this.addToBasket, this.removeFromBasket,
-      this.onProductClickHandler, this.count);
+  const ProductItem(this.product, this.addToBasket, this.removeFromBasket, this.onProductClickHandler, this.count);
 
   @override
   _ProductItemState createState() => _ProductItemState();
 }
 
-class _ProductItemState extends State<ProductItem>
-    with SingleTickerProviderStateMixin {
+class _ProductItemState extends State<ProductItem> with SingleTickerProviderStateMixin {
   late AnimationController _colorTweenController;
   late Animation<Color?> _animation;
   late Animation<Color?> _textColorAnimation;
@@ -31,27 +29,22 @@ class _ProductItemState extends State<ProductItem>
   bool alreadyDone = false;
   @override
   void initState() {
-    _colorTweenController = AnimationController(
-        duration: const Duration(milliseconds: 200), vsync: this);
-    _animation = ColorTween(begin: AppColors.extraLightBLue, end: AppColors.red)
-        .animate(_colorTweenController)
+    _colorTweenController = AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
+    _animation = ColorTween(begin: AppColors.extraLightBLue, end: AppColors.red).animate(_colorTweenController)
+      ..addListener(() {
+        setState(() {});
+      });
+    _textColorAnimation =
+        ColorTween(begin: AppTextColors.extraDarkCyan, end: AppColors.red).animate(_colorTweenController)
           ..addListener(() {
             setState(() {});
           });
-    _textColorAnimation =
-        ColorTween(begin: AppTextColors.extraDarkCyan, end: AppColors.red)
-            .animate(_colorTweenController)
-              ..addListener(() {
-                setState(() {});
-              });
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant ProductItem oldWidget) {
-    if (widget.count == widget.product.stock &&
-        widget.count != 0 &&
-        !alreadyDone) {
+    if (widget.count == widget.product.stock && widget.count != 0 && !alreadyDone) {
       changeColor();
     }
 
@@ -69,10 +62,9 @@ class _ProductItemState extends State<ProductItem>
         padding: const EdgeInsets.all(5),
         child: Container(
           width: Get.width * 0.29,
-          height: Get.height * 0.29,
+          height: Get.height * 0.278,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: _animation.value!, width: 1.2)),
+              borderRadius: BorderRadius.circular(14), border: Border.all(color: _animation.value!, width: 1.2)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -84,9 +76,7 @@ class _ProductItemState extends State<ProductItem>
                   ClipRRect(
                       borderRadius: BorderRadius.circular(14),
                       child: CachedNetworkImage(
-                          width: double.maxFinite,
-                          height: Get.height * 0.14,
-                          imageUrl: widget.product.image!)),
+                          width: double.maxFinite, height: Get.height * 0.14, imageUrl: widget.product.image!)),
                   Align(
                     alignment: Alignment.topRight,
                     child: Visibility(
@@ -112,8 +102,8 @@ class _ProductItemState extends State<ProductItem>
                   )
                 ],
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: Get.height * 0.01,
               ),
               Text(
                 widget.product.title!,
@@ -122,8 +112,8 @@ class _ProductItemState extends State<ProductItem>
                 style: AppTextStyles.darkPurple13Normal300,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(
-                height: 4,
+              SizedBox(
+                height: Get.height * 0.004,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -148,8 +138,7 @@ class _ProductItemState extends State<ProductItem>
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.darkPurple13Normal700.copyWith(
-                            color: const Color.fromRGBO(171, 171, 171, 1),
-                            decoration: TextDecoration.lineThrough),
+                            color: const Color.fromRGBO(171, 171, 171, 1), decoration: TextDecoration.lineThrough),
                       ),
                     ),
                   if (widget.product.off! == 0)
@@ -163,8 +152,8 @@ class _ProductItemState extends State<ProductItem>
                     ),
                 ],
               ),
-              const SizedBox(
-                height: 6,
+              SizedBox(
+                height: Get.height * 0.007,
               ),
               Padding(
                 padding: const EdgeInsets.all(4.0),
@@ -201,19 +190,15 @@ class _ProductItemState extends State<ProductItem>
                                   )),
                               const Color.fromRGBO(200, 255, 216, 1),
                               () => widget.removeFromBasket(widget.product.id),
-                              border:
-                                  Border.all(color: AppColors.green, width: 2),
+                              border: Border.all(color: AppColors.green, width: 2),
                               boxShadow: [
                                 BoxShadow(
-                                    offset: const Offset(0, 1),
-                                    blurRadius: 2,
-                                    color: AppColors.black.withOpacity(0.4))
+                                    offset: const Offset(0, 1), blurRadius: 2, color: AppColors.black.withOpacity(0.4))
                               ],
                             ),
                             Text(
                               widget.count.toString(),
-                              style: AppTextStyles.extraDarkCyan15Normal400
-                                  .copyWith(color: _textColorAnimation.value),
+                              style: AppTextStyles.extraDarkCyan15Normal400.copyWith(color: _textColorAnimation.value),
                             ),
                             CircleButton(
                               SizedBox(
@@ -228,16 +213,13 @@ class _ProductItemState extends State<ProductItem>
                               () => widget.addToBasket(widget.product),
                               boxShadow: [
                                 BoxShadow(
-                                    offset: const Offset(0, 1),
-                                    blurRadius: 2,
-                                    color: AppColors.black.withOpacity(0.4))
+                                    offset: const Offset(0, 1), blurRadius: 2, color: AppColors.black.withOpacity(0.4))
                               ],
                             ),
                           ],
                         );
                       }
-                      return AddButton(
-                          () => widget.addToBasket(widget.product));
+                      return AddButton(() => widget.addToBasket(widget.product));
                     })),
               ),
             ],
@@ -250,8 +232,7 @@ class _ProductItemState extends State<ProductItem>
   void changeColor() {
     _colorTweenController.forward();
     alreadyDone = true;
-    Future.delayed(const Duration(seconds: 5))
-        .then((value) => _colorTweenController.reverse());
+    Future.delayed(const Duration(seconds: 5)).then((value) => _colorTweenController.reverse());
   }
 
   @override

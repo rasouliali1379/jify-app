@@ -37,9 +37,7 @@ class InitialDataModel {
         categories?.add(CategoryModel.fromJson(v));
       });
     }
-    user = json['user'] != null
-        ? UserModel.fromJson(json['user'] as Map<String, dynamic>)
-        : null;
+    user = json['user'] != null ? UserModel.fromJson(json['user'] as Map<String, dynamic>) : null;
     if (json['supportedDistance'] is double) {
       supportedDistance = json['supportedDistance'] as double;
     } else {

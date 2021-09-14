@@ -14,8 +14,7 @@ class CheckoutOrdersListItem extends StatelessWidget {
   final Function increaseHandler;
   final Function decreaseHandler;
 
-  const CheckoutOrdersListItem(
-      this.amount, this.product, this.increaseHandler, this.decreaseHandler);
+  const CheckoutOrdersListItem(this.amount, this.product, this.increaseHandler, this.decreaseHandler);
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +23,7 @@ class CheckoutOrdersListItem extends StatelessWidget {
         Container(
           width: Get.width * 0.16,
           height: Get.width * 0.16,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppColors.grey)),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.grey)),
           child: AspectRatio(
             aspectRatio: 1,
             child: ClipRRect(
@@ -60,19 +57,14 @@ class CheckoutOrdersListItem extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: RichText(
-                        text: TextSpan(
-                            text: '\$',
-                            style: AppTextStyles.green13Normal400,
-                            children: [
-                              TextSpan(
-                                text: product.off! > 0
-                                    ? (product.offPrice! * amount)
-                                        .toStringAsFixed(2)
-                                    : (product.price! * amount)
-                                        .toStringAsFixed(2),
-                                style: AppTextStyles.green15Normal400,
-                              )
-                            ]),
+                        text: TextSpan(text: '\$', style: AppTextStyles.green13Normal400, children: [
+                          TextSpan(
+                            text: product.off! > 0
+                                ? (product.offPrice! * amount).toStringAsFixed(2)
+                                : (product.price! * amount).toStringAsFixed(2),
+                            style: AppTextStyles.green15Normal400,
+                          )
+                        ]),
                       ),
                     ),
                   )

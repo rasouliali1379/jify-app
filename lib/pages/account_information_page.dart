@@ -20,8 +20,7 @@ class AccountInformationPage extends GetView<AccountInformationPageController> {
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar(
         'Account Information',
@@ -75,8 +74,7 @@ class AccountInformationPage extends GetView<AccountInformationPageController> {
               SizedBox(
                 height: Get.height * 0.0258,
               ),
-              Obx(() => CustomDropDown(
-                  controller.selectedAddress, controller.openAddressesPage)),
+              Obx(() => CustomDropDown(controller.selectedAddress, controller.openAddressesPage)),
               // SizedBox(
               //   height: Get.height * 0.032,
               // ),
@@ -115,8 +113,7 @@ class AccountInformationPage extends GetView<AccountInformationPageController> {
                 height: Get.height * 0.0418,
               ),
 
-              Obx(() => LongButton(controller.updateUserData, 'Save',
-                  double.maxFinite, Get.height * 0.064,
+              Obx(() => LongButton(controller.updateUserData, 'Save', double.maxFinite, Get.height * 0.064,
                   customText: controller.loadingStatus
                       ? SpinKitThreeBounce(
                           color: AppColors.white,

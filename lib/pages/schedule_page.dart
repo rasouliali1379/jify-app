@@ -18,8 +18,7 @@ class SchedulePage extends GetView<SchedulePageController> {
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarDividerColor: AppColors.white,
-        systemNavigationBarColor: AppColors.white
-    ));
+        systemNavigationBarColor: AppColors.white));
     return Scaffold(
       appBar: CustomToolBar('Schedule'),
       backgroundColor: AppColors.milky,
@@ -40,9 +39,8 @@ class SchedulePage extends GetView<SchedulePageController> {
                           customBorder: const CircleBorder(),
                           onTap: controller.previousDay,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Get.width * 0.0453,
-                                vertical: Get.height * 0.0258),
+                            padding:
+                                EdgeInsets.symmetric(horizontal: Get.width * 0.0453, vertical: Get.height * 0.0258),
                             child: const Icon(Icons.arrow_back_ios, size: 20),
                           )),
                     ),
@@ -56,11 +54,9 @@ class SchedulePage extends GetView<SchedulePageController> {
                           customBorder: const CircleBorder(),
                           onTap: controller.nexDay,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Get.width * 0.0453,
-                                vertical: Get.height * 0.0258),
-                            child:
-                                const Icon(Icons.arrow_forward_ios, size: 20),
+                            padding:
+                                EdgeInsets.symmetric(horizontal: Get.width * 0.0453, vertical: Get.height * 0.0258),
+                            child: const Icon(Icons.arrow_forward_ios, size: 20),
                           )),
                     ),
                   ],
@@ -85,8 +81,7 @@ class SchedulePage extends GetView<SchedulePageController> {
             ],
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: Get.height * 0.0369, horizontal: Get.width * 0.0453),
+            padding: EdgeInsets.symmetric(vertical: Get.height * 0.0369, horizontal: Get.width * 0.0453),
             child: LongButton(
               controller.onSelectClickHandler,
               'Select',

@@ -85,26 +85,22 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                   ),
                   Obx(() => Row(
                         children: [
-                          LocationTagItem('assets/icons/home.svg', 'Home',
-                              controller.onTagClickHandler(0),
+                          LocationTagItem('assets/icons/home.svg', 'Home', controller.onTagClickHandler(0),
                               selected: controller.selectedTag == 0),
                           SizedBox(
                             width: Get.width * 0.0266,
                           ),
-                          LocationTagItem('assets/icons/briefcase.svg',
-                              'Office', controller.onTagClickHandler(1),
+                          LocationTagItem('assets/icons/briefcase.svg', 'Office', controller.onTagClickHandler(1),
                               selected: controller.selectedTag == 1),
                           SizedBox(
                             width: Get.width * 0.0266,
                           ),
-                          LocationTagItem('assets/icons/dumbells.svg', 'Gym',
-                              controller.onTagClickHandler(2),
+                          LocationTagItem('assets/icons/dumbells.svg', 'Gym', controller.onTagClickHandler(2),
                               selected: controller.selectedTag == 2),
                           SizedBox(
                             width: Get.width * 0.0266,
                           ),
-                          LocationTagItem('assets/icons/location.svg', 'Custom',
-                              controller.onTagClickHandler(3),
+                          LocationTagItem('assets/icons/location.svg', 'Custom', controller.onTagClickHandler(3),
                               selected: controller.selectedTag == 3),
                         ],
                       )),
@@ -137,19 +133,16 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                           ),
                           child: Row(
                             children: [
-                              SvgPicture.asset(
-                                  'assets/icons/location_tall.svg'),
+                              SvgPicture.asset('assets/icons/location_tall.svg'),
                               const SizedBox(
                                 width: 10,
                               ),
                               Expanded(
                                 child: Text(
-                                  controller.selectedAddress.address ??
-                                      'Search for location',
-                                  style:
-                                      controller.selectedAddress.address == null
-                                          ? AppTextStyles.lightGrey14Normal300
-                                          : AppTextStyles.darkGrey14Normal300,
+                                  controller.selectedAddress.address ?? 'Search for location',
+                                  style: controller.selectedAddress.address == null
+                                      ? AppTextStyles.lightGrey14Normal300
+                                      : AppTextStyles.darkGrey14Normal300,
                                 ),
                               )
                             ],
@@ -159,8 +152,7 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                   SizedBox(
                     height: Get.height * 0.0233,
                   ),
-                  TitledTextField('Apt / Suite / Floor (optional) ',
-                      controller.floorTextController,
+                  TitledTextField('Apt / Suite / Floor (optional) ', controller.floorTextController,
                       textFieldBgColor: AppColors.white),
                   SizedBox(
                     height: Get.height * 0.0233,
@@ -187,19 +179,16 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                               onTap: controller.onOptionClickHandler(0),
                               child: Container(
                                 alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * 0.0123),
+                                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0123),
                                 height: Get.height * 0.0418,
                                 decoration: controller.selectedOption == 0
                                     ? BoxDecoration(
                                         color: AppColors.blue.withOpacity(0.12),
-                                        border:
-                                            Border.all(color: AppColors.blue),
+                                        border: Border.all(color: AppColors.blue),
                                         borderRadius: BorderRadius.circular(9))
                                     : BoxDecoration(
                                         color: AppColors.white,
-                                        border:
-                                            Border.all(color: AppColors.grey),
+                                        border: Border.all(color: AppColors.grey),
                                         borderRadius: BorderRadius.circular(9)),
                                 child: Text(
                                   'Leave at door',
@@ -218,19 +207,16 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                               onTap: controller.onOptionClickHandler(1),
                               child: Container(
                                 alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * 0.0123),
+                                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0123),
                                 height: Get.height * 0.0418,
                                 decoration: controller.selectedOption == 1
                                     ? BoxDecoration(
                                         color: AppColors.blue.withOpacity(0.12),
-                                        border:
-                                            Border.all(color: AppColors.blue),
+                                        border: Border.all(color: AppColors.blue),
                                         borderRadius: BorderRadius.circular(9))
                                     : BoxDecoration(
                                         color: AppColors.white,
-                                        border:
-                                            Border.all(color: AppColors.grey),
+                                        border: Border.all(color: AppColors.grey),
                                         borderRadius: BorderRadius.circular(9)),
                                 child: Text(
                                   'Meet at door',
@@ -249,19 +235,16 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
                               onTap: controller.onOptionClickHandler(2),
                               child: Container(
                                 alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * 0.0123),
+                                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0123),
                                 height: Get.height * 0.0418,
                                 decoration: controller.selectedOption == 2
                                     ? BoxDecoration(
                                         color: AppColors.blue.withOpacity(0.12),
-                                        border:
-                                            Border.all(color: AppColors.blue),
+                                        border: Border.all(color: AppColors.blue),
                                         borderRadius: BorderRadius.circular(9))
                                     : BoxDecoration(
                                         color: AppColors.white,
-                                        border:
-                                            Border.all(color: AppColors.grey),
+                                        border: Border.all(color: AppColors.grey),
                                         borderRadius: BorderRadius.circular(9)),
                                 child: Text(
                                   'Meet outside',

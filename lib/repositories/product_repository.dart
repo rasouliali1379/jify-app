@@ -58,8 +58,7 @@ class ProductRepository {
     return total;
   }
 
-  Future<Either<String, List<ProductModel>>> searchProducts(
-      String query, int page) async {
+  Future<Either<String, List<ProductModel>>> searchProducts(String query, int page) async {
     final result = await _apiRequests.getProducts(query, page);
     String error = "";
     List<ProductModel>? products;
@@ -67,8 +66,7 @@ class ProductRepository {
     result.fold((l) => error = l, (r) {
       final rawAddresses = r.data["data"]["products"] as List<dynamic>;
 
-      products = List<ProductModel>.from(
-          rawAddresses.map((value) => ProductModel.fromJson(value)));
+      products = List<ProductModel>.from(rawAddresses.map((value) => ProductModel.fromJson(value)));
     });
 
     if (products != null) {
@@ -78,18 +76,15 @@ class ProductRepository {
     }
   }
 
-  Future<Either<String, List<ProductModel>>> getProductsBySubCategoryId(
-      String id, String query, int page) async {
-    final result =
-        await _apiRequests.getProductsBySubcategoryId(id, page, query);
+  Future<Either<String, List<ProductModel>>> getProductsBySubCategoryId(String id, String query, int page) async {
+    final result = await _apiRequests.getProductsBySubcategoryId(id, page, query);
     String error = "";
     List<ProductModel>? products;
 
     result.fold((l) => error = l, (r) {
       final rawAddresses = r.data["data"]["products"] as List<dynamic>;
 
-      products = List<ProductModel>.from(
-          rawAddresses.map((value) => ProductModel.fromJson(value)));
+      products = List<ProductModel>.from(rawAddresses.map((value) => ProductModel.fromJson(value)));
     });
 
     if (products != null) {

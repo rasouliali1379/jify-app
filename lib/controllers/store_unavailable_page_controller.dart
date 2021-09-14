@@ -24,8 +24,9 @@ class StoreUnavailablePageController extends GetxController {
 
   void notifyCustomer() {
     loadingStatus = true;
-    _addressRepository.notifyAddress(_address.id!).then((result) =>
-        result.fold((l) => attemptFailed(l), (r) => attemptSucceed(status: r)));
+    _addressRepository
+        .notifyAddress(_address.id!)
+        .then((result) => result.fold((l) => attemptFailed(l), (r) => attemptSucceed(status: r)));
   }
 
   void attemptFailed(String message) {

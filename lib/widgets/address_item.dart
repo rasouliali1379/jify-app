@@ -13,8 +13,7 @@ class AddressItem extends StatelessWidget {
   final bool editMode;
   final Function editAddress;
 
-  const AddressItem(
-      this.addressModel, this.onClick, this.icon, this.editAddress,
+  const AddressItem(this.addressModel, this.onClick, this.icon, this.editAddress,
       {required this.selected, required this.editMode});
 
   @override
@@ -24,8 +23,7 @@ class AddressItem extends StatelessWidget {
       child: Container(
         width: double.maxFinite,
         height: Get.height * 0.0612,
-        margin: EdgeInsets.symmetric(
-            vertical: Get.height * 0.0123, horizontal: Get.width * 0.0453),
+        margin: EdgeInsets.symmetric(vertical: Get.height * 0.0123, horizontal: Get.width * 0.0453),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -50,8 +48,7 @@ class AddressItem extends StatelessWidget {
                 addressModel.address!,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
-                style: AppTextStyles.extraDarkCyan16Normal500
-                    .copyWith(color: AppTextColors.darkCyan),
+                style: AppTextStyles.extraDarkCyan16Normal500.copyWith(color: AppTextColors.darkCyan),
               ),
             ),
             SizedBox(
@@ -73,8 +70,7 @@ class AddressItem extends StatelessWidget {
               Visibility(
                 visible: selected,
                 child: Container(
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: AppColors.blue),
+                  decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blue),
                   width: 22,
                   height: 22,
                   child: Container(

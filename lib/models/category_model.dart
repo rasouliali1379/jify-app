@@ -8,13 +8,7 @@ class CategoryModel {
   List<ProductModel>? products;
   List<CategoryModel>? subCategories;
 
-  CategoryModel(
-      {this.id,
-      this.image,
-      this.imageThumbnail,
-      this.title,
-      this.products,
-      this.subCategories});
+  CategoryModel({this.id, this.image, this.imageThumbnail, this.title, this.products, this.subCategories});
 
   CategoryModel.fromJson(dynamic json) {
     id = json['_id'] as String;

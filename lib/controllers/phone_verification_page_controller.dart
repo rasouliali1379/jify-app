@@ -36,8 +36,7 @@ class PhoneVerificationPageController extends GetxController {
   @override
   void onInit() {
     final endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 120;
-    countdownController =
-        CountdownTimerController(endTime: endTime, onEnd: onCountdownFinished);
+    countdownController = CountdownTimerController(endTime: endTime, onEnd: onCountdownFinished);
     phoneNumber = Get.parameters["phone_number"]!;
     super.onInit();
   }
@@ -81,8 +80,7 @@ class PhoneVerificationPageController extends GetxController {
       }, (r) {
         showCustomSnackBar('Code has been sent again');
         final endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 120;
-        countdownController = CountdownTimerController(
-            endTime: endTime, onEnd: onCountdownFinished);
+        countdownController = CountdownTimerController(endTime: endTime, onEnd: onCountdownFinished);
         resendStatus = "countdown";
       });
     });
@@ -90,8 +88,9 @@ class PhoneVerificationPageController extends GetxController {
 
   void onPinCodeCompleteHandler(String code) {
     final phoneNumber = Get.parameters["phone_number"];
-    _userRepository.validateCode(phoneNumber!, code).then((value) =>
-        value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+    _userRepository
+        .validateCode(phoneNumber!, code)
+        .then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
   }
 
   void attemptFailed(String message) {
@@ -101,8 +100,7 @@ class PhoneVerificationPageController extends GetxController {
 
   void passwordError() {
     pinCodeFieldError = true;
-    Future.delayed(const Duration(seconds: 2))
-        .then((_) => pinCodeFieldError = false);
+    Future.delayed(const Duration(seconds: 2)).then((_) => pinCodeFieldError = false);
     errorController.add(ErrorAnimationType.shake);
     vibrateWithDuration(300);
     pinCodeController.clear();
@@ -112,8 +110,7 @@ class PhoneVerificationPageController extends GetxController {
     final token = loginData["token"] as String;
     if (token.isNotEmpty) {
       await storageWrite(AppKeys.token, token);
-      final userData =
-          UserModel.fromJson(loginData["user"] as Map<String, dynamic>);
+      final userData = UserModel.fromJson(loginData["user"] as Map<String, dynamic>);
       Get.find<AccountFragmentController>().checkLoginStatus();
       globalController.initialDataModel.user = userData;
 
@@ -129,8 +126,7 @@ class PhoneVerificationPageController extends GetxController {
       }
 
       if (globalController.initialDataModel.user!.addresses!.isNotEmpty) {
-        await storageWrite(AppKeys.address,
-            globalController.initialDataModel.user!.addresses!.last.id);
+        await storageWrite(AppKeys.address, globalController.initialDataModel.user!.addresses!.last.id);
       }
       final ordersController = Get.find<OrdersFragmentController>();
       ordersController.checkUserLogStatus();
@@ -141,8 +137,7 @@ class PhoneVerificationPageController extends GetxController {
       if (userData.firstname == null && userData.lastname == null) {
         globalController.addressModalCanOpen = false;
         Get.close(2);
-        Get.toNamed(Routes.signUp)!.then(
-            (value) => Get.find<MainPageController>().checkInitialAddress());
+        Get.toNamed(Routes.signUp)!.then((value) => Get.find<MainPageController>().checkInitialAddress());
       } else {
         showCustomSnackBar(
             "You're successfully signed in."

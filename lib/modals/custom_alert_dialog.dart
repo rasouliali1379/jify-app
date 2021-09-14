@@ -13,8 +13,8 @@ class CustomAlertDialog extends StatelessWidget {
   final Function positiveClickHandler;
   final Function negativeClickHandler;
 
-  const CustomAlertDialog(this.title, this.message, this.positiveText,
-      this.negativeText, this.positiveClickHandler, this.negativeClickHandler);
+  const CustomAlertDialog(this.title, this.message, this.positiveText, this.negativeText, this.positiveClickHandler,
+      this.negativeClickHandler);
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,9 @@ class CustomAlertDialog extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       height: Get.height * 0.307,
-      margin: EdgeInsets.symmetric(
-          vertical: Get.height * 0.0369, horizontal: Get.width * 0.0453),
-      padding: EdgeInsets.symmetric(
-          vertical: Get.height * 0.0209, horizontal: Get.width * 0.08),
-      decoration: BoxDecoration(
-          color: AppColors.white, borderRadius: BorderRadius.circular(25)),
+      margin: EdgeInsets.symmetric(vertical: Get.height * 0.0369, horizontal: Get.width * 0.0453),
+      padding: EdgeInsets.symmetric(vertical: Get.height * 0.0209, horizontal: Get.width * 0.08),
+      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(25)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -51,8 +48,7 @@ class CustomAlertDialog extends StatelessWidget {
               ),
               Text(
                 message,
-                style: AppTextStyles.black12Normal400.copyWith(
-                    fontSize: 14, color: AppColors.black.withOpacity(0.7)),
+                style: AppTextStyles.black12Normal400.copyWith(fontSize: 14, color: AppColors.black.withOpacity(0.7)),
               )
             ],
           ),

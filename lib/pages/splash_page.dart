@@ -28,7 +28,10 @@ class SplashPage extends GetView<SplashPageController> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SvgPicture.asset('assets/icons/tuka.svg'),
+                  Image.asset(
+                    "assets/images/logo.png",
+                    width: Get.width * 0.23,
+                  ),
                   const SizedBox(
                     height: 16,
                   ),

@@ -9,8 +9,7 @@ class CircleButton extends StatelessWidget {
   final BoxBorder? border;
   final List<BoxShadow>? boxShadow;
 
-  const CircleButton(this.child, this.color, this.onClick,
-      {this.width, this.height, this.border, this.boxShadow});
+  const CircleButton(this.child, this.color, this.onClick, {this.width, this.height, this.border, this.boxShadow});
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +22,12 @@ class CircleButton extends StatelessWidget {
                 width: width,
                 height: height,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: color,
-                    border: border,
-                    boxShadow: boxShadow),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: color, border: border, boxShadow: boxShadow),
                 child: child,
               )
             : Container(
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: color,
-                    border: border,
-                    boxShadow: boxShadow),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: color, border: border, boxShadow: boxShadow),
                 child: child,
               );
       }),

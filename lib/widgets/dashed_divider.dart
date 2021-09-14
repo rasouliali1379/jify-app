@@ -6,10 +6,7 @@ class DashedDivider extends StatelessWidget {
   final Color color;
   final Axis direction;
 
-  const DashedDivider(
-      {this.height = 0.7,
-      this.color = AppColors.grey,
-      this.direction = Axis.horizontal});
+  const DashedDivider({this.height = 0.7, this.color = AppColors.grey, this.direction = Axis.horizontal});
 
   @override
   Widget build(BuildContext context) {

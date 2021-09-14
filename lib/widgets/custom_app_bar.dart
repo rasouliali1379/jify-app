@@ -17,8 +17,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  CustomAppBar(this.backClickHandler, this.clearSearch,
-      this.searchChangeHandler, this.textController, this.focusNode)
+  CustomAppBar(this.backClickHandler, this.clearSearch, this.searchChangeHandler, this.textController, this.focusNode)
       : preferredSize = Size.fromHeight(Get.height * 0.09);
 
   @override
@@ -46,9 +45,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                               onTap: backClickHandler,
                               customBorder: const CircleBorder(),
                               child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: Get.width * 0.0373,
-                                    right: Get.width * 0.0266),
+                                padding: EdgeInsets.only(left: Get.width * 0.0373, right: Get.width * 0.0266),
                                 child: const Icon(
                                   Icons.arrow_back_ios_rounded,
                                   color: Colors.white,
@@ -63,15 +60,12 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                   }),
                   Expanded(
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Container(
-                          height: Get.height * 0.0665,
-                          margin:
-                              EdgeInsets.symmetric(vertical: Get.height * 0.01),
-                          child: Image.asset(
-                            'assets/images/jify.png',
-                          ),
+                        Image.asset(
+                          'assets/images/logo.png',
+                          width: Get.width * 0.24,
+                          height: Get.height * 0.055,
+                          fit: BoxFit.fill,
                         ),
                         SizedBox(
                           width: Get.width * 0.05,
@@ -79,22 +73,17 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                         Expanded(
                             child: Container(
                           height: Get.height * 0.0492,
-                          margin: EdgeInsets.symmetric(
-                              vertical: Get.height * 0.0147),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.transparent),
+                          margin: EdgeInsets.symmetric(vertical: Get.height * 0.0147),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: Colors.transparent),
                           child: Neumorphic(
                             style: NeumorphicStyle(
                                 color: AppColors.white,
                                 depth: -1,
                                 shadowDarkColor: Colors.black,
                                 shadowDarkColorEmboss: Colors.black,
-                                boxShape: NeumorphicBoxShape.roundRect(
-                                    BorderRadius.circular(30))),
+                                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(30))),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Get.width * 0.0426),
+                              padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0426),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -106,18 +95,11 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                                           enabledBorder: InputBorder.none,
                                           errorBorder: InputBorder.none,
                                           disabledBorder: InputBorder.none,
-                                          contentPadding: EdgeInsets.only(
-                                              bottom: Get.height * 0.006),
-                                          hintStyle: AppTextStyles
-                                              .grayishBlack14Normal400
-                                              .copyWith(
-                                                  color: AppTextColors
-                                                      .grayishBlack
-                                                      .withOpacity(0.3))),
-                                      onChanged: (value) =>
-                                          searchChangeHandler(value),
-                                      style: AppTextStyles
-                                          .extraDarkCyan16Normal500,
+                                          contentPadding: EdgeInsets.only(bottom: Get.height * 0.006),
+                                          hintStyle: AppTextStyles.grayishBlack14Normal400
+                                              .copyWith(color: AppTextColors.grayishBlack.withOpacity(0.3))),
+                                      onChanged: (value) => searchChangeHandler(value),
+                                      style: AppTextStyles.extraDarkCyan16Normal500,
                                       cursorColor: AppColors.blue,
                                       cursorHeight: 18,
                                       cursorWidth: 1.2,
@@ -125,8 +107,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                                       focusNode: focusNode,
                                     ),
                                   ),
-                                  GetX<HomeFragmentController>(
-                                      builder: (controller) {
+                                  GetX<HomeFragmentController>(builder: (controller) {
                                     if (controller.searchLoading) {
                                       return const SpinKitRing(
                                         color: AppColors.blue,
@@ -142,8 +123,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
                                             color: AppColors.grayishBlack,
                                           ));
                                     }
-                                    return SvgPicture.asset(
-                                        'assets/icons/search.svg');
+                                    return SvgPicture.asset('assets/icons/search.svg');
                                   })
                                 ],
                               ),

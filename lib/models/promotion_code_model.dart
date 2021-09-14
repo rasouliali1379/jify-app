@@ -8,15 +8,7 @@ class PromotionCodeModel {
   String? start;
   int? v;
 
-  PromotionCodeModel(
-      {this.value,
-      this.end,
-      this.id,
-      this.title,
-      this.code,
-      this.type,
-      this.start,
-      this.v});
+  PromotionCodeModel({this.value, this.end, this.id, this.title, this.code, this.type, this.start, this.v});
 
   PromotionCodeModel.fromJson(Map<String, dynamic> json) {
     value = json['value'] as int;

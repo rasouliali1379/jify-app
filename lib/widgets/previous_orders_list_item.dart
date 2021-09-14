@@ -17,8 +17,7 @@ class PreviousOrdersListItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(Get.width * 0.04),
       margin: EdgeInsets.symmetric(vertical: Get.width * 0.011),
-      decoration: BoxDecoration(
-          color: AppColors.white, borderRadius: BorderRadius.circular(11)),
+      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(11)),
       child: Column(
         children: [
           Row(
@@ -37,14 +36,9 @@ class PreviousOrdersListItem extends StatelessWidget {
                 ],
               ),
               RichText(
-                  text: TextSpan(
-                      text: ' \$ ',
-                      style: AppTextStyles.green12Normal400,
-                      children: [
-                    TextSpan(
-                        text: orderModel.amount!.total!.toStringAsFixed(2),
-                        style: AppTextStyles.green14Normal400)
-                  ]))
+                  text: TextSpan(text: ' \$ ', style: AppTextStyles.green12Normal400, children: [
+                TextSpan(text: orderModel.amount!.total!.toStringAsFixed(2), style: AppTextStyles.green14Normal400)
+              ]))
             ],
           ),
           const SizedBox(
@@ -62,11 +56,9 @@ class PreviousOrdersListItem extends StatelessWidget {
                   GestureDetector(
                     onTap: () => openOrder(orderModel),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
-                          color: AppColors.blue.withOpacity(0.14),
-                          borderRadius: BorderRadius.circular(14)),
+                          color: AppColors.blue.withOpacity(0.14), borderRadius: BorderRadius.circular(14)),
                       child: const Text(
                         'View',
                         style: AppTextStyles.blue13Normal400,
@@ -79,11 +71,8 @@ class PreviousOrdersListItem extends StatelessWidget {
                   GestureDetector(
                     onTap: () => reorder(orderModel),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
-                      decoration: BoxDecoration(
-                          color: AppColors.blue,
-                          borderRadius: BorderRadius.circular(14)),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(color: AppColors.blue, borderRadius: BorderRadius.circular(14)),
                       child: const Text(
                         'Re-order',
                         style: AppTextStyles.white13Normal400,

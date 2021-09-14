@@ -20,8 +20,7 @@ class ContactUsModal extends GetView<HelpCenterPageController> {
         height: Get.height * 0.8349,
         decoration: const BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Column(
@@ -66,8 +65,7 @@ class ContactUsModal extends GetView<HelpCenterPageController> {
                           height: Get.height * 0.0147,
                         ),
                         const Text(
-                          'Delivery option and delivery speeds may very '
-                          'for different locations',
+                          'Fill out the fields below to get in contact with us',
                           style: AppTextStyles.grey14Normal400,
                         ),
                         SizedBox(
@@ -79,9 +77,7 @@ class ContactUsModal extends GetView<HelpCenterPageController> {
                             controller.fullNameTextController,
                             inputAction: TextInputAction.next,
                             textFieldBgColor: AppColors.red.withOpacity(0.05),
-                            errorText: controller.fullNameError.isNotEmpty
-                                ? controller.fullNameError
-                                : null,
+                            errorText: controller.fullNameError.isNotEmpty ? controller.fullNameError : null,
                           ),
                         ),
                         SizedBox(
@@ -93,9 +89,7 @@ class ContactUsModal extends GetView<HelpCenterPageController> {
                             controller.emailTextController,
                             inputAction: TextInputAction.next,
                             textFieldBgColor: AppColors.red.withOpacity(0.05),
-                            errorText: controller.emailError.isNotEmpty
-                                ? controller.emailError
-                                : null,
+                            errorText: controller.emailError.isNotEmpty ? controller.emailError : null,
                           ),
                         ),
                         SizedBox(
@@ -107,9 +101,7 @@ class ContactUsModal extends GetView<HelpCenterPageController> {
                             controller.subjectTextController,
                             inputAction: TextInputAction.next,
                             textFieldBgColor: AppColors.red.withOpacity(0.05),
-                            errorText: controller.subjectError.isNotEmpty
-                                ? controller.subjectError
-                                : null,
+                            errorText: controller.subjectError.isNotEmpty ? controller.subjectError : null,
                           ),
                         ),
                         SizedBox(
@@ -129,9 +121,7 @@ class ContactUsModal extends GetView<HelpCenterPageController> {
                             'Messages',
                             controller.messagesTextController,
                             inputAction: TextInputAction.next,
-                            errorText: controller.messagesError.isNotEmpty
-                                ? controller.messagesError
-                                : null,
+                            errorText: controller.messagesError.isNotEmpty ? controller.messagesError : null,
                             customTextField: MultilineTextField(
                               controller.messagesTextController,
                               bgColor: AppColors.red.withOpacity(0.05),

@@ -13,16 +13,14 @@ class ExpandableContainer extends StatefulWidget {
   _ExpandableContainerState createState() => _ExpandableContainerState();
 }
 
-class _ExpandableContainerState extends State<ExpandableContainer>
-    with SingleTickerProviderStateMixin {
+class _ExpandableContainerState extends State<ExpandableContainer> with SingleTickerProviderStateMixin {
   bool expanded = false;
 
   late AnimationController _rotationController;
 
   @override
   void initState() {
-    _rotationController = AnimationController(
-        duration: const Duration(milliseconds: 200), vsync: this);
+    _rotationController = AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
     super.initState();
   }
 
@@ -35,8 +33,7 @@ class _ExpandableContainerState extends State<ExpandableContainer>
           borderRadius: BorderRadius.circular(11),
           border: Border.all(color: AppColors.milky),
           color: AppColors.lightRed),
-      padding: EdgeInsets.symmetric(
-          vertical: Get.height * 0.02, horizontal: Get.width * 0.0533),
+      padding: EdgeInsets.symmetric(vertical: Get.height * 0.02, horizontal: Get.width * 0.0533),
       duration: const Duration(milliseconds: 200),
       child: Column(
         children: [
@@ -50,10 +47,9 @@ class _ExpandableContainerState extends State<ExpandableContainer>
                   style: AppTextStyles.extraDarkCyan14Normal500,
                 ),
                 RotationTransition(
-                  turns:
-                      Tween(begin: 0.0, end: 0.5).animate(_rotationController),
+                  turns: Tween(begin: 0.0, end: 0.5).animate(_rotationController),
                   child: const RotatedBox(
-                      quarterTurns: 3,
+                      quarterTurns: 1,
                       child: Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: AppColors.darkCyan,
@@ -72,8 +68,8 @@ class _ExpandableContainerState extends State<ExpandableContainer>
                 ),
                 Text(
                   widget.content,
-                  style: AppTextStyles.black12Normal400.copyWith(
-                      height: 1.6, color: AppTextColors.black.withOpacity(0.7)),
+                  style:
+                      AppTextStyles.black12Normal400.copyWith(height: 1.6, color: AppTextColors.black.withOpacity(0.7)),
                 ),
               ],
             ),

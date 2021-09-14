@@ -12,8 +12,7 @@ class IntroSliderItem extends StatelessWidget {
   final String btnLabel;
   final GestureTapCallback onClick;
 
-  const IntroSliderItem(this.image, this.title, this.desc, this.btnLabel,
-      this.onClick);
+  const IntroSliderItem(this.image, this.title, this.desc, this.btnLabel, this.onClick);
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +31,7 @@ class IntroSliderItem extends StatelessWidget {
                     child: Container(
                       width: Get.width * 2,
                       height: Get.height * 0.2672,
-                      decoration: BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.circular(200)),
+                      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(200)),
                     ),
                   ),
                 ),

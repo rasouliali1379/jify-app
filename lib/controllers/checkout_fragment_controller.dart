@@ -151,9 +151,7 @@ class CheckoutFragmentController extends GetxController {
 
   void increaseAmount(ProductModel product) {
     Get.find<HomeFragmentController>().addProductToBasket(product);
-    showCustomSnackBar(
-        "${_productRepository.countInBasket(product.id!)} item added to basket",
-        duration: 1);
+    showCustomSnackBar("${_productRepository.countInBasket(product.id!)} item added to basket", duration: 1);
   }
 
   void decreaseAmount(String id) {
@@ -209,9 +207,9 @@ class CheckoutFragmentController extends GetxController {
     if (promoCodeController.text.isNotEmpty) {
       promoLoadingStatus = true;
       promoFocus.unfocus();
-      _checkoutRepository.checkPromotionCode(promoCodeController.text).then(
-          (value) =>
-              value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+      _checkoutRepository
+          .checkPromotionCode(promoCodeController.text)
+          .then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
     } else {
       showCustomSnackBar('Enter your promo code');
     }
@@ -250,8 +248,7 @@ class CheckoutFragmentController extends GetxController {
       promoCodePrice = _promoCodeDiscount;
     }
 
-    if (globalController.initialDataModel.freeShipping! <
-        (_subtotal - _promoCodeDiscount)) {
+    if (globalController.initialDataModel.freeShipping! < (_subtotal - _promoCodeDiscount)) {
       deliveryPrice = 0;
     }
 
@@ -269,19 +266,17 @@ class CheckoutFragmentController extends GetxController {
                 products: orders,
                 // address: Address(id: selectedAddress.id),
                 promotion: Promotion(code: promoCode.code));
-            _checkoutRepository.checkout(checkoutModel).then((value) =>
-                value.fold(
-                    (l) => attemptFailed(l), (r) => checkoutAttemptSucceed(r)));
+            _checkoutRepository
+                .checkout(checkoutModel)
+                .then((value) => value.fold((l) => attemptFailed(l), (r) => checkoutAttemptSucceed(r)));
           } else {
             showCustomSnackBar("Address not in range");
           }
         } else {
-          showCustomSnackBar(
-              "You need to add product into your basket to checkout");
+          showCustomSnackBar("You need to add product into your basket to checkout");
         }
       } else {
-        showCustomSnackBar(
-            "Store is currently closed, you can't submit an order.");
+        showCustomSnackBar("Store is currently closed, you can't submit an order.");
       }
     } else {
       Get.toNamed(Routes.signIn);

@@ -148,11 +148,9 @@ class MainPageController extends GetxController {
         openDeliveryAddressModal();
       } else {
         final address = _addressRepository.findAddress(
-            _globalController.initialDataModel.user!.addresses!,
-            storageRead(AppKeys.address) as String);
+            _globalController.initialDataModel.user!.addresses!, storageRead(AppKeys.address) as String);
 
-        _globalController.isAddressInRange = address.distance! <=
-            _globalController.initialDataModel.supportedDistance!;
+        _globalController.isAddressInRange = address.distance! <= _globalController.initialDataModel.supportedDistance!;
       }
     }
   }
@@ -181,8 +179,7 @@ class MainPageController extends GetxController {
     if (storageExists(AppKeys.orders)) {
       final stringBasket = storageRead(AppKeys.orders) as String;
       final jsonBasket = jsonDecode(stringBasket) as List<dynamic>;
-      final products = List<ProductModel>.from(
-          jsonBasket.map((model) => ProductModel.fromJson(model)));
+      final products = List<ProductModel>.from(jsonBasket.map((model) => ProductModel.fromJson(model)));
       _globalController.basket.assignAll(products);
       _globalController.updateTotalCost();
     }

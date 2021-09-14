@@ -73,11 +73,9 @@ class GlobalController extends GetxController {
 
       if (userData != null) {
         userData.fcmToken = token;
-        userRepository
-            .updateUser(userData)
-            .then((value) => value.fold((l) => null, (r) {
-                  initialDataModel.user = r;
-                }));
+        userRepository.updateUser(userData).then((value) => value.fold((l) => null, (r) {
+              initialDataModel.user = r;
+            }));
       }
     }
   }
@@ -94,8 +92,7 @@ class GlobalController extends GetxController {
     } else {
       showCustomSnackBar("Tap again if you want to quit app");
       exitAppAllowed = true;
-      Future.delayed(const Duration(seconds: 4))
-          .then((_) => exitAppAllowed = false);
+      Future.delayed(const Duration(seconds: 4)).then((_) => exitAppAllowed = false);
     }
   }
 }

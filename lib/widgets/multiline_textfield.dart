@@ -10,23 +10,20 @@ class MultilineTextField extends StatefulWidget {
   final Color? bgColor;
   final String hint;
 
-  const MultilineTextField(this.controller,
-      {this.errorText = "", this.height, this.bgColor, this.hint = ""});
+  const MultilineTextField(this.controller, {this.errorText = "", this.height, this.bgColor, this.hint = ""});
 
   @override
   _MultilineTextFieldState createState() => _MultilineTextFieldState();
 }
 
-class _MultilineTextFieldState extends State<MultilineTextField>
-    with SingleTickerProviderStateMixin {
+class _MultilineTextFieldState extends State<MultilineTextField> with SingleTickerProviderStateMixin {
   bool activated = false;
   late Animation<Color?> _colorTween;
   late AnimationController _animationController;
 
   @override
   void initState() {
-    _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 150));
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 150));
     _colorTween = ColorTween(
       begin: AppColors.grey,
       end: AppColors.blue,
@@ -48,9 +45,7 @@ class _MultilineTextFieldState extends State<MultilineTextField>
           decoration: BoxDecoration(
               color: widget.bgColor,
               border: Border.all(
-                color: widget.errorText.isNotEmpty
-                    ? AppColors.red
-                    : _colorTween.value!,
+                color: widget.errorText.isNotEmpty ? AppColors.red : _colorTween.value!,
               ),
               borderRadius: BorderRadius.circular(11)),
           child: TextField(
@@ -86,7 +81,6 @@ class _MultilineTextFieldState extends State<MultilineTextField>
   }
 
   void focusChangeHandler(bool focus) {
-
     if (focus) {
       _animationController.forward();
     } else {

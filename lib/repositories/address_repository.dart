@@ -10,8 +10,7 @@ import 'package:jify_app/network/api_requests.dart';
 class AddressRepository {
   final _apiRequests = ApiRequests();
 
-  Future<Either<String, List<AddressModel>>> addAddress(
-      AddressModel address) async {
+  Future<Either<String, List<AddressModel>>> addAddress(AddressModel address) async {
     final result = await _apiRequests.addAddress(address.toJson());
     String error = "";
     List<AddressModel>? addresses;
@@ -19,8 +18,7 @@ class AddressRepository {
     result.fold((l) => error = l, (r) {
       final rawAddresses = r.data["data"]["addresses"] as List<dynamic>;
 
-      addresses = List<AddressModel>.from(
-          rawAddresses.map((value) => AddressModel.fromJson(value)));
+      addresses = List<AddressModel>.from(rawAddresses.map((value) => AddressModel.fromJson(value)));
     });
 
     if (addresses != null) {
@@ -30,8 +28,7 @@ class AddressRepository {
     }
   }
 
-  Future<Either<String, List<AddressModel>>> updateAddress(
-      String id, AddressModel address) async {
+  Future<Either<String, List<AddressModel>>> updateAddress(String id, AddressModel address) async {
     final result = await _apiRequests.updateAddress(id, address.toJson());
     String error = "";
     List<AddressModel>? addresses;
@@ -39,8 +36,7 @@ class AddressRepository {
     result.fold((l) => error = l, (r) {
       final rawAddresses = r.data["data"]["addresses"] as List<dynamic>;
 
-      addresses = List<AddressModel>.from(
-          rawAddresses.map((value) => AddressModel.fromJson(value)));
+      addresses = List<AddressModel>.from(rawAddresses.map((value) => AddressModel.fromJson(value)));
     });
 
     if (addresses != null) {
@@ -56,11 +52,9 @@ class AddressRepository {
     List<AddressModel>? addresses;
 
     result.fold((l) => error = l, (r) {
-      final rawAddresses =
-          r.data["data"]["addresses"] as List<Map<String, dynamic>>;
+      final rawAddresses = r.data["data"]["addresses"] as List<Map<String, dynamic>>;
 
-      addresses = List<AddressModel>.from(
-          rawAddresses.map((value) => AddressModel.fromJson(value)));
+      addresses = List<AddressModel>.from(rawAddresses.map((value) => AddressModel.fromJson(value)));
     });
 
     if (addresses != null) {
@@ -78,8 +72,7 @@ class AddressRepository {
     result.fold((l) => error = l, (r) {
       final rawAddresses = r.data["data"]["addresses"] as List<dynamic>;
 
-      addresses = List<AddressModel>.from(
-          rawAddresses.map((value) => AddressModel.fromJson(value)));
+      addresses = List<AddressModel>.from(rawAddresses.map((value) => AddressModel.fromJson(value)));
     });
 
     if (addresses != null) {
@@ -89,8 +82,7 @@ class AddressRepository {
     }
   }
 
-  Future<Either<String, List<AddressPredictionModel>>> predictAddress(
-      String input) async {
+  Future<Either<String, List<AddressPredictionModel>>> predictAddress(String input) async {
     final result = await _apiRequests.predictPlaces(input);
     String error = "";
     List<AddressPredictionModel>? addresses;
@@ -98,8 +90,8 @@ class AddressRepository {
     result.fold((l) => error = l, (r) {
       final rawAddresses = r.data["predictions"] as List<dynamic>;
 
-      addresses = List<AddressPredictionModel>.from(
-          rawAddresses.map((value) => AddressPredictionModel.fromJson(value)));
+      addresses =
+          List<AddressPredictionModel>.from(rawAddresses.map((value) => AddressPredictionModel.fromJson(value)));
     });
 
     if (addresses != null) {
@@ -143,8 +135,7 @@ class AddressRepository {
     result.fold((l) => error = l, (r) {
       final rawAddresses = r.data["data"]["addresses"] as List<dynamic>;
 
-      addresses = List<AddressModel>.from(
-          rawAddresses.map((value) => AddressModel.fromJson(value)));
+      addresses = List<AddressModel>.from(rawAddresses.map((value) => AddressModel.fromJson(value)));
     });
 
     AddressModel? addressModel;
@@ -168,10 +159,7 @@ class AddressRepository {
     final dLat = deg2rad(latLng.latitude - storeLocation.latitude);
     final dLon = deg2rad(latLng.longitude - storeLocation.longitude);
     final a = sin(dLat / 2) * sin(dLat / 2) +
-        cos(deg2rad(storeLocation.latitude)) *
-            cos(deg2rad(latLng.latitude)) *
-            sin(dLon / 2) *
-            sin(dLon / 2);
+        cos(deg2rad(storeLocation.latitude)) * cos(deg2rad(latLng.latitude)) * sin(dLon / 2) * sin(dLon / 2);
     final curve = 2 * atan2(sqrt(a), sqrt(1 - a));
     return earthRadius * curve;
   }

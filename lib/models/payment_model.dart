@@ -5,8 +5,7 @@ class PaymentModel {
   int? status;
   String? type;
 
-  PaymentModel(
-      {this.nonce, this.deviceData, this.description, this.status, this.type});
+  PaymentModel({this.nonce, this.deviceData, this.description, this.status, this.type});
 
   PaymentModel.fromJson(dynamic json) {
     nonce = json['nonce'] == null ? null : json['nonce'] as String;
@@ -15,8 +14,7 @@ class PaymentModel {
     } else {
       deviceData = json['device-data'].toString();
     }
-    description =
-        json['description'] == null ? null : json['description'] as String;
+    description = json['description'] == null ? null : json['description'] as String;
     status = json['status'] == null ? null : json['status'] as int;
     type = json['type'] as String;
   }

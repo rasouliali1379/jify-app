@@ -16,8 +16,7 @@ class OrdersListItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(Get.width * 0.04),
       margin: EdgeInsets.symmetric(vertical: Get.width * 0.011),
-      decoration: BoxDecoration(
-          color: AppColors.white, borderRadius: BorderRadius.circular(11)),
+      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(11)),
       child: Column(
         children: [
           Row(
@@ -29,24 +28,16 @@ class OrdersListItem extends StatelessWidget {
                     orderModel.orderNumber.toString(),
                     style: AppTextStyles.extraDarkCyan14Normal400,
                   ),
-                  Text(
-                      orderModel.status == "paid"
-                          ? ' (In progress) '
-                          : ' (On its way) ',
+                  Text(orderModel.status == "paid" ? ' (In progress) ' : ' (On its way) ',
                       style: AppTextStyles.blue12Normal400.copyWith(
                         color: const Color.fromRGBO(59, 195, 238, 1),
                       ))
                 ],
               ),
               RichText(
-                  text: TextSpan(
-                      text: ' \$ ',
-                      style: AppTextStyles.green12Normal400,
-                      children: [
-                    TextSpan(
-                        text: orderModel.amount!.total!.toStringAsFixed(2),
-                        style: AppTextStyles.green14Normal400)
-                  ]))
+                  text: TextSpan(text: ' \$ ', style: AppTextStyles.green12Normal400, children: [
+                TextSpan(text: orderModel.amount!.total!.toStringAsFixed(2), style: AppTextStyles.green14Normal400)
+              ]))
             ],
           ),
           const SizedBox(
@@ -62,11 +53,9 @@ class OrdersListItem extends StatelessWidget {
               GestureDetector(
                 onTap: () => onClick(orderModel),
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: BoxDecoration(
-                      color: AppColors.blue.withOpacity(0.14),
-                      borderRadius: BorderRadius.circular(14)),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration:
+                      BoxDecoration(color: AppColors.blue.withOpacity(0.14), borderRadius: BorderRadius.circular(14)),
                   child: const Text(
                     'View',
                     style: AppTextStyles.blue13Normal400,

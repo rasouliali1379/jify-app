@@ -73,9 +73,7 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                       child: InkWell(
                         onTap: controller.openAddressesPage,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              top: Get.height * 0.032,
-                              bottom: Get.height * 0.0233),
+                          padding: EdgeInsets.only(top: Get.height * 0.032, bottom: Get.height * 0.0233),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -91,15 +89,10 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                                   children: [
                                     Obx(() => Expanded(
                                           child: Text(
-                                            controller.getDeliveryAddress(
-                                                controller
-                                                    .selectedAddress.address!),
+                                            controller.getDeliveryAddress(controller.selectedAddress.address!),
                                             overflow: TextOverflow.ellipsis,
-                                            style: AppTextStyles
-                                                .extraDarkCyan14Normal400
-                                                .copyWith(
-                                                    color:
-                                                        AppTextColors.darkCyan),
+                                            style: AppTextStyles.extraDarkCyan14Normal400
+                                                .copyWith(color: AppTextColors.darkCyan),
                                           ),
                                         )),
                                     SizedBox(
@@ -124,8 +117,7 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                       color: AppColors.grey,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          top: Get.height * 0.032, bottom: Get.height * 0.0233),
+                      padding: EdgeInsets.only(top: Get.height * 0.032, bottom: Get.height * 0.0233),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -137,8 +129,7 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                             children: [
                               Text(
                                 '+61${controller.globalController.initialDataModel.user!.mobileNumber!}',
-                                style: AppTextStyles.extraDarkCyan14Normal400
-                                    .copyWith(color: AppTextColors.darkCyan),
+                                style: AppTextStyles.extraDarkCyan14Normal400.copyWith(color: AppTextColors.darkCyan),
                               ),
                               // SizedBox(
                               //   width: Get.width * 0.0373,
@@ -180,99 +171,94 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                       height: Get.height * 0.027,
                     ),
                     Obx(() => Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: controller.onOptionClickHandler(0),
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Get.width * 0.0123),
-                              height: Get.height * 0.0418,
-                              decoration: controller.selectedOption == 0
-                                  ? BoxDecoration(
-                                  color: AppColors.blue.withOpacity(0.12),
-                                  border: Border.all(color: AppColors.blue),
-                                  borderRadius: BorderRadius.circular(9))
-                                  : BoxDecoration(
-                                  color: AppColors.white,
-                                  border: Border.all(color: AppColors.grey),
-                                  borderRadius: BorderRadius.circular(9)),
-                              child: Text(
-                                'Leave at door',
-                                style: controller.selectedOption == 0
-                                    ? AppTextStyles.blue13Normal300
-                                    : AppTextStyles.darkGrey13Normal400,
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: controller.onOptionClickHandler(0),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0123),
+                                  height: Get.height * 0.0418,
+                                  decoration: controller.selectedOption == 0
+                                      ? BoxDecoration(
+                                          color: AppColors.blue.withOpacity(0.12),
+                                          border: Border.all(color: AppColors.blue),
+                                          borderRadius: BorderRadius.circular(9))
+                                      : BoxDecoration(
+                                          color: AppColors.white,
+                                          border: Border.all(color: AppColors.grey),
+                                          borderRadius: BorderRadius.circular(9)),
+                                  child: Text(
+                                    'Leave at door',
+                                    style: controller.selectedOption == 0
+                                        ? AppTextStyles.blue13Normal300
+                                        : AppTextStyles.darkGrey13Normal400,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: Get.width * 0.0186,
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: controller.onOptionClickHandler(1),
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Get.width * 0.0123),
-                              height: Get.height * 0.0418,
-                              decoration: controller.selectedOption == 1
-                                  ? BoxDecoration(
-                                  color: AppColors.blue.withOpacity(0.12),
-                                  border: Border.all(color: AppColors.blue),
-                                  borderRadius: BorderRadius.circular(9))
-                                  : BoxDecoration(
-                                  color: AppColors.white,
-                                  border: Border.all(color: AppColors.grey),
-                                  borderRadius: BorderRadius.circular(9)),
-                              child: Text(
-                                'Meet at door',
-                                style: controller.selectedOption == 1
-                                    ? AppTextStyles.blue13Normal300
-                                    : AppTextStyles.darkGrey13Normal400,
+                            SizedBox(
+                              width: Get.width * 0.0186,
+                            ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: controller.onOptionClickHandler(1),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0123),
+                                  height: Get.height * 0.0418,
+                                  decoration: controller.selectedOption == 1
+                                      ? BoxDecoration(
+                                          color: AppColors.blue.withOpacity(0.12),
+                                          border: Border.all(color: AppColors.blue),
+                                          borderRadius: BorderRadius.circular(9))
+                                      : BoxDecoration(
+                                          color: AppColors.white,
+                                          border: Border.all(color: AppColors.grey),
+                                          borderRadius: BorderRadius.circular(9)),
+                                  child: Text(
+                                    'Meet at door',
+                                    style: controller.selectedOption == 1
+                                        ? AppTextStyles.blue13Normal300
+                                        : AppTextStyles.darkGrey13Normal400,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: Get.width * 0.0186,
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: controller.onOptionClickHandler(2),
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Get.width * 0.0123),
-                              height: Get.height * 0.0418,
-                              decoration: controller.selectedOption == 2
-                                  ? BoxDecoration(
-                                  color: AppColors.blue.withOpacity(0.12),
-                                  border: Border.all(color: AppColors.blue),
-                                  borderRadius: BorderRadius.circular(9))
-                                  : BoxDecoration(
-                                  color: AppColors.white,
-                                  border: Border.all(color: AppColors.grey),
-                                  borderRadius: BorderRadius.circular(9)),
-                              child: Text(
-                                'Meet outside',
-                                style: controller.selectedOption == 2
-                                    ? AppTextStyles.blue13Normal300
-                                    : AppTextStyles.darkGrey13Normal400,
+                            SizedBox(
+                              width: Get.width * 0.0186,
+                            ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: controller.onOptionClickHandler(2),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0123),
+                                  height: Get.height * 0.0418,
+                                  decoration: controller.selectedOption == 2
+                                      ? BoxDecoration(
+                                          color: AppColors.blue.withOpacity(0.12),
+                                          border: Border.all(color: AppColors.blue),
+                                          borderRadius: BorderRadius.circular(9))
+                                      : BoxDecoration(
+                                          color: AppColors.white,
+                                          border: Border.all(color: AppColors.grey),
+                                          borderRadius: BorderRadius.circular(9)),
+                                  child: Text(
+                                    'Meet outside',
+                                    style: controller.selectedOption == 2
+                                        ? AppTextStyles.blue13Normal300
+                                        : AppTextStyles.darkGrey13Normal400,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    )),
+                          ],
+                        )),
                     SizedBox(
                       height: Get.height * 0.0381,
                     ),
-                    TitledTextField(
-                        'Delivery Notes (optional)', controller.noteTextController),
-
+                    TitledTextField('Delivery Notes (optional)', controller.noteTextController),
                   ],
                 ),
               ),
@@ -507,7 +493,6 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
           // SizedBox(
           //   height: Get.height * 0.0307,
           // ),
-
 
           // const Divider(
           //   height: 0,

@@ -14,16 +14,14 @@ class PhoneNumberTextField extends StatefulWidget {
   _PhoneNumberTextFieldState createState() => _PhoneNumberTextFieldState();
 }
 
-class _PhoneNumberTextFieldState extends State<PhoneNumberTextField>
-    with SingleTickerProviderStateMixin {
+class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> with SingleTickerProviderStateMixin {
   bool activated = false;
   late Animation<Color?> _colorTween;
   late AnimationController _animationController;
 
   @override
   void initState() {
-    _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 150));
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 150));
     _colorTween = ColorTween(
       begin: AppColors.grey,
       end: AppColors.blue,
@@ -44,9 +42,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField>
           padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0373),
           decoration: BoxDecoration(
               border: Border.all(
-                color: widget.errorText.isNotEmpty
-                    ? AppColors.red
-                    : _colorTween.value!,
+                color: widget.errorText.isNotEmpty ? AppColors.red : _colorTween.value!,
               ),
               borderRadius: BorderRadius.circular(11)),
           child: Row(
@@ -67,9 +63,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField>
                 width: Get.width * 0.0346,
               ),
               VerticalDivider(
-                color: widget.errorText.isNotEmpty
-                    ? AppColors.red
-                    : _colorTween.value,
+                color: widget.errorText.isNotEmpty ? AppColors.red : _colorTween.value,
                 thickness: 1,
                 width: 0,
               ),

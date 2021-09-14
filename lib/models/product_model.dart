@@ -29,8 +29,7 @@ class ProductModel {
     image = json['image'] as String;
     imageThumbnail = json['imageThumbnail'] as String;
     price = double.parse(json['price'].toString());
-    description =
-        json['description'] == null ? null : json['description'] as String;
+    description = json['description'] == null ? null : json['description'] as String;
     stock = json['stock'] == null ? null : json['stock'] as int;
     id = json['_id'] as String;
     // category = json['category'] == null ? null : json['category'] as String;

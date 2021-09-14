@@ -19,8 +19,15 @@ class AccountFragment extends GetView<AccountFragmentController> {
           const SizedBox(
             height: 20,
           ),
-          AccountItems(
-              'Account Information', controller.openAccountInformation),
+          AccountItems('Account Information', controller.openAccountInformation),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
+            child: const Divider(
+              height: 0,
+              thickness: 1,
+            ),
+          ),
+          AccountItems('Promotions', controller.openPromotions),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
             child: const Divider(
@@ -44,8 +51,7 @@ class AccountFragment extends GetView<AccountFragmentController> {
               thickness: 1,
             ),
           ),
-          AccountItems(
-              'Terms and Conditions', controller.openTermsAndConditions),
+          AccountItems('Terms and Conditions', controller.openTermsAndConditions),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
             child: const Divider(

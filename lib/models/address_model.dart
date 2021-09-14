@@ -25,9 +25,7 @@ class AddressModel {
       this.notify});
 
   AddressModel.fromJson(dynamic json) {
-    location = json['location'] != null
-        ? LocationModel.fromJson(json['location'])
-        : null;
+    location = json['location'] != null ? LocationModel.fromJson(json['location']) : null;
     type = json['type'] as String;
     address = json['address'] as String;
     apt = json['apt'] as String;

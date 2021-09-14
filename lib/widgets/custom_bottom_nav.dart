@@ -31,12 +31,9 @@ class CustomBottomNav extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomBottomNavItem(
-                      'assets/icons/home.svg', () => onClick(0), index == 0),
-                  CustomBottomNavItem(
-                      'assets/icons/profile.svg', () => onClick(1), index == 1),
-                  CustomBottomNavItem(
-                      'assets/icons/note.svg', () => onClick(2), index == 2),
+                  CustomBottomNavItem('assets/icons/home.svg', () => onClick(0), index == 0),
+                  CustomBottomNavItem('assets/icons/profile.svg', () => onClick(1), index == 1),
+                  CustomBottomNavItem('assets/icons/note.svg', () => onClick(2), index == 2),
                 ],
               ),
             ),
@@ -46,11 +43,8 @@ class CustomBottomNav extends StatelessWidget {
             GestureDetector(
               onTap: () => onClick(3),
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-                decoration: BoxDecoration(
-                    color: AppColors.blue,
-                    borderRadius: BorderRadius.circular(25)),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                decoration: BoxDecoration(color: AppColors.blue, borderRadius: BorderRadius.circular(25)),
                 height: Get.height * 0.0369,
                 width: Get.width * 0.272,
                 child: Row(

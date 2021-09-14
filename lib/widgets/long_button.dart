@@ -15,12 +15,7 @@ class LongButton extends StatelessWidget {
   final double? borderRadius;
 
   const LongButton(this.onClick, this.title, this.width, this.height,
-      {this.customText,
-      this.color,
-      this.labelColor,
-      this.elevation,
-      this.borderColor,
-      this.borderRadius});
+      {this.customText, this.color, this.labelColor, this.elevation, this.borderColor, this.borderRadius});
 
   @override
   Widget build(BuildContext context) {
@@ -30,22 +25,17 @@ class LongButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => onClick(),
         style: ButtonStyle(
-            elevation: elevation != null
-                ? MaterialStateProperty.all<double>(elevation!)
-                : null,
+            elevation: elevation != null ? MaterialStateProperty.all<double>(elevation!) : null,
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                   side: BorderSide(color: borderColor ?? Colors.transparent),
                   borderRadius: BorderRadius.circular(borderRadius ?? 12)),
             ),
-            backgroundColor:
-                MaterialStateProperty.all<Color>(color ?? AppColors.blue)),
+            backgroundColor: MaterialStateProperty.all<Color>(color ?? AppColors.blue)),
         child: customText ??
             Text(
               title,
-
-              style: AppTextStyles.white18Normal500
-                  .copyWith(color: labelColor ?? AppColors.white),
+              style: AppTextStyles.white18Normal500.copyWith(color: labelColor ?? AppColors.white),
             ),
       ),
     );

@@ -111,18 +111,14 @@ class DeliveryAddressesPageController extends GetxController {
   }
 
   void openSearchAddress() {
-    Get.toNamed(Routes.searchAddress)!
-        .then((value) => selectAddress(value as PredictedLatLongModel));
+    Get.toNamed(Routes.searchAddress)!.then((value) => selectAddress(value as PredictedLatLongModel));
   }
 
   void selectAddress(PredictedLatLongModel model) {
     final newAddress = AddressModel(
         id: selectedAddress.id,
         address: model.formattedAddress,
-        location: LocationModel(coordinates: [
-          model.geometry!.location!.lat!,
-          model.geometry!.location!.lng!
-        ]),
+        location: LocationModel(coordinates: [model.geometry!.location!.lat!, model.geometry!.location!.lng!]),
         options: selectedAddress.options,
         note: selectedAddress.note,
         building: selectedAddress.building,
@@ -133,8 +129,7 @@ class DeliveryAddressesPageController extends GetxController {
     selectedAddress = newAddress;
 
     mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-      target: LatLng(
-          model.geometry!.location!.lat!, model.geometry!.location!.lng!),
+      target: LatLng(model.geometry!.location!.lat!, model.geometry!.location!.lng!),
       zoom: 14.4746,
     )));
   }
@@ -150,17 +145,14 @@ class DeliveryAddressesPageController extends GetxController {
       final addressModel = AddressModel(
         type: getTag(selectedTag),
         address: selectedAddress.address,
-        location: LocationModel(coordinates: [
-          selectedAddress.location!.coordinates![0],
-          selectedAddress.location!.coordinates![1]
-        ]),
+        location: LocationModel(
+            coordinates: [selectedAddress.location!.coordinates![0], selectedAddress.location!.coordinates![1]]),
         options: getOption(selectedOption),
         apt: floorTextController.text,
         building: buildingTextController.text,
         note: noteTextController.text,
       );
-      if (!storageExists(AppKeys.token) &&
-          !storageExists(AppKeys.unsavedAddress)) {
+      if (!storageExists(AppKeys.token) && !storageExists(AppKeys.unsavedAddress)) {
         final globalController = Get.find<GlobalController>();
         final storeLocation = LatLng(
           globalController.initialDataModel.storeLocation![0],
@@ -170,13 +162,11 @@ class DeliveryAddressesPageController extends GetxController {
             LatLng(selectedAddress.location!.coordinates![0] as double,
                 selectedAddress.location!.coordinates![1] as double),
             storeLocation);
-        final availableDistance =
-            globalController.initialDataModel.supportedDistance;
+        final availableDistance = globalController.initialDataModel.supportedDistance;
 
         globalController.isAddressInRange = distance <= availableDistance!;
 
-        storageWrite(AppKeys.unsavedAddress, json.encode(addressModel.toJson()))
-            .then((value) {
+        storageWrite(AppKeys.unsavedAddress, json.encode(addressModel.toJson())).then((value) {
           if (globalController.isAddAddressModalOpen) {
             globalController.isAddAddressModalOpen = false;
             Get.close(2);
@@ -194,11 +184,11 @@ class DeliveryAddressesPageController extends GetxController {
         if (editMode) {
           _addressRepository
               .updateAddress(selectedAddress.id!, addressModel)
-              .then((value) => value.fold(
-                  (l) => attemptFailed(l), (r) => attemptSucceed(r)));
+              .then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
         } else {
-          _addressRepository.addAddress(addressModel).then((value) =>
-              value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+          _addressRepository
+              .addAddress(addressModel)
+              .then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
         }
       }
     } else {
@@ -208,13 +198,8 @@ class DeliveryAddressesPageController extends GetxController {
 
   void confirmDeletion() {
     Get.bottomSheet(
-      CustomAlertDialog(
-          "Delete Address",
-          "Are you sure about deleting this delivery address?",
-          "Yes",
-          "No",
-          deleteAddress,
-          () => Get.back()),
+      CustomAlertDialog("Delete Address", "Are you sure about deleting this delivery address?", "Yes", "No",
+          deleteAddress, () => Get.back()),
       enableDrag: false,
     );
   }
@@ -222,8 +207,9 @@ class DeliveryAddressesPageController extends GetxController {
   void deleteAddress() {
     Get.back();
     deletionLoading = true;
-    _addressRepository.deleteAddress(selectedAddress.id!).then((value) =>
-        value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
+    _addressRepository
+        .deleteAddress(selectedAddress.id!)
+        .then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
   }
 
   void attemptFailed(String message) {
@@ -257,14 +243,12 @@ class DeliveryAddressesPageController extends GetxController {
 
     globalController.initialDataModel.user!.addresses = addresses;
     if (editMode) {
-      final address =
-          _addressRepository.findAddress(addresses, selectedAddress.id!);
-      globalController.isAddressInRange = address.distance! <=
-          globalController.initialDataModel.supportedDistance!;
+      final address = _addressRepository.findAddress(addresses, selectedAddress.id!);
+      globalController.isAddressInRange = address.distance! <= globalController.initialDataModel.supportedDistance!;
     } else {
       storageWrite(AppKeys.address, addresses.last.id).then((value) {
-        globalController.isAddressInRange = addresses.last.distance! <=
-            globalController.initialDataModel.supportedDistance!;
+        globalController.isAddressInRange =
+            addresses.last.distance! <= globalController.initialDataModel.supportedDistance!;
       });
     }
     // Get.find<CheckoutFragmentController>().checkSelectedAddress();
@@ -347,8 +331,8 @@ class DeliveryAddressesPageController extends GetxController {
       selectedTag = getTagIndex(selectedAddress.type!);
       selectedOption = getOptionIndex(selectedAddress.options!);
       mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(selectedAddress.location!.coordinates![0] as double,
-            selectedAddress.location!.coordinates![1] as double),
+        target: LatLng(
+            selectedAddress.location!.coordinates![0] as double, selectedAddress.location!.coordinates![1] as double),
         zoom: 14.4746,
       )));
       floorTextController.text = selectedAddress.apt!;

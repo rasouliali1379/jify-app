@@ -52,6 +52,6 @@ class OrderInfoPageController extends GetxController {
   }
 
   void openHelpCenter() {
-    Get.toNamed(Routes.helpCenter);
+    Get.toNamed(Routes.helpCenter, arguments: orderDetail.orderNumber.toString());
   }
 }

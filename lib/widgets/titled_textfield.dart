@@ -22,7 +22,9 @@ class TitledTextField extends StatelessWidget {
       this.inputType,
       this.errorText,
       this.titleStyle,
-      this.textFieldBgColor, this.height, this.inputAction = TextInputAction.done});
+      this.textFieldBgColor,
+      this.height,
+      this.inputAction = TextInputAction.done});
 
   @override
   Widget build(BuildContext context) {
@@ -52,21 +54,15 @@ class TitledTextField extends StatelessWidget {
                   filled: textFieldBgColor != null,
                   fillColor: textFieldBgColor ?? Colors.transparent,
                   errorStyle: AppTextStyles.red10Normal300,
-                  contentPadding: EdgeInsets.symmetric(
-                      vertical: Get.height * 0.0209,
-                      horizontal: Get.width * 0.0426),
+                  contentPadding: EdgeInsets.symmetric(vertical: Get.height * 0.0209, horizontal: Get.width * 0.0426),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(11),
-                      borderSide: const BorderSide(color: AppColors.grey)),
+                      borderRadius: BorderRadius.circular(11), borderSide: const BorderSide(color: AppColors.grey)),
                   errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(11),
-                      borderSide: const BorderSide(color: AppColors.red)),
+                      borderRadius: BorderRadius.circular(11), borderSide: const BorderSide(color: AppColors.red)),
                   focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(11),
-                      borderSide: const BorderSide(color: AppColors.grey)),
+                      borderRadius: BorderRadius.circular(11), borderSide: const BorderSide(color: AppColors.grey)),
                   focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(11),
-                      borderSide: const BorderSide(color: AppColors.blue)),
+                      borderRadius: BorderRadius.circular(11), borderSide: const BorderSide(color: AppColors.blue)),
                 ),
               ),
         ),

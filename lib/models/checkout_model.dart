@@ -8,8 +8,7 @@ class CheckoutModel {
   CheckoutModel({this.checkout});
 
   CheckoutModel.fromJson(dynamic json) {
-    checkout =
-        json['checkout'] != null ? Checkout.fromJson(json['checkout']) : null;
+    checkout = json['checkout'] != null ? Checkout.fromJson(json['checkout']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -38,8 +37,7 @@ class Checkout {
       });
     }
     promotion = json['promotion'] == null ? null : json['promotion'] as String;
-    amount =
-        json['amount'] != null ? AmountModel.fromJson(json['amount']) : null;
+    amount = json['amount'] != null ? AmountModel.fromJson(json['amount']) : null;
   }
 
   Map<String, dynamic> toJson() {

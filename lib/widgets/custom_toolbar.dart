@@ -12,8 +12,7 @@ class CustomToolBar extends StatelessWidget with PreferredSizeWidget {
   final Widget? action;
   final bool backButtonVisibility;
 
-  CustomToolBar(this.title,
-      {this.onBackPressed, this.action, this.backButtonVisibility = true})
+  CustomToolBar(this.title, {this.onBackPressed, this.action, this.backButtonVisibility = true})
       : preferredSize = const Size.fromHeight(kToolbarHeight);
 
   @override
@@ -43,9 +42,7 @@ class CustomToolBar extends StatelessWidget with PreferredSizeWidget {
                         ),
                       ),
                     )
-                  : const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: SizedBox()),
+                  : const Padding(padding: EdgeInsets.symmetric(horizontal: 20), child: SizedBox()),
             ),
             Center(
               child: SizedBox(

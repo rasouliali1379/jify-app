@@ -22,8 +22,7 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
     return Scaffold(
       appBar: CustomToolBar('Phone Verification'),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            vertical: Get.height * 0.032, horizontal: Get.width * 0.0453),
+        padding: EdgeInsets.symmetric(vertical: Get.height * 0.032, horizontal: Get.width * 0.0453),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -33,7 +32,7 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
             ),
             SizedBox(height: Get.height * 0.0135),
             Text(
-              'We’ve sent a verification code to +14${controller.phoneNumber}'
+              'We’ve sent a verification code to +61${controller.phoneNumber}'
               ' please enter the code below',
               style: AppTextStyles.grayishBlack12Normal300,
             ),
@@ -56,12 +55,8 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
                     borderRadius: BorderRadius.circular(5),
                     fieldHeight: 50,
                     fieldWidth: 40,
-                    inactiveColor: controller.pinCodeFieldError
-                        ? AppColors.red
-                        : AppColors.lightGrey,
-                    activeColor: controller.pinCodeFieldError
-                        ? AppColors.red
-                        : AppColors.blue),
+                    inactiveColor: controller.pinCodeFieldError ? AppColors.red : AppColors.lightGrey,
+                    activeColor: controller.pinCodeFieldError ? AppColors.red : AppColors.blue),
               ),
             ),
             SizedBox(
@@ -72,9 +67,7 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
                 child: Obx(() {
                   switch (controller.resendStatus) {
                     case "resend":
-                      return Center(
-                          child: ClickableText(
-                              'Resend Code', controller.resendCode));
+                      return Center(child: ClickableText('Resend Code', controller.resendCode));
 
                     case "countdown":
                       return Row(
@@ -97,9 +90,7 @@ class PhoneVerificationPage extends GetView<PhoneVerificationPageController> {
                         ],
                       );
                     case "try_again":
-                      return Center(
-                          child: ClickableText(
-                              'Try Again', controller.resendCode));
+                      return Center(child: ClickableText('Try Again', controller.resendCode));
                     case "loading":
                       return const Center(
                           child: SpinKitThreeBounce(
