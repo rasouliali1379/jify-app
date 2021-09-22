@@ -25,21 +25,9 @@ class SplashPage extends GetView<SplashPageController> {
         child: Stack(
           children: [
             Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Image.asset(
-                    "assets/images/logo.png",
-                    width: Get.width * 0.23,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  const Text(
-                    'order everything you need quickly',
-                    style: AppTextStyles.white15Normal400,
-                  ),
-                ],
+              child: Image.asset(
+                "assets/images/logo.png",
+                width: Get.width * 0.7,
               ),
             ),
             Align(

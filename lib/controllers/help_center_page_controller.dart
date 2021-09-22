@@ -11,14 +11,13 @@ class HelpCenterPageController extends GetxController {
   final _appRepository = AppRepository();
   final fullNameTextController = TextEditingController();
   final emailTextController = TextEditingController();
-  final subjectTextController = TextEditingController();
   final orderNumberTextController = TextEditingController();
   final messagesTextController = TextEditingController();
 
   final _fullNameError = "".obs;
   final _emailError = "".obs;
-  final _subjectError = "".obs;
   final _messagesError = "".obs;
+  final _selectedSubject = "".obs;
 
   final _loadingStatus = false.obs;
 
@@ -26,6 +25,12 @@ class HelpCenterPageController extends GetxController {
   void onInit() {
     fillDefaultData();
     super.onInit();
+  }
+
+  String get selectedSubject => _selectedSubject.value;
+
+  set selectedSubject(String value) {
+    _selectedSubject.value = value;
   }
 
   String get fullNameError => _fullNameError.value;
@@ -38,12 +43,6 @@ class HelpCenterPageController extends GetxController {
 
   set emailError(String value) {
     _emailError.value = value;
-  }
-
-  String get subjectError => _subjectError.value;
-
-  set subjectError(String value) {
-    _subjectError.value = value;
   }
 
   String get messagesError => _messagesError.value;
@@ -71,12 +70,10 @@ class HelpCenterPageController extends GetxController {
   void clearTextFields() {
     fullNameTextController.clear();
     emailTextController.clear();
-    subjectTextController.clear();
     orderNumberTextController.clear();
     messagesTextController.clear();
     fullNameError = "";
     emailError = "";
-    subjectError = "";
     messagesError = "";
 
     fillDefaultData();
@@ -90,7 +87,7 @@ class HelpCenterPageController extends GetxController {
     if (validateFields()) {
       loadingStatus = true;
       _appRepository
-          .contactSupport(fullNameTextController.text, emailTextController.text, subjectTextController.text,
+          .contactSupport(fullNameTextController.text, emailTextController.text, selectedSubject,
               orderNumberTextController.text, messagesTextController.text)
           .then((value) => value.fold((l) => attemptFailed(l), (r) => attemptSucceed(r)));
     }
@@ -116,8 +113,9 @@ class HelpCenterPageController extends GetxController {
         fullNameTextController.text = '${userData.firstname!} ${userData.lastname!}';
         emailTextController.text = userData.email!;
       }
-
-      orderNumberTextController.text = Get.arguments as String;
+      if (Get.arguments != null) {
+        orderNumberTextController.text = Get.arguments.toString();
+      }
     }
   }
 
@@ -140,12 +138,6 @@ class HelpCenterPageController extends GetxController {
 
     emailError = "";
 
-    if (subjectTextController.text.isEmpty) {
-      subjectError = "You need to enter a subject";
-      return false;
-    }
-    subjectError = "";
-
     if (messagesTextController.text.isEmpty) {
       messagesError = "Enter your message please";
       return false;
@@ -153,5 +145,9 @@ class HelpCenterPageController extends GetxController {
     messagesError = "";
 
     return true;
+  }
+
+  void onSubjectClickHandler(String subject) {
+    selectedSubject = subject;
   }
 }

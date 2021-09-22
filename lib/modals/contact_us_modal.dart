@@ -1,3 +1,4 @@
+import 'package:awesome_dropdown/awesome_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 import 'package:jify_app/controllers/help_center_page_controller.dart';
 import 'package:jify_app/widgets/circle_button.dart';
+import 'package:jify_app/widgets/custom_spinner.dart';
 import 'package:jify_app/widgets/long_button.dart';
 import 'package:jify_app/widgets/multiline_textfield.dart';
 import 'package:jify_app/widgets/no_scroll_glow.dart';
@@ -95,13 +97,38 @@ class ContactUsModal extends GetView<HelpCenterPageController> {
                         SizedBox(
                           height: Get.height * 0.0197,
                         ),
+                        const Text(
+                          'Subject',
+                          style: AppTextStyles.darkGrey13Normal300,
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
                         Obx(
-                          () => TitledTextField(
-                            'Subject',
-                            controller.subjectTextController,
-                            inputAction: TextInputAction.next,
-                            textFieldBgColor: AppColors.red.withOpacity(0.05),
-                            errorText: controller.subjectError.isNotEmpty ? controller.subjectError : null,
+                          () => CustomSpinner(
+                            dropDownListTextStyle: AppTextStyles.darkGrey14Normal300,
+                            isPanDown: true,
+                            elevation: 0,
+                            dropDownBGColor: AppColors.red.withOpacity(0.05),
+                            dropDownBottomBorderRadius: 11,
+                            dropDownTopBorderRadius: 11,
+                            dropDownBorderRadius: 11,
+                            dropDownOverlayBGColor: AppColors.red.withOpacity(0.05),
+                            isBackPressedOrTouchedOutSide: true,
+                            numOfListItemToShow: 3,
+                            selectedItemTextStyle: AppTextStyles.darkGrey14Normal300,
+                            dropDownList: const ['Issue with Order', 'General Inquiry', 'Product Suggestion'],
+                            dropDownIcon: const RotatedBox(
+                              quarterTurns: 1,
+                              child: Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: AppColors.darkGrey,
+                                size: 20,
+                              ),
+                            ),
+                            padding: 10,
+                            selectedItem: controller.selectedSubject,
+                            onDropDownItemClick: controller.onSubjectClickHandler,
                           ),
                         ),
                         SizedBox(

@@ -6,8 +6,10 @@ import 'package:jify_app/constants/app_text_styles.dart';
 class ExpandableContainer extends StatefulWidget {
   final String title;
   final String content;
+  final double expandedHeight;
+  final double? collapsedHeight;
 
-  const ExpandableContainer(this.title, this.content);
+  const ExpandableContainer(this.title, this.content, this.expandedHeight, {this.collapsedHeight});
 
   @override
   _ExpandableContainerState createState() => _ExpandableContainerState();
@@ -28,7 +30,7 @@ class _ExpandableContainerState extends State<ExpandableContainer> with SingleTi
   Widget build(BuildContext context) {
     return AnimatedContainer(
       width: double.maxFinite,
-      height: expanded ? Get.height * 0.18 : Get.height * 0.07,
+      height: expanded ? widget.expandedHeight : (widget.collapsedHeight ?? Get.height * 0.07),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(11),
           border: Border.all(color: AppColors.milky),
@@ -42,9 +44,11 @@ class _ExpandableContainerState extends State<ExpandableContainer> with SingleTi
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.title,
-                  style: AppTextStyles.extraDarkCyan14Normal500,
+                Expanded(
+                  child: Text(
+                    widget.title,
+                    style: AppTextStyles.extraDarkCyan14Normal500,
+                  ),
                 ),
                 RotationTransition(
                   turns: Tween(begin: 0.0, end: 0.5).animate(_rotationController),

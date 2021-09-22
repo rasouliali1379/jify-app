@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_braintree/flutter_braintree.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jify_app/constants/app_keys.dart';
@@ -185,45 +184,45 @@ class ConfirmationPageController extends GetxController {
 
   Future<void> payOrder() async {
     loadingStatus = true;
-    final request = BraintreeDropInRequest(
-      tokenizationKey: 'sandbox_q7sjs89q_d9s55gfrp6jm3qwj',
-      clientToken: "sandbox_q7sjs89q_d9s55gfrp6jm3qwj",
-      collectDeviceData: true,
-      vaultManagerEnabled: true,
-      googlePaymentRequest: BraintreeGooglePaymentRequest(
-        totalPrice: orderModel!.amount!.total.toString(),
-        currencyCode: 'USD',
-        billingAddressRequired: false,
-      ),
-      applePayRequest: BraintreeApplePayRequest(
-          amount: orderModel!.amount!.total!,
-          appleMerchantID: "",
-          countryCode: "",
-          currencyCode: "USD",
-          displayName: ""),
-      paypalRequest: BraintreePayPalRequest(
-          amount: orderModel!.amount!.total.toString(),
-          displayName: 'Example company',
-          currencyCode: "USD",
-          billingAgreementDescription: "I accept"),
-    );
-
-    final result = await BraintreeDropIn.start(request);
-
-    if (result != null) {
-      print("nonce : ${result.paymentMethodNonce.nonce}");
-      print("device-data : ${result.deviceData}");
-      print("description : ${result.paymentMethodNonce.description}");
-      print("orderID : ${orderModel!.id!}");
-
-      checkoutRepository
-          .pay(result.paymentMethodNonce.nonce, result.deviceData!.toString(), orderModel!.id!,
-              result.paymentMethodNonce.description, 0)
-          .then((result) => result.fold((l) => attemptFailed(l), (r) => paymentAttemptSucceed()));
-    } else {
-      loadingStatus = false;
-      showCustomSnackBar("Your payment could not be processed");
-    }
+    // final request = BraintreeDropInRequest(
+    //   tokenizationKey: 'sandbox_q7sjs89q_d9s55gfrp6jm3qwj',
+    //   clientToken: "sandbox_q7sjs89q_d9s55gfrp6jm3qwj",
+    //   collectDeviceData: true,
+    //   vaultManagerEnabled: true,
+    //   googlePaymentRequest: BraintreeGooglePaymentRequest(
+    //     totalPrice: orderModel!.amount!.total.toString(),
+    //     currencyCode: 'USD',
+    //     billingAddressRequired: false,
+    //   ),
+    //   applePayRequest: BraintreeApplePayRequest(
+    //       amount: orderModel!.amount!.total!,
+    //       appleMerchantID: "",
+    //       countryCode: "",
+    //       currencyCode: "USD",
+    //       displayName: ""),
+    //   paypalRequest: BraintreePayPalRequest(
+    //       amount: orderModel!.amount!.total.toString(),
+    //       displayName: 'Example company',
+    //       currencyCode: "USD",
+    //       billingAgreementDescription: "I accept"),
+    // );
+    //
+    // final result = await BraintreeDropIn.start(request);
+    //
+    // if (result != null) {
+    //   print("nonce : ${result.paymentMethodNonce.nonce}");
+    //   print("device-data : ${result.deviceData}");
+    //   print("description : ${result.paymentMethodNonce.description}");
+    //   print("orderID : ${orderModel!.id!}");
+    //
+    //   checkoutRepository
+    //       .pay(result.paymentMethodNonce.nonce, result.deviceData!.toString(), orderModel!.id!,
+    //           result.paymentMethodNonce.description, 0)
+    //       .then((result) => result.fold((l) => attemptFailed(l), (r) => paymentAttemptSucceed()));
+    // } else {
+    //   loadingStatus = false;
+    //   showCustomSnackBar("Your payment could not be processed");
+    // }
   }
 
   void paymentAttemptSucceed() {

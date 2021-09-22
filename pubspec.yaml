@@ -30,12 +30,12 @@ dependencies:
   firebase_core: ^1.4.0
   connectivity: ^3.0.6
   carousel_slider: ^4.0.0
-  flutter_braintree: ^2.0.0+1
   flutter_neumorphic: ^3.1.0
   vibration: ^1.7.4-nullsafety.0
   flash: ^2.0.1
   awesome_notifications: ^0.0.6+10
   url_launcher: ^6.0.10
+  awesome_dropdown: ^0.0.4
 
 dev_dependencies:
   flutter_test:

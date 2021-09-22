@@ -35,7 +35,7 @@ class AccountFragment extends GetView<AccountFragmentController> {
               thickness: 1,
             ),
           ),
-          AccountItems('Help Center', controller.openHelpCenter),
+          AccountItems('Help Centere', controller.openHelpCenter),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453),
             child: const Divider(
