@@ -116,6 +116,12 @@ class AccountInformationPageController extends GetxController {
     Get.back();
   }
 
+  void changeNumber() {
+    Get.toNamed(Routes.signIn, arguments: true)!.then((_) {
+      phoneNumber = globalController.initialDataModel.user!.mobileNumber!;
+    });
+  }
+
   @override
   void onClose() {
     nameTextController.dispose();

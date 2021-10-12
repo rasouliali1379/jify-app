@@ -1,0 +1,33 @@
+{
+  "provider": "google_pay",
+  "data": {
+    "environment": "test",
+    "apiVersion": 2,
+    "apiVersionMinor": 0,
+    "allowedPaymentMethods": [
+      {
+        "type": "CARD",
+        "tokenizationSpecification": {
+          "type": "PAYMENT_GATEWAY",
+          "parameters": {
+            "gateway": "stripe",
+            "stripe:version": "2018-10-31",
+            "stripe:publishableKey": "pk_test_51Jae7hIgbFrlu1GuUE1xKypdPR48i42T28ixulG6Mubs5mCo2eZJH3tkCYDPVeOlpNizCBWQfp2p4GLdSIzSu44i00fimtpx9r"
+          }
+        },
+        "parameters": {
+          "allowedCardNetworks": ["VISA", "MASTERCARD"],
+          "allowedAuthMethods": ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+          "billingAddressRequired": false
+        }
+      }
+    ],
+    "merchantInfo": {
+      "merchantId": "893374696277677649"
+    },
+    "transactionInfo": {
+      "countryCode": "AU",
+      "currencyCode": "AUD"
+    }
+  }
+}

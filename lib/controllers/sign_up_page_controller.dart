@@ -153,4 +153,8 @@ class SignUpPageController extends GetxController {
     final userInfo = globalController.initialDataModel.user;
     phoneNumber = userInfo!.mobileNumber!;
   }
+
+  void onToolbarBackPressed() {
+    Get.find<AccountFragmentController>().logout();
+  }
 }

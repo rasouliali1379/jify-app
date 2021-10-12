@@ -10,8 +10,18 @@ import 'package:jify_app/network/api_requests.dart';
 class CheckoutRepository {
   final _apiRequests = ApiRequests();
 
-  Future<Either<String, OrderModel>> completeCheckout(String id, DeliveryModel delivery, AddressModel address) async {
-    final result = await _apiRequests.completeCheckout(id, {"delivery": delivery, "address": address.toJson()});
+  Future<Either<String, OrderModel>> completeCheckout(String id, DeliveryModel delivery, AddressModel address,
+      {String? paymentToken}) async {
+    final load = {
+      "delivery": {"options": delivery.options, "note": delivery.note},
+      "address": {"_id": address.id}
+    };
+
+    if (paymentToken != null) {
+      load['payment'] = {'token': paymentToken};
+    }
+
+    final result = await _apiRequests.completeCheckout(id, load);
     String error = "";
     OrderModel? checkoutModel;
 

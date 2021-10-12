@@ -15,6 +15,8 @@ class TitledTextField extends StatelessWidget {
   final Color? textFieldBgColor;
   final double? height;
   final TextInputAction inputAction;
+  final FocusNode? focusNode;
+  final ValueChanged<String>? onChanged;
 
   const TitledTextField(this.title, this.controller,
       {this.customTextField,
@@ -24,6 +26,8 @@ class TitledTextField extends StatelessWidget {
       this.titleStyle,
       this.textFieldBgColor,
       this.height,
+      this.onChanged,
+      this.focusNode,
       this.inputAction = TextInputAction.done});
 
   @override
@@ -45,6 +49,8 @@ class TitledTextField extends StatelessWidget {
                 obscureText: obscureText ?? false,
                 cursorColor: AppColors.blue,
                 cursorHeight: 20,
+                focusNode: focusNode,
+                onChanged: onChanged,
                 style: AppTextStyles.darkGrey14Normal300,
                 controller: controller,
                 keyboardType: inputType ?? TextInputType.text,

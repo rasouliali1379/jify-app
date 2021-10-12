@@ -25,6 +25,7 @@ class DeliveryAddressesPage extends GetView<DeliveryAddressesPageController> {
     return Scaffold(
       appBar: CustomToolBar(
         'Delivery Addresses',
+        onBackPressed: controller.toolbarBackPressed,
         action: Visibility(
           visible: controller.editMode,
           child: Padding(

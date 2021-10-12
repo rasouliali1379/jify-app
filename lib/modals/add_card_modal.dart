@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
-import 'package:jify_app/controllers/checkout_fragment_controller.dart';
+import 'package:jify_app/controllers/confirmation_page_controller.dart';
 import 'package:jify_app/widgets/circle_button.dart';
 import 'package:jify_app/widgets/long_button.dart';
 import 'package:jify_app/widgets/titled_textfield.dart';
 
-class PaymentModal extends GetView<CheckoutFragmentController> {
+class AddCardModal extends GetView<ConfirmationPageController> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,10 +64,15 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                             BoxDecoration(borderRadius: BorderRadius.circular(11), color: AppColors.semiLightBlue),
                         child: Row(
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: TextField(
                                 keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
+                                controller: controller.cardNumberController,
+                                onChanged: controller.cardNumberChangeHandler,
+                                focusNode: controller.cardNumberFocus,
+                                textInputAction: TextInputAction.next,
+                                inputFormatters: [CreditCardNumberInputFormatter()],
+                                decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
@@ -73,7 +80,7 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                                     disabledBorder: InputBorder.none,
                                     contentPadding: EdgeInsets.only(left: 10, bottom: 11, top: 11, right: 10),
                                     hintStyle: AppTextStyles.extraLightBlue16Normal300,
-                                    hintText: "1234 5678 9012 3456"),
+                                    hintText: "**** **** **** ****"),
                               ),
                             ),
                             Row(
@@ -104,15 +111,20 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                         Expanded(
                           child: TitledTextField(
                             'Expiry date',
-                            controller.cardNumberController,
+                            controller.expireDateController,
                             titleStyle: AppTextStyles.extraDarkCyan14Normal400,
                             customTextField: Container(
                               padding: const EdgeInsets.only(right: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(11), color: AppColors.semiLightBlue),
-                              child: const TextField(
+                              child: TextField(
+                                controller: controller.expireDateController,
+                                focusNode: controller.expireDateFocus,
+                                onChanged: controller.expireDateChangeHandler,
+                                inputFormatters: [CreditCardExpirationDateFormatter()],
+                                textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
@@ -131,15 +143,20 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
                         Expanded(
                           child: TitledTextField(
                             'CVC/CVV',
-                            controller.cardNumberController,
+                            controller.cvcNumberController,
                             titleStyle: AppTextStyles.extraDarkCyan14Normal400,
                             customTextField: Container(
                               padding: const EdgeInsets.only(right: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(11), color: AppColors.semiLightBlue),
-                              child: const TextField(
+                              child: TextField(
+                                controller: controller.cvcNumberController,
+                                focusNode: controller.cvcNumberFocus,
+                                onChanged: controller.cvcNumberChangeHandler,
+                                inputFormatters: [CreditCardCvcInputFormatter()],
                                 keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
+                                textInputAction: TextInputAction.done,
+                                decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
@@ -161,7 +178,18 @@ class PaymentModal extends GetView<CheckoutFragmentController> {
           ),
           Padding(
             padding: EdgeInsets.only(bottom: Get.height * 0.02, left: Get.width * 0.0453, right: Get.width * 0.0453),
-            child: LongButton(() => {}, 'Add Card', Get.width, Get.height * 0.064),
+            child: Obx(() => LongButton(
+                  controller.addNewCard,
+                  'Add Card',
+                  Get.width,
+                  Get.height * 0.064,
+                  customText: controller.loadingStatus
+                      ? const SpinKitThreeBounce(
+                          size: 15,
+                          color: AppColors.white,
+                        )
+                      : null,
+                )),
           )
         ],
       ),

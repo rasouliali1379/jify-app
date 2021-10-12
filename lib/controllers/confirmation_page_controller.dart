@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,28 +10,45 @@ import 'package:jify_app/controllers/global_controller.dart';
 import 'package:jify_app/controllers/home_fragment_controller.dart';
 import 'package:jify_app/controllers/main_page_controller.dart';
 import 'package:jify_app/controllers/orders_fragment_controller.dart';
+import 'package:jify_app/enums/payment_enum.dart';
+import 'package:jify_app/modals/add_card_modal.dart';
+import 'package:jify_app/modals/payment_method_modal.dart';
 import 'package:jify_app/models/address_model.dart';
+import 'package:jify_app/models/card_model.dart';
 import 'package:jify_app/models/checkout_model.dart';
 import 'package:jify_app/models/delivery_model.dart';
 import 'package:jify_app/models/order_model.dart';
 import 'package:jify_app/models/promotion_code_model.dart';
 import 'package:jify_app/navigation/routes.dart';
 import 'package:jify_app/repositories/address_repository.dart';
+import 'package:jify_app/repositories/card_repository.dart';
 import 'package:jify_app/repositories/checkout_repository.dart';
 import 'package:jify_app/utilities/storage.dart';
 import 'package:jify_app/utilities/utilities.dart';
+import 'package:pay/pay.dart';
 
 class ConfirmationPageController extends GetxController {
   final globalController = Get.find<GlobalController>();
   final mapCompleter = Completer<GoogleMapController>();
+
   final noteTextController = TextEditingController();
+  final cardNumberController = TextEditingController();
+  final cvcNumberController = TextEditingController();
+  final expireDateController = TextEditingController();
+
+  final cardNumberFocus = FocusNode();
+  final cvcNumberFocus = FocusNode();
+  final expireDateFocus = FocusNode();
+
   final checkoutRepository = CheckoutRepository();
   final _addressRepository = AddressRepository();
+  final _cardRepository = CardRepository();
 
   final _selectedOption = 0.obs;
   // final _selectedSchedule = "".obs;
   final _loadingStatus = false.obs;
   final _selectedAddress = AddressModel().obs;
+  final _paymentMethod = (Payment.apple).obs;
 
   final cameraPosition = const CameraPosition(
     target: LatLng(-35.282001, 149.128998),
@@ -45,6 +63,12 @@ class ConfirmationPageController extends GetxController {
   void onInit() {
     getData();
     super.onInit();
+  }
+
+  Payment get paymentMethod => _paymentMethod.value;
+
+  set paymentMethod(Payment value) {
+    _paymentMethod.value = value;
   }
 
   AddressModel get selectedAddress => _selectedAddress.value;
@@ -96,6 +120,7 @@ class ConfirmationPageController extends GetxController {
   void getData() {
     checkoutData = Get.arguments as CheckoutModel;
     checkSelectedAddress();
+    getPaymentMethod();
   }
 
   void checkSelectedAddress() {
@@ -145,27 +170,65 @@ class ConfirmationPageController extends GetxController {
     return index;
   }
 
-  // void onStandardScheduleClickHandler() {
-  //   selectedSchedule = "";
-  // }
-
-  void placeOrder() {
+  Future<void> placeOrder() async {
     if (globalController.isAddressInRange) {
       loadingStatus = true;
-      if (orderModel == null) {
-        checkoutRepository
-            .completeCheckout(
-                checkoutData.checkout!.id!,
-                DeliveryModel(
-                  note: noteTextController.text,
-                  options: getOption(selectedOption),
-                  // time: selectedSchedule
-                ),
-                AddressModel(id: selectedAddress.id))
-            .then((value) => value.fold((l) => attemptFailed(l), (r) => orderSubmissionAttemptSucceed(r)));
-      } else {
-        payOrder();
+
+      String? paymentToken;
+
+      if (paymentMethod == Payment.apple || paymentMethod == Payment.google) {
+        final _paymentItems = [
+          PaymentItem(
+            label: 'Total',
+            amount: checkoutData.checkout!.amount!.total!.toString(),
+            status: PaymentItemStatus.final_price,
+          )
+        ];
+        final Pay _payClient =
+            Pay.withAssets(['default_payment_profile_google_pay.json', 'default_payment_profile_apple_pay.json']);
+        switch (paymentMethod) {
+          case Payment.apple:
+            final userCanPay = await _payClient.userCanPay(PayProvider.apple_pay);
+            if (userCanPay) {
+              try {
+                final result = await _payClient.showPaymentSelector(paymentItems: _paymentItems);
+                paymentToken = result['paymentMethodData']['token'].toString();
+              } catch (e) {
+                print(e.toString());
+              }
+            }
+            break;
+          case Payment.google:
+            // final userCanPay = await _payClient.userCanPay(PayProvider.google_pay);
+
+            if (true) {
+              try {
+                final result = await _payClient.showPaymentSelector(paymentItems: _paymentItems);
+                paymentToken = result['paymentMethodData']['token'].toString();
+              } catch (e) {
+                print(e.toString());
+              }
+            }
+            break;
+          case Payment.card:
+            break;
+        }
+        if (paymentToken == null) {
+          showCustomSnackBar("Payment Failed");
+          loadingStatus = false;
+          return;
+        }
       }
+
+      checkoutRepository
+          .completeCheckout(
+              checkoutData.checkout!.id!,
+              DeliveryModel(
+                  note: noteTextController.text.isEmpty ? null : noteTextController.text,
+                  options: getOption(selectedOption)),
+              AddressModel(id: selectedAddress.id),
+              paymentToken: paymentToken)
+          .then((value) => value.fold((l) => attemptFailed(l), (r) => orderSubmissionAttemptSucceed(r)));
     } else {
       showCustomSnackBar("Address not in range");
     }
@@ -179,7 +242,8 @@ class ConfirmationPageController extends GetxController {
   void orderSubmissionAttemptSucceed(OrderModel order) {
     loadingStatus = false;
     orderModel = order;
-    payOrder();
+    clearBasket();
+    Get.back();
   }
 
   Future<void> payOrder() async {
@@ -227,8 +291,7 @@ class ConfirmationPageController extends GetxController {
 
   void paymentAttemptSucceed() {
     loadingStatus = false;
-    clearBasket();
-    Get.back();
+
     showCustomSnackBar("Your payment has been processed successfully");
   }
 
@@ -246,5 +309,114 @@ class ConfirmationPageController extends GetxController {
 
   void openAddressesPage() {
     Get.toNamed(Routes.addresses)?.then((value) => checkSelectedAddress());
+  }
+
+  void openPaymentModal() {
+    Get.bottomSheet(PaymentMethodModal());
+  }
+
+  void openAddCardModal() {
+    Get.bottomSheet(AddCardModal()).then((_) => clearCardModal());
+  }
+
+  void onPaymentMethodClickHandler(Payment payment) {
+    storageWrite(AppKeys.payment, payment.name).then((_) {
+      paymentMethod = payment;
+      Get.back();
+    });
+  }
+
+  void getPaymentMethod() {
+    final payment = storageRead(AppKeys.payment);
+    if (payment != null && globalController.initialDataModel.user!.card != null) {
+      paymentMethod = findPaymentByName(payment as String);
+    } else {
+      if (Platform.isAndroid) {
+        paymentMethod = Payment.google;
+      } else {
+        paymentMethod = Payment.apple;
+      }
+    }
+  }
+
+  Payment findPaymentByName(String name) {
+    for (final method in Payment.values) {
+      if (method.name == name) {
+        return method;
+      }
+    }
+    return Payment.values.last;
+  }
+
+  void clearCardModal() {
+    cardNumberController.clear();
+    cvcNumberController.clear();
+    expireDateController.clear();
+  }
+
+  void cardNumberChangeHandler(String value) {
+    if (value.length > 18) {
+      expireDateFocus.requestFocus();
+    }
+  }
+
+  void cvcNumberChangeHandler(String value) {
+    if (value.length == 3) {
+      cvcNumberFocus.unfocus();
+    }
+  }
+
+  void expireDateChangeHandler(String value) {
+    if (value.length > 4) {
+      cvcNumberFocus.requestFocus();
+    }
+  }
+
+  void addNewCard() {
+    if (cardNumberController.text.isNotEmpty) {
+      final cardNumber = cardNumberController.text.replaceAll(' ', '');
+
+      if (cardNumber.length == 16) {
+        if (expireDateController.text.isNotEmpty) {
+          final expirationDate = expireDateController.text.replaceAll('/', '');
+          if (expirationDate.length == 4) {
+            if (cvcNumberController.text.isNotEmpty) {
+              final cvc = cvcNumberController.text;
+              if (cvc.length == 3) {
+                loadingStatus = true;
+                _cardRepository
+                    .updateCard(CardModel(
+                        cardHolderName: 'This is me',
+                        cardNumber: cardNumber,
+                        expireDateMonth: int.parse(expirationDate.substring(0, 2)),
+                        expireDateYear: int.parse(expirationDate.substring(2))))
+                    .then((result) => result.fold((l) => attemptFailed(l), (r) => addCardAttemptSucceed(r)));
+              } else {
+                showCustomSnackBar('Invalid CVC/CVV number');
+              }
+            } else {
+              showCustomSnackBar('CVC/CVV number required');
+            }
+          } else {
+            showCustomSnackBar('Invalid expiration date');
+          }
+        } else {
+          showCustomSnackBar('Expiration date required');
+        }
+      } else {
+        showCustomSnackBar('Invalid card number');
+      }
+    } else {
+      showCustomSnackBar('Card number required');
+    }
+  }
+
+  void addCardAttemptSucceed(CardModel r) {
+    loadingStatus = false;
+    storageWrite(AppKeys.payment, 'card').then((_) {
+      globalController.initialDataModel.user!.card = r;
+      paymentMethod = Payment.card;
+      Get.back();
+    });
   }
 }

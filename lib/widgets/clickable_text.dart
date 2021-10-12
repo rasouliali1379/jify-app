@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
 
 class ClickableText extends StatelessWidget {
   final String text;
   final GestureTapCallback onClick;
   final TextStyle? style;
+  final String? icon;
 
-  const ClickableText(this.text, this.onClick, {this.style});
+  const ClickableText(this.text, this.onClick, {this.style, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +19,22 @@ class ClickableText extends StatelessWidget {
           onTap: onClick,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-              text,
-              style: style ?? AppTextStyles.blue14Normal400,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.ideographic,
+              children: [
+                if (icon != null) ...[
+                  SvgPicture.asset(icon!),
+                  const SizedBox(
+                    width: 6,
+                  )
+                ],
+                Text(
+                  text,
+                  style: style ?? AppTextStyles.blue14Normal400,
+                ),
+              ],
             ),
           )),
     );

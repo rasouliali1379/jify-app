@@ -3,11 +3,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:jify_app/constants/app_colors.dart';
 import 'package:jify_app/constants/app_text_styles.dart';
+import 'package:jify_app/widgets/clickable_text.dart';
 
 class PhoneNumberText extends StatelessWidget {
   final String text;
+  final Function? changeNumber;
 
-  const PhoneNumberText(this.text);
+  const PhoneNumberText(this.text, {this.changeNumber});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,9 @@ class PhoneNumberText extends StatelessWidget {
         ),
         Container(
           height: Get.height * 0.0591,
-          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0373),
+          padding: changeNumber != null
+              ? EdgeInsets.only(left: Get.width * 0.0373, right: Get.width * 0.015)
+              : EdgeInsets.symmetric(horizontal: Get.width * 0.0373),
           decoration: BoxDecoration(
               border: Border.all(
                 color: AppColors.grey,
@@ -54,7 +58,8 @@ class PhoneNumberText extends StatelessWidget {
               SizedBox(
                 width: Get.width * 0.0453,
               ),
-              Expanded(child: Text(text, style: AppTextStyles.grey14Normal300))
+              Expanded(child: Text(text, style: AppTextStyles.grey14Normal300)),
+              if (changeNumber != null) ClickableText('Change', () => changeNumber!())
             ],
           ),
         ),

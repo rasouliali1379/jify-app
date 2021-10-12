@@ -27,8 +27,6 @@ class GlobalController extends GetxController {
 
   late AddressModel unsavedAddress;
 
-  bool isAddAddressModalOpen = false;
-  bool addressModalCanOpen = true;
   bool exitAppAllowed = false;
 
   Future<void> initFireBaseListeners() async {

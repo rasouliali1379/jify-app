@@ -63,8 +63,7 @@ class ChooseDeliveryAddressModal extends GetView<MainPageController> {
             ),
             Column(
               children: [
-                LongButton(() => Navigator.of(context).pushNamed(Routes.deliveryAddresses), 'Add New Address',
-                    Get.width, Get.height * 0.064),
+                LongButton(controller.addNewAddressClickHandler, 'Add New Address', Get.width, Get.height * 0.064),
                 SizedBox(
                   height: Get.height * 0.0172,
                 ),

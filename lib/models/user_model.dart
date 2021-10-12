@@ -1,3 +1,5 @@
+import 'package:jify_app/models/card_model.dart';
+
 import 'address_model.dart';
 
 class UserModel {
@@ -8,6 +10,7 @@ class UserModel {
   String? email;
   String? date;
   List<AddressModel>? addresses;
+  CardModel? card;
   String? fcmToken;
   String? status;
 
@@ -20,7 +23,8 @@ class UserModel {
       this.date,
       this.addresses,
       this.fcmToken,
-      this.status});
+      this.status,
+      this.card});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['_id'] as String;
@@ -29,6 +33,7 @@ class UserModel {
     mobileNumber = json['mobileNumber'] as String;
     email = json['email'] != null ? json['email'] as String : null;
     date = json['date'] as String;
+    card = json['card'] != null ? CardModel.fromJson(json['card']) : null;
     if (json['addresses'] != null) {
       addresses = <AddressModel>[];
       json['addresses'].forEach((v) {

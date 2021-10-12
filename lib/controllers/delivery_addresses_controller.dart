@@ -167,12 +167,9 @@ class DeliveryAddressesPageController extends GetxController {
         globalController.isAddressInRange = distance <= availableDistance!;
 
         storageWrite(AppKeys.unsavedAddress, json.encode(addressModel.toJson())).then((value) {
-          if (globalController.isAddAddressModalOpen) {
-            globalController.isAddAddressModalOpen = false;
-            Get.close(2);
-          } else {
-            Get.back();
-          }
+          Get.back();
+          Get.find<MainPageController>().checkInitialAddress();
+
           // Get.find<CheckoutFragmentController>().checkSelectedAddress();
           if (!globalController.isAddressInRange && !editMode) {
             Get.toNamed(Routes.storeUnavailable, arguments: addressModel);
@@ -252,12 +249,8 @@ class DeliveryAddressesPageController extends GetxController {
       });
     }
     // Get.find<CheckoutFragmentController>().checkSelectedAddress();
-    if (globalController.isAddAddressModalOpen) {
-      globalController.isAddAddressModalOpen = false;
-      Get.close(2);
-    } else {
-      Get.back();
-    }
+
+    Get.back();
     Get.find<MainPageController>().checkInitialAddress();
     if (!globalController.isAddressInRange && !editMode) {
       Get.toNamed(Routes.storeUnavailable, arguments: addresses.last);
@@ -339,5 +332,9 @@ class DeliveryAddressesPageController extends GetxController {
       buildingTextController.text = selectedAddress.building!;
       noteTextController.text = selectedAddress.note!;
     }
+  }
+
+  void toolbarBackPressed(){
+    Get.back(result: true);
   }
 }

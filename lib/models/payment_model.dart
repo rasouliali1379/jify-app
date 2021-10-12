@@ -2,7 +2,7 @@ class PaymentModel {
   String? nonce;
   String? deviceData;
   String? description;
-  int? status;
+  String? status;
   String? type;
 
   PaymentModel({this.nonce, this.deviceData, this.description, this.status, this.type});
@@ -15,8 +15,8 @@ class PaymentModel {
       deviceData = json['device-data'].toString();
     }
     description = json['description'] == null ? null : json['description'] as String;
-    status = json['status'] == null ? null : json['status'] as int;
-    type = json['type'] as String;
+    status = json['status'] == null ? null : json['status'] as String;
+    type = json['type'] == null ? null : json['type'] as String;
   }
 
   Map<String, dynamic> toJson() {

@@ -20,6 +20,21 @@ class UserRepository {
     }
   }
 
+  Future<Either<String, bool>> updatePhoneNumber(String phoneNumber) async {
+    final result = await _apiRequests.updatePhoneNumber({"mobileNumber": phoneNumber});
+    String error = "";
+
+    result.fold((l) {
+      error = l;
+    }, (r) => null);
+
+    if (error.isEmpty) {
+      return const Right(true);
+    } else {
+      return Left(error);
+    }
+  }
+
   Future<Either<String, Map<String, dynamic>>> validateCode(String phoneNumber, String code) async {
     final result = await _apiRequests.validateCode({"mobileNumber": phoneNumber, "code": code});
     String error = "";

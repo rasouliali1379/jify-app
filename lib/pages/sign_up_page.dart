@@ -21,7 +21,10 @@ class SignUpPage extends GetView<SignUpPageController> {
         systemNavigationBarDividerColor: AppColors.white,
         systemNavigationBarColor: AppColors.white));
     return Scaffold(
-      appBar: CustomToolBar('Sign Up'),
+      appBar: CustomToolBar(
+        'Sign Up',
+        onBackPressed: controller.onToolbarBackPressed,
+      ),
       body: SingleChildScrollView(
         child: SizedBox(
           width: double.maxFinite,
@@ -145,7 +148,7 @@ class SignUpPage extends GetView<SignUpPageController> {
                       ),
                       const Flexible(
                         child: Text(
-                          'I want to receive exclusive offers from Tuka',
+                          'I want to receive exclusive offers from Jify',
                           style: AppTextStyles.darkGrey13Normal300,
                         ),
                       ),

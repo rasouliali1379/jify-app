@@ -20,7 +20,6 @@ class CheckoutFragmentController extends GetxController {
   final mainController = Get.find<MainPageController>();
   final globalController = Get.find<GlobalController>();
   final promoCodeController = TextEditingController();
-  final cardNumberController = TextEditingController();
 
   final promoFocus = FocusNode();
   final _checkoutRepository = CheckoutRepository();

@@ -19,7 +19,10 @@ class SignInPage extends GetView<SignInPageController> {
         systemNavigationBarDividerColor: AppColors.white,
         systemNavigationBarColor: AppColors.white));
     return Scaffold(
-      appBar: CustomToolBar('Sign In'),
+      appBar: CustomToolBar(
+        controller.pageTitle,
+        onBackPressed: controller.toolbarBackPressed,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: Get.width * 0.0453, vertical: Get.height * 0.0467),
         child: Column(

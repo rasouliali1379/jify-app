@@ -87,6 +87,7 @@ class PhoneVerificationPageController extends GetxController {
   }
 
   void onPinCodeCompleteHandler(String code) {
+    pinCodeFieldFocus.unfocus();
     final phoneNumber = Get.parameters["phone_number"];
     _userRepository
         .validateCode(phoneNumber!, code)
@@ -104,46 +105,54 @@ class PhoneVerificationPageController extends GetxController {
     errorController.add(ErrorAnimationType.shake);
     vibrateWithDuration(300);
     pinCodeController.clear();
+    pinCodeFieldFocus.requestFocus();
   }
 
   Future<void> attemptSucceed(Map<String, dynamic> loginData) async {
-    final token = loginData["token"] as String;
-    if (token.isNotEmpty) {
-      await storageWrite(AppKeys.token, token);
+    if (Get.arguments != null) {
       final userData = UserModel.fromJson(loginData["user"] as Map<String, dynamic>);
-      Get.find<AccountFragmentController>().checkLoginStatus();
       globalController.initialDataModel.user = userData;
+      showCustomSnackBar(
+          "Your phone number updated successfully.");
+      Get.close(2);
+    } else {
+      final token = loginData["token"] as String;
+      if (token.isNotEmpty) {
+        await storageWrite(AppKeys.token, token);
+        final userData = UserModel.fromJson(loginData["user"] as Map<String, dynamic>);
+        Get.find<AccountFragmentController>().checkLoginStatus();
+        globalController.initialDataModel.user = userData;
 
-      if (storageExists(AppKeys.unsavedAddress)) {
-        final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
-        final addressModel = AddressModel.fromJson(jsonDecode(rawAddress));
-        final result = await _addressRepository.addAddress(addressModel);
-        result.fold((l) => attemptFailed(l), (r) async {
-          globalController.initialDataModel.user!.addresses = r;
-          await storageWrite(AppKeys.address, r.last.id);
-          await storageRemove(AppKeys.unsavedAddress);
-        });
-      }
+        if (storageExists(AppKeys.unsavedAddress)) {
+          final rawAddress = storageRead(AppKeys.unsavedAddress) as String;
+          final addressModel = AddressModel.fromJson(jsonDecode(rawAddress));
+          final result = await _addressRepository.addAddress(addressModel);
+          result.fold((l) => attemptFailed(l), (r) async {
+            globalController.initialDataModel.user!.addresses = r;
+            await storageWrite(AppKeys.address, r.last.id);
+            await storageRemove(AppKeys.unsavedAddress);
+          });
+        }
 
-      if (globalController.initialDataModel.user!.addresses!.isNotEmpty) {
-        await storageWrite(AppKeys.address, globalController.initialDataModel.user!.addresses!.last.id);
-      }
-      final ordersController = Get.find<OrdersFragmentController>();
-      ordersController.checkUserLogStatus();
-      final checkoutController = Get.find<CheckoutFragmentController>();
-      checkoutController.populateOrders();
-      // checkoutController.checkSelectedAddress();
+        if (globalController.initialDataModel.user!.addresses!.isNotEmpty) {
+          await storageWrite(AppKeys.address, globalController.initialDataModel.user!.addresses!.last.id);
+        }
+        final ordersController = Get.find<OrdersFragmentController>();
+        ordersController.checkUserLogStatus();
+        final checkoutController = Get.find<CheckoutFragmentController>();
+        checkoutController.populateOrders();
+        // checkoutController.checkSelectedAddress();
 
-      if (userData.firstname == null && userData.lastname == null) {
-        globalController.addressModalCanOpen = false;
-        Get.close(2);
-        Get.toNamed(Routes.signUp)!.then((value) => Get.find<MainPageController>().checkInitialAddress());
-      } else {
-        showCustomSnackBar(
-            "You're successfully signed in."
-            " Welcome ${userData.firstname}",
-            length: Toast.LENGTH_LONG);
-        Get.close(2);
+        if (userData.firstname == null && userData.lastname == null) {
+          Get.close(2);
+          Get.toNamed(Routes.signUp)!.then((value) => Get.find<MainPageController>().checkInitialAddress());
+        } else {
+          showCustomSnackBar(
+              "You're successfully signed in."
+              " Welcome ${userData.firstname}",
+              length: Toast.LENGTH_LONG);
+          Get.close(2);
+        }
       }
     }
   }

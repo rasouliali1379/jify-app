@@ -96,7 +96,6 @@ class MainPageController extends GetxController {
         isDismissible: false);
     // Get.bottomSheet(ChooseDeliveryAddressModal(),
     //     isDismissible: false, enableDrag: false, ignoreSafeArea: true);
-    _globalController.isAddAddressModalOpen = true;
   }
 
   void openAddressesPage() {
@@ -157,9 +156,20 @@ class MainPageController extends GetxController {
 
   void openSignInPage() {
     Get.offNamed(Routes.signIn)!.then((value) {
-      if (_globalController.addressModalCanOpen) {
-        _globalController.addressModalCanOpen = true;
-        checkInitialAddress();
+      if (value != null) {
+        if (value as bool) {
+          checkInitialAddress();
+        }
+      }
+    });
+  }
+
+  void addNewAddressClickHandler() {
+    Navigator.of(Get.context!).popAndPushNamed(Routes.deliveryAddresses).then((value) {
+      if (value != null) {
+        if (value as bool) {
+          checkInitialAddress();
+        }
       }
     });
   }

@@ -50,7 +50,10 @@ class AccountInformationPage extends GetView<AccountInformationPageController> {
               SizedBox(
                 height: Get.height * 0.0221,
               ),
-              Obx(() => PhoneNumberText(controller.phoneNumber)),
+              Obx(() => PhoneNumberText(
+                    controller.phoneNumber,
+                    changeNumber: controller.changeNumber,
+                  )),
               SizedBox(
                 height: Get.height * 0.032,
               ),

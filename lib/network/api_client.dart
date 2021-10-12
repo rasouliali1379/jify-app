@@ -4,9 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:jify_app/constants/app_keys.dart';
 import 'package:jify_app/constants/app_variables.dart';
 import 'package:jify_app/utilities/storage.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiClient {
   final _dio = Dio();
+
+  ApiClient() {
+    _dio.interceptors.add(PrettyDioLogger(requestHeader: true, requestBody: true));
+  }
 
   Future<Either<String, Response>> get(String endPoint, Map<String, dynamic> map) async {
     final connectionStatus = await Connectivity().checkConnectivity();
@@ -32,6 +37,7 @@ class ApiClient {
     final connectionStatus = await Connectivity().checkConnectivity();
     if (connectionStatus == ConnectivityResult.mobile || connectionStatus == ConnectivityResult.wifi) {
       final token = storageRead(AppKeys.token) ?? "";
+      print(token);
       print(token.toString());
       Response? _response;
       try {

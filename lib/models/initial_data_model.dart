@@ -38,19 +38,10 @@ class InitialDataModel {
       });
     }
     user = json['user'] != null ? UserModel.fromJson(json['user'] as Map<String, dynamic>) : null;
-    if (json['supportedDistance'] is double) {
-      supportedDistance = json['supportedDistance'] as double;
-    } else {
-      supportedDistance = (json['supportedDistance'] as int).toDouble();
-    }
+    supportedDistance = double.parse(json['supportedDistance'].toString());
     delivery = json['delivery'] as double;
     isOpen = json['isOpen'] as bool;
-
-    if (json['supportedDistance'] is double) {
-      freeShipping = json['freeShipping'] as double;
-    } else {
-      freeShipping = (json['freeShipping'] as int).toDouble();
-    }
+    freeShipping = double.parse(json['freeShipping'].toString());
 
     if (json['location'] != null) {
       storeLocation = <double>[];

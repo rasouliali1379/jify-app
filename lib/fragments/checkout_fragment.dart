@@ -225,52 +225,7 @@ class _CheckoutFragmentState extends State<CheckoutFragment> with AutomaticKeepA
                                   // // SizedBox(
                                   //   height: Get.height * 0.0369,
                                   // ),
-                                  // const Text(
-                                  //   'Payment',
-                                  //   style:
-                                  //       AppTextStyles.extraDarkCyan16Normal500,
-                                  // ),
-                                  // SizedBox(
-                                  //   height: Get.height * 0.0221,
-                                  // ),
-                                  // GestureDetector(
-                                  //   onTap: _controller.openPaymentModal,
-                                  //   child: Container(
-                                  //     padding: EdgeInsets.symmetric(
-                                  //         vertical: Get.height * 0.013,
-                                  //         horizontal: Get.width * 0.0426),
-                                  //     decoration: BoxDecoration(
-                                  //         borderRadius:
-                                  //             BorderRadius.circular(11),
-                                  //         color: AppColors.white),
-                                  //     child: Row(
-                                  //       children: [
-                                  //         Expanded(
-                                  //             child: Row(
-                                  //           children: [
-                                  //             SvgPicture.asset(
-                                  //               'assets/icons/apple_logo.svg',
-                                  //               width: 16,
-                                  //               height: 16,
-                                  //             ),
-                                  //             SizedBox(
-                                  //               width: Get.width * 0.024,
-                                  //             ),
-                                  //             const Text(
-                                  //               'Apple Pay',
-                                  //               style: AppTextStyles
-                                  //                   .darkGrey13Normal300,
-                                  //             ),
-                                  //           ],
-                                  //         )),
-                                  //         const Icon(
-                                  //           Icons.keyboard_arrow_down_rounded,
-                                  //           color: AppColors.grayishBlack,
-                                  //         )
-                                  //       ],
-                                  //     ),
-                                  //   ),
-                                  // ),
+
                                 ],
                               ),
                             ),
