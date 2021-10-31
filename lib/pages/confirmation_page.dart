@@ -91,12 +91,13 @@ class ConfirmationPage extends GetView<ConfirmationPageController> {
                                           child: Text(
                                             controller.getDeliveryAddress(controller.selectedAddress.address!),
                                             overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
                                             style: AppTextStyles.extraDarkCyan14Normal400
                                                 .copyWith(color: AppTextColors.darkCyan),
                                           ),
                                         )),
-                                    SizedBox(
-                                      width: Get.width * 0.0373,
+                                    const SizedBox(
+                                      width: 8,
                                     ),
                                     const Icon(
                                       Icons.arrow_forward_ios_rounded,

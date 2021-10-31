@@ -57,7 +57,6 @@ class OrderModel {
       });
     }
     date = json['date'] as String;
-    v = json['__v'] as int;
   }
 
   Map<String, dynamic> toJson() {
@@ -85,7 +84,6 @@ class OrderModel {
       map['products'] = products?.map((v) => v.toJson()).toList();
     }
     map['date'] = date;
-    map['__v'] = v;
     return map;
   }
 }
