@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class ConfirmationPageController extends GetxController {
   final _cardRepository = CardRepository();
 
   final _selectedOption = 0.obs;
+
   // final _selectedSchedule = "".obs;
   final _loadingStatus = false.obs;
   final _selectedAddress = AddressModel().obs;
@@ -125,12 +127,14 @@ class ConfirmationPageController extends GetxController {
 
   void checkSelectedAddress() {
     selectedAddress = _addressRepository.findAddress(
-        globalController.initialDataModel.user!.addresses!, storageRead(AppKeys.address) as String);
+        globalController.initialDataModel.user!.addresses!,
+        storageRead(AppKeys.address) as String);
     selectedOption = getOptionIndex(selectedAddress.options!);
     noteTextController.text = selectedAddress.note!;
-    mapCompleter.future.then((value) => value.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
-          target: LatLng(
-              selectedAddress.location!.coordinates![0] as double, selectedAddress.location!.coordinates![1] as double),
+    mapCompleter.future.then((value) =>
+        value.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
+          target: LatLng(selectedAddress.location!.coordinates![0] as double,
+              selectedAddress.location!.coordinates![1] as double),
           zoom: 14.4746,
         ))));
   }
@@ -171,10 +175,10 @@ class ConfirmationPageController extends GetxController {
   }
 
   Future<void> placeOrder() async {
+    String? paymentToken;
+
     if (globalController.isAddressInRange) {
       loadingStatus = true;
-
-      String? paymentToken;
 
       if (paymentMethod == Payment.apple || paymentMethod == Payment.google) {
         final _paymentItems = [
@@ -184,14 +188,18 @@ class ConfirmationPageController extends GetxController {
             status: PaymentItemStatus.final_price,
           )
         ];
-        final Pay _payClient =
-            Pay.withAssets(['default_payment_profile_google_pay.json', 'default_payment_profile_apple_pay.json']);
+        final Pay _payClient = Pay.withAssets([
+          'default_payment_profile_google_pay.json',
+          'default_payment_profile_apple_pay.json'
+        ]);
         switch (paymentMethod) {
           case Payment.apple:
-            final userCanPay = await _payClient.userCanPay(PayProvider.apple_pay);
+            final userCanPay =
+                await _payClient.userCanPay(PayProvider.apple_pay);
             if (userCanPay) {
               try {
-                final result = await _payClient.showPaymentSelector(paymentItems: _paymentItems);
+                final result = await _payClient.showPaymentSelector(
+                    paymentItems: _paymentItems);
                 paymentToken = result['paymentMethodData']['token'].toString();
               } catch (e) {
                 print(e.toString());
@@ -199,12 +207,19 @@ class ConfirmationPageController extends GetxController {
             }
             break;
           case Payment.google:
-            // final userCanPay = await _payClient.userCanPay(PayProvider.google_pay);
-
-            if (true) {
+            final userCanPay =
+                await _payClient.userCanPay(PayProvider.google_pay);
+            if (userCanPay) {
               try {
-                final result = await _payClient.showPaymentSelector(paymentItems: _paymentItems);
-                paymentToken = result['paymentMethodData']['token'].toString();
+                final result = await _payClient.showPaymentSelector(
+                    paymentItems: _paymentItems);
+                final token = result['paymentMethodData']['tokenizationData']
+                        ['token']
+                    .toString();
+                final tokenJson = jsonDecode(token);
+                // paymentToken = result['paymentMethodData']["tokenizationData"]['token'].toString();
+                paymentToken = tokenJson["id"].toString();
+                print(tokenJson);
               } catch (e) {
                 print(e.toString());
               }
@@ -224,11 +239,16 @@ class ConfirmationPageController extends GetxController {
           .completeCheckout(
               checkoutData.checkout!.id!,
               DeliveryModel(
-                  note: noteTextController.text.isEmpty ? null : noteTextController.text,
+                  note: noteTextController.text.isEmpty
+                      ? null
+                      : noteTextController.text,
                   options: getOption(selectedOption)),
               AddressModel(id: selectedAddress.id),
               paymentToken: paymentToken)
-          .then((value) => value.fold((l) => attemptFailed(l), (r) => orderSubmissionAttemptSucceed(r)));
+          .then((value) => value.fold((l) => attemptFailed(l), (r) {
+                print(r);
+                orderSubmissionAttemptSucceed(r);
+              }));
     } else {
       showCustomSnackBar("Address not in range");
     }
@@ -328,7 +348,8 @@ class ConfirmationPageController extends GetxController {
 
   void getPaymentMethod() {
     final payment = storageRead(AppKeys.payment);
-    if (payment != null && globalController.initialDataModel.user!.card != null) {
+    if (payment != null &&
+        globalController.initialDataModel.user!.card != null) {
       paymentMethod = findPaymentByName(payment as String);
     } else {
       if (Platform.isAndroid) {
@@ -388,9 +409,11 @@ class ConfirmationPageController extends GetxController {
                     .updateCard(CardModel(
                         cardHolderName: 'This is me',
                         cardNumber: cardNumber,
-                        expireDateMonth: int.parse(expirationDate.substring(0, 2)),
+                        expireDateMonth:
+                            int.parse(expirationDate.substring(0, 2)),
                         expireDateYear: int.parse(expirationDate.substring(2))))
-                    .then((result) => result.fold((l) => attemptFailed(l), (r) => addCardAttemptSucceed(r)));
+                    .then((result) => result.fold((l) => attemptFailed(l),
+                        (r) => addCardAttemptSucceed(r)));
               } else {
                 showCustomSnackBar('Invalid CVC/CVV number');
               }
